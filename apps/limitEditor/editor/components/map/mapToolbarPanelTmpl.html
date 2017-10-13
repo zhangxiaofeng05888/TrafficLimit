@@ -1,0 +1,633 @@
+<style>
+    .map-toolbar-panel {
+        /*height: 340px;*/
+        font-size: 0px;  /*去掉div之间的空隙，注意在子要素中进行覆盖*/
+    }
+    .map-toolbar-panel .tools-group {
+        display: flex;
+        align-items: flex-start;
+    }
+    .map-toolbar-panel .tools-group .group-label {
+        width: 120px;
+    }
+    .map-toolbar-panel .tools-group .group-label > label {
+        border: 1px solid #636ef5;
+        height: 30px;
+        line-height: 28px;
+        font-size: 12px;
+        font-weight: normal;
+        color: #636ef5;
+        padding: 0px 5px;
+        margin: 5px 10px;
+    }
+    .map-toolbar-panel .tools-group .group-content {
+        width: 170px;
+    }
+    .map-toolbar-panel ul.tools-group-ul {
+        margin: 0px;
+        padding: 0px;
+        box-shadow: none;
+        display: flex;
+        align-items: center;
+        flex-flow: row wrap;
+    }
+    .map-toolbar-panel ul.tools-group-ul > li {
+        list-style: none;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        padding:0;
+        margin: 5px;
+        height: 30px;
+        line-height: 28px;
+        min-width: 30px;
+        border: none;
+    }
+    .map-toolbar-panel ul.tools-group-ul > li.tool {
+        font-size: 12px;
+        color: #636ef5;
+        border-radius: 5px;
+        word-break:keep-all;
+        white-space:nowrap;
+        cursor: pointer;
+    }
+    .map-toolbar-panel ul.tools-group-ul > li.tool:hover {
+        background-color:  #e0e2fd;
+    }
+    .map-toolbar-panel ul.tools-group-ul > li.tool.active {
+        background-color:  #e0e2fd;
+    }
+    .map-toolbar-panel.edit-mode ul.tools-group-ul > li.tool.selected {
+        background-color: #fef2d2;
+    }
+    .map-toolbar-panel ul.tools-group-ul > li.tool > div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+    .map-toolbar-panel .header .title{
+        font-size: 14px;
+    }
+</style>
+<div class="fm-panel map-toolbar-panel" ng-class="{true: 'edit-mode'}[editable]" ng-controller="MapAllToolbarPanelCtrl">
+    <div class="header">
+        <div class="title">
+            地图工具
+        </div>
+    </div>
+    <div class="content fm-scroll" style="overflow-y: scroll;">
+        <tool-collapse class="tools-container" expander-title="辅助工具">
+            <div class="tools-group">
+                <ul class="list-group tools-group-ul">
+                    <li class="tool" ng-class="{'active': selectTool.name==='distance'}" ng-click="distance()" ng-controller="startEditCtrl" title="测距离">
+                        <div ng-click="toggleToRecent($event)">
+                            距
+                        </div>
+                    </li>
+                    <li class="tool" ng-class="{'active': selectTool.name==='angle'}" ng-click="angle()" ng-controller="startEditCtrl" title="测角度">
+                        <div ng-click="toggleToRecent($event)">
+                            角
+                        </div>
+                    </li>
+                    <li class="tool" ng-class="{'active': selectTool.name==='area'}" ng-click="area()" ng-controller="startEditCtrl" title="测面积">
+                        <div ng-click="toggleToRecent($event)">
+                            积
+                        </div>
+                    </li>
+                    <li class="tool" ng-class="{'active': selectTool.name==='autoBreak'}" ng-click="autoBreak('RDLINK')" ng-controller="startEditCtrl" title="RDLINK自动打断">
+                        <div ng-click="toggleToRecent($event)" style="padding-left: 4px;padding-right: 4px;">
+                            自动打断
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </tool-collapse>
+        <tool-collapse class="tools-container" expander-title="POI批处理工具">
+            <div class="tools-group">
+                <ul class="list-group tools-group-ul">
+                    <li class="tool" ng-class="{'active': selectTool.name==='batchTranslatePoiLocation'}" ng-click="batchTranslatePoiLocation()" ng-controller="startEditCtrl" title="平移显示坐标">
+                        <div ng-click="toggleToRecent($event)">
+                            平移
+                        </div>
+                    </li>
+                    <li class="tool" ng-class="{'active': selectTool.name==='batchConvergePoiLocation'}" ng-click="batchConvergePoiLocation()" ng-controller="startEditCtrl" title="重合显示坐标">
+                        <div ng-click="toggleToRecent($event)">
+                            重合
+                        </div>
+                    </li>
+                    <li class="tool" ng-class="{'active': selectTool.name==='batchPoiGuideAuto'}" ng-click="batchPoiGuideAuto()" ng-controller="startEditCtrl" title="自动匹配">
+                        <div ng-click="toggleToRecent($event)">
+                            自动
+                        </div>
+                    </li>
+                    <li class="tool" ng-class="{'active': selectTool.name==='batchPoiGuideManual'}" ng-click="batchPoiGuideManual()" ng-controller="startEditCtrl" title="手动指定">
+                        <div ng-click="toggleToRecent($event)">
+                            手动
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </tool-collapse>
+        <tool-collapse class="tools-container" expander-title="POI">
+            <div class="tools-group">
+                <ul class="list-group tools-group-ul">
+                    <li class="tool" ng-class="{'active': selectTool.name==='IXPOI'}" ng-click="create($event, 'IXPOI')" ng-controller="startEditCtrl" title="创建POI">
+                        <div ng-click="toggleToRecent($event)">
+                            <img src="../../images/newPoi/toolIcon/quickToolIcon/add-poi.png">
+                            </img>
+                        </div>
+                    </li>
+                    <li class="tool" ng-class="{'active': selectTool.name==='ADADMIN'}" ng-click="create($event, 'ADADMIN')" ng-controller="startEditCtrl" title="创建行政区划代表点">
+                        <div ng-click="toggleToRecent($event)">
+                            代
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </tool-collapse>
+        <!-- commented by chenx on 2017-5-3, 工具重构后功能不可用 -->
+        <!-- <tool-collapse expander-title="TMC" class="tools-container">
+        <div class="tools-group">
+            <ul class="list-group tools-group-ul">
+                <li class="tool" title="选择TMC" ng-controller='selectTmcCtrl' ng-click="selectTmc($event)">
+                    <div ng-click="toggleToRecent($event)">
+                        TMC
+                    </div>
+                </li>
+                <li class="tool" title="新增TMC" ng-controller='addTmcCtrl' ng-click="addTmcLocation($event)">
+                    <div ng-click="toggleToRecent($event)">
+                        TMC+
+                    </div>
+                </li>
+            </ul>
+        </div>
+        </tool-collapse> -->
+        <tool-collapse class="tools-container" expander-title="道路">
+            <div class="tools-group">
+                <div class="group-label">
+                    <label>
+                        几何形状
+                    </label>
+                </div>
+                <div class="group-content">
+                    <ul class="list-group tools-group-ul">
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDNODE'}" ng-click="create($event, 'RDNODE')" ng-controller="startEditCtrl" title="制作道路点">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-node.png">
+                                </img>
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDLINK'}" ng-click="create($event, 'RDLINK')" ng-controller="startEditCtrl" title="制作道路线">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-link.png">
+                                </img>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tools-group">
+                <div class="group-label">
+                    <label>
+                        路口关系
+                    </label>
+                </div>
+                <div class="group-content">
+                    <ul class="list-group tools-group-ul">
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDCROSS'}" ng-click="create($event, 'RDCROSS')" ng-controller="startEditCtrl" title="制作路口">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-crossing.png"/>
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDLANECONNEXITY'}" ng-click="create($event, 'RDLANECONNEXITY')" ng-controller="startEditCtrl" title="制作车信">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-lane-information.png"/>
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDRESTRICTION'}" ng-click="create($event, 'RDRESTRICTION')" ng-controller="startEditCtrl" title="制作交限">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-traffic-limitation.png"/>
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDDIRECTROUTE'}" ng-click="create($event, 'RDDIRECTROUTE')" ng-controller="startEditCtrl" title="制作顺行">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-anterograde.png"/>
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDSE'}" ng-click="create($event, 'RDSE')" ng-controller="startEditCtrl" title="制作分叉口">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-fork.png"/>
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDSLOPE'}" ng-click="create($event, 'RDSLOPE')" ng-controller="startEditCtrl" title="制作坡度">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-gradient.png"/>
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDTRAFFICSIGNAL'}" ng-click="create($event, 'RDTRAFFICSIGNAL')" ng-controller="startEditCtrl" title="制作信号灯">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-traffic-lights.png"/>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tools-group">
+                <div class="group-label">
+                    <label>
+                        分歧
+                    </label>
+                </div>
+                <div class="group-content">
+                    <ul class="list-group tools-group-ul">
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDHIGHSPEEDBRANCH'}" ng-click="create($event, 'RDHIGHSPEEDBRANCH')" ng-controller="startEditCtrl" title="制作高速分歧">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-road-branch.png">
+                                </img>
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDASPECTBRANCH'}" ng-click="create($event, 'RDASPECTBRANCH')" ng-controller="startEditCtrl" title="制作方面分歧">
+                            <div ng-click="toggleToRecent($event)">
+                                方面
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDICBRANCH'}" ng-click="create($event, 'RDICBRANCH')" ng-controller="startEditCtrl" title="制作IC分歧">
+                            <div ng-click="toggleToRecent($event)">
+                                IC
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RD3DBRANCH'}" ng-click="create($event, 'RD3DBRANCH')" ng-controller="startEditCtrl" title="制作3D分歧">
+                            <div ng-click="toggleToRecent($event)">
+                                3D
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDCOMPLEXSCHEMA'}" ng-click="create($event, 'RDCOMPLEXSCHEMA')" ng-controller="startEditCtrl" title="制作复杂路口模式图">
+                            <div ng-click="toggleToRecent($event)">
+                                模
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDREALIMAGE'}" ng-click="create($event, 'RDREALIMAGE')" ng-controller="startEditCtrl" title="制作实景图">
+                            <div ng-click="toggleToRecent($event)">
+                                实
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDSIGNASREAL'}" ng-click="create($event, 'RDSIGNASREAL')" ng-controller="startEditCtrl" title="制作实景看板">
+                            <div ng-click="toggleToRecent($event)">
+                                板
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDSERIESBRANCH'}" ng-click="create($event, 'RDSERIESBRANCH')" ng-controller="startEditCtrl" title="制作连续分歧">
+                            <div ng-click="toggleToRecent($event)">
+                                连
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDSCHEMATICBRANCH'}" ng-click="create($event, 'RDSCHEMATICBRANCH')" ng-controller="startEditCtrl" title="制作大路口交叉点模式图">
+                            <div ng-click="toggleToRecent($event)">
+                                大路口
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDSIGNBOARD'}" ng-click="create($event, 'RDSIGNBOARD')" ng-controller="startEditCtrl" title="制作方向看板">
+                            <div ng-click="toggleToRecent($event)">
+                                方向
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tools-group">
+                <div class="group-label">
+                    <label>
+                        路上关系
+                    </label>
+                </div>
+                <div class="group-content">
+                    <ul class="list-group tools-group-ul">
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDGSC'}" ng-click="create($event, 'RDGSC')" ng-controller="startEditCtrl" title="制作立交">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-overpass.png"/>
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDTOLLGATE'}" ng-click="create($event, 'RDTOLLGATE')" ng-controller="startEditCtrl" title="制作收费站">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-toll-station.png"/>
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDGATE'}" ng-click="create($event, 'RDGATE')" ng-controller="startEditCtrl" title="制作大门">
+                            <div ng-click="toggleToRecent($event)">
+                                门
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDELECTRONICEYE'}" ng-click="create($event, 'RDELECTRONICEYE')" ng-controller="startEditCtrl" title="制作电子眼">
+                            <div ng-click="toggleToRecent($event)">
+                                眼
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDSPEEDBUMP'}" ng-click="create($event, 'RDSPEEDBUMP')" ng-controller="startEditCtrl" title="制作减速带">
+                            <div ng-click="toggleToRecent($event)">
+                                减
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDSPEEDLIMIT'}" ng-click="create($event, 'RDSPEEDLIMIT')" ng-controller="startEditCtrl" title="制作点限速">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-speed-limitation.png"/>
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDLINKSPEEDLIMIT'}" ng-click="create($event, 'RDLINKSPEEDLIMIT')" ng-controller="startEditCtrl" title="制作线限速">
+                            <div ng-click="toggleToRecent($event)">
+                                线
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDLINKSPEEDLIMIT_DEPENDENT'}" ng-click="create($event, 'RDLINKSPEEDLIMIT_DEPENDENT')" ng-controller="startEditCtrl" title="制作条件线限速">
+                            <div ng-click="toggleToRecent($event)">
+                                条线
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDLINKWARNING'}" ng-click="create($event, 'RDLINKWARNING')" ng-controller="startEditCtrl" title="制作警示信息">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-warnning-information.png"/>
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDVARIABLESPEED'}" ng-click="create($event, 'RDVARIABLESPEED')" ng-controller="startEditCtrl" title="制作可变限速">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-changed-speed-limitation.png"/>
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDVOICEGUIDE'}" ng-click="create($event, 'RDVOICEGUIDE')" ng-controller="startEditCtrl" title="制作语音引导">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-audio-navigation.png"/>
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDHGWGLIMIT'}" ng-click="create($event, 'RDHGWGLIMIT')" ng-controller="startEditCtrl" title="制作限高限重">
+                            <div ng-click="toggleToRecent($event)">
+                                重
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDRESTRICTIONTRUCK'}" ng-click="create($event, 'RDRESTRICTIONTRUCK')" ng-controller="startEditCtrl" title="制作卡车交限">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-truck-limitation.png"/>
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDMILEAGEPILE'}" ng-click="create($event, 'RDMILEAGEPILE')" ng-controller="startEditCtrl" title="制作里程桩">
+                            <div ng-click="toggleToRecent($event)">
+                                里
+                            </div>
+                        </li>
+                        <!-- commented by chenx on 2017-5-3, 工具重构后功能不可用 -->
+                        <!-- <li class="tool" title="制作详细车道" ng-controller="addRdRelationCtrl" ng-click="addShape($event, 'RDLANE')">
+                        <div ng-click="toggleToRecent($event)">详</div>
+                    </li>
+                    <li class="tool" title="制作车道连通" ng-controller="addRdRelationCtrl" ng-click="addShape($event, 'RDLANETOPO')">
+                        <div ng-click="toggleToRecent($event)">连</div>
+                    </li> -->
+                    </ul>
+                </div>
+            </div>
+            <div class="tools-group">
+                <div class="group-label">
+                    <label>
+                        组合关系
+                    </label>
+                </div>
+                <div class="group-content">
+                    <ul class="list-group tools-group-ul">
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDSAMENODE'}" ng-click="create($event, 'RDSAMENODE')" ng-controller="startEditCtrl" title="制作同一点">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-same-point.png"/>
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDSAMELINK'}" ng-click="create($event, 'RDSAMELINK')" ng-controller="startEditCtrl" title="制作同一线">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-same-line.png"/>
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDINTER'}" ng-click="create($event, 'RDINTER')" ng-controller="startEditCtrl" title="制作CRF交叉点">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-CRF-traffic.png"/>
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDROAD'}" ng-click="create($event, 'RDROAD')" ng-controller="startEditCtrl" title="制作CRF道路">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-CRF-road.png"/>
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDOBJECT'}" ng-click="create($event, 'RDOBJECT')" ng-controller="startEditCtrl" title="制作CRF对象">
+                            <div ng-click="toggleToRecent($event)">
+                                <img src="../../images/newPoi/toolIcon/quickToolIcon/add-CRF-object.png"/>
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDSIDEROAD'}" ng-click="createUpDownAndSideRoad($event, 'RDSIDEROAD')" ng-controller="startEditCtrl" title="制作辅路">
+                            <div ng-click="toggleToRecent($event)">
+                                辅路
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RDMULTIDIGITIZED'}" ng-click="createUpDownAndSideRoad($event, 'RDMULTIDIGITIZED')" ng-controller="startEditCtrl" title="制作上下线分离">
+                            <div ng-click="toggleToRecent($event)">
+                                上下线
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='ADMINJOINFACES'}" ng-click="createAdminJoinFaces($event, 'ADMINJOINFACES')" ng-controller="startEditCtrl" title="行政区划点关联面">
+                            <div ng-click="toggleToRecent($event)">
+                                关联面
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </tool-collapse>
+        <tool-collapse class="tools-container" expander-title="背景">
+            <div class="tools-group">
+                <div class="group-label">
+                    <label>
+                        铁路背景
+                    </label>
+                </div>
+                <div style="display: inline-block">
+                    <ul class="list-group tools-group-ul">
+                        <li class="tool" ng-class="{'active': selectTool.name==='RWNODE'}" ng-click="create($event, 'RWNODE')" ng-controller="startEditCtrl" title="制作铁路线节点">
+                            <div ng-click="toggleToRecent($event)">
+                                点
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='RWLINK'}" ng-click="create($event, 'RWLINK')" ng-controller="startEditCtrl" title="制作铁路线">
+                            <div ng-click="toggleToRecent($event)">
+                                线
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tools-group">
+                <div class="group-label">
+                    <label>
+                        行政区划
+                    </label>
+                </div>
+                <div class="group-content">
+                    <ul class="list-group tools-group-ul">
+                        <li class="tool" ng-class="{'active': selectTool.name==='ADNODE'}" ng-click="create($event, 'ADNODE')" ng-controller="startEditCtrl" title="制作行政区组成点">
+                            <div ng-click="toggleToRecent($event)">
+                                点
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='ADLINK'}" ng-click="create($event, 'ADLINK')" ng-controller="startEditCtrl" title="制作行政区划面的组成线">
+                            <div ng-click="toggleToRecent($event)">
+                                线
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='ADFACE'}" ng-click="create($event, 'ADFACE')" ng-controller="startEditCtrl" title="制作行政区划面">
+                            <div ng-click="toggleToRecent($event)">
+                                面
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='BUILD-ADFACE'}" ng-click="build($event, 'BUILD-ADFACE')" ng-controller="startEditCtrl" title="选线构建行政区划面">
+                            <div ng-click="toggleToRecent($event)">
+                                构
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tools-group">
+                <div class="group-label">
+                    <label>
+                        Zone背景
+                    </label>
+                </div>
+                <div class="group-content">
+                    <ul class="list-group tools-group-ul">
+                        <li class="tool" ng-class="{'active': selectTool.name==='ZONENODE'}" ng-click="create($event, 'ZONENODE')" ng-controller="startEditCtrl" title="制作Zone线节点">
+                            <div ng-click="toggleToRecent($event)">
+                                点
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='ZONELINK'}" ng-click="create($event, 'ZONELINK')" ng-controller="startEditCtrl" title="制作Zone组成线">
+                            <div ng-click="toggleToRecent($event)">
+                                线
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='ZONEFACE'}" ng-click="create($event, 'ZONEFACE')" ng-controller="startEditCtrl" title="制作Zone组成面">
+                            <div ng-click="toggleToRecent($event)">
+                                面
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='BUILD-ZONEFACE'}" ng-click="build($event, 'BUILD-ZONEFACE')" ng-controller="startEditCtrl" title="选线构建Zone面">
+                            <div ng-click="toggleToRecent($event)">
+                                构
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tools-group">
+                <div class="group-label">
+                    <label>
+                        土地覆盖
+                    </label>
+                </div>
+                <div class="group-content">
+                    <ul class="list-group tools-group-ul">
+                        <li class="tool" ng-class="{'active': selectTool.name==='LCNODE'}" ng-click="create($event, 'LCNODE')" ng-controller="startEditCtrl" title="制作土地覆盖节点">
+                            <div ng-click="toggleToRecent($event)">
+                                点
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='LCLINK'}" ng-click="create($event, 'LCLINK')" ng-controller="startEditCtrl" title="制作土地覆盖组成线">
+                            <div ng-click="toggleToRecent($event)">
+                                线
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='LCFACE'}" ng-click="create($event, 'LCFACE')" ng-controller="startEditCtrl" title="制作土地覆盖面">
+                            <div ng-click="toggleToRecent($event)">
+                                面
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='BUILD-LCFACE'}" ng-click="build($event, 'BUILD-LCFACE')" ng-controller="startEditCtrl" title="选线构建土地覆盖面">
+                            <div ng-click="toggleToRecent($event)">
+                                构
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tools-group">
+                <div class="group-label">
+                    <label>
+                        土地利用
+                    </label>
+                </div>
+                <div class="group-content">
+                    <ul class="list-group tools-group-ul">
+                        <li class="tool" ng-class="{'active': selectTool.name==='LUNODE'}" ng-click="create($event, 'LUNODE')" ng-controller="startEditCtrl" title="制作土地利用节点">
+                            <div ng-click="toggleToRecent($event)">
+                                点
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='LULINK'}" ng-click="create($event, 'LULINK')" ng-controller="startEditCtrl" title="制作土地利用组成线">
+                            <div ng-click="toggleToRecent($event)">
+                                线
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='LUFACE'}" ng-click="create($event, 'LUFACE')" ng-controller="startEditCtrl" title="制作土地利用面">
+                            <div ng-click="toggleToRecent($event)">
+                                面
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='BUILD-LUFACE'}" ng-click="build($event, 'BUILD-LUFACE')" ng-controller="startEditCtrl" title="选线构土地利用面">
+                            <div ng-click="toggleToRecent($event)">
+                                构
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tools-group">
+                <div class="group-label">
+                    <label>
+                        市街图
+                    </label>
+                </div>
+                <div class="group-content">
+                    <ul class="list-group tools-group-ul">
+                        <li class="tool" ng-class="{'active': selectTool.name==='CMGBUILDNODE'}" ng-click="create($event, 'CMGBUILDNODE')" ng-controller="startEditCtrl" title="制市街图节点">
+                            <div ng-click="toggleToRecent($event)">
+                                点
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='CMGBUILDLINK'}" ng-click="create($event, 'CMGBUILDLINK')" ng-controller="startEditCtrl" title="制作市街图组成线">
+                            <div ng-click="toggleToRecent($event)">
+                                线
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='CMGBUILDFACE'}" ng-click="create($event, 'CMGBUILDFACE')" ng-controller="startEditCtrl" title="制作市街图面">
+                            <div ng-click="toggleToRecent($event)">
+                                面
+                            </div>
+                        </li>
+                        <li class="tool" ng-class="{'active': selectTool.name==='BUILD-CMGBUILDFACE'}" ng-click="build($event, 'BUILD-CMGBUILDFACE')" ng-controller="startEditCtrl" title="选线构市街图面">
+                            <div ng-click="toggleToRecent($event)">
+                                构
+                            </div>
+                        </li>
+                        <li class="tool" ng-click="create($event, 'CMGBUILDING')" ng-controller="startEditCtrl" title="制作市街图要素">
+                            <div ng-click="toggleToRecent($event)">
+                                要素
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </tool-collapse>
+        <tool-collapse class="tools-container" expander-title="TIPS">
+            <div class="tools-group">
+                <ul class="list-group tools-group-ul">
+                    <li class="tool" ng-class="{'active': selectTool.name==='TIPBORDER'}" ng-click="create($event, 'TIPBORDER')" ng-controller="startEditCtrl" title="构建接边标识">
+                        <div ng-click="toggleToRecent($event)">
+                            边
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </tool-collapse>
+    </div>
+</div>

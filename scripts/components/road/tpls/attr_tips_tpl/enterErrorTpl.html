@@ -1,0 +1,174 @@
+<style>
+    /**质检样式**/
+    .qua-input{
+        height: 24px;
+    }
+
+    .qua-lang-input{
+        width: 370px;
+        height: 24px;
+    }
+
+    .qua-label{
+        float: left;
+        width: 80px;
+        text-align: right;
+        padding-right: 10px;
+    }
+
+    .qua-info-content{
+        line-height: 2;
+        padding: 8px;
+    }
+
+    .qua-info-content select{
+        width: 130px;
+    }
+
+    .qua-btn{
+        margin: 5px 10px;
+        padding: 3px 15px;
+        background-color: #636ef5;
+        color: #fff;
+        font-size: 12px;
+    }
+
+    .qua-btn:hover{
+        color: #eee;
+    }
+
+    .quality-text-overflow{
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .qua-close {
+        color: #fff;
+        opacity: 0.6;
+    }
+
+    .qua-close:hover {
+        color: #fff;
+        opacity: 1;
+    }
+</style>
+<div ng-controller="enterErrorCtrl">
+    <div class="fm-dialog" drag ng-style="{'left': PageViewPoint.x - 240, 'top': PageViewPoint.y - 200}">
+        <div class="header" drag-handle>
+            <div class="title">
+                错误录入
+            </div>
+            <div class="toolbar">
+                <button class="close qua-close" ng-click="close()" title="关闭" type="button">
+                    <span>
+                        ×
+                    </span>
+                </button>
+            </div>
+        </div>
+        <div class="content qua-info-content" style="height: 200px;">
+            <div>
+                <div class="col-md-6">
+                    <label class="qua-label">
+                        Tips类型
+                    </label>
+                    <div ng-bind="tipType">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="qua-label">
+                        Tips ID
+                    </label>
+                    <div class="quality-text-overflow" ng-bind="quaData.logId" title="{{quaData.logId}}">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <label class="qua-label">
+                    问题说明
+                </label>
+                <div class="pull-left">
+                    <textarea class="form-control qua-lang-input" cols="10" ng-model="quaData.quDesc" rows="3" style="margin-bottom: 6px;">
+                    </textarea>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-6">
+                    <label class="qua-label">
+                        错误原因
+                    </label>
+                    <div>
+                        <select class="fm-control" ng-model="quaData.reason" ng-options="value for value in errorReasons">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="qua-label">
+                        错误内容
+                    </label>
+                    <div>
+                        <select class="fm-control" ng-model="quaData.erContent">
+                            <optgroup label="{{item.name}}" ng-repeat="item in errorContents">
+                                <option ng-repeat="op in item.group" value="{{op}}">
+                                    {{op}}
+                                </option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-6">
+                    <label class="qua-label">
+                        错误等级
+                    </label>
+                    <div>
+                        <select class="fm-control" ng-model="quaData.quRank" ng-options="value for value in errorLevels">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="qua-label">
+                        倾向
+                    </label>
+                    <div>
+                        <lebel for="quaGroup1">
+                            <input class="fm-control" id="quaGroup1" name="prefer" ng-model="quaData.isPrefer" type="radio" value=1>
+                                是
+                            </input>
+                        </lebel>
+                        <label for="quaGroup2" style="margin-left: 15px;">
+                            <input class="fm-control" id="quaGroup2" name="prefer" ng-model="quaData.isPrefer" type="radio" value=0>
+                                否
+                            </input>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-6">
+                    <label class="qua-label">
+                        作业员
+                    </label>
+                    <div ng-bind="quaData.worker">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label class="qua-label">
+                        作业时间
+                    </label>
+                    <div ng-bind="formatDate">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="border-bottom: 1px solid #ddd;">
+        </div>
+        <div style="text-align:right;">
+            <button class="btn qua-btn" ng-click="doSaveQua()" type="button">
+                保存
+            </button>
+        </div>
+    </div>
+</div>

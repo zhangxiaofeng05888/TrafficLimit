@@ -1,0 +1,73 @@
+<link href="../../scripts/libs/ng-dialog/css/ngDialog.css" rel="stylesheet"/>
+<link href="../../scripts/libs/ng-dialog/css/ngDialog-theme-default.css" rel="stylesheet"/>
+<link href="../../scripts/libs/ng-dialog/css/ngDialog-theme-plain.css" rel="stylesheet"/>
+<link href="../../scripts/libs/ng-dialog/css/ngDialog-custom-width.css" rel="stylesheet"/>
+<link href="../../scripts/libs/angular-chosen/chosen.css" rel="stylesheet"/>
+<link href="../../styles/webEditor/roadName.css" rel="stylesheet"/>
+<link href="../../styles/webEditor/extraRoadName.css" rel="stylesheet"/>
+<div class="fm-stretch fm-roadname" id="roadNameEditor" ng-controller="RoadNameCtl">
+    <div class="roadNameTitle">
+        <div class="flex-item" style="min-width: 580px">
+            <span style="font-size: 14px;">
+                道路名作业
+            </span>
+            <select class="fm-control" ng-model="param.adminId" ng-options="value.id as value.label for value in adminOpt" placeholder_text_single="'--请选择行政区划--'" style="width:146px">
+            </select>
+            <input class="fm-control" ng-model="param.name" placeholder="搜索道路名（模糊）" style="width:146px;" type="text"/>
+            <input class="fm-control" ng-model="param.nameGroupid" placeholder="搜索道路名组ID（模糊）" style="width:146px;" type="text"/>
+            <button class="fm-control search" ng-class="{true: 'searchActive'}[param.adminId !== 0 || param.name !== '' || param.nameGroupid !=='']" ng-click="doSearch()" ng-disabled="running" title="搜索" type="button">
+            </button>
+            <!-- 增加重置列表-->
+            <button class="fm-control reset" ng-class="{true: 'resetActive'}[resetActive]" ng-click="doReset()" ng-disabled="running" title="重置" type="button">
+            </button>
+        </div>
+        <div class="flex-item" style="min-width: 150px;margin-right: 80px;">
+            <button class="fm-control add" ng-class="{true: 'addActive'}[addActive]" ng-click="openSubModal('add')" title="新增" type="button">
+            </button>
+            <!-- 为道路名详情查询-->
+            <button class="fm-control details" ng-class="{true: 'detailsActive'}[DetailsModal]" ng-click="detailsOprate()" title="查看" type="button">
+            </button>
+            <!--检查-->
+            <button class="fm-control" ng-show="!checkRunning" style="border-radius: 5px;border:2px solid #8E8CAE;background-color: #191759;color:#8E8CAE;font-weight: bold;" ng-click="showInDialog('roadnameCheck')" title="检查" type="button">检
+            </button>
+            <button class="fm-control" ng-show="checkRunning" style="border-radius: 5px;border:2px solid #8E8CAE;background-color: #191759;color:orangered;font-weight: bold;" ng-click="showCheckRunningInfo()" title="检查" type="button">检
+            </button>
+            <!--查看错误-->
+            <button class="fm-control" ng-disabled="{true: 'disabled'}[checkRunning]" style="border-radius: 5px;border:2px solid #8E8CAE;background-color: #191759;color:#8E8CAE;font-weight: bold;" ng-click="showInDialog('roadnameCheckResult')" title="查看错误" type="button">错
+            </button>
+            <!--按钮激活状态添加类名settingActive-->
+            <div auto-close="outsideClick" class="btn-group dropdown" uib-dropdown="" style="height:24px;">
+                <button class="fm-control setting dropdown-toggle" title="自定义列" type="button" uib-dropdown-toggle="">
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right fm-scroll" style="height:240px;padding-top:0" uib-dropdown-menu="">
+                    <li ng-repeat="col in gridOptions.columnDefs">
+                        <input class="fm-control blue" id="col-switch-{{$index}}" ng-model="col.visible" type="checkbox" ng-click="toggleVisible()"/>
+                        <label for="col-switch-{{$index}}">
+                            {{col.displayName}}
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="fm-grid" ui-grid="gridOptions" ui-grid-auto-resize="" ui-grid-pagination="" ui-grid-resize-columns="" ui-grid-selection="" ng-style="{'height': wHeight - 50}">
+    </div>
+
+	<div ng-show="DetailsModal" drag class="div-float" style="top:20px;left:20px;width:660px;border-radius:5px;">
+		<button type="button"  drag-handle class="close fa fa-arrows" style="padding:7px;font-size:16px;color:white;opacity:1;display:none;" title="拖拽"></button>
+		<div ng-include="roadNameEditPanelTpl"></div>
+	</div>
+
+	<div ng-show="editPanel" drag class="div-float" style="top:20px;left:20px;width:660px;border-radius:5px;">
+		<button type="button"  drag-handle class="close fa fa-arrows" style="padding:7px;font-size:16px;color:white;opacity:1;display:none;" title="拖拽"></button>
+		<div ng-include="roadNameEditPanelTpl"></div>
+	</div>
+	<div ng-show="subModal" drag class="div-float" style="top:80px;left:120px;max-width:800px;border-radius:5px;">
+		<button type="button"  drag-handle class="close fa fa-arrows" style="padding:7px;font-size:16px;color:white;opacity:1;display:none;" title="拖拽"></button>
+		<div ng-include="subModalTpl"></div>
+	</div>
+    <wmwindow ng-repeat="(key, item) in dialogManager" class="fm-wm-window" on-open="openDialog($dlg, key)" on-closed="closeDialog(key)" options="{{item.options}}" maximizable="false" title="{{item.title}}">
+        <div class="fm-stretch" ng-include="item.tmpl">
+        </div>
+    </wmwindow>
+</div>

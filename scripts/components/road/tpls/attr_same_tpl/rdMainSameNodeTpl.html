@@ -1,0 +1,59 @@
+<style>
+    .fm-sameNode {
+        width: 420px;
+    }
+    .fm-sameNode .sameNodefooter{
+        height: 40px;
+        padding: 8px 20px;
+        text-align: right;
+    }
+    .fm-sameNode .adAdminfooter button{
+        display: inline-block;
+        width: 100px;
+        height: 25px;
+        padding: 0;
+    }
+    .fm-sameNode .titleBox{
+        height: 40px;
+        cursor: move;
+        padding: 0 20px;
+        border-bottom: 1px solid #3399ff;
+    }
+    .fm-sameNode .title{
+        color: #3399ff;
+        font-size: 16px;
+        height: 40px;
+        line-height: 40px;
+    }
+    .fm-sameNode .bulidSameNode{
+        background: #3399ff;
+        border: none;
+        color: white;
+        border-radius: 4px;
+        padding: 3px 10px;
+    }
+</style>
+<div class="fm-job-panel fm-stretch fm-sameNode" ng-controller="SameRelationshapController">
+    <div style="border-bottom: 1px solid #3399ff;" class="content scroll_style">
+        <div class="scroll_style">
+            <table style="text-indent: 10px" class="table scroll_styled">
+                <thead><td>类型</td><td>ID</td><td>制作</td><td>主要素</td></thead>
+                <tbody>
+                    <tr ng-repeat="node in same.sameNodeList">
+                        <td class="tdWidthContent">{{node.featType}}</td>
+                        <td class="tdWidthContent">{{node.id}}</td>
+                        <td class="tdWidthInput">
+                            <input type="checkbox" ng-change="changeSame($index)" ng-disabled="$index==same.sameDisabledIndex" ng-model="node.checked">
+                        </td>
+                        <td class="tdWidthInput">
+                            <input type="radio" ng-if="same.sameNodeList[0].featType == node.featType && node.childType != 'LUNODE_2'" name="mainElement" ng-click="changeSameMain($index);">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="sameNodefooter">
+        <button class="bulidSameNode" ng-click="saveSame()" title="制作同一点">制作同一点</button>
+    </div>
+</div>

@@ -1,0 +1,102 @@
+<link href="../../scripts/libs/angular-chosen/chosen.css" rel="stylesheet" type="text/css"/><link rel="stylesheet" type="text/css" href="../../styles/info.css">
+<link rel="stylesheet" type="text/css" href="../../styles/info.css">
+<div class="infoList_container" id="infoListContainer">
+    <div class="infoList_leftDiv">
+        <div class="left-menu-title">
+            <div class="childInfoListTitle" ng-click="openChildList()">
+                <div>
+                    <span>作业项</span>
+                </div>
+                <img style="cursor: pointer" ng-src="{{childListFlag ? '../../images/newPoi/taskList/icon_down_normal.png' : '../../images/newPoi/taskList/icon_up_normal.png'}}">
+            </div>
+            <div ng-style="{'display': childListFlag?'block':'none'}" ng-click="">
+                <ul class="list-group listUlCss">
+                    <li>
+                        <div class="infoListDesc">
+                            <span>限行限号作业</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="infoList_rightDiv" ng-if="showFlag">
+        <div class="infoList_rightDiv_search">
+            <div style="padding-top: 60px">
+                <div class="infoList_rightDiv_choose">
+                    <span>行政区划</span>
+                    <select
+                            class="form-control tl_list_select"
+                            ng-model="cityId"
+                            search_contains=true
+                            chosen
+                            ng-options="value.id as value.name for value in cityList"
+                            ng-change="changeCityId(cityId)"
+                    >
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="infoList_rightDiv_choose">
+                    <span>情报编码</span>
+                    <input type="text" class="tl_list_Input" ng-model="searchModel.infoId">
+                </div>
+                <div class="infoList_rightDiv_choose">
+                    <span>完成状态</span>
+                    <input type="checkbox" id="status1" class="radio_diy_class" ng-model="searchModel.status[0]" ng-checked="searchModel.status[0]"/>
+                    <label for="status1">
+                        未处理
+                    </label>
+                    <input type="checkbox" id="status2" class="radio_diy_class" ng-model="searchModel.status[1]" ng-checked="searchModel.status[1]"/>
+                    <label for="status2">
+                        已处理
+                    </label>
+                    <input type="checkbox" id="status3" class="radio_diy_class" ng-model="searchModel.status[2]" ng-checked="searchModel.status[2]"/>
+                    <label for="status3">
+                        无法处理
+                    </label>
+                </div>
+                <div class="infoList_rightDiv_choose">
+                    <span>限行长短期</span>
+                    <input type="checkbox" id="period1" class="radio_diy_class" ng-model="searchModel.period[0]" ng-checked="searchModel.period[0]"/>
+                    <label for="period1">
+                        长期
+                    </label>
+                    <input type="checkbox" id="period2" class="radio_diy_class" ng-model="searchModel.period[1]" ng-checked="searchModel.period[1]"/>
+                    <label for="period2">
+                        短期
+                    </label>
+                </div>
+                <div class="infoList_rightDiv_choose">
+                    <span>发布日期</span>
+                    <input type="text" class="tl_list_Input" ng-model="searchModel.beginTime" data-max-date="{{searchModel.endTime}}" bs-datepicker
+                           data-date-format="yyyy-MM-dd" data-date-type="string">
+                    <span style="padding-left: 5px">至</span>
+                    <input type="text" class="tl_list_Input" ng-model="searchModel.endTime" data-min-date="{{searchModel.beginTime}}" bs-datepicker
+                           data-date-format="yyyy-MM-dd" data-date-type="string">
+                </div>
+                <div>
+                    <div class="list-title-btn" style="float: right;margin-right: 100px" ng-click="searchList()">
+                        <span style="color: #182848;font-size: 12px">查询</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="infoList_rightDiv_table">
+            <div class="fm-job-panel fm-stretch">
+                <div ui-grid="gridOptions"
+                     ui-grid-auto-resize
+                     ui-grid-pagination
+                     ui-grid-resize-columns
+                     class="fm-grid wmContent" style="flex: 1; min-height: 60px">
+                    <!--loading效果-->
+                    <!--<div ng-show="loadingFlag" class="tableLoading" ng-include="'./svgLoading.html'"></div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="width: 100%;height: 100%" ng-if="!showFlag"  ng-include="groupUrl"></div>
+    <wmwindow ng-repeat="(key, item) in dialogManager" class="fm-wm-window" on-open="openDialog($dlg, key)" on-closed="closeDialog(key)" options="{{item.options}}" maximizable="false" title="{{item.title}}">
+        <div class="fm-stretch" ng-include="item.tmpl">
+        </div>
+    </wmwindow>
+</div>

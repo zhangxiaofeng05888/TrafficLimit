@@ -1,0 +1,102 @@
+<style>
+    .btnDiy_div {
+        display: inline-block;
+        float: right;
+        padding-right: 20px;
+    }
+
+    .btn-diy {
+        width: 50px;
+        height: 24px;
+        border: none;
+        background-color: #636ef5;
+        color: #ffffff;
+    }
+
+    .btn-diy:hover {
+        border: none;
+        background-color: #454dab;
+        color: #ffffff;
+    }
+</style>
+<div ng-controller="variableSpeedCtl" class="scroll_style">
+    <form class="w5c-form" w5c-form-validate="" novalidate name="variableLimitSpeedValue">
+        <ul class="list-group detailUlCss">
+            <li>
+                <div class="blockDescLiDiv">
+                    <span style="letter-spacing: 1px">进 入 线</span>
+                </div>
+                <span>{{variableSpeed.inLinkPid}}</span>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span style="letter-spacing: 1px">退 出 线</span>
+                </div>
+                <span>{{variableSpeed.outLinkPid}}</span>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>标牌位置</span>
+                </div>
+                <input name="location" type="checkbox" id="location0" ng-checked="variableSpeedPosition.left"
+                       ng-click="locationClick(variableSpeedPosition.left,1)"
+                       class="radio_diy_class"/>
+                <label for="location0">
+                    <span>左</span>
+                </label>
+                <input name="location" type="checkbox" id="location1" ng-checked="variableSpeedPosition.right"
+                       ng-click="locationClick(variableSpeedPosition.right,2)" class="radio_diy_class"/>
+                <label for="location1">
+                    <span>右</span>
+                </label>
+                <input name="location" type="checkbox" id="location2" ng-checked="variableSpeedPosition.up"
+                       ng-click="locationClick(variableSpeedPosition.up,4)"
+                       class="radio_diy_class"/>
+                <label for="location2">
+                    <span>上</span>
+                </label>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span style="letter-spacing: 1px">限 速 值</span>
+                </div>
+                <input class="form-control poiRightPanel_Input" style="width: 140px" set-focus
+                       ng-model="variableSpeed.speedValue" ng-maxlength="3" type="text" ng-pattern="/^(0|[1-9][0-9]*)$/"
+                       name="LimitValue"/> Km/小时
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>车辆类型</span>
+                </div>
+                <div class="btnDiy_div">
+                    <button class="btn-xs btn-diy" data-container="body" data-animation="am-flip-x" data-auto-close="1"
+                            bs-popover data-placement="left"
+                            data-template-url="../../scripts/components/road/tpls/attr_variableSpeed_tpl/carTypeTpl.html">
+                        添加
+                    </button>
+                    <input type="checkbox" ng-model="checkValueFlag" id="allow" ng-checked="checkValueFlag"
+                           class="radio_diy_class" ng-click="checkAllowed()"/>
+                    <label for="allow" style="padding-left: 15px"><span> 允许</span></label>
+                </div>
+            </li>
+            <div ng-style="{'border-top':variableSpeed.vehicle!=0&&variableSpeed.vehicle!=2147483648 ? '1px solid #636ef5': null}">
+                <li ng-repeat="item in vehicleOptions" style="padding-left: 10px" ng-if="item.checked">
+                    <span ng-style="{'color':checkValueFlag?'#182848':'#a94442'}">{{item.label}}</span>
+                </li>
+            </div>
+        </ul>
+        <div class="poiRightPanel_fold">
+            <strong>
+                接续道路（共 <span ng-bind="variableSpeed.vias.length">0</span> 条）
+            </strong>
+        </div>
+        <ul class="list-group detailUlCss">
+            <li ng-if="variableSpeed.vias" ng-repeat="item in variableSpeed.vias">
+                <div class="blockDescLiDiv">
+                    <span>道路线{{$index+1}}</span>
+                </div>
+                <span>{{item.linkPid}}</span>
+            </li>
+        </ul>
+    </form>
+</div>

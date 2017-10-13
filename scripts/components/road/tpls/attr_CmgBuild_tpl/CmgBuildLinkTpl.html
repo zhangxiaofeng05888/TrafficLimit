@@ -1,0 +1,28 @@
+<div ng-controller="CmgBuildLinkController">
+    <ul class="list-group prop-list">
+        <li>
+            <div class="prop-name">起点号码</div>
+            <div class="prop-content">{{CmgBuildLinkData.sNodePid}}</div>
+        </li>
+        <li>
+            <div class="prop-name">终点号码</div>
+            <div class="prop-content">{{CmgBuildLinkData.eNodePid}}</div>
+        </li>
+        <li>
+            <div class="prop-name">Link种别</div>
+            <div class="prop-content">
+                <select class="fm-control" style="vertical-align: initial;" ng-model="CmgBuildLinkData.kind"
+                        ng-options="value.id as value.label for value in kindOpt">
+                </select>
+            </div>
+        </li>
+        <li>
+            <div class="prop-name">Link长度</div>
+            <div class="prop-content">{{options.length}}</div>
+        </li>
+        <li>
+            <div class="prop-name">图幅号</div>
+            <div class="prop-content">{{CmgBuildLinkData.meshId}}</div>
+        </li>
+    </ul>
+</div>

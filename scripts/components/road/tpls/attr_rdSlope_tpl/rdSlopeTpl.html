@@ -1,0 +1,67 @@
+<div ng-controller="rdSlopeCtl" class="scroll_style">
+    <ul class="list-group detailUlCss">
+        <li>
+            <div class="blockDescLiDiv">
+                <span>关联点</span>
+            </div>
+            <span>
+                {{slopeData.nodePid}}
+            </span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>退出线</span>
+            </div>
+            <span>
+                {{slopeData.linkPid}}
+            </span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>坡度类型</span>
+            </div>
+            <input type="radio" name="slope" value=1 ng-model="slopeData.type" id="slope1"
+                   class="radio_diy_class"/>
+            <label for="slope1">
+                <span>水平</span>
+            </label>
+            <input type="radio" name="slope" value=2 ng-model="slopeData.type" id="slope2"
+                   class="radio_diy_class"/>
+            <label for="slope2" style="padding-left: 16px">
+                <span>上坡</span>
+            </label>
+            <input type="radio" name="slope" value=3 ng-model="slopeData.type" id="slope3"
+                   class="radio_diy_class"/>
+            <label for="slope3" style="padding-left: 16px">
+                <span>下坡</span>
+            </label>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>坡度角度</span>
+            </div>
+            <span>
+                {{slopeData.angle}}
+            </span>
+        </li>
+    </ul>
+    <div class="poiRightPanel_fold">
+        <strong>
+            连续Link（共 <span ng-bind="slopeData.slopeVias.length">0</span> 条）
+        </strong>
+    </div>
+    <ul class="list-group detailUlCss" ng-repeat="cItem in slopeData.slopeVias">
+        <li>
+            <div class="blockDescLiDiv">
+                <span>link序号</span>
+            </div>
+            <span>{{cItem.seqNum}}</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>link号码</span>
+            </div>
+            <span>{{cItem.linkPid}}</span>
+        </li>
+    </ul>
+</div>

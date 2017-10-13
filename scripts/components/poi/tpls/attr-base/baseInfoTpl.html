@@ -1,0 +1,155 @@
+<style>
+    .telphone input.contact {
+        width: 86px
+    }
+    .telphone input.cellphone {
+        width: 143px
+    }
+</style>
+<div ng-controller="baseInfoCtl">
+    <fast-collapse expander-title='基本信息'>
+    <form class="w5c-form" w5c-form-validate="validateOptions" novalidate name="poiBaseInfoForm">
+        <ul class="list-group detailUlCss">
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>FID</span>
+                </div>
+                <span>{{poi.poiNum}}</span>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>PID</span>
+                </div>
+                <span>{{poi.pid}}</span>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>名 称</span>
+                    <img ng-if="poi.rawFields.indexOf('1')>-1" src="../../images/poi/icon/little-cycle.png" class="icon-cycle">
+                </div>
+                <input ng-disabled="isSpecialOperation" id="mainName" autosa-focus class="form-control poiRightPanel_Input" type="text" ng-model="poi.name.name" title="{{poi.name.name}}" required ng-maxlength="35" name="name"/>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>地 址</span>
+                    <img ng-if="poi.rawFields.indexOf('5')>-1" src="../../images/poi/icon/little-cycle.png" class="icon-cycle">
+                </div>
+                <input ng-disabled="isSpecialOperation" class="form-control poiRightPanel_Input" type="text" ng-model="poi.address.fullname" title="{{poi.address.fullname}}" ng-minlength="2" ng-maxlength="500" name="address"/>
+            </li>
+            <li ng-repeat="item in poi.contactParts" class="telphone">
+                <div class="blockDescLiDiv">
+                    <span>{{$index === 0 ?'电 话':''}}</span>
+                    <img ng-if="poi.rawFields.indexOf('2')>-1" src="../../images/poi/icon/little-cycle.png" class="icon-cycle">
+                </div>
+                <input ng-disabled="isSpecialOperation" class="form-control poiRightPanel_Input" type="text" style="width: 54px" maxlength="5" ng-model="item.code" name="teleArea" w5c-remote-check="queryTelephone(item)" required ng-if="item.contactType==1"/>
+                <input ng-disabled="isSpecialOperation" class="form-control poiRightPanel_Input" type="text" ng-class="{true:'contact',false:'cellphone'}[item.contactType==1]" w5c-dynamic-element w5c-dynamic-name="rename('teleContact',$index)" w5c-dynamic-customizer="checkContact(item)" ng-model="item.contact"/>
+                <img ng-disabled="isSpecialOperation" src="../../images/newPoi/rightPanelIcon/button-delete.png" style="margin-bottom: 3px;cursor: pointer;" ng-click="deleteContact($index)">
+                <img ng-disabled="isSpecialOperation" src="../../images/newPoi/rightPanelIcon/button-add.png" style="margin-bottom: 3px;cursor: {{telphone.areaCode?'pointer':'wait'}}" title="点击添加电话" ng-click="addContact()" ng-show="$index === 0">
+            </li>
+            <li ng-if="poi.contactParts.length==0"> <!-- 增加此行代码的目的是为了解poi没有电话，在保存的瞬间电话框消失 -->
+                <div class="blockDescLiDiv">
+                    <span>电 话</span>
+                </div>
+                <input class="form-control poiRightPanel_Input" value="{{telphone.areaCode || '010'}}" type="text" style="width: 54px"/>
+                <input class="form-control poiRightPanel_Input" type="text" style="width: 86px"/>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>邮 编</span>
+                    <img ng-if="poi.rawFields.indexOf('6')>-1" src="../../images/poi/icon/little-cycle.png" class="icon-cycle">
+                </div>
+                <input ng-disabled="isSpecialOperation" class="form-control poiRightPanel_Input" type="text" ng-model="poi.postCode" ng-pattern="/^[0-9]{6}$/" name="postCode"/>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>分 类</span>
+                    <img ng-if="poi.rawFields.indexOf('3')>-1" src="../../images/poi/icon/little-cycle.png" class="icon-cycle">
+                </div>
+                <select class="form-control poiRightPanel_chosen" ng-model="poi.kindCode"
+                    no_results_text="'没有找到'"  placeholder_text_single="'--请选择--'" search_contains=true
+                    ng-options="value as lable.kindName for (value, lable) in kindFormatPart"
+                    chosen ng-change="kindChange($event, this)" ng-disabled="isSpecialOperation">
+                    <option></option>
+                </select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>品 牌</span>
+                    <img ng-if="poi.rawFields.indexOf('4')>-1" src="../../images/poi/icon/little-cycle.png" class="icon-cycle">
+                </div>
+                <select class="form-control poiRightPanel_select"  ng-model="poi.chain"
+                    no_results_text="'--无--'"  placeholder_text_single="'--请选择--'" search_contains=true
+                    ng-options="value as lable.chainName for (value, lable) in chainList"
+                    chosen ng-change="brandChange($event, this)" ng-disabled="isSpecialOperation">
+                    <option></option>
+                </select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv" style="vertical-align: top">
+                    <span>等 级</span>
+                </div>
+                <div style="display: inline-block;width: 200px;line-height: 30px">
+                    <div style="display: inline-block;padding-left: 0px;padding-right: 0px" ng-repeat="lev in rootCommonTemp.levelArr track by $index" class="col-md-4">
+                        <input ng-disabled="isSpecialOperation" type="radio" name="level" value={{lev}} id={{$index+'lev'}} class="radio_diy_class" ng-model="poi.level" required/>
+                        <label for={{$index+'lev'}} >
+                            <span>{{lev}}</span>
+                        </label>
+                    </div>
+                </div>
+            </li>
+            <li style="height: 60px;line-height: 60px">
+                <div class="blockDescLiDiv" style="vertical-align: top;">
+                    <span>卡 车</span>
+                </div>
+                <div style="display: inline-block;width: 200px;line-height: 30px">
+                    <div style="display: inline-block;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in truckTypeOpt" class="col-md-6">
+                        <input type="radio" name="truckType" value={{key}} id={{key+'truck'}} class="radio_diy_class" ng-model="poi.truckFlag" required ng-disabled="isSpecialOperation"/>
+                        <label for={{key+'truck'}} >
+                            <span>{{value}}</span>
+                        </label>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="blockDescLiDiv" style="vertical-align: top;">
+                    <span>24小时</span>
+                </div>
+                <input ng-disabled="isSpecialOperation" type="radio" name="24h" value="1" id="hour2" class="radio_diy_class" ng-model="poi.open24h"/>
+                <label for="hour2">
+                    <span>是</span>
+                </label>
+                <input ng-disabled="isSpecialOperation" type="radio" name="24h" value="2" id="hour3" class="radio_diy_class" ng-model="poi.open24h"/>
+                <label for="hour3">
+                    <span>否</span>
+                </label>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>内部POI</span>
+                </div>
+                <input ng-disabled="isSpecialOperation" type="radio" name="within" value=0 id="within1" checked class="radio_diy_class" ng-model="poi.indoor"/>
+                <label for="within1">
+                    <span>外部</span>
+                </label>
+                <input ng-disabled="isSpecialOperation" type="radio" name="within" value=1 id="within2" class="radio_diy_class" ng-model="poi.indoor"/>
+                <label for="within2">
+                    <span>内部</span>
+                </label>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>关联LINK</span>
+                </div>
+                <span ng-bind="poi.linkPid"></span>&nbsp;&nbsp;
+                <span>{{{0:'不应用',1:'左侧',2:'右侧',3:'线上'}[poi.side]}}</span>
+            </li>
+            <li style="line-height:60px;height:60px">
+                <div class="blockDescLiDiv" style="vertical-align: top;">
+                    <span>备注</span>
+                </div>
+                <textarea ng-disabled="isSpecialOperation" class="form-control poiRightPanel_area" type="text" rows=2 ng-model="poi.poiMemo" ng-maxlength="200" name="poiMemo"></textarea>
+            </li>
+        </ul>
+    </form>
+    </fast-collapse>
+</div>

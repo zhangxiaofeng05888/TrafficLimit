@@ -1,0 +1,99 @@
+<style>
+    .btnDiy_div {
+        display: inline-block;
+        float: right;
+        padding-right: 20px;
+    }
+    .btn-diy {
+        width: 100px;
+        height: 24px;
+        border: none;
+        background-color: #636ef5;
+        color: #ffffff;
+    }
+    .btn-diy:hover {
+        border: none;
+        background-color: #454dab;
+        color: #ffffff;
+    }
+    .linkType_style_normal {
+        display: inline-block;
+        color: #fa5883;
+        cursor: pointer;
+    }
+    .linkType_style1_active {
+        display: inline-block;
+        color: #636ef5;
+        cursor: pointer;
+    }
+    .inactive{
+        pointer-events: none;
+    }
+    .inactive input{
+        cursor: not-allowed;
+        background-color: #eee
+    }
+    .inactive select{
+        cursor: not-allowed;
+        background-color: #eee
+    }
+</style>
+<div class="rdLinkBasic" ng-controller="speedController" ng-class="{'rectSelect': 'inactive', 'trackSelect': 'active'}[linkData.batchType]">
+    <form class="w5c-form" w5c-form-validate="" novalidate name="commonSpeedForm">
+    <fast-collapse expander-title="普通限速">
+        <ul class="list-group detailUlCss" ng-if="$index==0" ng-repeat="item in linkData.speedlimits | filter : {speedType : 0}">
+            <li>
+                <div class="blockDescLiDiv"><span>限速类型</span></div>
+                <span>普通限速</span>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>顺向速度</span></div>
+
+                <input class="form-control poiRightPanel_Input" set-focus w5c-dynamic-element w5c-dynamic-name="rename('ordStraightSpeed',$index)" ng-maxlength="3" required ng-change="changeSpeed('from')" ng-disabled="linkData.direct == 3 || (linkData.options&&linkData.options.boolBatch && linkData.speedlimits[0].fromSpeedLimit == 0&&!linkData.options.isChanged)" ng-model="item.fromSpeedLimit" ng-blur="hideDirect()" ng-focus="showDirect(2)" type="number" step="5" min="0" max="999" />
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>逆向速度</span></div>
+                <input class="form-control poiRightPanel_Input" set-focus w5c-dynamic-element w5c-dynamic-name="rename('ordReverseSpeed',$index)" required  ng-change="changeSpeed('to')" ng-disabled="linkData.direct == 2 || (linkData.options&&linkData.options.boolBatch && linkData.speedlimits[0].toSpeedLimit == 0&&!linkData.options.isChanged)" ng-model="item.toSpeedLimit" ng-blur="hideDirect()" ng-focus="showDirect(3)" type="number" min="0" max="999" />
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>顺向来源</span></div>
+                <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-change="changeSource(item.fromLimitSrc, '{{item.fromLimitSrc}}')" ng-model="item.fromLimitSrc" ng-disabled="linkData.direct ==3 || (linkData.options&&linkData.options.boolBatch && linkData.speedlimits[0].fromSpeedLimit == 0)" ng-options="value.id as value.label for value in fromLimitSrcOption"></select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>逆向来源</span></div>
+                <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-change="changeSource(item.toLimitSrc, '{{item.toLimitSrc}}')" ng-model="item.toLimitSrc" ng-disabled="linkData.direct == 2 || (linkData.options&&linkData.options.boolBatch && linkData.speedlimits[0].toSpeedLimit == 0)" ng-options="value.id as value.label for value in fromLimitSrcOption"></select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>限速等级</span></div>
+                <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="item.speedClass" ng-options="value.id as value.label for value in speedClassOption"></select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>等级赋值</span></div>
+                <input type="radio" name="level"  ng-value={{0}} ng-change="changeClassWork()" ng-model="item.speedClassWork" id="level1" class="radio_diy_class"/><label for="level1"><span> 手工 </span></label>
+                <input type="radio" name="level"  ng-value={{1}} ng-change="changeClassWork()" ng-model="item.speedClassWork" id="level2" class="radio_diy_class"/><label style="margin-left: 20px;" for="level2"><span> 程序 </span></label>
+            </li>
+        </ul>
+    </fast-collapse>
+    </form>
+    <div class="poiRightPanel_fold" style="border: none">
+        <strong>条件限速</strong>
+        <div><img src="../../images/newRoad/rightPanelIcon/icon_add.png" ng-click="addLinkName()"/></div>
+    </div>
+    <ul class="list-group detailUlCss">
+        <li
+            ng-repeat="item in linkData.speedlimits | filter : {speedType : 3}"
+            ng-class="{'linkName_li': !(currentActiveSpeedIndex==$index),'linkName_li_checked': (currentActiveSpeedIndex==$index)}"
+            ng-click="rememberNameNum($index, item)"
+            data-container="body"
+            data-animation="am-flip-x"
+            data-auto-close="1"
+            bs-popover
+            data-placement="left"
+            data-template-url="../../scripts/components/road/tpls/attr_link_tpl/speedOfConditionTpl.html">
+            <div style="width: 50px;padding-left: 10px;display: inline-block"><span>{{$index + 1}}</span></div>
+            <div style="width: 80px;display: inline-block"><span ng-bind="speedDependentOption[item.speedDependent]"></span></div>
+            <div style="width: 132px;display: inline-block"><span>顺 {{item.fromSpeedLimit}}, 逆 {{item.toSpeedLimit}}</span></div>
+            <img src="../../images/newRoad/rightPanelIcon/icon_delete.png" ng-click="deleteLinkConditionSpeed($index, item, $event)">
+        </li>
+    </ul>
+</div>

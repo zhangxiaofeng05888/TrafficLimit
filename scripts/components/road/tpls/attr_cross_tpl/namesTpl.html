@@ -1,0 +1,50 @@
+<div class="popover" tabindex="-1" style="width: 310px;min-height: 185px;overflow-y: auto;max-height:300px;">
+    <div ng-controller="namesController">
+        <ul class="list-group detailUlCss">
+            <li>
+                <div class="linkName_popover_Div"><span>名称组</span></div>
+                <input class="form-control poiRightPanel_Input" type="text" ng-model="rdCrossNames.nameGroupid"/>
+            </li>
+            <li>
+                <div class="linkName_popover_Div"><span>代码语言</span></div>
+                <select class="form-control poiRightPanel_select linkName_popover_select" ng-model="rdCrossNames.langCode" ng-click="langCodeChange(rdCrossNames.langCode)" ng-change="changeLangCode(rdCrossNames);">
+                    <option value="{{value.id}}" ng-repeat="value in langCodeOptions" ng-selected="rdCrossNames.langCode == value.id" ng-disabled="(selectedLangcodeArr.indexOf(value.id) > -1)"> {{value.label}}</option>
+                </select>
+            </li>
+            <li>
+                <div class="linkName_popover_Div"><span>名称内容</span></div>
+                <input type="text" class="form-control poiRightPanel_Input" ng-if="rdCrossNames.langCode != 'ENG'" ng-model="rdCrossNames.name" ng-change="namePronunciation(rdCrossNames.name,rdCrossNames);"/>
+                <input class="form-control poiRightPanel_Input" type="text" ng-if="rdCrossNames.langCode == 'ENG'"  maxlength="120" ng-model="rdCrossNames.name" placeholder="名称内容"/>
+            </li>
+            <!--<li>-->
+                <!--<div class="linkName_popover_Div"><span>名称发音</span></div>-->
+                <!--<input type="text" class="form-control poiRightPanel_Input" ng-model="rdCrossNames.phonetic" ng-disabled="rdCrossNames.langCode == 'ENG'"/>-->
+            <!--</li>-->
+            <li >
+                <div class="linkName_popover_Div"><span>名称来源</span></div>
+                <input type="radio" id="originOfName0" class="radio_diy_class" name="originOfName0" value=0 ng-model="rdCrossNames.srcFlag">
+                <label for="originOfName0">
+                    <span>
+                    未定义
+                    </span>
+                </label>
+                <input type="radio" id="originOfName1" ng-click="changeNameSource(rdCrossNames);" class="radio_diy_class" ng-disabled="rdCrossNames.langCode == 'CHI' || rdCrossNames.langCode == 'CHT'" name="originOfName1" value=1 ng-model="rdCrossNames.srcFlag">
+                <label for="originOfName1">
+                    <span>
+                    翻译
+                    </span>
+                </label>
+            </li>
+            <li style="height: auto;">
+                <div class="linkName_popover_Div"><span>名称发音</span></div>
+                <div style="display: inline-block;text-align: left;margin-right: 14px;margin-top: 4px;line-height: 20px;vertical-align: top;width:180px;">
+                <span class="" ng-repeat="item in rdCrossNames.phoneticArr track by $index">
+                    <span ng-if="item.length>1">{<span ng-repeat="subitem in item" style="text-decoration: underline;cursor: pointer;color:red;margin-right: 4px;" ng-click="selectPolyphonic($event, $index, $parent.$parent.$index)">{{subitem}}</span>}</span>
+                    <span ng-if="item.length==1">{{item[0]}}</span>
+                </span>
+                    <span style=""><img ng-show="rdCrossNames.langCode == 'CHI' || rdCrossNames.langCode == 'CHT'" style="cursor: pointer;position: absolute;top: 130px;left: 280px;" src="../../images/meta/refresh.png" ng-click="namePronunciation(rdCrossNames.name,rdCrossNames);"></span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

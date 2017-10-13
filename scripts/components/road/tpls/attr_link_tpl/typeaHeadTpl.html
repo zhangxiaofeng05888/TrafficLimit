@@ -1,0 +1,21 @@
+<ul tabindex="-1" class="typeahead dropdown-menu" ng-show="$isVisible()" role="select">
+    <li role="presentation" ng-repeat="match in $matches | orderBy: match.value.nameId" ng-class="{active: $index == $activeIndex}">
+        <a style="font-size: 12px; padding: 3px 10px" role="menuitem" tabindex="-1" ng-click="$select($index, $event)">
+            <span class="text-muted">{{match.value.nameId?match.value.nameId:''}}</span>
+            <span style="font-size: 12px;display:inline-block;max-width:210px;text-overflow:ellipsis" title="{{match.value.name}}">{{match.value.name.length>17?match.value.name.substr(0,17)+'...':match.value.name}}</span>
+            <span class="label label-info" style="background-color: #7981e2;">{{roadTypeOptions[match.value.roadType]}}</span>
+            <span class="label label-info" style="background-color: #7981e2;">{{match.value.province}}</span>
+        </a>
+    </li>
+    <li>
+        <div style="padding: 0 10px">
+            <div class="pull-left">第 <span class="text-primary">{{PageData.currentPage}}</span> 页 | 共 <span class="text-primary">{{PageData.totalPage}}</span> 页</div>
+            <div class="pull-right">
+                <div class="pull-right btn-group">
+                    <i style="cursor: pointer" ng-click="flipPage(PageData.searchValue, PageData.currentPage-1)" class="glyphicon glyphicon-menu-left"></i>
+                    <i style="cursor: pointer" ng-click="flipPage(PageData.searchValue, PageData.currentPage+1)" class="glyphicon glyphicon-menu-right"></i>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>

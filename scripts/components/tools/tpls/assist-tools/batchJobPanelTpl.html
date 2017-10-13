@@ -1,0 +1,82 @@
+<style>
+    .batch-job .stage1 {
+        display: flex;
+        justify-content: space-between;
+    }
+    .batch-job .stage2 {
+        padding: 10px;
+    }
+    .batch-job .stage2 .desc {
+        text-align: center;
+        line-height: 30px;
+        font-size: 14px;
+    }
+    .batch-job .stage2 .info {
+        text-align: center;
+        line-height: 30px;
+        font-size: 18px;
+    }
+    .batch-job .stage2 .info > .succ {
+        color: green;
+    }
+    .batch-job .stage2 .info > .fail {
+        color: red;
+    }
+</style>
+<div class="fm-job-panel batch-job fm-stretch" ng-controller="BatchJobPanelCtrl">
+    <div class="content" style="min-height: 100px;">
+        <div class="stage1 fm-stretch" ng-if="jobStatus === 0">
+            <div class="fm-blue-box fm-scroll" style="flex-basis: 160px;flex-grow: 1;">
+                <ul class="rule-list">
+                    <li ng-repeat="item in batchPacks">
+                        <input class="fm-control" id="batchPack-{{item.bacthId}}" name="batchPack" ng-checked="item.check" ng-click="selectPack(item)" type="radio"/>
+                        <label class="fm-ellipsis" for="batchPack-{{item.bacthId}}" title="{{item.bacthName}}">
+                            {{item.bacthName}}
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div class="fm-blue-box fm-scroll" style="flex-basis: 400px;flex-grow: 2;">
+                <ul class="rule-list">
+                    <li ng-repeat="rule in selectedBatch.rules">
+                        <input class="fm-control" id="batchRule-{{rule.ruleCode}}" name="batchRule" ng-change="toggleRule(item)" ng-model="rule.check" type="checkbox"/>
+                        <label class="fm-ellipsis" for="batchRule-{{rule.ruleCode}}" title="{{rule.ruleName}}">
+                            {{rule.ruleName}}
+                        </label>
+                        <div ng-if="rule.param">
+                            <select class="fm-control" ng-model="paramObj.selected" ng-options="value.value as value.text for value in paramObj.options" ng-repeat="(paramCode, paramObj) in rule.param" style="width: 150px;margin-left: 10px;">
+                            </select>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="stage2 fm-stretch" ng-if="jobStatus !== 0">
+            <div class="desc">
+                正在执行
+                <span ng-bind="jobDesc">
+                </span>
+            </div>
+            <div class="progress">
+                <div class="progress-bar fm-control" ng-bind="progress" ng-style="{'width': progress}" style="min-width: 20px;">
+                </div>
+            </div>
+            <div class="info">
+                <span class="succ" ng-if="jobStatus === 2">
+                    执行完成！
+                </span>
+                <span class="fail" ng-if="jobStatus === 3">
+                    执行失败！
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <button class="fm-control fm-btn-primary" ng-click="doExecute()" ng-if="jobStatus === 0" type="button">
+            执 行
+        </button>
+        <button class="fm-control fm-btn-info" ng-click="goback()" ng-disabled="jobStatus === 1" ng-if="jobStatus !== 0" type="button">
+            返 回
+        </button>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="popover" id="ordinaryLimitController" tabindex="-1" style="width: 300px;min-height: 210px">
+    <ul class="list-group detailUlCss" ng-controller="ordinaryLimitController">
+        <li>
+            <div class="linkName_popover_Div"><span>限制类型</span></div>
+            <select class="form-control poiRightPanel_select linkName_popover_select" ng-change="limitTypeChange();" ng-model="currentActiveOrdinaryLimits.type" ng-options="value.id as value.label for value in typeOptions"></select>
+        </li>
+        <li ng-style="setStyle()">
+            <div class="linkName_popover_Div"><span>限制方向</span></div>
+            <select class="form-control poiRightPanel_select linkName_popover_select" ng-model="currentActiveOrdinaryLimits.limitDir" ng-options="value.id as value.label for value in limitDirOptions" ng-disabled="[0,2,3,4,8,9,10].indexOf(currentActiveOrdinaryLimits.type)>-1 || linkData.options.boolBatch"></select>
+        </li>
+        <li ng-if="currentActiveOrdinaryLimits.type==6">
+            <div class="linkName_popover_Div"><span>收费类型</span></div>
+            <select class="form-control poiRightPanel_select linkName_popover_select" ng-model="currentActiveOrdinaryLimits.tollType" ng-change="tollTypeChange();" ng-options="value.id as value.label for value in tollTypeOptions" ng-disabled="currentActiveOrdinaryLimits.type!=6"></select>
+        </li>
+        <li ng-if="currentActiveOrdinaryLimits.type==7">
+            <div class="linkName_popover_Div"><span>天气条件</span></div>
+            <select class="form-control poiRightPanel_select linkName_popover_select" ng-model="currentActiveOrdinaryLimits.weather" ng-options="value.id as value.label for value in weatherOptions"></select>
+        </li>
+        <li ng-if="currentActiveOrdinaryLimits.type==0 || currentActiveOrdinaryLimits.type==4">
+            <div class="linkName_popover_Div"><span>录入时间</span></div>
+            <input type="text" class="form-control poiRightPanel_Input" ng-disabled="currentActiveOrdinaryLimits.type==0 || currentActiveOrdinaryLimits.type==4" ng-value="currentActiveOrdinaryLimits.inputTime | date:'yyyy-MM-dd'" />
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>赋值方式</span></div>
+            <input type="radio" name="processFlagRadio" ng-value="{{0}}" ng-model="currentActiveOrdinaryLimits.processFlag" id="processFlagRadio1" ng-disabled="currentActiveOrdinaryLimits.type!=3 && currentActiveOrdinaryLimits.type!=10" class="radio_diy_class"/><label for="processFlagRadio1"><span> 默认 </span></label>
+            <input type="radio" name="processFlagRadio" ng-value="{{1}}" ng-model="currentActiveOrdinaryLimits.processFlag" id="processFlagRadio2" ng-disabled="currentActiveOrdinaryLimits.type!=3 && currentActiveOrdinaryLimits.type!=10" class="radio_diy_class"/><label for="processFlagRadio2" style="padding-left: 15px"><span> 外业 </span></label>
+            <input type="radio" name="processFlagRadio" ng-value="{{2}}" ng-model="currentActiveOrdinaryLimits.processFlag" id="processFlagRadio3" ng-disabled="currentActiveOrdinaryLimits.type!=3 && currentActiveOrdinaryLimits.type!=10" class="radio_diy_class"/><label for="processFlagRadio3" style="padding-left: 15px"><span> 未验证 </span></label>
+        </li>
+        <li style="height: auto">
+            <div ng-include="dateURL" is-relativePover="1" class="muti-date" data-type="2" date-str='{{currentActiveOrdinaryLimits.timeDomain}}' style="width:100%;"></div>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>车辆类型</span></div>
+            <div id="addCarButton" class="btnDiy_div">
+                <button class="btn-xs btn-diy"
+                        data-target="#ordinaryLimitController"
+                        data-animation="am-flip-x"
+                        data-auto-close="1"
+                        bs-popover
+                        data-placement="left"
+                        data-template-url="../../scripts/components/road/tpls/attr_link_tpl/carTypeTpl.html">
+                    添加
+                </button>
+                <input type="checkbox" ng-model="checkValueFlag" id="allow" ng-checked="checkValueFlag" class="radio_diy_class" ng-click="checkAllowed()"/>
+                <label for="allow" style="padding-left: 15px"><span style="padding-left: 10px;">允许</span></label>
+            </div>
+        </li>
+        <div class="scroll_style" style="max-height: 500px;" ng-style="{'border-top':currentActiveOrdinaryLimits.vehicle!=0&&currentActiveOrdinaryLimits.vehicle!=2147483648 ? '1px solid #636ef5': null}">
+            <li ng-repeat="item in vehicleOptions" style="padding-left: 10px" ng-if="item.checked">
+                <span ng-style="{'color':checkValueFlag?'#182848':'#a94442'}">{{item.label}}</span>
+            </li>
+        </div>
+    </ul>
+</div>

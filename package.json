@@ -1,0 +1,56 @@
+{
+  "name": "fastmapwebapi",
+  "version": "0.1.0",
+  "description": "webapi for fastmap",
+  "homepage": "http://www.navinfo.com/",
+  "author": "navinfo",
+  "scripts": {
+    "lint": "eslint --ignore-path .eslintignore ./apps ./scripts",
+    "lint:fix": "npm run lint -- --fix",
+    "doc": "jsdoc -r -c ./conf.json -d sdk",
+    "start": "npm run build:debug && http-server -a localhost -p 8000 -c-1 ../TrafficLimit",
+    "build:debug": "gulp build:debug",
+    "build": "gulp build"
+  },
+  "devDependencies": {
+    "del": "^2.2.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^9.0.0",
+    "eslint-config-angular": "^0.5.0",
+    "eslint-plugin-angular": "^2.4.0",
+    "eslint-plugin-import": "^2.0.1",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.0",
+    "gulp-filter": "^4.0.0",
+    "gulp-htmlmin": "^2.0.0",
+    "gulp-imagemin": "^3.0.2",
+    "gulp-less": "^3.1.0",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps-xj": "^1.0.0",
+    "gulp-strip-debug": "^1.1.0",
+    "gulp-uglify": "^1.5.4",
+    "http-server": "^0.9.0",
+    "jasmine-core": "^2.4.1",
+    "jsdoc": "^3.4.2",
+    "karma": "^0.13.21",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-coverage": "^1.0.0",
+    "karma-jasmine": "^1.0.2",
+    "karma-requirejs": "^1.0.0",
+    "minifyjs": "^0.2.0",
+    "ng-dialog": "^0.6.4",
+    "requirejs": "^2.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "license": "ISC",
+  "dependencies": {
+    "angular-ui-router": "^0.4.2"
+  }
+}

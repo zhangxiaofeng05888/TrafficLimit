@@ -1,0 +1,72 @@
+<style>
+    .autofill-job .stage1 {
+        display: flex;
+        flex-flow: column nowrap;
+    }
+    .autofill-job .stage2 {
+        padding: 10px;
+    }
+    .autofill-job .stage2 .desc {
+        text-align: center;
+        line-height: 30px;
+        font-size: 14px;
+    }
+    .autofill-job .stage2 .info {
+        text-align: center;
+        line-height: 30px;
+        font-size: 18px;
+    }
+    .autofill-job .stage2 .info > .succ {
+        color: green;
+    }
+    .autofill-job .stage2 .info > .fail {
+        color: red;
+    }
+</style>
+<div class="fm-job-panel fm-stretch autofill-job" ng-controller="AutofillJobPanelCtrl">
+    <div class="content" style="min-height: 100px;">
+        <div class="stage1" ng-if="jobStatus === 0">
+            <div style="padding: 5px 20px;">
+                执行以下Tips录入:
+            </div>
+            <div>
+                <ul class="item-list fm-scroll">
+                    <li ng-repeat="tips in tipList" style="width: 110px;">
+                        <input class="radio_diy_class" id="tips{{tips.id}}" name="tipList" ng-model="tips.checked" type="checkbox"/>
+                        <label for="tips{{tips.id}}">
+                            {{tips.name}}
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="stage2 fm-stretch" ng-if="jobStatus !== 0">
+            <div class="desc">
+                正在执行
+                <span ng-bind="jobDesc">
+                </span>
+                的自动录入
+            </div>
+            <div class="progress">
+                <div class="progress-bar fm-control" ng-bind="progress" ng-style="{'width': progress}" style="min-width: 20px;">
+                </div>
+            </div>
+            <div class="info">
+                <span class="succ" ng-if="jobStatus === 2">
+                    执行完成！
+                </span>
+                <span class="fail" ng-if="jobStatus === 3">
+                    执行失败！
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <button class="fm-control fm-btn-primary" ng-click="doExecute()" ng-if="jobStatus === 0" type="button">
+            执 行
+        </button>
+        <button class="fm-control fm-btn-info" ng-click="goback()" ng-disabled="jobStatus === 1" ng-if="jobStatus !== 0" type="button">
+            返 回
+        </button>
+    </div>
+</div>

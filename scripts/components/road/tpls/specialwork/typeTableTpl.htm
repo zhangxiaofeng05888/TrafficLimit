@@ -1,0 +1,33 @@
+<div class="fm-panel" ng-controller="typeTableCtl" style="margin:0px;width:600px">
+	<div class="header" drag-handle>
+		<div class="title">请选择类型名称</div>
+		<div class="toolbar pull-right">
+			<button type="button"  class="close closeIt" style="opacity:1;" ng-click="closeSearchModal()" title="关闭"></button>
+		</div>
+	</div>
+	<div class="content test">
+        <div style="height:400px;position:relative;">
+			<div class="table-header">
+					<div class="input-group input-group-sm" style="margin: 10px 10px 0 10px;">
+						<span class="input-group-addon" id="sizing-addon3">名称：</span>
+						<input type="text" class="form-control" placeholder="道路名称">
+					</div>
+
+		        </div>
+			<div class="scroll-styled" style="height: 300px;border-bottom:1px solid #abcaff">
+	            <table ng-table-dynamic="typeTableParams with typeTableCols" class="table table-condensed table-bordered roadname-table" template-pagination="../../scripts/components/road/tpls/specialwork/roadNamePagerTmpl.html">
+	                <colgroup>
+	                <col ng-repeat="col in typeTableCols | filter:{show: true}" width="{{col.width || '100'}}"/>
+	                </colgroup>
+	                <tr ng-repeat="row in $data" ng-dblClick="selectVal(row,$index,'type')" ng-class="{true:'active'}[itemActive == $index]">
+	                    <td ng-repeat="col in $columns">
+	                        <p title="{{row[col.field]}}" ng-bind-html="col.getValue?col.getValue(this,row):row[col.field]"></p>
+	                    </td>
+	                </tr>
+	                <tr class="text-center" ng-show="!$data.length"><td colspan="{{(typeTableCols | filter: {show: true}).length}}" ng-bind="loadTableDataMsg"></td></tr>
+	            </table>
+			</div>
+	        </div>
+        </div>
+    </div>
+</div>

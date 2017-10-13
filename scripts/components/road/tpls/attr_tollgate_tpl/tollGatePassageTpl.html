@@ -1,0 +1,51 @@
+<div class="popover" tabindex="-1" style="width: 310px;height: 275px;overflow-y: auto;">
+    <div class="scroll_style" ng-controller="TollGatePassageCtl">
+        <ul class="list-group detailUlCss">
+            <li>
+                <div class="poiRightPanel_fold"><span>通道 {{tdIndex+1}}</span></div>
+            </li>
+            <li style="padding: 10px; height: 100px" ng-if="passageType == 2 ||passageType == 3 ||passageType == 4 || passageType == 5 ||passageType == 6 ||passageType == 7">
+                <div class="blockDescLiDiv" style="float:left;"><span>收费方式</span></div>
+                <ul class="list-group detailUlCss" style="margin-left: 90px;">
+                    <li ng-repeat="(key, value) in chargeWay" style="float:left;">
+                        <input title="{{value.label}}" ng-checked="value.checked" fm-edit-view type="checkbox" class="radio_diy_class" value="{{value.id}}"
+                               ng-model="value.checked" id="chargeWay{{value.id}}" ng-click="selectChargeType(value)">
+                        <label for="chargeWay{{value.id}}">{{value.label | limitTo : 3}}</label>
+                    </li>
+                </ul>
+            </li>
+            <li ng-if="passageType == 1 ||passageType  == 8 ||passageType  == 9 ||passageType  == 10">
+                <div class="blockDescLiDiv"><span>领卡类型</span></div>
+                <select ng-model="tollGateInfo.cardType" ng-change="changeCardType();" class="form-control poiRightPanel_select linkName_popover_select"
+                        ng-options="value.id as value.label for value in cardTypeLimitObj">
+                </select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>通道类型</span>
+                </div>
+                <select class="form-control poiRightPanel_select" ng-model="tollGateInfo.laneType" ng-options="value.id as value.label for value in laneTypeObj"></select>
+            </li>
+            <li style="border-top:1px solid #636ef5;border-bottom:1px solid #636ef5;margin-top: 30px;">
+                <div class="blockDescLiDiv" style="float: left;">
+                    <span>车辆类型</span>
+                </div>
+                <div class="btnDiy_div">
+                    <input type="checkbox" ng-model="isAllowed" id="allow" ng-checked="isAllowed"
+                           class="radio_diy_class" ng-click="checkViche()"/>
+                    <label for="allow" style="padding-left: 15px">
+                        <span>允许</span>
+                    </label>
+                </div>
+            </li>
+        </ul>
+        <div class="linkForm_popover">
+            <div ng-repeat="item in vehicleOptions">
+                <input type="checkbox" id={{item.label}} name="formType" ng-click="carSelect(item,$event)" ng-checked="item.checked"/>
+                <label for={{item.label}}>
+                    {{item.label}}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

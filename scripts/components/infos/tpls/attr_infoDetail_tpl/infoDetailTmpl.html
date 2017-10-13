@@ -1,0 +1,109 @@
+<style>
+    .fm-panel div.content{
+        font-size: 14px;
+    }
+    .fm-panel .content .infofilter ul{
+        padding: 0 10px;
+    }
+    .fm-panel .content .infofilter ul li{
+        line-height: 30px;
+        display: table-row;
+    }
+    .fm-panel .content .infofilter ul li span{
+        display: inline-block;
+        margin-right: 10px;
+        text-align: center;
+    }
+    .fm-panel .content .infofilter ul li label{
+        margin-right: 10px;
+    }
+    .fm-panel .poiRightPanel_Input {
+        font-size: 14px
+    }
+</style>
+<div class="fm-panel" ng-app="app" ng-controller="infoDetailCtrl" style="width: 400px">
+    <div class="header">
+        <div class="title">
+            <span style="cursor: pointer;text-align: center;width: 30px;display: inline-block" ng-click="turnToInfoList()"> <<< </span>
+            <span style="font-size: 14px">情报详情</span>
+        </div>
+    </div>
+    <div class="content fm-scroll">
+        <div class="infofilter">
+            <ul class="list-group">
+                <li>
+                    <span style="width: 60px;text-align: left">情报ID</span>
+                    <input class="form-control poiRightPanel_Input" readonly  ng-model="infoModel.i_infoCode" style="width: 300px;">
+
+                </li>
+                <li>
+                    <span style="width: 60px;text-align: left">情报名称</span>
+                    <input class="form-control poiRightPanel_Input" readonly ng-model="infoModel.i_infoName" style="width: 300px;">
+                </li>
+                <li>
+                    <span style="width: 60px;text-align: left">URL</span>
+                    <input class="form-control poiRightPanel_Input" readonly   ng-model="infoModel.i_url" style="width: 300px;">
+                </li>
+                <li>
+                    <span style="width: 60px;text-align: left">情报等级</span>
+                    <input class="form-control poiRightPanel_Input" readonly   ng-model="infoModel.i_level" style="width: 100px;margin-right: 10px">
+                    <span style="width: 80px;text-align: left">获得方式</span>
+                    <input class="form-control poiRightPanel_Input" readonly   ng-model="infoModel.i_gainType" style="width: 100px">
+                </li>
+                <li>
+                    <span style="width: 60px;text-align: left">专题名称</span>
+                    <input class="form-control poiRightPanel_Input" readonly   ng-model="infoModel.i_topicName" style="width: 100px;margin-right: 10px">
+                    <span style="width: 84px;margin-right: 6px;text-align: left">新闻发布时间</span>
+                    <input class="form-control poiRightPanel_Input" ng-model="infoModel.t_newsDate" readonly   style="width: 100px">
+                </li>
+                <li>
+                    <span style="width: 60px;text-align: left">转化说明</span>
+                    <input class="form-control poiRightPanel_Input" readonly   ng-model="infoModel.i_transDesc" style="width: 100px;margin-right: 10px">
+                    <span style="width: 80px;text-align: left">类别名称</span>
+                    <input class="form-control poiRightPanel_Input" readonly placeholder="不可编辑" ng-model="infoModel.i_infoTypeName" style="width: 100px">
+                </li>
+               <li>
+                    <span style="width: 60px;text-align: left">情报内容</span>
+                    <input class="form-control poiRightPanel_Input" readonly placeholder="不可编辑" ng-model="infoModel.i_infoContent" style="width: 300px;">
+                </li>
+                <li>
+                    <span style="width: 60px;text-align: left">行政区划</span>
+                    <input class="form-control poiRightPanel_Input" readonly placeholder="不可编辑" ng-model="infoModel.i_adminName"  style="width: 100px;margin-right: 10px">
+                    <span style="width: 80px;text-align: left">工程类型</span>
+                    <input class="form-control poiRightPanel_Input" readonly placeholder="不可编辑" ng-model="infoModel.i_proposal" style="width: 100px">
+                </li>
+                <li>
+                    <!--<span style="width: 60px;text-align: left">TOP标识</span>-->
+                    <!--<input class="form-control poiRightPanel_Input" readonly placeholder="不可编辑" style="width: 100px;margin-right: 10px">-->
+                    <span style="width: 80px;text-align: left">使用时间</span>
+                    <input class="form-control poiRightPanel_Input" readonly placeholder="不可编辑" ng-model="infoModel.t_expectDate" style="width: 100px">
+                </li>
+                <li><div style="width: 100%;height: 1px;border: solid gainsboro 1px;top: 15px"></div></li>
+                <li>
+                <span style="width: 60px;text-align: left">情报反馈</span>
+                <select class="form-control poiRightPanel_select"  ng-model="infoModel.c_isAdopted" ng-options="value.id as value.name for value in isAdopted">
+                </select>
+                </li>
+                <li>
+                    <span style="text-align: left">部分采纳和未采纳原因标记</span>
+
+                    <select class="form-control poiRightPanel_select"  ng-model="infoModel.c_denyReason" ng-options="value.name as value.name for value in reason">
+                    </select>
+                </li>
+
+                <li style="height: 60px">
+                    <span style="text-align: left">部分采纳和未采纳原因说明</span>
+                    <textarea class="form-control poiRightPanel_area"  ng-model="infoModel.c_denyRemark"  style="width: 370px;"></textarea>
+                </li>
+                <!--<li>-->
+                    <!--<span style="display: block;text-align: left">备注</span>-->
+                    <!--<textarea class="form-control poiRightPanel_area" ng-model="infoModel.i_memo"  style="width: 370px;height: 60px"></textarea>-->
+                <!--</li>-->
+                <li style="text-align: right;margin-top: 10px">
+                    <button class="btn" style="margin:10px 10px 0 0 ;height: 30px;color: #ffffff;background-color: #6364fe;" ng-click="reset()">重置</button>
+                    <button class="btn" style="margin:10px 10px 0 0 ;height: 30px;color: #ffffff;background-color: #6364fe;" ng-click="save()">提交</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

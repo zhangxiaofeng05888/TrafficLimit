@@ -1,0 +1,84 @@
+<div ng-controller="DirectRouteCtl">
+    <fast-collapse expander-title="基本信息">
+        <ul class="list-group detailUlCss" style="margin-top: 8px;">
+            <li>
+                <div class="blockDescLiDiv"><span>进入线</span></div>
+                <input class="form-control poiRightPanel_Input" ng-model="directRouteData.inLinkPid" type="text" readonly/>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>进入点</span></div>
+                <input class="form-control poiRightPanel_Input" ng-model="directRouteData.nodePid" type="text" readonly/>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>退出线</span></div>
+                <input class="form-control poiRightPanel_Input" ng-model="directRouteData.outLinkPid" type="text" readonly/>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>顺行标志</span>
+                </div>
+                <input type="radio" name="flag" value="0" id="flag0" disabled ng-model="directRouteData.flag" class="radio_diy_class"/>
+                <label for="flag0">
+                    <span>未验证</span>
+                </label>
+                <input type="radio" name="flag" value="1" id="flag1" ng-model="directRouteData.flag" class="radio_diy_class"/>
+                <label for="flag1" style="padding-left: 20px">
+                    <span>实地</span>
+                </label>
+                <input type="radio" name="flag" value="2" id="flag2" ng-model="directRouteData.flag" class="radio_diy_class"/>
+                <label for="flag2" style="padding-left: 20px">
+                    <span>理论</span>
+                </label>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>处理标志</span>
+                </div>
+                <input type="radio" name="processFlag" value="0" id="processFlag0" ng-model="directRouteData.processFlag" class="radio_diy_class"/>
+                <label for="processFlag0">
+                    <span>无</span>
+                </label>
+                <input type="radio" name="processFlag" value="1" id="processFlag1" ng-model="directRouteData.processFlag" class="radio_diy_class"/>
+                <label for="processFlag1" style="padding-left: 20px">
+                    <span>人工</span>
+                </label>
+                <input type="radio" name="processFlag" value="2" id="processFlag2" ng-model="directRouteData.processFlag" class="radio_diy_class"/>
+                <label for="processFlag2" style="padding-left: 20px">
+                    <span>批处理</span>
+                </label>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>关系类型</span>
+                </div>
+                <input type="radio" name="relationshipType" value="1" id="relationshipType0" ng-model="directRouteData.relationshipType" class="radio_diy_class"/>
+                <label for="relationshipType0">
+                    <span>路口关系</span>
+                </label>
+                <input type="radio" disabled name="relationshipType" value="2" id="relationshipType1" ng-model="directRouteData.relationshipType" class="radio_diy_class"/>
+                <label for="relationshipType1" style="padding-left: 20px">
+                    <span>线线关系</span>
+                </label>
+            </li>
+        </ul>
+    </fast-collapse>
+    <fast-collapse expander-title="经过线（{{directRouteData.vias.length}}）条">
+        <div>
+            <ul class="list-group detailUlCss" ng-repeat="viasItem in directRouteData.vias">
+                <li>
+                    <div class="blockDescLiDiv"><span>Link组号</span></div>
+                    <input class="form-control poiRightPanel_Input" ng-model="viasItem.groupId" type="text" readonly/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>Link序号</span></div>
+                    <input class="form-control poiRightPanel_Input" ng-model="viasItem.seqNum" type="text" readonly/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>Link号码</span></div>
+                    <input class="form-control poiRightPanel_Input" ng-model="viasItem.linkPid" type="text" readonly/>
+                </li>
+            </ul>
+        </div>
+    </fast-collapse>
+</div>
+

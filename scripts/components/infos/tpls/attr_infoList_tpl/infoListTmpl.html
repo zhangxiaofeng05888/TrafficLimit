@@ -1,0 +1,169 @@
+<style>
+    .fm-panel div.content{
+        font-size: 14px;
+    }
+    .fm-panel .content .infoList{
+        margin-top: 5px;
+        min-height: 200px;
+        display: none;
+    }
+    .fm-panel .content .infofilter ul{
+        padding: 0 10px;
+    }
+    .fm-panel .content .infofilter ul li{
+        line-height: 30px;
+        display: table-row;
+    }
+    .fm-panel .content .infofilter ul li span{
+        display: inline-block;
+        margin-right: 10px;
+        text-align: center;
+    }
+    .fm-panel .content .infofilter ul li label{
+        min-width: 55px;
+        margin-right: 15px;
+        font-weight: normal;
+    }
+    .fm-panel .content .changeBtnUp{
+        width: 0;
+        height: 0;
+        margin: 0 auto;
+        display: none;
+        cursor: pointer;
+        border-style: solid;
+        border-top: 0  solid transparent;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-bottom: 10px solid #6364fe;
+    }
+    .fm-panel .content .changeBtnDown{
+        width: 0;
+        height: 0;
+        margin: 0 auto;
+        cursor: pointer;
+        border-style: solid;
+        border-top: 10px  solid #6364fe;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-bottom: 0 solid transparent;
+    }
+    .fm-panel .content .infoList table tr th,.fm-panel .content .infoList table tr td{
+        text-align: center;
+        cursor: pointer;
+    }
+    label > input[type=checkbox]{
+        position: relative;
+    }
+    label > input[type=checkbox]:checked::before{
+        /*content: url("../../../../../images/newPoi/rightPanelIcon/button-click-checkbox.png");*/
+        position: relative;
+        top:-2px;
+    }
+    label > input[type=checkbox]::before{
+        /*content: url("../../../../../images/newPoi/rightPanelIcon/button-normal-checkbox.png");*/
+        position: relative;
+        top:-2px;
+    }
+    .ng-table-pager{
+        text-align: center;
+    }
+
+    .fm-panel .poiRightPanel_Input {
+        font-size: 14px
+    }
+</style>
+<div class="fm-panel" style="width: 400px;box-shadow: none" ng-controller="infoListCtrl">
+    <div class="header">
+        <div class="title">
+            <span style="font-size: 14px;">情报列表 </span>
+        </div>
+        <div class="tool-bar">
+            <span style="cursor: pointer;color: #ffffff;"> </span>
+        </div>
+    </div>
+    <div class="content fm-scroll">
+        <div class="infofilter" ng-show="infoFilterFlag">
+            <ul class="list-group" style="box-shadow: none">
+                <li>
+                    <span>情报等级</span>
+                    <label ng-repeat="level in parameterModel.i_level">
+                        <input type="checkbox"  ng-checked="isLevelChecked(level.id)"
+                               ng-click="updateLevelSelection($event,level.id) "/>{{level.name}}
+                    </label>
+                </li>
+                <li>
+                    <span>情报反馈</span>
+                    <label ng-repeat="adopted in parameterModel.c_isAdopted">
+                        <input type="checkbox" ng-checked="isAdoptedChecked(adopted.id)"
+                               ng-click="updateAdoptedSelection($event,adopted.id)" />{{adopted.name}}
+                    </label>
+                </li>
+                <li>
+                    <span style="width: 60px;text-align: left">情报ID</span>
+                    <input class="form-control poiRightPanel_Input" ng-model="parameterModel.i_infoCode"  style="width: 300px;">
+                </li>
+                <li>
+                    <span style="width: 60px;text-align: left">情报名称</span>
+                    <input class="form-control poiRightPanel_Input"  ng-model="parameterModel.i_infoName" style="width: 300px;">
+                    <!--<span style="width: 84px;margin-right: 6px;text-align: left">情报类别名称</span>-->
+                    <!--<input class="form-control poiRightPanel_Input" ng-model="parameterModel.i_infoTypeName" style="width: 100px">-->
+                </li>
+                <!--<li>-->
+                    <!--<span  style="width: 60px;text-align: left">获得方式</span>-->
+                    <!--<input class="form-control poiRightPanel_Input" ng-model="parameterModel.i_gainType" style="width: 100px;margin-right: 10px">-->
+                    <!--<span style="width: 80px;text-align: left">情报名称</span>-->
+                    <!--<input class="form-control poiRightPanel_Input" ng-model="parameterModel.i_infoName"  style="width: 100px">-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--&lt;!&ndash;<span style="width: 60px;text-align: left">情报描述</span>-->
+                   <!--<input class="form-control poiRightPanel_Input" style="width: 100px;margin-right: 10px">&ndash;&gt;-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<span style="width: 84px;text-align: left">新闻发布时间</span>-->
+                    <!--<input class="form-control poiRightPanel_Input"  ng-model="parameterModel.pubBegin" style="width: 100px;margin-right: 10px">-->
+                    <!--<span>至</span>-->
+                    <!--<input class="form-control poiRightPanel_Input" ng-model="parameterModel.pubEnd" style="width: 100px">-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<span style="width: 84px;text-align: left">投入使用时间</span>-->
+                    <!--<input class="form-control poiRightPanel_Input" ng-model="parameterModel.useBegin" style="width: 100px;margin-right: 10px">-->
+                    <!--<span>至</span>-->
+                    <!--<input class="form-control poiRightPanel_Input" ng-model="parameterModel.useEnd" style="width: 100px">-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<span>情报未采纳原因</span>-->
+                    <!--<label ng-repeat="deny in parameterModel.denyReason">-->
+                        <!--<input type="checkbox" ng-checked="isDenyChecked(deny.id)"-->
+                               <!--ng-click="updateDenySelection($event,deny.name)" />{{deny.name}}-->
+                    <!--</label>-->
+                <!--</li>-->
+                <li style="text-align: right">
+                    <button class="btn" ng-click="resetFilter()" style="margin-right: 10px;height: 30px;color: #ffffff;background-color: #6364fe;">重置</button>
+                    <button class="btn" ng-click="searchInfo()" style="margin-right: 10px;height: 30px;color: #ffffff;background-color: #6364fe;">查询</button>
+                </li>
+            </ul>
+            <div class="changeBtnUp" ng-style="showInfoList" ng-click="hideInfoFilter()">
+            </div>
+        </div>
+        <div class="changeBtnDown" ng-show="!infoFilterFlag" ng-click="showInfoFilter()">
+        </div>
+        <div class="infoList" ng-style="showInfoList">
+            <table ng-table-dynamic="defaultConfigTableParams with typeTableCols"  class="table table-condensed table-bordered md-table">
+
+                <colgroup>
+                    <col ng-repeat="col in typeTableCols | filter:{show: true}" width="{{col.width || '100'}}"/>
+                </colgroup>
+
+                <tr ng-repeat="row in $data" ng-dblClick="selectVal(row,$index,'type')"
+                    ng-class="{true:'active'}[itemActive == $index]">
+                    <td ng-repeat="col in $columns">
+                        <p title="{{row[col.field]}}" ng-bind-html="col.getValue?col.getValue(this,row):row[col.field]"></p>
+                    </td>
+                </tr>
+                <tr class="text-center" ng-show="!$data.length">
+                    <td colspan="{{(typeTableCols | filter: {show: true}).length}}" ng-bind="loadTableDataMsg"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

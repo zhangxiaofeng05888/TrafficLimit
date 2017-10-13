@@ -1,0 +1,68 @@
+<div ng-controller="outerworkCtrl">
+    <div class="ag-title">
+        <div class="title">
+            <select style="width: 200px;" class="form-control poiRightPanel_chosen" ng-model="chainCode"
+                    no_results_text="'没有找到'"  placeholder_text_single="'--请选择--'" search_contains=true
+                    ng-options="value as chainName for (value, chainName) in allChain"
+                    chosen ng-change="chainChange($event, this)">
+            </select>
+        </div>
+        <div class="fm-taskMenu" >
+            <div class="logout" title="退出" ng-click="logout()"></div>
+        </div>
+    </div>
+    <div class="dataListPage">
+        <div class="btn-group" role="group">
+            <button class="btn btn-xs btn-group-menu" ng-class="{1: 'active'}[dataListType]" ng-click="changeDataList(1)">
+                待发布
+            </button>
+            <button class="btn btn-xs btn-group-menu" ng-class="{2: 'active'}[dataListType]" ng-click="changeDataList(2)">
+                待确认
+            </button>
+            <button class="btn btn-xs btn-group-menu" ng-class="{3: 'active'}[dataListType]" ng-click="changeDataList(3)">
+                已反馈
+            </button>
+        </div>
+        <div class="content dataList">
+            <script type="text/ng-template" id="headerCheckboxId">
+                <input type="checkbox" ng-model="tableParams.checkedAll" ng-click="selectAllData();" />
+            </script>
+            <div style="height: 40px;">
+                <div class="pull-left" style="padding: 10px; color: black;">
+                    <input type="text" class="search" ng-model="tableParams.filter().name" placeholder="代理店名称"/>
+                </div>
+                <div class="pull-right" style="padding: 10px;">
+                    <span class="fm-file-upload" style="right:110px;" ng-if="dataListType===1">
+                        <button type="button" class="btn btn-gap my-btn-success" style="width: 92px;">情报下发</button >
+                        <input type="file" nv-file-select uploader="uploader" multiple>
+                    </span>
+                    <button type="button" class="btn btn-gap my-btn-primary" ng-if="dataListType===1" ng-click="passDealership()">转内业</button>
+                    <button type="button" class="btn btn-gap my-btn-blue" style="margin-right: 100px;" ng-if="dataListType===1" ng-click="downInfo()">情报下载</button>
+                    <button type="button" class="btn btn-gap my-btn-warning" ng-if="dataListType===1 || dataListType===2" ng-click="closeWork();">关闭作业</button>
+                    <div ng-show="dataListType===3" style="display: inline-block;">
+                        起始:
+                        <input type="text" class="form-control input-sm" style="width: 120px;display: inline-block;" ng-model="beginDate" data-date-type="string"
+                               data-placement="bottom-right" data-max-date="{{endDate}}" data-date-format="yyyy-MM-dd"
+                               bs-datepicker>
+                        结束:
+                        <input type="text" class="form-control input-sm" style="width: 120px;display: inline-block;" ng-model="endDate" data-date-type="string"
+                               data-placement="bottom-right" data-min-date="{{beginDate}}" data-date-format="yyyy-MM-dd"
+                               bs-datepicker>
+                        <button type="button" class="btn btn-gap my-btn-blue" style="width: 110px;" ng-click="expInfoFeedback()">外业回执导出</button>
+                    </div>
+                </div>
+            </div>
+            <div style="padding: 0px 10px 10px;" ng-style="tableBodyHeight" class="fm-edit-table fm-scroll">
+                <table ng-table-dynamic="tableParams with cols" class="table table-condensed table-bordered table-striped fm-scroll" template-pagination="../../apps/agentEditor/editor/components/left-panels/list/leftListPagerTmpl.html">
+                    <tr ng-repeat="row in $data">
+                        <td ng-repeat="col in $columns" style="width: {{col.width?col.width:'600px'}}" ng-switch="col.field">
+                            <input ng-switch-when="selector" type="checkbox" ng-model="row.checked"/>
+                            <span ng-switch-default ng-bind-html="col.getValue?col.getValue(this,row):row[col.field]"></span>
+                        </td>
+                    </tr>
+                    <tr class="text-center" ng-show="!$data.length"><td colspan="{{(cols | filter: {show: true}).length}}" ng-bind="loadTableDataMsg"></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,103 @@
+<div ng-controller="checkResultTableCtrl">
+    <!--查询条件panel-->
+    <div style="height: 110px;width:100%;padding-left: 20px;margin-top: 20px;">
+        <ul class="fm-ul fm-ul-form col-md-8">
+            <li class="col-md-6">
+                <span style="font-size: 14px;font-weight: bold;">道路名称:</span>
+                <div>
+                    <input type="text" class="form-control form-control-md" ng-model="filterName">
+                </div>
+            </li>
+            <li class="col-md-6">
+                <span style="font-size: 14px;font-weight: bold;">名称ID:</span>
+                <div>
+                    <input type="text" class="form-control form-control-md" ng-model="filterNameId">
+                </div>
+            </li>
+        </ul>
+        <ul class="fm-ul fm-ul-form col-md-8">
+            <li class="col-md-6">
+                <span style="font-size: 14px;font-weight: bold;">名称拼音:</span>
+                <div>
+                    <input type="text" class="form-control form-control-md" ng-model="filterNamePhonetic">
+                </div>
+            </li>
+            <li class="col-md-6">
+                <span style="font-size: 14px;font-weight: bold;">规则号:</span>
+                <div>
+                    <select class="fm-control"  ng-model="filterRuleCode"  style="width:200px;"
+                            placeholder_text_single="'请选择'" search_contains=true
+                            chosen ng-options="value.id as value.label for value in ruleOpt">
+                    </select>
+                </div>
+            </li>
+        </ul>
+        <ul class="fm-ul fm-ul-form col-md-8">
+            <li>
+                <span style="font-size: 14px;font-weight: bold;">行政区划:</span>
+                <div>
+                    <select class="fm-control"  ng-model="filterAdminId"  style="width:200px;"
+                            placeholder_text_single="'请选择'" search_contains=true
+                            chosen ng-options="value.id as value.label for value in adminOpt">
+                    </select>
+                </div>
+            </li>
+        </ul>
+        <ul class="fm-ul fm-ul-form row">
+            <li class="col-md-6">
+                <span style="font-size: 14px;font-weight: bold;">检查信息:</span>
+                <div>
+                    <input type="text" class="form-control form-control-md" ng-model="filterInformation">
+                </div>
+            </li>
+            <li class="col-md-6 pull-right">
+                <button type="button" class="btn md-btn-warning" ng-click="reset()">重置 </button>
+                <button type="button" class="btn md-btn-success btn-left" ng-click="query()">查询 </button>
+            </li>
+        </ul>
+    </div>
+    <!--表格panel-->
+    <div class="fm-panel" style="height: 800px;width:100%;">
+        <div class="header" style="margin-top: 10px;background-color: #1A90FE">
+            <div class="title" style="margin-left: 10px;">
+                <h5>{{jobName}}</h5>
+            </div>
+            <div class="toolbar pull-right">
+                <button type="button" class="btn md-btn-main btn-left" ng-click="openTotal()">统计</button>
+                <button type="button" class="btn md-btn-main btn-left" ng-click="" disabled>导出</button>
+                <div class="btn-group dropdown btn-left" sytle="position:fixed;right:0px;width:100%;" uib-dropdown on-toggle="toggled(open)" auto-close="outsideClick">
+                    <button type="button" class="btn dropdown-toggle md-btn-main" uib-dropdown-toggle aria-haspopup="true" aria-expanded="true">
+                        <i class="glyphicon glyphicon-th icon-th"></i> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right scroll-styled" ng-style="rightTableHight" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                        <li ng-repeat="col in gridOptions.columnDefs">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="col.visible" ng-click="toggleVisible()"/> {{col.displayName}}
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="content" ng-style="rightTableHeight">
+            <div ui-grid="gridOptions"
+                ui-grid-selection
+                ui-grid-pagination
+                ui-grid-auto-resize
+                ui-grid-resize-columns
+                ng-style="tableContentHeight" class="md-uigrid">
+                <div ng-show="loadingFlag" class="tableLoading" ng-include="'./svgLoading.html'"></div>
+            </div>
+        </div>
+    </div>
+    <div class="fm-modal" drag ng-show="subModal">
+        <div drag-handle style="height: 40px;width: 100%;background-color: #1A90FE;cursor: pointer">
+            <div>
+                <span style="color: white;font-size: 14px;font-weight: bold;padding:0px 4px;">{{subModalTitle}}</span>
+                <button type="button"  class="close pull-right" style="padding:0px 4px;font-size:28px;color:white;opacity:1;" ng-click="closeSubModal()" title="关闭"><span>&times;</span></button>
+            </div>
+        </div>
+        <div class="content" ng-include="subModalTpl">
+        </div>
+    </div>
+</div>

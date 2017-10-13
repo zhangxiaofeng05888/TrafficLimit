@@ -1,0 +1,57 @@
+<div ng-controller="brandCtrl" >
+    <div class="ag-title">
+        <div class="title">{{workItemName}}</div>
+        <div class="fm-taskMenu" >
+            <div class="logout" title="退出" ng-click="logout()"></div>
+        </div>
+    </div>
+    <div class="dataListPage">
+        <div class="btn-group" role="group">
+            <button class="btn btn-xs btn-group-menu" ng-class="{0: 'active'}[dataListType]" ng-click="changeDataList(0)">
+                未开启品牌
+            </button>
+            <button class="btn btn-xs btn-group-menu" ng-class="{1: 'active'}[dataListType]" ng-click="changeDataList(1)">
+                作业中品牌
+            </button>
+            <button class="btn btn-xs btn-group-menu" ng-class="{2: 'active'}[dataListType]" ng-click="changeDataList(2)">
+                已完成品牌
+            </button>
+        </div>
+        <div class="content dataList">
+            <div style="height: 40px;">
+                <div class="pull-left" style="padding: 10px; color: black;">
+                    <input type="text" class="search" ng-model="tableParams.filter().chainName" placeholder="品牌名称"/>
+                </div>
+                <div class="pull-right" style="padding: 10px;">
+                    <span class="fm-file-upload" style="right:200px;" ng-if="dataListType===0 && tableParams.data.length>0">
+                        <button type="button" class="btn btn-gap my-btn-primary" style="width: 92px;">一览表上传</button >
+                        <input type="file" nv-file-select uploader="uploader" multiple>
+                    </span>
+                    <button type="button" class="btn btn-gap my-btn-success" ng-if="dataListType===0 && tableParams.data.length>0" ng-click="chainUpdate()">品牌更新</button>
+                    <button type="button" class="btn btn-gap my-btn-blue" ng-if="dataListType===0" ng-click="runtimeUpdate()">实时更新</button>
+                    <span class="fm-file-upload" style="right:110px;" ng-if="dataListType===1">
+                        <button type="button" class="btn btn-gap my-btn-primary" style="width: 104px;">补充增量数据</button >
+                        <input type="file" nv-file-select uploader="increaseUploader" multiple>
+                    </span>
+                    <button type="button" class="btn btn-gap my-btn-success" ng-if="dataListType===1" ng-click="closeChain()">关闭品牌</button>
+                    <button type="button" class="btn btn-gap my-btn-success" ng-if="dataListType===2" ng-click="openChain()">重启品牌</button>
+                    <button type="button" class="btn btn-gap my-btn-warning" ng-if="dataListType===2" style="width: 104px;" ng-click="exportWorkResult()">导出作业成果</button>
+                </div>
+            </div>
+            <script type="text/ng-template" id="headerCheckboxId">
+                <input type="checkbox" ng-model="tableParams.checkedAll" ng-click="selectAllData();"/>
+            </script>
+            <div style="padding: 0px 10px 10px;" ng-style="tableBodyHeight" class="fm-edit-table fm-scroll">
+                <table ng-table-dynamic="tableParams with cols" class="table table-condensed table-bordered table-striped fm-scroll" template-pagination="../../apps/agentEditor/editor/components/left-panels/list/leftListPagerTmpl.html">
+                    <tr ng-repeat="row in $data" ng-dblclick="workDiff(row)">
+                        <td ng-repeat="col in $columns" style="width: {{col.width?col.width:'600px'}}" ng-switch="col.field">
+                            <input ng-switch-when="selector" type="checkbox" ng-model="row.checked"/>
+                            <span ng-switch-default ng-bind-html="col.getValue?col.getValue(this,row):row[col.field]"></span>
+                        </td>
+                    </tr>
+                    <tr class="text-center" ng-show="!$data.length"><td colspan="{{(cols | filter: {show: true}).length}}" ng-bind="loadTableDataMsg"></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="popover" tabindex="-1" style="width: 300px;height: 200px; background-color: #fff;">
+    <div class="scroll_style linkForm_popover" ng-controller="addLclinkTypeController">
+        <div ng-repeat="item in fromOfTypeOption">
+            <input type="checkbox" id={{"lcType"+item.id}} ng-model="item.isCheck" checked={{item.isCheck}} ng-click="getCheck(item)" />
+            <label for={{"lcType"+item.id}}>
+                {{item.label}}
+            </label>
+        </div>
+    </div>
+</div>

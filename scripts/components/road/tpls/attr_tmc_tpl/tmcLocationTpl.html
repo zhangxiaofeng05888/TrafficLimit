@@ -1,0 +1,54 @@
+<div class="scroll_style" ng-controller="TmcLocationCtl">
+    <i class="glyphicon glyphicon-edit pull-right name-icon" ng-click="mapEdit();" style="cursor: pointer;position: absolute;right: 73px;top: 8px;font-size: 22px;color: #fff;" title="修改link和方向"></i>
+    <div>
+        <fast-collapse expander-title="道路LINK TMC关系">
+            <ul class="list-group detailUlCss" style="margin-top: 8px;">
+                <li>
+                    <div class="blockDescLiDiv"><span>组号码</span></div>
+                    <input class="form-control poiRightPanel_Input" ng-model="tmcLocationData.pid" type="text" readonly/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv" style="line-height: 18px;vertical-align: middle;">
+                        <span style="display: block;">位置点</span>
+                        <span style="display: block;">号码</span>
+                    </div>
+                    <input class="form-control poiRightPanel_Input" ng-model="tmcLocationData.tmcId" type="text" readonly/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv" style="line-height: 18px;vertical-align: middle;">
+                        <span style="display: block;">位置表</span>
+                        <span style="display: block;">代码</span>
+                    </div>
+                    <input class="form-control poiRightPanel_Input" ng-model="tmcLocationData.loctableId" type="text" readonly/>
+                </li>
+                <li style="margin-bottom: 10px;">
+                    <div class="blockDescLiDiv" style="line-height: 18px;vertical-align: middle;">
+                        <span style="display: block;">位置表</span>
+                        <span style="display: block;">标示</span>
+                    </div>
+                    <input class="form-control poiRightPanel_Input" ng-model="loctableCode" type="text" readonly/>
+                </li>
+            </ul>
+        </fast-collapse>
+        <fast-collapse expander-title="TMC匹配信息（共 {{tmcLocationData.links.length}} 条）">
+            <div ng-repeat="info in tmcLocationData.links track by $index" style="margin-bottom: 10px;padding-bottom: 10px;border-bottom: 1px solid #eff0fe;">
+                <ul class="list-group detailUlCss" style="margin-top: 8px;">
+                    <li>
+                        <div class="blockDescLiDiv"><span>LINK号码</span></div>
+                        <input class="form-control poiRightPanel_Input" ng-model="info.linkPid" type="text" readonly/>
+                    </li>
+                    <li>
+                        <div class="blockDescLiDiv"><span>位置方向</span></div>
+                        <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="info.locDirect"
+                                ng-options="value.id as value.label for value in locDirectOptions"></select>
+                    </li>
+                    <li>
+                        <div class="blockDescLiDiv"><span>方向关系</span></div>
+                        <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" disabled ng-model="info.direct"
+                                ng-options="value.id as value.label for value in directOptions"></select>
+                    </li>
+                </ul>
+            </div>
+        </fast-collapse>
+    </div>
+</div>

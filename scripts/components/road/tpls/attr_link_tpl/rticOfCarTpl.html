@@ -1,0 +1,31 @@
+<div class="popover" tabindex="-1" style="width: 300px;padding-bottom: 8px;">
+    <ul class="list-group detailUlCss" ng-controller="oridinaryFactoryCarController">
+        <li>
+            <div class="linkName_popover_Div"><span>RTIC代码</span></div>
+            <input class="form-control poiRightPanel_Input" name="rticCode" set-focus ng-model="currentCarFactoryData.code" type="number" />
+        </li>
+        <li>
+            <div class="linkName_popover_Div"><span>RTIC等级</span></div>
+            <select class="form-control poiRightPanel_select linkName_popover_select" ng-model="currentCarFactoryData.rank" ng-change="changeRank(currentCarFactoryData.rank)" ng-options="value.id as value.label for value in rankoption"></select>
+        </li>
+        <li >
+            <div class="linkName_popover_Div"><span>RTIC方向</span></div>
+            <input class="form-control poiRightPanel_Input" class="chosen-disabled" ng-model="currentCarFactoryData.rticDir" type="text" disabled="disabled" />
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>上下标识</span></div>
+            <input type="radio" name="updownFlagRadio" ng-value="{{0}}" ng-model="currentCarFactoryData.updownFlag" id="updownFlagRadio1" class="radio_diy_class" /><label for="updownFlagRadio1"><span> 上行 </span></label>
+            <input type="radio" ng-if="linkData.direct != 1" disabled name="updownFlagRadio" ng-value={{1}} ng-model="currentCarFactoryData.updownFlag" id="updownFlagRadio3" class="radio_diy_class"/><label ng-if="linkData.direct != 1" disabled for="updownFlagRadio3"><span> 下行 </span></label>
+            <input type="radio" ng-if="linkData.direct == 1" name="updownFlagRadio" ng-value={{1}} ng-model="currentCarFactoryData.updownFlag" id="updownFlagRadio3" class="radio_diy_class"/><label ng-if="linkData.direct == 1" for="updownFlagRadio3" style="padding-left: 10px"><span> 下行 </span></label>
+        </li>
+        <li>
+            <div class="blockDescLiDiv" style="line-height: 18px;vertical-align: middle">
+                <span style="display: block">RTIC域类</span>
+                <span style="display: block; text-align: right">型</span>
+            </div>
+            <input type="radio" disabled name="raticAreaType" ng-value={{0}} ng-model="currentCarFactoryData.rangeType" id="raticAreaType1" class="radio_diy_class" /><label for="raticAreaType1"><span> 狭域  </span></label>
+            <input type="radio" name="raticAreaType" ng-value={{1}} ng-model="currentCarFactoryData.rangeType" id="raticAreaType2" class="radio_diy_class" /><label for="raticAreaType2" style="padding-left: 10px"><span> 中域 </span></label>
+            <input type="radio" disabled name="raticAreaType" ng-value={{2}} ng-model="currentCarFactoryData.rangeType" id="raticAreaType3" class="radio_diy_class" /><label for="raticAreaType3" style="padding-left: 10px"><span> 广域 </span></label>
+        </li>
+    </ul>
+</div>

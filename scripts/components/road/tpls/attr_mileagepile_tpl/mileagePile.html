@@ -1,0 +1,59 @@
+<div ng-controller="mileagepileController" class="scroll_style">
+    <form class="w5c-form" w5c-form-validate="mileagepileFormVildation" novalidate name="mileagepileForm">
+        <ul class="list-group detailUlCss">
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>关联道路</span>
+                </div>
+            <span>
+                {{mileagepile.linkPid}}
+            </span>
+            </li>
+            <li style="height: 48px;line-height: 48px">
+                <div class="blockDescLiDiv" style="line-height: 18px;vertical-align: middle">
+                    <span style="display: block">里程桩</span>
+                    <span style="display: block">编号</span>
+                </div>
+                <input class="form-control poiRightPanel_Input" set-focus name="mileageNum"
+                       ng-model="mileagepile.mileageNum" required pattern="^(\d{1,10}|\d{1,7}\.\d{1,3})$" type="number"
+                       placeholder="请输入里程桩编号"/>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>道路名称</span>
+                </div>
+                <input class="form-control poiRightPanel_Input" ng-change="roadNameToDBC()"
+                       ng-model="mileagepile.roadName" type="text" placeholder="请输入道路名称"/>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>路线编号</span>
+                </div>
+                <input class="form-control poiRightPanel_Input" ng-change="roadNumToDBC()"
+                       ng-model="mileagepile.roadNum" type="text" placeholder="请输入路线编号"/>
+            </li>
+            <li style="height: 48px;line-height: 48px">
+                <div class="blockDescLiDiv" style="line-height: 18px;vertical-align: middle">
+                    <span style="display: block">里程桩</span>
+                    <span style="display: block">方向</span>
+                </div>
+                <select class="form-control poiRightPanel_select" ng-model="mileagepile.direct"
+                        ng-options="value.id as value.label for value in direct"></select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>编号类型</span>
+                </div>
+                <select class="form-control poiRightPanel_select" ng-model="mileagepile.roadType"
+                        ng-options="value.id as value.label for value in roadType"></select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>来源</span>
+                </div>
+                <select class="form-control poiRightPanel_select" ng-model="mileagepile.source"
+                        ng-options="value.id as value.label for value in source"></select>
+            </li>
+        </ul>
+    </form>
+</div>

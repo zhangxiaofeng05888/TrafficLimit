@@ -1,0 +1,737 @@
+<style type="text/css">
+    .datetip > .form-group > .btn-group > label {
+        transition: all 0.5s;
+        padding: 5px;
+        border-radius: 0;
+    }
+
+    .arrow_right {
+        position: absolute;
+        background: url('../../scripts/libs/timepicki/images/top_arr.png') no-repeat;
+        width: 18px;
+        height: 10px;
+        z-index: 3;
+        right: -14px;
+        top: 100px;
+        transform: rotate(90deg);
+    }
+
+    /*  .arrow {
+       position: absolute;
+       top: -20px;
+       transform: rotate(180deg);
+       -ms-transform:rotate(180deg);     IE 9
+       -moz-transform:rotate(180deg);    Firefox
+       -webkit-transform:rotate(180deg); Safari 和 Chrome
+       -o-transform:rotate(180deg);  Opera
+       margin: 10px 0 0 0px;
+       width: 0;
+       height: 0;
+       border-left: 10px solid rgba(0, 0, 0, 0);
+       border-right: 10px solid transparent;
+       border-top: 10px solid #000000;
+        }  */
+    .datetip {
+        width: 270px;
+        display: none;
+        padding: 10px;
+        padding-bottom: 0;
+        margin-top: 10px;
+        margin-right: 10px;
+        /*border: 1px solid #000000;*/
+        box-shadow: 0px 1px 20px 0px #080808;
+        background-color: #fff;
+        opacity: 1;
+        font-size: 12px;
+        color: #000000;
+        border-radius: 3px;
+        position: absolute;
+        z-index: 1070;
+        text-decoration: none;
+        text-shadow: none;
+        text-transform: none;
+        letter-spacing: normal;
+        word-break: normal;
+        word-spacing: normal;
+        word-wrap: normal;
+        white-space: normal;
+        -webkit-transition: margin .15s ease-in-out;
+        -moz-transition: margin .15s ease-in-out;
+        font-family: '微软雅黑';
+    }
+
+    .date-select {
+        cursor: pointer;
+    }
+
+    .date-select[readonly] {
+        background-color: #000000FFF;
+    }
+
+    .date-option {
+        top: 7px;
+        padding-left: 10px;
+        cursor: pointer;
+    }
+
+    /* .line {
+        border-top: 1px solid #ddd;
+    } */
+
+    .line-date {
+        margin: auto -10px;
+    }
+
+    .time-slide-well {
+        border: 1px solid #ddd;
+        padding: 10px 5px;
+        border-radius: 3px;
+        /*background-color: #494949;*/
+    }
+
+    .date-well {
+        width: 275px;
+        border: 1px solid #dddddd;
+        border-radius: 4px;
+        color: #000000 !important;
+        font-size: 12px;
+        margin: 0 5px 0 5px;
+        display: inline-block;
+    }
+
+    .date-title {
+        font-size: 12px;
+        margin: 2px;
+        color: #000000;
+    }
+
+    .date-head {
+        color: #000000;
+        padding: 4px;
+        width: 100%;
+    }
+
+    .date-head a {
+        color: #000000;
+        text-decoration: inherit;
+    }
+
+    .date-body {
+        color: #000000;
+    }
+
+    .date-code-list {
+        color: #000000;
+        padding: 4px;
+    }
+
+    .remove-date-list {
+        color: #ddd;
+        cursor: pointer;
+        font-size: 19px;
+        margin-right: 4px;
+    }
+
+    .remove-date-list:hover {
+        color: #ef0505;
+    }
+
+    .date-list:hover{
+        background-color: #eff0ff;
+    }
+
+    .btn-option {
+        width: 271px;
+        margin-left: -10px;
+    }
+
+    .select-time {
+        /*border-color: rgba(24, 40, 72, 0.2);*/
+        border-radius: 0;
+        border: 1px solid rgba(24, 40, 72, 0.2);
+        height: 26px;
+        color: #182848;
+        padding-left: 10px;
+        border-radius: 3px;
+        transition: all .3s;
+        width: 145px;
+    }
+    .select-time:focus {
+        border-color: #5693ff;
+        box-shadow: none;
+    }
+
+    .select-time-add {
+        width: 76px;
+        border: 1px solid rgba(24, 40, 72, 0.2);
+        /*border-color: rgba(24, 40, 72, 0.2);*/
+        color: #000000;
+        margin-left: -1px;
+        height: 26px;
+        padding-left: 10px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        transition: all .3s;
+    }
+
+    .select-time-after {
+        width: 80px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .time-name {
+        /*margin-top: 7px;*/
+        color: #000000;
+    }
+
+    .time-select {
+        margin-top: 10px
+    }
+
+    .input-group-btn > .icon-btn {
+        height: 34px;
+    }
+
+    .full-width {
+        width: 100%;
+    }
+
+    .full-width > label {
+        background-color: #333;
+        color: #000000;
+    }
+
+    .time-select > .input-group > .selected-span-addon {
+        background-color: #FFFFFF;
+        border: 0;
+        padding: 0;
+    }
+
+    .selected-addon {
+        width: 80px;
+        margin-right: -1px;
+        height: 26px;
+        border-right: 0;
+        color: #000000;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+        padding: 0 10px;
+        font-size: 12px;
+        background-position-x: 60px;
+    }
+
+    .select-date {
+        background-color: #fff !important;
+        border: 1px solid rgba(24, 40, 72, 0.2);
+        color: #182848;
+        width: 91px !important;
+        margin-right: -1px;
+        height: 26px;
+        border-radius: 3px;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        font-size: 12px;
+        padding-left: 5px;
+        line-height: 2;
+    }
+
+    .select-date:focus {
+        border-color: #5693ff;
+        box-shadow: none;
+    }
+
+    .date-picker {
+        padding: 0 5px;
+        font-size: 12px;
+        border: 1px solid rgba(24, 40, 72, 0.2);
+        background-color: #fff;
+        color: #182848;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .date-picker:hover {
+        background-color: #636ef5;
+        border-color: #636ef5;
+        color: #fff;
+        background-image: none;
+        outline: 0;
+        -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+        box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    }
+
+    .date-msg, .date-suc-msg {
+        margin-bottom: 0px;
+        padding: 3px 20px;
+        border-radius: 0;
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+
+    .close-msg {
+        margin-right: 10px
+    }
+
+    .empty-time {
+        position: absolute;
+        right: 75px;
+        z-index: 999;
+        margin-top: -27px;
+        cursor: pointer;
+    }
+
+    .month-select {
+        height: 26px;
+        border-radius: 3px;
+        width: 140px;
+    }
+
+    .date-btn {
+        font-size: 12px;
+        border-right: 1px solid #fff;
+        border-left: 1px solid #fff;
+        border-top: 0;
+        border-bottom: 0;
+        height: 25px;
+        padding-top: 3px;
+        width: 50%;
+        background-color: #636ef5;
+        color: #ffffff;
+        border-radius: 0;
+    }
+
+    .date-btn:hover {
+        background-color: rgb(134, 142, 243);
+        color: #fff;
+    }
+
+    .date-btn:first-child {
+        border-left: 0 !important;
+    }
+
+    .date-btn:last-child {
+        border-right: 0 !important;
+    }
+
+    .week-group {
+        color: #000;
+        border: 1px solid #636ef5;
+        /*margin: 5px;*/
+        width: 50px;
+    }
+
+    .week-group:hover {
+        color: #fff;
+        background-color: #8992f9;
+    }
+
+    .week-group.active {
+        color: #ffffff !important;
+        border: 1px solid #5d68e9;
+        background-color: hsl(235, 88%, 67%) !important;
+        /*box-shadow: inset 0px 5px 7px rgba(23, 22, 22, 0.625);*/
+    }
+
+    .week-group:first-child {
+        border-top-left-radius: 3px !important;
+        border-bottom-left-radius: 3px !important;
+    }
+
+    .week-group:last-child {
+        border-top-right-radius: 3px !important;
+        border-bottom-right-radius: 3px !important;
+    }
+
+    .cur-time {
+        background-color: #ffffff !important;
+        color: rgb(51, 51, 51) !important;
+        border: 1px solid #616df5;
+        /*margin: 5px;*/
+        width: 76px;
+        font-size: 12px;
+    }
+
+    .cur-time:hover {
+        color: #000000 !important;
+        background-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .cur-time.active {
+        color: #ffffff !important;
+        background-color: hsl(235, 88%, 67%) !important;
+        /*box-shadow: inset 0px 5px 7px rgba(0, 0, 0, .625);*/
+    }
+
+    .cur-time:first-child {
+        border-top-left-radius: 3px !important;
+        border-bottom-left-radius: 3px !important;
+    }
+
+    .cur-time:last-child {
+        border-top-right-radius: 3px !important;
+        border-bottom-right-radius: 3px !important;
+    }
+
+    .radio-text {
+        color: #000000;
+        line-height: 1.5;
+    }
+
+    .datepicker.dropdown-menu {
+        width: 250px;
+        height: 280px;
+        margin-left: -40px;
+    }
+    .date-switch-type {
+        margin-top: 0;
+    }
+    .datepicker.dropdown-menu button {
+        outline: 0;
+        border: 0
+    }
+
+    .datepicker.dropdown-menu tbody {
+        height: 180px;
+    }
+    .datepicker.dropdown-menu button {
+        border-radius: 0;
+        box-shadow: none;
+        background: #FFF;
+        color: #000;
+    }
+
+    .datepicker.dropdown-menu tbody button {
+        padding: 8px;
+        border: 0;
+        border-radius: 0;
+        background: #FFF;
+        box-shadow: none;
+    }
+    .datepicker.dropdown-menu tbody button:hover {
+        box-shadow: none;
+    }
+    .datepicker.dropdown-menu tbody .btn-primary {
+        background: #636ef5;
+        color: #fff;
+    }
+
+    .datepicker.dropdown-menu.datepicker-mode-1 tbody button, .datepicker.dropdown-menu.datepicker-mode-2 tbody button {
+        height: 65px
+    }
+    .date-model{
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        /*background-color: #eee;*/
+        left: 0;
+        right: 0;
+        cursor: pointer;
+        z-index: 9;
+    }
+    .timepicker.dropdown-menu {
+        padding: 0 4px
+    }
+
+    .timepicker.dropdown-menu button {
+        outline: 0;
+        border: 0
+    }
+
+    .timepicker.dropdown-menu tbody button {
+        padding: 6px;
+        background: #FFF;
+        box-shadow: none;
+    }
+    .timepicker.dropdown-menu .btn-default {
+        background: #FFF;
+        box-shadow: none;
+    }
+    .timepicker.dropdown-menu tbody .btn-primary {
+        background: #636ef5;
+        color: #fff;
+    }
+    /* 选择日期 */
+    /*.datepicker {
+        background-color: #fff !important;
+        color: #000000 !important;
+        padding: 8px;
+    }
+
+    .datepicker-switch {
+        text-align: center;
+    }
+
+    .table-condensed > thead > tr > .prev {
+        text-align: center;
+    }
+    .table-condensed > thead > tr > .prev:hover {
+        background-color: #eee;
+    }
+    .table-condensed > thead > tr > .next {
+        text-align: center;
+    }
+    .table-condensed > thead > tr > .next:hover {
+        background-color: #eee;
+    }
+
+    .table-condensed > thead > tr > td > .month{
+        margin: 5px;
+    }
+    .table-condensed > tfoot > tr > th {
+        text-align: center;
+    }
+
+    .datepicker table tr td.active,
+    .datepicker table tr td span.active{
+        color: #ffffff;
+        background-color: #636ef5 !important;
+        border-color: #3f4ad4 !important;
+    }
+
+    .datepicker thead tr:first-child th:hover, .datepicker tfoot tr th:hover {
+        color: #262525;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .datepicker table tr td.day:hover, .datepicker table tr td.day.focused {
+        color: #262525;
+        cursor: pointer;
+    }
+
+    .datepicker table tr td span:hover {
+        color: #262525;
+        cursor: pointer;
+    }
+
+    .datepicker-dropdown.datepicker-orient-bottom:after {
+        border-top: 6px solid #fff;
+    }
+
+    .datepicker-dropdown:after {
+        border-bottom: 6px solid #fff;
+    }*/
+</style>
+<div class="date-well" ng-controller="DateCtrl2">
+    <div class="date-head">
+        <div class="date-title pull-left">时间段</div>
+
+        <div class="pull-right">
+            <a href="javascript:;" ng-hide="emptyBtnHide" class="data-empty pull-right"
+               ng-click="dateEmpty($event)">清空</a>
+            <a href="javascript:;" ng-hide="addBtnHide" class="data-add pull-right" ng-click="dateSelect($event)">添加&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="date-body">
+        <div class="date-list" style="margin-bottom: 5px;"></div>
+        <div class="date-list" ng-repeat="item in dateList">
+            <div class="col-xs-10 col-md-10 col-lg-10 date-code-list" date-code="{{item.code}}" ng-bind="item.describe">
+            </div>
+            <div class="col-xs-2 col-md-2 col-lg-2" style="padding-top: 8px;">
+                <span ng-hide="delBtnHide" class="glyphicon glyphicon-minus-sign remove-date-list pull-right"
+                      ng-click="removeList($event,$index)"></span>
+            </div>
+            <div class="clearfix"></div>
+            <div class="line"></div>
+        </div>
+    </div>
+    <div class="datetip fm-datepick-tip" style="display: none">
+        <div class="pull-left" style="margin-top: -8px;color: #000000;">时间段设置</div>
+        <div class="pull-right" style="margin-top: -10px;">
+            <button type="button" class="close" aria-label="Close" ng-click="close()"
+                    style="color: #636ef5;opacity: 1;margin-top: -4px;margin-right: -8px;">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="clearfix"></div>
+        <div class="line line-date"></div>
+        <div class="radio radio-inline date-switch-type">
+            <input type="radio" name="timeType" value="0" id="timeType3" class="radio_diy_class" time-type="fix-time" ng-click="timeType($event)" checked/>
+            <label for="timeType3">
+                <span>固定时间</span>
+            </label>
+            <input type="radio" name="timeType" value="1" id="timeType4" class="radio_diy_class" time-type="continue-time" ng-click="timeType($event)"/>
+            <label for="timeType4">
+                <span>持续时间</span>
+            </label>
+            <!--<label class="radio-text">
+                <input type="radio" name="timeType" time-type="fix-time" ng-click="timeType($event)" checked> 固定时间
+            </label>-->
+        </div>
+        <!--<div class="radio radio-inline date-switch-type">
+            <label class="radio-text">
+                <input type="radio" name="timeType" time-type="continue-time" ng-click="timeType($event)"> 持续时间
+            </label>
+        </div>-->
+        <!-- begin 固定时间 -->
+        <div class="form-group fix-time time-slide-well">
+            <div class="btn-group d-btn" data-toggle="buttons" style="width: 100%;">
+                <label name="weekGroupBtn" class="btn week-group" ng-click="weekGroup($event)" check-code='{{week.code}}'
+                       check-name="{{week.name}}" check-value="{{week.value}}" ng-repeat="week in wks.values"
+                       style="font-size: 12px;width: 14.28%;">
+                    {{week.value}}
+                </label>
+            </div>
+            <div class="time-select">
+                <span class="col-xs-4 col-md-3 col-lg-3 time-name">开始 </span>
+
+                <div class="input-group col-xs-7 col-md-8 col-lg-9">
+                    <!--<input type="text" class="select-time" ng-click="selectTime($event)" ng-model="begin_time"
+                           placeholder="开始时间" readonly>-->
+                    <input type="text" class="select-time" size="8" ng-model="begin_time" name="time" bs-timepicker
+                           data-time-format="HH:mm" data-time-type="string" data-length="1" data-minute-step="30" data-arrow-behavior="picker" placeholder="开始时间">
+                </div>
+                <!-- <span class="empty-time" date-model-name="begin_time">×</span> -->
+            </div>
+            <div class="time-select">
+                <span class="col-xs-4 col-md-3 col-lg-3 time-name">结束 </span>
+
+                <div class="input-group col-xs-7 col-md-8 col-lg-9">
+                    <!--<input type="text" class="select-time" ng-click="selectTime($event)" ng-model="end_time"
+                           placeholder="结束时间" readonly>-->
+                    <input type="text" class="select-time" size="8" ng-model="end_time" name="end_time" bs-timepicker
+                           data-time-format="HH:mm" data-time-type="string" data-length="1" data-minute-step="30" data-arrow-behavior="picker" placeholder="结束时间">
+                </div>
+                <!-- <span class="empty-time" date-model-name="end_time">×</span> -->
+            </div>
+        </div>
+        <!-- end 固定时间 -->
+        <!-- begin 持续时间 -->
+        <div class="form-group continue-time time-slide-well" style="display:none">
+            <div class="btn-group full-width d-btn" data-toggle="buttons">
+                <label class="btn cur-time" ng-repeat="value in dwm.values"
+                       ng-class="{btn: true, active: value.code == dwm.selection.code}"
+                       ng-click="dwmType($event,value)">
+                    <input type="radio" name="week" ng-model="dwm.selection" ng-value="value" autocomplete="off"
+                           dwm-type="dwm.selection" checked> {{value.value}}
+                </label>
+            </div>
+            <!-- 日 -->
+            <div class="day-well">
+                <div class="time-select">
+                    <span class="col-xs-4 col-md-3 col-lg-3 time-name">开始 </span>
+
+                    <div class="input-group col-xs-7 col-md-8 col-lg-9">
+                  <span class="input-group-addon selected-span-addon">
+                    <!--<input type="text" class="select-date" ng-click="selectDate($event)" ng-model="dBeginDate"
+                           value="{{dBeginDate}}" placeholder="开始日期" readonly>-->
+                      <input type="text" class="select-date" ng-model="dBeginDate" name="date" placeholder="开始日期" data-date-type="string" data-date-format="yyyy-MM-dd" data-autoclose="true" bs-datepicker>
+                  </span>
+                  <!--<span class="input-group-addon date-picker" ng-click="datePicker($event)" picker-name="dBeginDate"
+                        title="请选择日期">
+                    &lt;!&ndash; <i class="glyphicon glyphicon-calendar"></i> &ndash;&gt;
+                    选择
+                  </span>-->
+                        <!--<input type="text" class="select-time select-time-add" ng-click="selectTime($event)"
+                               ng-model="d_begin_time" placeholder="开始" readonly>-->
+                        <input type="text" class="select-time select-time-add" size="8" ng-model="d_begin_time" name="d_begin_time" bs-timepicker
+                               data-time-format="HH:mm" data-time-type="string" data-length="1" data-minute-step="30" data-arrow-behavior="picker" placeholder="开始">
+                    </div>
+                </div>
+                <div class="time-select">
+                    <span class="col-xs-4 col-md-3 col-lg-3 time-name">结束 </span>
+
+                    <div class="input-group col-xs-7 col-md-8 col-lg-9">
+                  <span class="input-group-addon selected-span-addon">
+                    <!--<input type="text" class="select-date" ng-click="selectDate($event)" ng-model="dEndDate"
+                           value="{{dEndDate}}" placeholder="结束日期" readonly>-->
+                      <input type="text" class="select-date" ng-model="dEndDate" name="date" placeholder="结束日期" data-date-type="string" data-date-format="yyyy-MM-dd" data-autoclose="true" bs-datepicker>
+                  </span>
+                  <!--<span class="input-group-addon date-picker" ng-click="datePicker($event)" picker-name="dEndDate"
+                        title="请选择日期">
+                    &lt;!&ndash; <i class="glyphicon glyphicon-calendar"></i> &ndash;&gt;
+                    选择
+                  </span>-->
+                        <!--<input type="text" class="select-time select-time-add" ng-click="selectTime($event)"
+                               ng-model="d_end_time" placeholder="结束" readonly>-->
+                        <input type="text" class="select-time select-time-add" size="8" ng-model="d_end_time" name="d_end_time" bs-timepicker
+                               data-time-format="HH:mm" data-time-type="string" data-length="1" data-minute-step="30" data-arrow-behavior="picker" placeholder="结束">
+                    </div>
+                </div>
+            </div>
+            <!-- 周 -->
+            <div class="week-well" style="display:none">
+                <div class="time-select">
+                    <span class="col-xs-4 col-md-3 col-lg-3 time-name">开始 </span>
+
+                    <div class="input-group col-xs-7 col-md-8 col-lg-9">
+                  <span class="input-group-addon selected-span-addon">
+                    <select class="selected-addon roadLeftPanel_select" ng-click="seletedAddon($event)" ng-model="wks.wBeginSelection"
+                            ng-options="week.name for week in wks.values">
+                        <!-- <option value="">--选择--</option> -->
+                    </select>
+                  </span>
+                        <!--<input type="text" class="select-time select-time-after" ng-click="selectTime($event)"
+                               ng-model="w_begin_time" placeholder="时间" readonly>-->
+                        <input type="text" class="select-time select-time-after" size="8" ng-model="w_begin_time" name="w_begin_time" bs-timepicker
+                               data-time-format="HH:mm" data-time-type="string" data-length="1" data-minute-step="30" data-arrow-behavior="picker" placeholder="时间">
+                    </div>
+                </div>
+                <div class="time-select">
+                    <span class="col-xs-4 col-md-3 col-lg-3 time-name">结束 </span>
+
+                    <div class="input-group col-xs-7 col-md-8 col-lg-9">
+                  <span class="input-group-addon selected-span-addon">
+                    <select class="selected-addon roadLeftPanel_select" ng-click="seletedAddon($event)" ng-model="wks.wEndSelection"
+                            ng-options="week.name for week in wks.values">
+                        <!-- <option value="">--选择--</option> -->
+                    </select>
+                  </span>
+                        <!--<input type="text" class="select-time select-time-after" ng-click="selectTime($event)"
+                               ng-model="w_end_time" placeholder="时间" readonly>-->
+                        <input type="text" class="select-time select-time-after" size="8" ng-model="w_end_time" name="w_end_time" bs-timepicker
+                               data-time-format="HH:mm" data-time-type="string" data-length="1" data-minute-step="30" data-arrow-behavior="picker" placeholder="时间">
+                    </div>
+                </div>
+            </div>
+            <!-- 月 -->
+            <div class="month-well" style="display:none">
+                <div class="time-select">
+                    <span class="col-xs-4 col-md-3 col-lg-3 time-name">开始 </span>
+
+                    <div class="input-group col-xs-7 col-md-8 col-lg-9">
+                        <select class="full-width month-select roadLeftPanel_select " ng-model="mons.begin"
+                                ng-options="date.label for date in mons.values">
+                        </select>
+                    </div>
+                </div>
+                <div class="time-select">
+                    <span class="col-xs-4 col-md-3 col-lg-3 time-name">结束 </span>
+
+                    <div class="input-group col-xs-7 col-md-8 col-lg-9">
+                        <select class="full-width month-select roadLeftPanel_select " ng-model="mons.end"
+                                ng-options="date.label for date in mons.values">
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end 持续时间 -->
+        <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+            <input type="checkbox" id="vagueTime" ng-disabled="isFuzzy" ng-model="vagueTime"  value="z" class="radio_diy_class"/>
+            <label for="vagueTime">
+                <span>模糊时间</span>
+            </label>
+            <!--<label class="checkbox-inline" style="margin-top: -8px;color: #000000;">
+                <input type="checkbox" class="radio_diy_class" ng-model="vagueTime" value="z"> 模糊时间
+            </label>-->
+        </div>
+        <div class="btn-option btn-group">
+            <button class="btn date-btn" name="fmSaveDateIdTemporary" type="button" ng-click="close()">关闭</button>
+            <button class="btn date-btn" name="fmSaveDateIdTemporary" ng-click="dateSave($event)" type="button">
+                <i class="glyphicon glyphicon-floppy-disk"></i> 保存
+            </button>
+        </div>
+        <div class="alert alert-danger alert-dismissible fade in date-msg" role="alert" style="display:none">
+            <p class="error-msg"></p>
+        </div>
+        <div class="alert alert-success alert-dismissible fade in date-suc-msg" role="alert" style="display:none">
+            <p class="success-msg"></p>
+        </div>
+        <!-- <div class="arrow"></div> -->
+        <div class='arrow_right'></div>
+    </div>
+    <div class="date-model" ng-if="showDatePicker" ng-click="close();"></div>
+</div>

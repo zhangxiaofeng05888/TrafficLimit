@@ -1,0 +1,240 @@
+<style>
+    .rdLaneTopo .list-group-item > .muti-date > .datetip {
+        position: fixed !important;
+        top: 220px !important;
+        right: 320px !important;
+    }
+</style>
+<div class="rdLaneTopo" ng-controller="rdLaneTopoCtrl">
+    <div ui-layout="{flow:'column',dividerSize:'0'}" ui-layout-loaded>
+        <div ui-layout-container>
+            <div ui-layout="{flow:'row',dividerSize:'0',disableToggle:true}">
+                <div ui-layout-container>
+                    <div ui-layout="{flow:'column',dividerSize:'0',disableToggle:true}">
+
+                        <div ui-layout-container class="fm-no-scroll">
+                            <div id="topoMap"
+                                 style="background-color:#DDDDFF;width: 100%;height: 100%;position: absolute;"></div>
+                            <div class="btn-group btn-group-justified fm-btn-group"
+                                 style="bottom: 10px;left: 0;width:400px;position: absolute;right: 140px;margin: 0 auto;">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn" ng-click="doCreate()">
+                                        <i class="glyphicon glyphicon-plus"></i> 创建连通
+                                    </button>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn" ng-click="doSave()">
+                                        <i class="glyphicon glyphicon-floppy-disk"></i> 保 存
+                                    </button>
+                                </div>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn" ng-click="doClose()">
+                                        <i class="glyphicon glyphicon-floppy-remove"></i> 关 闭
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="right:0px;position: absolute;width: 300px;" class="fm-panel scroll_style">
+                                <div class="header">
+                                    <div class="title" style="margin-left: 30px;">
+                                        <strong>车道连通</strong>
+                                    </div>
+                                </div>
+                                <div class="poiRightPanel_fold">
+                                    <strong style="font-size: 12px;">
+                                        <div>原始车道连通（共 <span ng-bind="laneTopoInfoArr.length">0</span> 条）</div>
+                                    </strong>
+                                </div>
+                                <ul class="list-group detailUlCss">
+                                    <li ng-repeat="cItem in laneTopoInfoArr">
+                                        <a style="width: 10%;padding-bottom: 2px;padding-left: 10px;" title="批量编辑"
+                                           class="glyphicon"
+                                           ng-class="{true:'glyphicon-check',false:'glyphicon-unchecked'}[cItem.flag]"
+                                           ng-click="batchItems(cItem,$event,$index)"></a>
+                                        <label style="width: 10%;">{{$index +1}}.</label>
+                                        <label style="width: 60%;" title="显示车道连通详情"
+                                               ng-click="showLaneDetails(cItem,$index,1,1)">连通PID：{{cItem.pid}}
+                                            <span style="color: #9acfea;padding-left: 10px">{{formatInlink(cItem.inLanePid)}}</span></label>
+                                        <span style="width: 10%;" title="删除车道连通"
+                                              class="glyphicon glyphicon-remove-sign remove"
+                                              ng-click="deleteLaneDetails(cItem, $index)"></span>
+                                    </li>
+                                </ul>
+                                <div class="poiRightPanel_fold">
+                                    <strong style="font-size: 12px;">
+                                        <div>删除车道连通（共 <span ng-bind="deleteLaneTopoArr.length">0</span> 条）</div>
+                                    </strong>
+                                </div>
+                                <ul class="list-group detailUlCss">
+                                    <li ng-repeat="cItem in deleteLaneTopoArr">
+                                        <div class="blockDescLiDiv1">
+                                            <span>{{$index +1}}.</span>
+                                        </div>
+                                        <span ng-click="showLaneDetails(cItem,$index,2,1)">连通PID：{{cItem.pid}}</span>
+                                    </li>
+                                </ul>
+                                <div class="poiRightPanel_fold">
+                                    <strong style="font-size: 12px;">
+                                        <div>新增车道连通（共 <span ng-bind="insertLaneTopoArr.length">0</span> 条）</div>
+                                    </strong>
+                                </div>
+                                <ul class="list-group detailUlCss">
+                                    <li ng-repeat="cItem in insertLaneTopoArr">
+                                        <div class="blockDescLiDiv1">
+                                            <span>{{$index +1}}.</span>
+                                        </div>
+                                        <span ng-click="showLaneDetails(cItem,$index,3,1)">连通PID：{{cItem.pid}}</span>
+                                    </li>
+                                </ul>
+                                <div class="poiRightPanel_fold" ng-if="showLaneDetail">
+                                    <strong style="font-size: 12px;">
+                                        <div>属性列表</div>
+                                    </strong>
+                                </div>
+                                <ul class="list-group detailUlCss" ng-if="showLaneDetail">
+                                    <li>
+                                        <div class="blockDescLiDiv1">
+                                            <span>连通号码：</span>
+                                        </div>
+                                        <span>{{laneDetail.pid}}</span>
+                                    </li>
+                                    <li>
+                                        <div class="blockDescLiDiv1">
+                                            <span>进入车道：</span>
+                                        </div>
+                                        <span>{{laneDetail.inLanePid}}</span>
+                                    </li>
+                                    <li>
+                                        <div class="blockDescLiDiv1">
+                                            <span>退出车道：</span>
+                                        </div>
+                                        <span>{{laneDetail.outLanePid}}</span>
+                                    </li>
+                                    <li>
+                                        <div class="blockDescLiDiv1">
+                                            <span>进入Link：</span>
+                                        </div>
+                                        <span>{{laneDetail.inLinkPid}}</span>
+                                    </li>
+                                    <li>
+                                        <div class="blockDescLiDiv1">
+                                            <span>进入Node：</span>
+                                        </div>
+                                        <span>{{laneDetail.nodePid}}</span>
+                                    </li>
+                                    <li>
+                                        <div class="blockDescLiDiv1">
+                                            <span>退出Link：</span>
+                                        </div>
+                                        <span>{{laneDetail.outLinkPid}}</span>
+                                    </li>
+                                    <li>
+                                        <div class="blockDescLiDiv1">
+                                            <span>通达方向：</span>
+                                        </div>
+                                        <span>{{laneDetail.reachDir}}</span>
+                                    </li>
+                                    <li>
+                                        <div class="blockDescLiDiv1">
+                                            <span>车辆类型：</span>
+                                        </div>
+                                        <span>{{laneDetail.vehicle}}</span>
+                                    </li>
+                                    <li>
+                                        <div class="blockDescLiDiv1">
+                                            <span>处理标志：</span>
+                                        </div>
+                                        <select ng-model="laneDetail.processFlag" ng-options="value.id as value.label for value in processFlagOption" ng-disabled="showPanel">
+                                            <option>--</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <div class="blockDescLiDiv1">
+                                            <span>是否借道：</span>
+                                        </div>
+                                        <select ng-model="laneDetail.throughTurn" ng-options="value.id as value.label for value in throughTurnOption" ng-disabled="showPanel">
+                                            <option>--</option>
+                                        </select>
+                                    </li>
+
+                                    <!--<li>-->
+                                    <!--<div class="date-well full-width">-->
+                                    <!--<div class="date-head">-->
+                                    <!--<label>车辆类型</label>-->
+                                    <!--&lt;!&ndash;<div class="pull-right" style="display:inline-flex;color: #fff">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<a style="cursor: pointer;"  ng-click="showPopover($event,$index)">添加</a>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<input  type="checkbox" id="checkallow" ng-model="laneDetail.vehicle" ng-checked="isAllowed[$index]" ng-click="changeAllowed($index)" >允许&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                    <!--</div>-->
+                                    <!--<div class="date-body full-width">-->
+                                    <!--<div ng-class="{'select-car animated-fast':true,'blue':isAllowed[$parent.$index],'red':!isAllowed[$parent.$index]}" ng-repeat="item in carData[$index] track by $index" ng-click="carSelect(item,$parent.$index);">-->
+                                    <!--<div class="select-car-text" ng-bind="item.label"></div>-->
+                                    <!--<span class="glyphicon glyphicon-remove remove-car-type"></span>-->
+                                    <!--</div>-->
+                                    <!--<div class="clearfix"></div>-->
+                                    <!--<div class="line"></div>-->
+                                    <!--</div>-->
+                                    <!--</div>-->
+                                    <!--</li>-->
+                                    <li style="height: auto" ng-show="!showPanel" class="list-group-item">
+                                        <div ng-include="dateURL" class="muti-date" data-type="1" style="width:101%;padding: 5px;"></div>
+                                    </li>
+                                    <!--<li class="list-group-item" ng-show="!showPanel">-->
+                                    <!--<div ng-include="dateURL" class="muti-date" data-type="1" date-str='{{laneDetail.timeDomain}}' style="width:100%;padding: 5px;"></div>-->
+                                    <!--</li>-->
+                                </ul>
+                                <div class="poiRightPanel_fold" ng-if="showLaneDetail">
+                                    <strong style="font-size: 12px;">
+                                        <div>经过线（共 <span ng-bind="laneDetail.laneTopoVias.length">0</span> 条）</div>
+                                    </strong>
+                                </div>
+                                <ul class="list-group detailUlCss" ng-if="showLaneDetail" ng-repeat="cItem in laneDetail.laneTopoVias">
+                                    <li>
+                                        <div class="blockDescLiDiv1">
+                                            <span>Lane{{cItem.seqNum}}号码：</span>
+                                        </div>
+                                        <span>{{cItem.lanePid}}</span>
+                                    </li>
+                                    <li>
+                                        <div class="blockDescLiDiv1">
+                                            <span>经过Link：</span>
+                                        </div>
+                                        <span>{{cItem.viaLinkPid}}</span>
+                                    </li>
+                                </ul>
+                                <div class="poiRightPanel_fold" ng-if="showBatchLane">
+                                    <strong>
+                                        <div>批量编辑属性</div>
+                                    </strong>
+                                </div>
+                                <ul class="list-group detailUlCss" ng-if="showBatchLane">
+                                    <li>
+                                        <div class="blockDescLiDiv1">
+                                            <span>处理标志：</span>
+                                        </div>
+                                        <select ng-model="batchLanes.processFlag" ng-options="value.id as value.label for value in processFlagOption">
+                                            <option>--</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <div class="blockDescLiDiv1">
+                                            <span>是否借道：</span>
+                                        </div>
+                                        <select ng-model="batchLanes.throughTurn" ng-options="value.id as value.label for value in throughTurnOption">
+                                            <option>--</option>
+                                        </select>
+                                    </li>
+                                    <li style="height: auto" class="list-group-item">
+                                        <div ng-include="dateURL" class="muti-date" data-type="1" style="width:100%;"></div>
+                                    </li>
+                                    <!--<li class="list-group-item">-->
+                                    <!--<div ng-include="dateURL" class="muti-date" data-type="1" date-str='{{batchLanes.timeDomain}}' style="width:100%;padding: 5px;"></div>-->
+                                    <!--</li>-->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,114 @@
+<style>
+    .btnDiy_div {
+        display: inline-block;
+        float: right;
+        padding-right: 20px;
+    }
+    .btn-diy {
+        width: 100px;
+        height: 24px;
+        border: none;
+        background-color: #636ef5;
+        color: #ffffff;
+    }
+    .btn-diy:hover {
+        border: none;
+        background-color: #454dab;
+        color: #ffffff;
+    }
+    .linkType_style_normal {
+        display: inline-block;
+        color: #fa5883;
+        cursor: pointer;
+    }
+    .linkType_style1_active {
+        display: inline-block;
+        color: #636ef5;
+        cursor: pointer;
+    }
+    .linkName_li {
+        border-top: 1px solid #ffffff;
+        border-left: 1px solid #ffffff;
+        border-right: 1px solid #ffffff;
+        border-bottom: 1px solid #d2e1ff;
+    }
+    .linkName_li_checked {
+        background-color: #eff0fe !important;
+        border: 1px solid #5693ff;
+    }
+</style>
+<div style="height: 100%" class="scroll_style" ng-controller="rwLinkController">
+    <fast-collapse expander-title="基础属性">
+        <form class="w5c-form" w5c-form-validate="" novalidate name="rwlinkForm">
+            <ul class="list-group detailUlCss" >
+                <li>
+                    <div class="blockDescLiDiv"><span>铁路种别</span></div>
+                    <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="rwLinkData.kind" ng-options="value.id as value.label for value in kind"></select>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>铁路形态</span></div>
+                    <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="rwLinkData.form" ng-options="value.id as value.label for value in form"></select>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>比 例 尺</span></div>
+                    <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="rwLinkData.scale" ng-options="value.id as value.label for value in scale"></select>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>区域标识</span></div>
+                    <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="rwLinkData.detailFlag" ng-options="value.id as value.label for value in detailFlag"></select>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>Link长度</span></div>
+                    <input class="form-control poiRightPanel_Input" ng-model="rwLinkData.length" type="text" disabled/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>图幅号码</span></div>
+                    <input class="form-control poiRightPanel_Input" ng-model="rwLinkData.meshId" type="text" disabled/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>起点号码</span></div>
+                    <input class="form-control poiRightPanel_Input" ng-model="rwLinkData.sNodePid" type="text"/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>终点号码</span></div>
+                    <input class="form-control poiRightPanel_Input" ng-model="rwLinkData.eNodePid" type="text"/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>线路颜色</span></div>
+                    <input class="form-control poiRightPanel_Input" ng-model="rwLinkData.color" ng-pattern="/^([0-9A-F]{6})$/" name="color" type="text" ng-disabled="rwLinkData.kind != 3"/>
+                </li>
+            </ul>
+        </form>
+    </fast-collapse>
+    <div class="poiRightPanel_fold" style="border: none">
+        <strong>
+            铁路路名（共<span>{{rwLinkData.names.length}}</span>条）
+        </strong>
+        <div>
+            <img src="../../images/newRoad/rightPanelIcon/icon_add.png" ng-click="addRdName()" ng-show="addBtnShow"/>
+        </div>
+    </div>
+    <div>
+        <form class="w5c-form" w5c-form-validate="" novalidate name="rwlinkNameForm">
+            <ul class="list-group detailUlCss">
+                <li ng-repeat="item in rwLinkData.names" ng-class="{'linkName_li': !currentIndex==$index,'linkName_li_checked': currentIndex==$index}" class="linkName_li_checked:currentIndex==$index " ng-click="rememberNameNum($index)"
+                    data-container="body" data-animation="am-flip-x" data-auto-close="1" bs-popover data-placement="left"
+                    data-template-url="../../scripts/components/road/tpls/attr_link_tpl/namesOfRwDetailTpl.html" style="height: inherit;line-height: 18px;padding: 5px 0;">
+                    <div style="width: 50px;padding-left: 10px;display: inline-block;vertical-align: top;">
+                        <span style="color:#182848; width: 50px">{{$index + 1}}</span>
+                    </div>
+                    <div style="width: 130px;display: inline-block;color:#182848;vertical-align: top;">
+                        <span style="word-wrap: break-word;word-break:break-all;">{{item.name === ''? '未命名': item.name}}</span>
+                    </div>
+                    <div style="width: 85px;display: inline-block;color:#182848;vertical-align: top;">
+                        <span>{{item.nameGroupid}}</span>
+                    </div>
+                    <div style="display: inline-block;vertical-align: top;margin-top: -1px;">
+                        <img src="../../images/newRoad/rightPanelIcon/icon_delete.png" ng-click="minusName($index)">
+                    </div>
+                </li>
+                <input style="display:none;" ng-model="rwLinkData.names[0].nameGroupid" type="text" pattern="[1-9]+\d*" name="rwnameGroupid"/>
+            </ul>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,350 @@
+/*********************************滚动条样式************************************/
+.scroll_style {
+  overflow: auto;
+  height: 100%;
+}
+.scroll_style::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.1);
+}
+.scroll_style::-webkit-scrollbar-thumb {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background: #c1c1c1;
+}
+.scrollDiy::-webkit-scrollbar {
+  width: 0 !important;
+}
+/**********************************设置页面宽度和高度为100%************************************************/
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+/**************************任务列表弹出样式修改********************************/
+.ngdialog.ngdialog-theme-default {
+  padding: 0;
+}
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+  border-radius: 0;
+  padding: 0;
+  background: url('../../images/newPoi/taskList/button-big-background.png') no-repeat;
+  background-size: cover;
+  font-family: "Microsoft Yahei", Verdana, Arial, Helvetica, sans-serif;
+}
+.ngdialog.ngdialog-theme-default .ngdialog-close {
+  height: 12px;
+  position: absolute;
+  right: 20px;
+  text-align: center;
+  top: 23px;
+  width: 12px;
+  background: url("../../images/newPoi/taskList/icon_close.png") no-repeat;
+}
+.ngdialog.ngdialog-theme-default .ngdialog-close:before {
+  content: '';
+  height: 0;
+  width: 0;
+}
+.taskList_container {
+  width: 100%;
+  height: 100%;
+  padding-left: 240px;
+  font-size: 0;
+}
+/******************************任务列表左侧样式*************************************/
+.taskList_leftDiv {
+  width: 240px;
+  height: 100%;
+  background: url('../../images/newPoi/taskList/button-background-left.png') no-repeat;
+  background-size: cover;
+  margin-left: -240px;
+  float: left;
+}
+.taskList_leftDiv .left-menu-title .childTaskListTitle {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+}
+.listUlCss {
+  margin-bottom: 0;
+  display: block;
+  box-shadow: none;
+}
+.listUlCss > li {
+  list-style: none;
+  height: 30px;
+  line-height: 30px;
+  font-size: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0);
+  border-bottom: 1px solid rgba(255, 255, 255, 0);
+}
+.taskListDesc {
+  font-size: 12px;
+  color: #c8cad1;
+  display: inline-block;
+  width: 182px;
+  padding-left: 35px;
+}
+.taskListNum {
+  font-family: Arial, sans-serif;
+  text-align: right;
+  font-size: 10px;
+  color: #6a7eb2;
+  display: inline-block;
+  width: 40px;
+}
+.historyTaskList {
+  padding-left: 15px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 14px;
+  color: #ffffff;
+  border-top: 1px solid #45629c;
+  border-bottom: 1px solid #45629c;
+}
+.historyTaskList:hover {
+  background-color: rgba(24, 40, 72, 0.7);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+.taskListSelect {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-top: 1px solid #5b98e9 !important;
+  border-bottom: 1px solid #5b98e9 !important;
+}
+.taskListLi:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-top: 1px solid #5b98e9 !important;
+  border-bottom: 1px solid #5b98e9 !important;
+  cursor: pointer;
+}
+.childTaskListTitle {
+  height: 60px;
+  line-height: 60px;
+  font-size: 14px;
+  color: #ffffff;
+}
+.childTaskListTitle > div {
+  width: 210px;
+  padding-left: 15px;
+  display: inline-block;
+}
+/******************************右侧任务列表*********************************/
+.taskList_image {
+  display: inline-block;
+  width: 64px;
+  height: 24px;
+  vertical-align: middle;
+}
+.taskList_rightDiv {
+  width: 100%;
+  padding-top: 60px;
+  height: 100%;
+}
+.taskList_rightDiv > div {
+  height: 100%;
+  padding-top: 10px;
+}
+.taskList_rightDiv > div > div {
+  background-color: #ffffff;
+  width: 300px;
+  height: 210px;
+  display: inline-block;
+  font-size: 12px;
+  color: #182848;
+  margin-bottom: 30px;
+  transition: all .3s;
+}
+.taskList_rightDiv > div > div:hover {
+  box-shadow: 0 10px 50px rgba(11, 15, 60, 0.7);
+}
+.taskListStyle_title {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.taskListStyle_title.green {
+  border-bottom: 1px solid #636ef5;
+}
+.taskListStyle_title.red {
+  border-bottom: 1px solid #fa5883;
+}
+.taskListStyle_title_desc {
+  display: inline-block;
+  padding-left: 10px;
+}
+.taskListStyle_title_desc > span {
+  font-weight: 600;
+  height: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+}
+.taskListStyle_title_desc > span.long-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 25px;
+}
+.taskListStyle_title_submit_image {
+  display: inline-block;
+  width: 64px;
+  height: 24px;
+  vertical-align: middle;
+  background-color: #636ef5;
+  border-radius: 10px;
+  line-height: 2;
+  text-align: center;
+  color: #fff;
+}
+.taskListStyle_title_submit_image:hover {
+  cursor: pointer;
+  background-color: #454dab;
+}
+.taskListStyle_title_dayCheckTips {
+  display: inline-block;
+  width: 66px;
+  height: 24px;
+  vertical-align: middle;
+  text-align: center;
+  background-color: #fa5883;
+  line-height: 24px;
+  color: #fff;
+  border-radius: 10px;
+}
+.taskListStyle_title_dayCheckTips:hover {
+  background-color: #dd4e74;
+  cursor: pointer;
+}
+.taskListStyle_title_canClose_image {
+  display: inline-block;
+  width: 64px;
+  height: 24px;
+  vertical-align: middle;
+  background: url('../../images/newPoi/taskList/button_canClose_normal.png') no-repeat;
+}
+.taskListStyle_title_canClose_image:hover {
+  background: url('../../images/newPoi/taskList/button_canClose_active.png') no-repeat;
+  cursor: pointer;
+}
+.taskListStyle_title_close_image {
+  display: inline-block;
+  width: 64px;
+  height: 24px;
+  vertical-align: middle;
+  background: url('../../images/newPoi/taskList/button_close_normal.png') no-repeat;
+}
+.taskListStyle_body {
+  padding-left: 20px;
+}
+.taskListStyle_body .task-quality-icon {
+  position: absolute;
+  bottom: -10px;
+  right: 0;
+  width: 58px;
+  height: 57px;
+  background-image: url(../../images/newPoi/taskList/quality.png);
+}
+.taskListStyle_body_line {
+  height: 30px;
+  line-height: 30px;
+}
+.taskListStyle_body_line .btn-task-lang {
+  width: 120px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+}
+.taskListStyle_body_line .btn-task-lang.btn-close {
+  background-color: #fa5883;
+}
+.taskListStyle_body_line .btn-task-lang.btn-close:hover {
+  background-color: #d34a6f;
+}
+.taskListStyle_body_line .btn-task-lang.btn-apply {
+  background-color: #35c9ae;
+}
+.taskListStyle_body_line .btn-task-lang.btn-apply:hover {
+  background-color: #2a9e89;
+}
+.taskListStyle_body_line_desc {
+  display: inline-block;
+  width: 36px;
+}
+.taskListStyle_body_line_desc > span {
+  display: block;
+  text-align: justify;
+  text-align-last: justify;
+}
+.taskListStyle_body_line_value {
+  display: inline-block;
+  padding-left: 20px;
+}
+.taskListStyle_body_otherLine {
+  height: 90px;
+}
+.taskListStyle_body_otherLine_title {
+  display: inline-block;
+  width: 36px;
+  vertical-align: top;
+  padding-top: 4px;
+}
+.taskListStyle_body_otherLine_title > span {
+  display: block;
+  text-align: justify;
+  text-align-last: justify;
+}
+.taskListStyle_body_otherLine_width {
+  display: inline-block;
+  width: 100%;
+}
+/****************************历史任务表格样式*************************************/
+.taskHistory_div {
+  font-size: 12px;
+  color: #FFFFFF;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 100%;
+}
+.table_diy > thead > tr {
+  height: 60px;
+}
+.table_diy > thead > tr > th {
+  font-size: 14px;
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+}
+.table_diy > tbody > tr > td {
+  padding: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  color: #c8cad1;
+}
+.btn-task-table {
+  width: 60px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+}
+.btn-task-table.btn-close {
+  background-color: #fa5883;
+}
+.btn-task-table.btn-close:hover {
+  background-color: #d34a6f;
+}
+.btn-task-table.btn-apply {
+  background-color: #35c9ae;
+}
+.btn-task-table.btn-apply:hover {
+  background-color: #2a9e89;
+}

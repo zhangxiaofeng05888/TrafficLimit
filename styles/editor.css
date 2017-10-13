@@ -1,0 +1,349 @@
+input, button, select, textarea, div {
+    outline: none;
+}
+.list-title-btn {
+    width: 70px;
+    height: 24px;
+    background-color: white;
+    text-align: center;
+    border-radius: 3px;
+    border-color: rgba(24, 40, 72, 0.3);
+    line-height: 24px;
+    cursor: pointer;
+}
+/*策略表按钮样式*/
+.list-title-black-btn {
+    width: 70px;
+    height: 24px;
+    background-color: white;
+    text-align: center;
+    border-radius: 3px;
+    border: 1px solid #182848;
+    line-height: 24px;
+    cursor: pointer;
+}
+.policy-close {
+    width: 20px;
+    height: 20px;
+    background-image: url(../images/newPoi/rightPanelIcon/button-delete.png);
+}
+/*单选复选框样式*/
+
+input[type=radio].fm-control {
+    padding: 0px;
+    margin: 5px;
+    width: 12px;
+    height: 12px;
+    vertical-align: middle;
+    content: url('../images/webEditor/form/radio.png');
+}
+
+input[type=radio].fm-control:checked {
+    content: url('../images/webEditor/form/radio-checked.png');
+}
+
+input[type=radio].fm-control:disabled {
+    content: url('../images/webEditor/form/radio-disable.png');
+}
+
+input[type=radio].fm-control:checked:disabled {
+    content: url('../images/webEditor/form/radio-checked-disable.png');
+}
+
+input[type=checkbox].fm-control {
+    padding: 0px;
+    margin: 5px;
+    width: 12px;
+    height: 12px;
+    vertical-align: middle;
+    content: url('../images/webEditor/form/checkbox.png');
+}
+
+input[type=checkbox].fm-control:checked {
+    content: url('../images/webEditor/form/checkbox-checked.png');
+}
+
+input[type=checkbox].fm-control:disabled {
+    content: url('../images/webEditor/form/checkbox-disable.png');
+}
+
+input[type=checkbox].fm-control:checked:disabled {
+    content: url('../images/webEditor/form/checkbox-checked-disable.png');
+}
+
+input[type=checkbox].fm-control.blue {
+    content: url('../images/webEditor/form/checkbox2.png');
+}
+
+input[type=checkbox].fm-control.blue:checked {
+    content: url('../images/webEditor/form/checkbox2-checked.png');
+}
+
+
+/*checkbox和radio后的label的样式*/
+
+input[type=checkbox].fm-control+label, input[type=radio].fm-control+label {
+    padding: 5px;
+    margin: 0px;
+    vertical-align: middle;
+    font-size: 12px;
+    color: #182848;
+    font-weight: normal;
+    line-height: 20px;
+}
+
+
+/*输入框的样式*/
+
+input[type=text].fm-control {
+    display: inline-block;
+    width: 100%;
+    height: 24px;
+    box-shadow: none;
+    border: 1px solid rgba(24, 40, 72, 0.3);
+    border-radius: 3px;
+    padding: 6px 12px;
+    color: #182848;
+    font-size: 12px;
+    background: transparent;
+}
+
+input[type=text].fm-control:focus {
+    border-color: #5693ff;
+    box-shadow: none;
+}
+
+input[type=number].fm-control {
+    display: inline-block;
+    width: 100%;
+    height: 24px;
+    box-shadow: none;
+    border: 1px solid rgba(24, 40, 72, 0.3);
+    border-radius: 3px;
+    padding: 6px 0px 6px 12px;
+    color: #182848;
+    font-size: 12px;
+    background: transparent;
+}
+
+input[type=number].fm-control:focus {
+    border-color: #5693ff;
+    box-shadow: none;
+}
+
+
+/*下拉框样式*/
+
+select.fm-control {
+    display: inline-block;
+    width: 100%;
+    height: 24px;
+    line-height: 22px;
+    border-color: rgba(24, 40, 72, 0.3);
+    border-radius: 3px;
+    padding: 0 12px 0 10px;
+    box-shadow: none;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background-color: #ffffff;
+    background: url('../images/webEditor/form/select-close.png') no-repeat right center transparent;
+    background-origin: content-box;
+    color: #182848;
+    font-size: 12px;
+}
+
+select.fm-control:focus {
+    border-color: #5693ff;
+    box-shadow: none;
+    background-color: #ffffff;
+    background: url('../images/webEditor/form/select-open.png') no-repeat right center transparent;
+    background-origin: content-box;
+    color: #5693ff;
+}
+
+select.fm-control>option {
+    color: #182848;
+    font-size: 12px;
+}
+
+button.fm-control {
+    width: 100px;
+    height: 24px;
+    font-size: 12px;
+    background-color: #ffffff;
+    color: #b4c1db;
+    border-radius: 5px;
+    padding: 0px;
+    border: none;
+}
+
+button.fm-control.fm-btn-primary {
+    color: #ffffff;
+    background-color: #636ef5;
+}
+
+button.fm-control.fm-btn-primary:hover:enabled, button.fm-control.fm-btn-primary:active:enabled {
+    background-color: #454dab;
+}
+
+button.fm-control.fm-btn-info {
+    color: #ffffff;
+    background-color: #fa5883;
+}
+
+button.fm-control.fm-btn-info:hover:enabled, button.fm-control.fm-btn-info:active:enabled {
+    background-color: #dd4e74;
+}
+
+
+/* 属性显示列表样式 */
+
+ul.prop-list {
+    margin: 0px;
+    padding: 0px;
+    background-color: #ffffff;
+    display: block;
+    box-shadow: none;
+    font-size: 0px;
+}
+
+ul.prop-list>li {
+    line-height: 30px;
+}
+
+ul.prop-list>li>div.prop-name {
+    display: inline-block;
+    width: 90px;
+    padding: 0px 20px 0px 5px;
+    text-align: right;
+    vertical-align: top;
+    font-size: 12px;
+}
+
+ul.prop-list>li>div.prop-content {
+    display: inline-block;
+    width: 200px;
+    padding: 0px 5px;
+    text-align: left;
+    vertical-align: top;
+    font-size: 12px;
+}
+
+
+/* 元素列表显示样式 */
+
+ul.item-list {
+    margin: 0px;
+    padding: 0px;
+    box-shadow: none;
+    border-radius: 0px;
+    font-size: 0px;
+}
+
+ul.item-list>li {
+    display: inline-block;
+    padding: 0px 5px;
+    line-height: 30px;
+}
+
+ul.item-list>li * {
+    font-size: 12px;
+}
+
+
+/* 规则列表显示样式 */
+
+ul.rule-list {
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+ul.rule-list>li {
+    list-style: none;
+    padding: 0px 5px;
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+ul.rule-list>li.active {
+    border-top: 1px solid #3f9fff;
+    border-bottom: 1px solid #3f9fff;
+    background-color: #eaf5ff;
+}
+
+ul.rule-list>li>input[type='checkbox'], ul.rule-list>li>input[type='radio'] {
+    flex: 0 0 12px;
+}
+
+.fm-blue-box {
+    border: 1px solid #3399ff;
+    border-radius: 3px;
+    margin: 10px;
+    padding: 5px 0px;
+}
+
+
+/* 属性面板种的横向分割线 */
+
+.apart-line {
+    height: 1px;
+    background-color: rgb(99, 110, 245);
+    margin: 0px;
+}
+
+
+/* 按钮样式 */
+
+button.fm-btn {
+    width: 100px;
+    height: 24px;
+    font-size: 12px;
+    background-color: #ffffff;
+    color: #b4c1db;
+    border-radius: 5px;
+    padding: 0px;
+    border: none;
+}
+
+button.fm-btn.primary {
+    color: #ffffff;
+    background-color: #636ef5;
+}
+
+button.fm-btn.primary:hover:enabled, button.fm-btn.primary.active:enabled {
+    background-color: #454dab;
+}
+
+button.fm-btn.info {
+    color: #ffffff;
+    background-color: #fa5883;
+}
+
+button.fm-btn.info:hover:enabled, button.fm-btn.info.active:enabled {
+    background-color: #dd4e74;
+}
+
+button.fm-img-btn {
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+button.fm-img-btn.save {
+    width: 20px;
+    height: 20px;
+    background-image: url(../images/newPoi/rightPanelIcon/icon-save.png);
+}
+
+button.fm-img-btn.delete {
+    width: 22px;
+    height: 20px;
+    background-image: url(../images/newPoi/rightPanelIcon/icon-delete.png);
+}

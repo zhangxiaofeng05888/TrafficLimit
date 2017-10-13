@@ -1,0 +1,70 @@
+<div class="scroll_style" ng-controller="connectCtrl">
+    <ul class="list-group detailUlCss">
+        <li>
+            <div class="blockDescLiDiv">
+                <span>挂接类型</span>
+            </div>
+            <select class="form-control poiRightPanel_select"  ng-model="connect.deep.tp" ng-options="value.id as value.tp for value in connectType"></select>
+        </li>
+        <li style="height: auto">
+            <div class="blockDescLiDiv" style="vertical-align: top">
+                <span>挂接符号</span>
+            </div>
+            <div style="display: inline-block;width: 200px;">
+                <div ng-repeat="item in connectCode1"
+                     style="display: inline-block;padding-right: 10px;cursor: pointer;padding-bottom: 10px;position: relative"
+                     ng-if="connect.deep.tp === 1"
+                     ng-click="changeCode(item)">
+                    <img ng-src="../../images/road/hook/{{item.url}}" style="width: 30px; height: 30px">
+                    <img src="../../images/newPoi/rightPanelIcon/button-select.png" style="position: absolute;top: 5px;right: 5px" ng-if="item.checked">
+                </div>
+                <div ng-repeat="item in connectCode2"
+                     style="display: inline-block;padding-right: 10px;cursor: pointer;padding-bottom: 10px;position: relative"
+                     ng-if="connect.deep.tp === 2"
+                     ng-click="changeCode(item)">
+                    <img ng-src="../../images/road/hook/{{item.url}}" style="width: 30px; height: 30px">
+                    <img src="../../images/newPoi/rightPanelIcon/button-select.png" style="position: absolute;top: 5px;right: 5px" ng-if="item.checked">
+                </div>
+            </div>
+        </li>
+        <!--<li>-->
+            <!--<div class="blockDescLiDiv">-->
+                <!--<span>挂接角度</span>-->
+            <!--</div>-->
+            <!--<input type="number" class="form-control poiRightPanel_Input" ng-model="connect.deep.agl">-->
+        <!--</li>-->
+        <li style="line-height:60px;height:60px">
+            <div class="blockDescLiDiv" style="vertical-align: top">
+                <span>备注</span>
+            </div>
+            <textarea class="form-control poiRightPanel_area" type="text" rows=2 ng-model="connect.content"></textarea>
+        </li>
+    </ul>
+    <div style="height: 153px;overflow: hidden">
+        <div style="text-align: center">
+            <span style="color: #182848;font-size: 12px">N</span>
+        </div>
+        <div style="position: relative">
+            <div style="position: absolute;width: 100%;height: 136px;display: flex;justify-content: center" ondragstart="return false">
+                <div style="position: absolute;width: 136px">
+                    <div style="position: absolute;width:136px;height: 136px;display: flex;flex-direction: column;align-items: center;transform: rotate(90deg)" ng-style="transformStyle">
+                        <div>
+                            <img src="../../images/newRoad/rightPanelIcon/point.png">
+                        </div>
+                        <div>
+                            <img ng-src="../../images/road/hook/{{connectImgUrl}}" style="width: 30px; height: 30px">
+                        </div>
+                    </div>
+                    <div style="position: absolute;top: 4px;left: 4px">
+                        <div>
+                            <img src="../../images/newRoad/rightPanelIcon/icon_dial.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="position: absolute;width: 100%;height: 136px;" ng-mousemove="pressMove($event)" ng-mousedown="pressDown($event)" ng-mouseup="pressUp($event)" onselectstart="return false">
+
+            </div>
+        </div>
+    </div>
+</div>

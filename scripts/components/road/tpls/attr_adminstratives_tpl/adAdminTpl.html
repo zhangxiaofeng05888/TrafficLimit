@@ -1,0 +1,79 @@
+<style>
+    .linkName_li {
+        border-top: 1px solid #ffffff;
+        border-left: 1px solid #ffffff;
+        border-right: 1px solid #ffffff;
+        border-bottom: 1px solid #d2e1ff;
+    }
+    .linkName_li_checked {
+        background-color: #eff0fe !important;
+        border: 1px solid #5693ff;
+    }
+    .nameGroups ul{
+        margin-bottom: 0px;
+    }
+</style>
+<div class="scroll_style" ng-controller="adAdminController">
+    <!--基础属性-->
+    <fast-collapse expander-title="基础属性">
+        <form class="w5c-form" w5c-form-validate="" novalidate name="adAdminForm">
+            <ul class="list-group detailUlCss" >
+                <li>
+                    <div class="blockDescLiDiv"><span>行政代码</span></div>
+                    <input class="form-control poiRightPanel_Input" ng-model="adAdminData.adminId" maxlength="6" type="text"/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>扩展代码</span></div>
+                    <input class="form-control poiRightPanel_Input" ng-model="adAdminData.extendId" maxlength="4" type="text"/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>人口数(万)</span></div>
+                    <input class="form-control poiRightPanel_Input" ng-disabled="adAdminData.adminType===8|| adAdminData.adminType ===9" ng-model="adAdminData.population" type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" ng-maxlength="8" onafterpaste="this.value=this.value.replace(/\D/g,'')" name="population"/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>图幅号吗</span></div>
+                    <input class="form-control poiRightPanel_Input" class="chosen-disabled" ng-model="adAdminData.meshId" type="text" disabled="disabled" />
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>关联道路</span></div>
+                    <input class="form-control poiRightPanel_Input" class="chosen-disabled" ng-model="adAdminData.linkPid" type="text" disabled="disabled" />
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>行政类型</span></div>
+                    <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="adAdminData.adminType"  ng-options="value.id as value.label for value in adminType" ng-change="changeAdminType()"></select>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span style="letter-spacing: 1px;">点标识</span></div>
+                    <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="adAdminData.capital" ng-options="value.id as value.label for value in capital"></select>
+                </li>
+            </ul>
+        </form>
+    </fast-collapse>
+    <!--名称组展示-->
+    <div class="poiRightPanel_fold" style="border: none">
+        <strong>名　　称 [ 共{{nameGroup.length}}组 ]</strong>
+        <div><img style="cursor: pointer" src="../../images/newRoad/rightPanelIcon/icon_add.png" ng-click="addGroup()"/></div>
+    </div>
+    <!-- 名称组显示 -->
+    <div class="nameGroups"  ng-repeat="item in nameGroup" ng-init="outerIndex = $index">
+        <div class="poiRightPanel_fold">
+            <strong style="font-size: 12px;">名称组{{item[0].nameGroupid}}</strong>
+            <div><i class="fa fa-plus-square-o" style="font-size: 16px;; cursor: pointer" aria-hidden="true" ng-click="addItem($index)"></i></div>
+            <div style="padding-right: 8px;: 8px"><i class="fa fa-minus-square-o" style="font-size: 16px; cursor: pointer" aria-hidden="true" ng-click="removeGroup($index)"></i></div>
+        </div>
+        <ul class="list-group detailUlCss">
+            <li ng-class="{'linkName_li': !(currentGroupIndex==$parent.$parent.$index&&currentItempIndex==$index),'linkName_li_checked': (currentGroupIndex==$parent.$parent.$index&&currentItempIndex==$index)}" ng-click="rememberNameNum($parent.$parent.$index, $index)" ng-repeat="subItem in item" data-container="body" data-animation="am-flip-x" data-auto-close="1" bs-popover data-placement="left" data-template-url="../../scripts/components/road/tpls/attr_adminstratives_tpl/adAdminNameTpl.html">
+                <div style="width: 50px;padding-left: 10px;display: inline-block">
+                    <span>{{$index + 1}}</span><!--名称组号-->
+                </div>
+                <div style="width: 100px;display: inline-block" ng-repeat="code in langCodeOptions | filter: subItem.langCode as results track by code.id">
+                    <span>{{code.label}}</span><!--名称分类-->
+                </div>
+                <div style="width: 110px;display: inline-table">
+                    <div class="text-ellipsis" style="max-width: 80px;" title="{{subItem.name}}">{{subItem.name === ''? '未命名': subItem.name}}</div><!--语言代码-->
+                </div>
+                <img style="cursor: pointer" src="../../images/newRoad/rightPanelIcon/icon_delete.png" ng-click="removeItem($index, $parent.$parent.$index, subItem)">
+            </li>
+        </ul>
+    </div>
+</div>

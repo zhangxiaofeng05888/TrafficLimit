@@ -1,0 +1,466 @@
+/* 代理店左侧菜单样式 */
+body {
+  font-family: 'Helvetica Neue', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', '黑体', 'Arial', 'sans-serif';
+  background-color: #ffffff;
+}
+/*将页面分成两列 */
+.column_container {
+  width: 100%;
+  height: 100%;
+  padding-left: 300px;
+  background-color: #fff;
+}
+.column_container .menu_div {
+  width: 300px;
+  height: 100%;
+  background-color: #fff;
+  margin-left: -300px;
+  float: left;
+  border-right: solid 1px ;
+  border-right-color: #6eb9ff;
+}
+.column_container .menu_div .title {
+  height: 45px;
+  line-height: 45px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #685dff;
+  text-align: center;
+}
+.column_container .menu_div .content .subTitle {
+  background-color: #e3e3ff;
+  height: 40px;
+  line-height: 40px;
+  font-size: 14px;
+  color: #1c1c20;
+}
+.column_container .menu_div .content .threeTitle {
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  color: #1c1c20;
+}
+/* 左侧菜单样式 */
+ul.list_item {
+  margin-bottom: 0;
+  display: block;
+  box-shadow: none;
+  cursor: pointer;
+}
+ul.list_item li {
+  list-style: none;
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #6eb9ff;
+  border-left: 1px solid #6eb9ff;
+}
+ul.list_item li:hover {
+  background-color: #E3F3FE;
+}
+ul.list_item li div {
+  font-size: 14px;
+  color: #050505;
+  display: inline-block;
+  padding-left: 30px;
+}
+ul.list_item li.taskListSelect {
+  background-color: #E3F3FE;
+}
+ul.list_item .taskListNum {
+  float: right;
+  margin-right: 20px;
+}
+/* 代理店右面的数据列表页面的样式 */
+.dataListPage {
+  width: 100%;
+  height: 100%;
+  padding: 8px 10px 0px 10px;
+  background-color: #EFF0FE;
+}
+.dataListPage .content {
+  border-top: solid #636ef5 1px;
+  background-color: #ffffff;
+  height: 100%;
+}
+.dataListPage .content.dataList {
+  overflow: auto;
+}
+.btn-group-menu {
+  border-top: solid #636ef5 1px;
+  border-left: solid #636ef5 1px;
+  border-right: solid #636ef5 1px;
+  background-color: #ffffff;
+  color: #666666;
+  width: 200px;
+  padding: 4px;
+  border-radius: 14px 14px 0px 0px;
+  outline: none !important;
+}
+.btn-group-menu.active {
+  background-color: #636ef5;
+  color: #ffffff;
+}
+.cursor-point {
+  cursor: pointer;
+}
+.left-footer {
+  position: fixed;
+  bottom: 14px;
+  width: 300px;
+}
+.btn-gap {
+  margin-left: 6px;
+  width: 80px;
+  padding: 3px 10px;
+}
+.my-btn-primary {
+  color: #ffffff;
+  background-color: #636ef5;
+  border-color: #636ef5;
+}
+.my-btn-success {
+  color: #ffffff;
+  background-color: #4CAE47;
+}
+.my-btn-warning {
+  color: #ffffff;
+  background-color: #F9A130;
+}
+.my-btn-blue {
+  color: #ffffff;
+  background-color: #00A0F0;
+}
+/* 重写了部分ngdialog的样式 */
+.ngdialog.dialog-edit {
+  padding: 10px;
+  z-index: 9999;
+}
+.ngdialog.dialog-edit .ngdialog-content {
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: '微软雅黑', '黑体';
+  padding: 0px;
+}
+.ngdialog.ngdialog-theme-plain .ngdialog-close {
+  z-index: 10;
+}
+.image-left {
+  width: 500px;
+  height: 600px;
+}
+.image-left .ngdialog-content {
+  border-radius: 1px !important;
+}
+.image-left .ngdialog-overlay {
+  display: none;
+}
+/*重写了ng-table的部分样式*/
+.fm-edit-table {
+  width: 100%;
+}
+.fm-edit-table table > thead > tr > th {
+  text-align: center;
+}
+.fm-edit-table table > tbody > tr {
+  color: #666666;
+}
+.fm-edit-table table > tbody > tr a {
+  color: #636ef5;
+}
+.fm-edit-table table > tbody > tr input[type=text],
+.fm-edit-table table > tbody > tr select {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+}
+.fm-edit-table .table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #eff0fe;
+}
+/* 用于编辑界面的布局 */
+.fm-layout-container {
+  position: absolute;
+  box-shadow: 0 0 10px #93bbff;
+  z-index: 9;
+  /* 处理div（display:inline-block）之间的间隙*/
+  font-size: 0px;
+}
+.fm-layout-container.left {
+  width: auto;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.fm-layout-container.right {
+  width: 500px;
+  height: 100%;
+  top: 0;
+  right: 0;
+}
+.fm-layout-container > div {
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+}
+a.fm-container-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: all .3s;
+  z-index: 3;
+  background: url('../../images/webEditor/left-panel/icon_close.png') no-repeat center center transparent;
+}
+a.fm-container-close:hover {
+  transform: rotate(90deg);
+}
+.fm-panel {
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px #93bbff;
+  overflow: hidden;
+  /* 与header中的margin-top: -80px配合使用，使得content可以有自适应高度的滚动条 */
+  padding-top: 40px;
+  font-size: 0px;
+}
+.fm-panel > .header {
+  line-height: 40px;
+  height: 40px;
+  padding: 0px 10px;
+  background-color: #636ef5;
+  margin-top: -40px;
+}
+.fm-panel > .header > .title {
+  display: inline-block;
+  height: 40px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #ffffff;
+}
+.fm-panel > .header > .title .select {
+  display: inline-block;
+  width: 80px;
+  height: 26px;
+  padding: 3px;
+  font-size: 12px;
+}
+.fm-panel > .header > .toolbar {
+  display: inline-block;
+  height: 40px;
+  vertical-align: top;
+}
+.fm-panel > .header > .toolbar + .title {
+  margin-left: 10px;
+}
+.fm-panel > .header > .toolbar > .flat-btn:not(:first-child) {
+  margin-left: 10px;
+}
+.fm-panel > .content {
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  font-size: 12px;
+  position: inherit;
+}
+.flat-btn {
+  vertical-align: middle;
+  cursor: pointer;
+}
+.poiRightPanel_fold {
+  background-color: #eff0fe;
+  width: 100%;
+  height: 40px;
+  padding-left: 10px;
+  line-height: 40px;
+  font-size: 14px;
+  color: #636ef5;
+  border-top: 1px #d2e1ff solid;
+}
+.poiRightPanel_fold > div {
+  height: 39px;
+  float: right;
+  padding-right: 16px;
+}
+.poiLeftPanel_container {
+  width: 350px;
+  height: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px #93bbff;
+}
+.agent-edit-table > tbody > tr > td {
+  padding: 4px;
+  vertical-align: middle;
+}
+.agent-edit-table > tbody > tr > td.name {
+  text-align: right;
+}
+.agent-edit-table .agentInfo {
+  background-color: #5bc0de;
+  cursor: pointer;
+}
+.poiRightPanel_chosen {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  width: 190px;
+  height: 24px;
+  font-size: 12px;
+  display: inline-block;
+  color: #182848;
+  padding: 1px 5px;
+  border: 1px ridge rgba(24, 40, 72, 0.2);
+  background-color: url('../../images/newPoi/rightPanelIcon/icon-select-open-normal.png') no-repeat right center transparent;
+}
+.poiRightPanel_chosen + .chosen-container > .chosen-drop > .chosen-search > input {
+  color: #000;
+}
+/* 重写了部分chosen的样式 */
+.chosen-container-single .chosen-single {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  padding: 0 0 0 8px;
+  height: 25px;
+  border: 1px solid rgba(24, 40, 72, 0.2);
+  border-radius: 5px;
+  background: #fff;
+  background-clip: padding-box;
+  box-shadow: 0 0 3px white inset, 0 1px 1px rgba(0, 0, 0, 0.1);
+  font-size: 12px;
+  color: #182848;
+  text-decoration: none;
+  white-space: nowrap;
+  line-height: 24px;
+}
+.fm-taskMenu {
+  float: right;
+  cursor: pointer;
+  margin: 12px;
+  display: flex;
+}
+.fm-taskMenu > .logout {
+  margin-left: 6px;
+  margin-right: 6px;
+  margin-top: 2px;
+  height: 20px;
+  width: 20px;
+  background-repeat: no-repeat;
+  background-image: url("../../images/meta/logout.png");
+}
+.fm-taskMenu > .logout:hover {
+  background-image: url("../../images/meta/logout.png");
+}
+.fm-taskMenu > .back {
+  margin-left: 6px;
+  margin-right: 6px;
+  height: 20px;
+  width: 20px;
+  background-repeat: no-repeat;
+  background-image: url("../../images/newPoi/leftPanelIcon/icon-back-left.png");
+}
+.fm-taskMenu > .back:hover {
+  background-image: url("../../images/newPoi/leftPanelIcon/icon-back-left.png");
+}
+/* 部分微小控制 */
+.highlightWord {
+  color: #f0ad4e;
+}
+.redWord {
+  color: red;
+}
+.search {
+  outline: none;
+  padding: 3px 3px 3px 10px;
+  border: solid #CCC 1px;
+  border-radius: 6px;
+}
+.fm-modal {
+  border: solid 1px #cfcfcf;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  position: fixed;
+  left: 35%;
+  top: 20%;
+  background-color: #ffffff;
+  z-index: 99;
+  border-radius: 10px;
+}
+.tdTitle {
+  background-color: #eff0fe;
+  width: 20%;
+}
+.btn-purple {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.btn-purple.active {
+  background-color: blueviolet;
+}
+.dropdown .dropdown-menu-right {
+  padding-left: 10px;
+}
+.pull-left .popover-inner {
+  color: black;
+  min-width: 140px;
+}
+.photoButton {
+  margin-top: 5px;
+  background-color: #f89406;
+  cursor: pointer;
+}
+.fm-progress {
+  margin: 4px;
+  float: right;
+  width: 200px;
+}
+/* 代理店新加 */
+.ag-title {
+  height: 45px;
+  background-color: #685dff;
+  color: white;
+}
+.ag-title .title {
+  float: left;
+  width: 300px;
+  font-size: 22px;
+  padding: 6px 20px;
+}
+.fm-file-upload {
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  overflow: hidden;
+  text-decoration: none;
+  text-indent: 0;
+  cursor: pointer;
+  position: absolute;
+}
+.fm-file-upload input {
+  top: 0;
+  right: 0;
+  bottom: auto;
+  left: auto;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 30px;
+  width: 200px;
+}
+/* 自定义滚动条 */
+.fm-scroll {
+  overflow: auto;
+}
+.fm-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.1);
+}
+.fm-scroll::-webkit-scrollbar-thumb {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background: #c1c1c1;
+}

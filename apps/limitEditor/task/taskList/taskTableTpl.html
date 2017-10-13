@@ -1,0 +1,19 @@
+<style>
+    .ui-grid.fm-grid.taskTable .ui-grid-cell {
+        border: 1px solid transparent;
+    }
+</style>
+<div class="taskList_rightDiv" ng-controller="taskTableCtrl">
+    <div ng-cloak ng-if="taskListData.length" class="scroll_style scrollDiy" style="margin:0px 25px 0px 25px">
+        <div
+                class="fm-grid taskTable"
+                ui-grid="gridOptions"
+                ui-grid-auto-resize=""
+                ui-grid-pagination=""
+                ui-grid-resize-columns=""
+                ui-grid-selection=""
+                ng-style="{'height': wHeight - 100, 'width': '100%' }">
+            <div ng-show="loadingFlag" class="tableLoading" ng-include="'./svgLoading.html'"></div>
+        </div>
+    </div>
+</div>

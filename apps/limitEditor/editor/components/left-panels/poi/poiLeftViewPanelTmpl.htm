@@ -1,0 +1,316 @@
+<style>
+    .poi-check-result {
+        margin-bottom: 0px;
+        display: block;
+        border-top: 1px solid #3399ff;
+        border-bottom: 1px solid #3399ff;
+    }
+    .poi-check-result > thead {
+        display: block;
+        /*border-top: 1px solid #3399ff;*/
+        border-bottom: 1px solid #3399ff;
+    }
+    .poi-check-result > thead > tr > th {
+        line-height: 22px;
+        font-size: 12px;
+        font-weight: bold;
+        color: #3399ff;
+        border: none;
+        padding: 4px 5px;
+    }
+    .poi-check-result > thead > tr > th:first-child {
+        padding-left: 10px;
+    }
+    .poi-check-result > thead > tr > th:last-child {
+        padding-right: 10px;
+    }
+    .poi-check-result > tbody {
+        display: block;
+        /*height: 146px;*/
+    }
+    .poi-check-result > tbody > tr {
+        border-top: 1px solid transparent;
+    }
+    .poi-check-result > tbody > tr:hover, .poi-check-result > tbody > tr:active {
+        background-color: #eaf5ff;
+        border-top: 1px solid #3399ff;
+        border-bottom: 1px solid #3399ff;
+    }
+    .poi-check-result > tbody > tr > td {
+        border: none;
+        padding: 4px 5px;
+        line-height: 24px;
+        font-size: 12px;
+        color: #182848;
+    }
+    .poi-check-result > tbody > tr > td:first-child {
+        padding-left: 10px;
+    }
+    .poi-check-result > tbody > tr > td:last-child {
+        padding-right: 10px;
+    }
+    .poi-check-result a {
+        color: #ff6699;
+        text-decoration: underline;
+    }
+    .poi-check-result span.opt {
+        color: rgba(24, 40, 72, 0.5);
+    }
+    .poi-check-result .col1 {
+        width: 40px;
+    }
+    .poi-check-result .col2 {
+        width: 120px;
+        max-width: 120px;
+    }
+    .poi-check-result .col3 {
+        width: 240px;
+        max-width: 240px;
+    }
+    .poi-check-result .col4 {
+        width: 80px;
+    }
+    .poi-check-result .col5 {
+        width: 80px;
+    }
+    .related-poi-popover .popover-content {
+        padding: 0px;
+    }
+    ul.related-poi-list {
+        width: auto;
+        padding: 0px;
+        margin: 0px;
+    }
+    ul.related-poi-list > li {
+        list-style: none;
+        padding: 5px;
+        margin: 0px;
+        min-height: 30px;
+        line-height: 20px;
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+    }
+    ul.related-poi-list > li:hover {
+        border-top: 1px solid #3f9fff;
+        border-bottom: 1px solid #3f9fff;
+        background-color: #eaf5ff;
+        cursor: pointer;
+    }
+    ul.related-poi-list > li > span {
+        display: inline-block;
+        vertical-align: top;
+        margin: 0px 5px;
+        font-size: 12px;
+    }
+    .poiLeftPanel_container .tab-no-title {
+        display: none;
+    }
+    .page-poi-info{
+        border-top: 1px solid #3399ff;
+        /*border-bottom: 1px solid #3399ff;*/
+        height: 50px;
+        line-height: 50px;
+    }
+    .page-info{
+        float: left;
+        color: #000;
+        font-size: 12px;
+        line-height: 18px;
+    }
+    .page-poi-info .btn-poi-page{
+        float: right;
+        width: 60px;
+        height: 30px;
+        background-color: #3399ff;
+        color: #fff;
+        border-radius: 3px;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+        margin: 10px;
+    }
+    .page-poi-info .btn-poi-page:hover{
+        background-color: #2d82d8;
+    }
+    .poiLeftPanel_container input[type=file] {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        border: none;
+        outline: none;
+        background: url('../../images/newPoi/leftPanelIcon/button_upload_normal.png');
+    }
+    .poiLeftPanel_container input[type=file]:enabled:hover {
+        background: url('../../images/newPoi/leftPanelIcon/button_upload_active.png');
+    }
+</style>
+<div class="poiLeftPanel_container fm-scroll" ng-controller="poiLeftViewPanelCtrl">
+    <div fm-form-control="">
+        <div class="poiLeftPanel">
+            <div class="poiLeftPanel_son_div">
+                <div class="poiLeftPanel_top_first">
+                    <div class="poiLeftPanel_line">
+                        <div class="poiLeftPanel_universally">
+                            <img ng-show="poi.state===1" src="../../images/newPoi/leftPanelIcon/icon-add.png"/>
+                            <img ng-show="poi.state===2" src="../../images/newPoi/leftPanelIcon/icon_delete.png"/>
+                            <img ng-show="poi.state===3" src="../../images/newPoi/leftPanelIcon/icon_change.png"/>
+                        </div>
+                        <div class="poiLeftPanel_div_name poiLeftPanel_universally poiLeftPanel_intercepted">
+                            <strong>
+                                {{poi.name.name || poi.names[0].name}}
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="poiLeftPanel_top_second">
+                    <div class="poiLeftPanel_line">
+                        <div class="poiLeftPanel_div_type poiLeftPanel_universally poiLeftPanel_intercepted">
+                            <strong>
+                                分类：
+                            </strong>
+                            <span>
+                                {{metaData.kindFormat[poi.kindCode].kindName}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="poiLeftPanel_top_third">
+                    <div class="poiLeftPanel_line">
+                        <div class="poiLeftPanel_universally">
+                            <span>
+                                {{poiDate}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="poiLeftPanel_top_line">
+                    <div class="poiLeftPanel_line">
+                        <div class="poiLeftPanel_top_item" ng-if="poi.status">
+                            <strong>
+                                审核状态：
+                            </strong>
+                            <span ng-if="!deepInfoFlag">
+                                {{statusObject[poi.status]}}
+                            </span>
+                        </div>
+                        <div class="poiLeftPanel_top_item">
+                            <strong>
+                                鲜度认证：
+                            </strong>
+                            <span ng-if="!deepInfoFlag">
+                                {{freshObject[poi.freshnessVefication]}}
+                            </span>
+                        </div>
+                        <div class="poiLeftPanel_top_item">
+                            <strong>
+                                3D标识：
+                            </strong>
+                            <span ng-if="!deepInfoFlag">
+                                {{poi.poi3DIcon ? '是':'否'}}
+                            </span>
+                        </div>
+                        <div class="poiLeftPanel_top_item">
+                            <strong>
+                                重要POI：
+                            </strong>
+                            <span ng-if="!deepInfoFlag">
+                                {{poi.vipFlag ? '是':'否'}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="poiLeftPanel_img_show_container">
+                <button class="fm-img-btn del-img" ng-click="deletePhoto(nowActiveImg);" ng-disabled="!nowActiveImg.originUrl || deepInfoFlag" title="删除">
+                </button>
+                <div class="main-img">
+                    <img id="poiImage" ng-show="nowActiveImg.originUrl" ng-src="{{nowActiveImg.originUrl}}" ng-style="bigImgStyle"/>
+                    <div ng-show="!nowActiveImg.originUrl" style="display: inline-block;"></div>
+                    <div class="poi-btn-bg" ng-show="!deepInfoFlag">
+                        <button class="fm-img-btn btn-transform trans-left" ng-click="rotateBigImg(nowActiveImg,0)" ng-if="tempPhotos.length>0">
+                        </button>
+                        <button class="fm-img-btn btn-transform trans-right" ng-click="rotateBigImg(nowActiveImg,1)" ng-if="tempPhotos.length>0">
+                        </button>
+                        <input multiple="" nv-file-select="" type="file" uploader="uploader" />
+                    </div>
+                </div>
+                <div class="img-load" ng-show="showProgress">
+                </div>
+            </div>
+        </div>
+        <div class="poiLeftPanel_operate">
+            <select class="form-control poiRightPanel_select_small" ng-change="changePhotoType()" ng-if="!deepInfoFlag" ng-model="picType" ng-options="item.id as item.label for item in photoTypeOptions">
+            </select>
+            <select class="form-control poiRightPanel_select_small" ng-if="!deepInfoFlag" ng-model="nowActiveImg.tag" ng-options="item.id as item.label for item in photoTagOptions">
+            </select>
+            <img ng-click="creatPNG(nowActiveImg)" ng-if="!nowActiveImg.tagFlag && tempPhotos.length > 0 && showWholeScene" src="../../images/newPoi/leftPanelIcon/button_quanmao_create.png" style="margin-left: 15px;cursor: pointer" title="设置全景"/>
+            <img ng-click="cancelAll()" ng-if="nowActiveImg.tagFlag && tempPhotos.length > 0 && showWholeScene" src="../../images/newPoi/leftPanelIcon/button_quanmao_cancel.png" style="margin-left: 15px;cursor: pointer" title="取消全景"/>
+            <div style="display: inline-block;float: right">
+                <div class="page-info" ng-show="poiIndexPage">
+                    {{statusObject[poi.status]}} {{ poiIndexPage +'/'+ poiListTotal}}
+                </div>
+                <div class="btn-transform trans-left" ng-click="getPreInfo()" ng-show="poiIndexPage" title="上一个">
+                </div>
+                <div class="btn-transform trans-right" ng-click="getNextInfo()" ng-show="poiIndexPage" title="下一个">
+                </div>
+            </div>
+        </div>
+        <div class="poiLeftPanel_Thumbnails">
+            <div class="poiLeftPanel_Thumbnails_left pull-left" ng-click="changePage(1)">
+            </div>
+            <div style="display: flex; align-items: center; width: 460px;">
+                <div class="poi-img-container" ng-click="showPreviewImg(item, $index);" ng-if="allPhotos" ng-repeat="item in tempPhotos">
+                    <div class="poiLeftPanel_Thumbnails_div" ng-class="{'active':nowActiveIndex == $index+1, 'btn-not-allow': !item.originUrl}">
+                        <img alt="" image-404="../../images/road/img/noimg.png" ng-class="{'active':nowActiveIndex == $index+1,'tips-img':true}" ng-src="{{item.thumbnailUrl}}"/>
+                    </div>
+                    <!--<div class="poiLeftPanel_Thumbnails_div" ng-class="{'active':nowActiveIndex == $index+1, 'btn-not-allow': !item.originUrl}" ng-if="tempPhotos.length > 5 && $index > 5*(tipsPage-1)-1 && $index < 5*tipsPage">-->
+                        <!--<img alt="" image-404="../../images/road/img/noimg.png" ng-class="{'active':nowActiveIndex == $index+1,'tips-img':true}" ng-src="{{item.thumbnailUrl}}"/>-->
+                    <!--</div>-->
+                </div>
+                <!--<div class="poi-img-container" ng-click="showPreviewImg(item, $index);" ng-if="!allPhotos" ng-repeat="item in jobSeasons track by $index" style="display: inline-block">-->
+                    <!--<div ng-class="{'active':nowActiveIndex == $index+1,'poiLeftPanel_Thumbnails_div':true, 'btn-not-allow': !item.originUrl}" ng-if="jobSeasons.length < 6">-->
+                        <!--<img alt="" image-404="../../images/road/img/noimg.png" ng-class="{'active':nowActiveIndex == $index+1,'tips-img':true}" ng-src="{{item.thumbnailUrl}}"/>-->
+                    <!--</div>-->
+                    <!--<div ng-class="{'active':nowActiveIndex == $index+1,'poiLeftPanel_Thumbnails_div':true, 'btn-not-allow': !item.originUrl}" ng-if="jobSeasons.length > 5 && $index > 5*(tipsPage-1)-1  && $index < 5*tipsPage">-->
+                        <!--<img alt="" image-404="../../images/road/img/noimg.png" ng-class="{'active':nowActiveIndex == $index+1,'tips-img':true}" ng-src="{{item.thumbnailUrl}}"/>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+            <div class="poiLeftPanel_Thumbnails_right pull-right" ng-click="changePage(2);">
+            </div>
+        </div>
+    </div>
+     <div nav-class="tab-no-title" ng-show="checkResultTableParam.data.length">
+        <div data-title="检查结果" name="tab1" style="height: 180px;">
+            <table class="table table-condensed table-striped fm-scroll poi-check-result" ng-table="checkResultTableParam">
+                <tr ng-repeat="row in $data">
+                    <td class="col1" data-title="'序号'" header-class="'col1'">
+                        {{$index + 1}}
+                    </td>
+                    <td class="col2 fm-ellipsis" data-title="'规则号'" header-class="'col2'" ng-attr-title="{{row.ruleId}}">
+                        {{row.ruleId}}
+                    </td>
+                    <td class="col3 fm-ellipsis" data-title="'错误描述'" header-class="'col3'" ng-attr-title="{{row.information}}">
+                        {{row.information}}
+                    </td>
+                    <td class="col4" data-title="'操作'" header-class="'col4'">
+                        <span class="opt" ng-if="row.rank === 1">
+                            不可忽略
+                        </span>
+                        <a href="javascript:void(0);" ng-click="doIgnoreCheckResult(row)" ng-if="row.rank !== 1">
+                            忽略
+                        </a>
+                    </td>
+                    <td class="col5" data-title="'关联POI'" header-class="'col5'">
+                        <span class="opt" ng-if="row.refFeatures.length === 0">
+                            无
+                        </span>
+                        <a bs-popover="" data-auto-close="1" data-placement="auto" data-template-url="./editor/components/left-panels/poi/relatedPoi.tpl.htm" href="javascript:void(0);" ng-if="row.refFeatures.length > 0">
+                            {{row.refFeatures.length}}
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

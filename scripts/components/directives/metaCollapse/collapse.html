@@ -1,0 +1,11 @@
+<div>
+    <div  class="poiRightPanel_fold" ng-click="toggle()">
+        <div>
+            <img style="padding-left: 10px;" ng-src="{{showMe?'../../images/meta/fold.png':'../../images/meta/unfold.png'}}"/>
+            <strong>
+                {{title}}
+            </strong>
+        </div>
+    </div>
+    <div  ng-show="showMe" ng-transclude></div>
+</div>

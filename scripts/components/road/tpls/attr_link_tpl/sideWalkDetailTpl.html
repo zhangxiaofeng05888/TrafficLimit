@@ -1,0 +1,29 @@
+
+<div class="popover" tabindex="-1" style="width: 300px;height: 150px;">
+    <ul class="list-group detailUlCss" ng-controller="sidewalkController">
+        <li>
+            <div class="linkName_popover_Div"><span>位置关系</span></div>
+            <select class="form-control poiRightPanel_select linkName_popover_select" ng-model="currentActiveSideWalk.sidewalkLoc" ng-options="value.id as value.label for value in sidewalkLocoptions"></select>
+        </li>
+        <li>
+            <div class="linkName_popover_Div"><span>隔离方式</span></div>
+            <select class="form-control poiRightPanel_select linkName_popover_select" ng-model="currentActiveSideWalk.dividerType" ng-options="value.id as value.label for value in dividerTypeoptions"></select>
+        </li>
+        <li ng-style="setStyle()">
+            <div class="blockDescLiDiv" ><span>作业方向</span></div>
+            <input type="radio" name="workDirRadio" ng-value="{{0}}" ng-model="currentActiveSideWalk.workDir" id="workDirRadio1" class="radio_diy_class"/><label for="workDirRadio1"><span> 未调查 </span></label>
+            <input type="radio" name="workDirRadio" ng-value="{{1}}" ng-model="currentActiveSideWalk.workDir" id="workDirRadio2" class="radio_diy_class"/><label for="workDirRadio2" style="padding-left: 15px"><span> 顺 </span></label>
+            <input type="radio" name="workDirRadio" ng-value="{{2}}" ng-model="currentActiveSideWalk.workDir" id="workDirRadio3" class="radio_diy_class"/><label for="workDirRadio3" style="padding-left: 15px"><span> 逆 </span></label>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>处理标识</span></div>
+            <input type="radio" name="processFlagRadio" ng-value="{{0}}" ng-model="currentActiveSideWalk.processFlag" id="processFlagRadio1" class="radio_diy_class" /><label for="processFlagRadio1"><span> 默认 </span></label>
+            <input type="radio" name="processFlagRadio" ng-value="{{1}}" ng-model="currentActiveSideWalk.processFlag" id="processFlagRadio2" class="radio_diy_class" /><label for="processFlagRadio2" style="padding-left: 15px"><span> 外业 </span></label>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>采集标识</span></div>
+            <input type="radio" name="captureFlagRadio" ng-value="{{0}}" ng-model="currentActiveSideWalk.captureFlag" id="captureFlagRadio1" class="radio_diy_class"/><label for="captureFlagRadio1"><span> 未采集 </span></label>
+            <input type="radio" name="captureFlagRadio" ng-value="{{1}}" ng-model="currentActiveSideWalk.captureFlag" id="captureFlagRadio2" class="radio_diy_class"/><label for="captureFlagRadio2" style="padding-left: 15px"><span> 外业确认 </span></label>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,79 @@
+<div ng-controller="DeepInfoQualityCtl" class="fm-scroll fm-stretch">
+    <div class="ex-qua-container">
+        <div class="ex-qua-title">
+            <div ng-class="{'ex-qua-label': true, 'active': item.title == activeTab.title, 'changed': item.changed, 'saved': item.saved}" ng-click="changeLabel(item);" ng-repeat="item in exQuaTitles" style="width: {{item.width}}">{{item.title}}</div>
+        </div>
+        <div class="ex-qua-content">
+            <div class="ex-form-info" style="height: auto;">
+                <div class="ex-form-title" style="height: 100%;flex-direction: column;">更改后内容</div>
+                <div class="ex-form-content ex-form-8" style="height: auto;width: 500px;justify-content: flex-start;flex-direction: column;">
+                    <div class="ex-form-muti-line" ng-repeat="item in deepQuaData.newValue.split(';')" ng-bind="item"></div>
+                </div>
+            </div>
+        </div>
+        <div class="ex-qua-content">
+            <div class="ex-form-info" style="height: auto;">
+                <div class="ex-form-title" style="height: 100%;flex-direction: column;">更改前内容</div>
+                <div class="ex-form-content ex-form-8" style="height: auto;width: 500px;justify-content: flex-start;flex-direction: column;">
+                    <div class="ex-form-muti-line" ng-repeat="item in deepQuaData.oldValue.split(';')" ng-bind="item"></div>
+                </div>
+            </div>
+        </div>
+        <div class="ex-qua-content">
+            <div class="ex-form-info" style="flex-grow: 0.5;">
+                <div class="ex-form-title">作业员</div>
+                <div class="ex-form-content ex-form-2" style="width: 154px;" ng-bind="deepQuaData.commonWorker"></div>
+            </div>
+            <div class="ex-form-info" style="flex-grow: 0.5;">
+                <div class="ex-form-title">作业时间</div>
+                <div class="ex-form-content ex-form-2" style="width: 154px;" ng-bind="deepQuaData.workTime"></div>
+            </div>
+        </div>
+        <div class="ex-qua-content">
+            <div class="ex-form-info" style="flex-grow: 0.5;">
+                <div class="ex-form-title">质检员</div>
+                <div class="ex-form-content ex-form-2" style="width: 154px;" ng-bind="deepQuaData.qcWorker"></div>
+            </div>
+            <div class="ex-form-info" style="flex-grow: 0.5;">
+                <div class="ex-form-title">质检时间</div>
+                <div class="ex-form-content ex-form-2" style="width: 154px;" ng-bind="deepQuaData.qcTime"></div>
+            </div>
+        </div>
+        <div class="ex-qua-content">
+            <div class="ex-form-info">
+                <div class="ex-form-title">问题等级<span class="required-sign"> •</span></div>
+                <div class="ex-form-content ex-form-8" style="width: 500px;justify-content: flex-start;">
+                    <select class="fm-control" ng-model="deepQuaData.problemLevel" ng-options="v for v in proLevelArray">
+                        <option value="">-- 请选择 --</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="ex-qua-content" style="height: auto;">
+            <div class="ex-form-info" style="border-bottom: 0;height: auto;">
+                <div class="ex-form-title" style="height: 100%;">问题描述<span class="required-sign"> •</span></div>
+                <div class="ex-form-content ex-form-8" style="width: 500px;height: auto;">
+                    <textarea class="form-control qua-lang-input" cols="10" ng-model="deepQuaData.problemDesc" rows="2">
+                    </textarea>
+                </div>
+            </div>
+        </div>
+        <div class="ex-qua-content">
+            <div class="ex-form-info">
+                <div class="ex-form-title">操作</div>
+                <div class="ex-form-content ex-form-8" style="width: 500px;justify-content: flex-end;">
+                    <button class="fm-control fm-btn-primary" style="width: 170px; height: 20px;" ng-click="quaDoSave();">保存</button>
+                </div>
+            </div>
+        </div>
+        <div style="flex-wrap: wrap; height: auto;">
+            <div class="table-title">质检信息记录：</div>
+            <div class="fm-grid purple ex-table"
+                 ui-grid="gridOptions"
+                 ui-grid-auto-resize=""
+                 ui-grid-resize-columns=""
+                 ui-grid-selection=""></div>
+        </div>
+    </div>
+    <div class="fm-model-load" ng-show="showModelLoading"></div>
+</div>

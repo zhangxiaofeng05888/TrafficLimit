@@ -1,0 +1,21 @@
+<div ng-controller="linkBorderCtrl" class="scroll_style">
+    <ul class="list-group detailUlCss">
+        <li>
+            <div class="blockDescLiDiv"><span>要　　素</span></div>
+            <span>接边标识</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>位　　置</span></div>
+            <span>经度</span><span class="text-muted">{{joinBorder.location[0]}}</span>　　
+            <span>纬度</span><span class="text-muted">{{joinBorder.location[1]}}</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>状　　态</span></div>
+            <span class="label label-default">未作业</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>备　　注</span></div>
+            <textarea ng-model="joinBorder.memo" style="width: 190px;height: 70px; resize: none; border-radius: 5px;background: #fff;" ng-change="setMemo()" placeholder="备注"></textarea>
+        </li>
+    </ul>
+</div>

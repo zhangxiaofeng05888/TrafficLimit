@@ -1,0 +1,119 @@
+
+<style>
+    .ng-table-pager{
+        text-align: center;
+    }
+    .check-result-pager .total {
+        color: #182848;
+        vertical-align: middle;
+        float: left;
+    }
+    .check-result-pager .total > span {
+        color: #ff6699;
+    }
+    .check-result-pager .page {
+        vertical-align: middle;
+        text-align: center;
+       display: inline;
+        max-width: 500px;
+    }
+    .check-result-pager .count {
+        float: right;
+        color: #182848;
+        vertical-align: middle;
+
+    }
+    .check-result-pager .count > span {
+        color: #182848;
+        vertical-align: middle;
+    }
+    .check-result-pager .pagination {
+        margin: 0px;
+        vertical-align: middle;
+    }
+    .check-result-pager .pagination > li > a,
+    .check-result-pager .pagination > li > a > span {
+        color: #4c5e70;
+        border: none;
+        background: none;
+        font-size: 12px;
+    }
+    .check-result-pager .pagination > li > a {
+        padding: 0px 8px;
+    }
+    .check-result-pager .pagination > li > a:hover,
+    .check-result-pager .pagination > li > a > span:hover,
+    .check-result-pager .pagination > li.active > a,
+    .check-result-pager .pagination > li.active > a > span {
+        color: #3399ff;
+        border: none;
+        background: none;
+    }
+    .check-result-pager .pagination > li > a.prev-page {
+        display: inline-block;
+        width: 4px;
+        height: 16px;
+        background: url('../../images/webEditor/check/prev-page.png') no-repeat center center transparent;
+    }
+    .check-result-pager .pagination > li > a.prev-page:hover,
+    .check-result-pager .pagination > li.active > a.prev-page {
+        background: url('../../images/webEditor/check/prev-page-active.png') no-repeat center center transparent;
+    }
+    .check-result-pager .pagination > li > a.next-page {
+        display: inline-block;
+        width: 4px;
+        height: 16px;
+        background: url('../../images/webEditor/check/next-page.png') no-repeat center center transparent;
+    }
+    .check-result-pager .pagination > li > a.next-page:hover,
+    .check-result-pager .pagination > li.active > a.next-page {
+        background: url('../../images/webEditor/check/next-page-active.png') no-repeat center center transparent;
+    }
+    .select-arrowduwn {
+        display: inline-block;
+        width: 64px;
+        height: 24px;
+        border-color: #d1d4da;
+        border-radius: 3px;
+        padding: 0 10px 0 15px;
+        box-shadow: none;
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        background-color: #ffffff;
+        background: url('../../images/webEditor/form/select-dropdown.png') no-repeat transparent;
+        background-position-x: 38px;
+        background-position-y: 10px;
+        color: #182848;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: middle;
+    }
+    /*分页宽度自适应*/
+    .content>div{
+        /*width: 100%;*/
+    }
+</style>
+<div class="ng-cloak ng-table-pager check-result-pager toolbar">
+    <div class="total">
+        共 <span ng-bind="params.total()"></span> 条数据
+    </div>
+    <div class="page">
+        <ul ng-if="pages.length" class="pagination">
+            <li ng-class="{'disabled': !page.active && !page.current, 'active': page.current}" ng-repeat="page in pages" ng-switch="page.type">
+                <a ng-switch-when="prev" ng-click="params.page(page.number)" href="" class="prev-page"></a>
+                <a ng-switch-when="first" ng-click="params.page(page.number)" href=""><span ng-bind="page.number"></span></a>
+                <a ng-switch-when="page" ng-click="params.page(page.number)" href=""><span ng-bind="page.number"></span></a>
+                <a ng-switch-when="more" ng-click="params.page(page.number)" href="">&#8230;</a>
+                <a ng-switch-when="last" ng-click="params.page(page.number)" href=""><span ng-bind="page.number"></span></a>
+                <a ng-switch-when="next" ng-click="params.page(page.number)" href="" class="next-page"></a>
+            </li>
+        </ul>
+    </div>
+    <div ng-if="params.settings().counts.length" class="count">
+        <span>每页&nbsp;</span>
+        <select class="select-arrowduwn" ng-init="pageSize=10" ng-model="pageSize" ng-options="count for count in params.settings().counts" ng-change="params.count(pageSize)">
+        </select>
+        <span>&nbsp;条</span>
+    </div>
+</div>

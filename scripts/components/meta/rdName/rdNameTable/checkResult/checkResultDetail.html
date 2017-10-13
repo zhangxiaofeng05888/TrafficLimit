@@ -1,0 +1,54 @@
+<link rel="stylesheet" type="text/css" href="../../scripts/libs/angular-chosen/chosen.css"/>
+<link rel="stylesheet" type="text/css" href="../../styles/metaData/metaData.css">
+<link href="../../scripts/libs/ui-grid/ui-grid.min.css" rel="stylesheet" type="text/css" />
+<link href="../../styles/pager.css" rel="stylesheet" type="text/css"/>
+<link href="../../styles/editor.css" rel="stylesheet" type="text/css"/>
+<div class="fm-panel" style="padding-top: 30px;" ng-controller="checkResultDetailCtrl">
+    <div class="header" style="margin-top: -30px;background-color: #1A90FE">
+        <div class="title" style="margin-left: 10px;">
+            <h4>元数据编辑平台</h4>
+        </div>
+        <div class="toolbar pull-right">
+            <img class="flat-btn" src="../../images/meta/head.png" style="padding-bottom: 10px;margin-right: 10px;">
+            <span style="color: white;font-size: 14px;margin-right: 20px;">{{userName}}</span>
+            <span style="color: white;font-size: 14px;margin-right: 80px;">{{userId}}</span>
+            <img class="flat-btn" src="../../images/meta/logout.png" style="padding-bottom: 10px;" ng-click="pre()">
+        </div>
+    </div>
+    <div class="content" style="margin-top: -20px;">
+        <div class="md_container">
+            <div class="menu_div scroll-styled" style="background-color: #E8F4FF;padding: 15px;">
+                <div style="margin-bottom: 10px;">
+                    <span style="font-size: 14px;font-weight:bold;margin-right: 5px;">请选择检查的时间段</span>
+                    <div>
+                        <input type="text" data-date-type="string" data-autoclose="true" data-date-format="yyyy-MM-dd" class="form-control editPanel_input" ng-model="fromDate"  data-min-date="{{minDate}}" placeholder="开始日期" bs-datepicker style="width: 100px;"/>至
+                        <input type="text" data-date-type="string" data-autoclose="true" data-date-format="yyyy-MM-dd"  class="form-control editPanel_input" ng-model="untilDate"  data-max-date="{{maxDate}}" placeholder="结束日期" bs-datepicker style="width: 100px;"/>
+                    </div>
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <span style="font-size: 14px;font-weight:bold;margin-right: 5px;">请输入要查看的任务</span>
+                    <div>
+                        <input type="text" class="form-control editPanel_input" ng-model="filterJobName" style="width: 230px;"/>
+                    </div>
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <span style="font-size: 14px;font-weight:bold;margin-right: 5px;">请选择要查看的任务</span>
+                    <div style="color: #1A90FE;font-size: 17px;margin-top: 10px;border: 1px solid #ddd;;background-color: white;height:100%;min-height: 100px;">
+                        <div style="margin-top: 10px;">
+                            <ul class="list-group list_item">
+                                <li style="height: 30px;line-height: 30px;" ng-repeat="item in taskList" ng-click="selectTask(item)"
+                                    ng-class="{'taskListSelect': item.select}">
+                                    <div>
+                                        <span style="color:#666">{{item.jobName}}</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div ng-include="tableUrl"></div>
+        </div>
+    </div>
+</div>
+<div ng-show="showLoading.flag" id="loadingAnimate" class="show-animation" ng-include="'svgLoading.html'"></div>

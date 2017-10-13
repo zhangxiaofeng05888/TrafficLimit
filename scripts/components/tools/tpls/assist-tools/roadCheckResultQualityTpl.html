@@ -1,0 +1,129 @@
+<style>
+    .roadQualityBox {
+        width: 500px;
+        display: flex;
+        position:absolute;
+        background: #ffffff;
+        border: 1px solid #9292d8;
+        flex-flow: column nowrap;
+        user-select: text;
+        box-shadow: 0 4px 20px #c4c0c0;
+    }
+    /*头部*/
+    .roadQualityBox .headerPart {
+        height: 40px;
+        cursor: move;
+        line-height: 40px;
+        background: #5a6cf3;
+    }
+    .roadQualityBox .headerPart h3{
+        padding: 0;
+        margin: 0;
+        color: #fff;
+        font-size: 14px;
+        padding: 0 10px;
+        font-weight: bold;
+        display: inline-block;
+    }
+    .roadQualityBox .headerPart button {
+        color: #fff;
+        opacity: 1;
+        padding: 5px 10px;
+    }
+    /*内容*/
+    .roadQualityBox .contentPart {
+        flex: 1;
+    }
+    .roadQualityBox .contentList:after{
+        visibility: hidden;
+        display: block;
+        font-size: 0;
+        content: ".";
+        clear: both;
+        height: 0;
+    }
+    .roadQualityBox .contentPart .contentList .list{
+        padding: 8px;
+    }
+    .roadQualityBox .contentPart .contentList .quDesc {
+        width: 395px;
+        height: 80px;
+        resize: none;
+        text-indent: 5px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+    }
+    /*底部*/
+    .roadQualityBox .footerPart{
+        height: 40px;
+        padding: 0 10px;
+        line-height: 40px;
+        text-align: right;
+        border-top: 1px solid #d4d1d1
+    }
+    .roadQualityBox .footerPart button{
+        width: 70px;
+        color: #fff;
+        font-size: 12px;
+        background: #5a6cf3;
+    }
+</style>
+<div ng-show="showRoadCheckQuality" class="roadQualityBox" drag  ng-controller="roadCheckResultQualityCtrl">
+    <div class="headerPart" drag-handle>
+        <h3>道路质检问题录入</h3>
+        <button class="close" ng-click="closeDialog()" title="关闭" type="button"><span>×</span></button>
+    </div>
+    <div class="contentPart">
+        <div class="contentList">
+            <div class="col-md-6 list">
+                <label class="">要素类型：</label>
+                <span ng-bind="errorObj.objectType"></span>
+            </div>
+            <div class="col-md-6 list">
+                <label class="">要素 ID：</label>
+                <span class="" ng-bind="errorObj.objectId"></span>
+            </div>
+        </div>
+        <div class="contentList">
+            <div class="list">
+                <label style="vertical-align: top">问题说明：</label>
+                <textarea class="fm-control quDesc" ng-model="errorObj.quDesc" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="contentList">
+            <div class="col-md-6 list">
+                <label class="">错误原因：</label>
+                <select class="fm-control" style="width: 150px" ng-model="errorObj.reason" ng-options="value for value in errorReasons"></select>
+            </div>
+            <div class="col-md-6 list">
+                <label class="">错误内容：</label>
+                <input disabled class="fm-control" style="width: 150px" ng-model="errorObj.erContent" type="text"  />
+            </div>
+        </div>
+        <div class="contentList">
+            <div class="col-md-6 list">
+                <label class="">错误等级：</label>
+                <select class="fm-control" style="width: 150px" ng-model="errorObj.quRank" ng-options="value for value in errorLevels"></select>
+            </div>
+            <div class="col-md-6 list">
+                <label class="">倾　　向：</label>
+                <input type="radio" id="quaGroup1" ng-value={{1}} ng-model="errorObj.isPrefer" class="radio_diy_class"/><label for="quaGroup1"><span> 是 </span></label>
+                <input type="radio" id="quaGroup2" ng-value={{0}} ng-model="errorObj.isPrefer" class="radio_diy_class"/><label for="quaGroup2"><span> 否 </span></label>
+            </div>
+        </div>
+        <div class="contentList">
+            <div class="col-md-6 list">
+                <label class="">作 业 员：</label>
+                <span ng-bind="errorObj.worker"></span>
+            </div>
+            <div class="col-md-6 list">
+                <label class="">作业时间：</label>
+                <span>{{errorObj.workTime? errorObj.workTime : formatDateFunc()}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="footerPart">
+        <button ng-if="boxType === 'add'" class="btn" ng-click="doSaveQua()" type="button">保存</button>
+        <button ng-if="boxType != 'add'" class="btn" ng-click="upDateSaveQua()" type="button">保存</button>
+    </div>
+</div>

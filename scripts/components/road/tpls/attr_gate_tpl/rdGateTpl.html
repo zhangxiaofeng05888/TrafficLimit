@@ -1,0 +1,77 @@
+<div style="height: 100%" class="scroll_style" ng-controller="rdGateController" >
+    <fast-collapse expander-title="基本信息">
+        <ul class="list-group detailUlCss" style="margin-top: 8px;">
+            <li>
+                <div class="blockDescLiDiv"><span>进入线</span></div>
+                <span>{{rdGateData.inLinkPid}}</span>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>进入点</span></div>
+                <span>{{rdGateData.nodePid}}</span>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>退出线</span></div>
+                <span>{{rdGateData.outLinkPid}}</span>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>大门类型</span></div>
+                <input type="radio" name="type" value="0" id="type0" ng-model="rdGateData.type" class="radio_diy_class"/>
+                <label for="type0">
+                    <span>EG</span>
+                </label>
+                <input type="radio" name="type" value="1" id="type1" ng-model="rdGateData.type" class="radio_diy_class"/>
+                <label for="type1" style="padding-left: 20px">
+                    <span>KG</span>
+                </label>
+                <input type="radio" name="type" value="2" id="type2" ng-model="rdGateData.type" class="radio_diy_class"/>
+                <label for="type2" style="padding-left: 20px">
+                    <span>PG</span>
+                </label>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>大门方向</span></div>
+                <input type="radio" name="dir" value="0" id="dir0" ng-model="rdGateData.dir" class="radio_diy_class"/>
+                <label for="dir0">
+                    <span>未调查</span>
+                </label>
+                <input type="radio" name="dir" value="1" id="dir1" ng-model="rdGateData.dir" class="radio_diy_class"/>
+                <label for="dir1" style="padding-left: 20px">
+                    <span>单向</span>
+                </label>
+                <input type="radio" name="dir" value="2" id="dir2" ng-model="rdGateData.dir" class="radio_diy_class"/>
+                <label for="dir2" style="padding-left: 20px">
+                    <span>双向</span>
+                </label>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>收费标识</span></div>
+                <input type="radio" name="fee" value="0" id="fee0" ng-model="rdGateData.fee" class="radio_diy_class"/>
+                <label for="fee0">
+                    <span>免费</span>
+                </label>
+                <input type="radio" name="fee" value="1" id="fee1" ng-model="rdGateData.fee" class="radio_diy_class"/>
+                <label for="fee1" style="padding-left: 20px">
+                    <span>收费</span>
+                </label>
+            </li>
+        </ul>
+    </fast-collapse>
+    <div class="poiRightPanel_fold" style="border: none">
+        <strong>
+            大门限制信息（{{rdGateData.condition.length}}）条
+        </strong>
+        <div>
+            <img src="../../images/newRoad/rightPanelIcon/icon_add.png" ng-click="addLimitTruck()"/>
+        </div>
+    </div>
+    <ul class="list-group detailUlCss">
+        <li ng-class="{'linkName_li': !limitItem.heightLight,'linkName_li_checked': limitItem.heightLight}" ng-click="rememberNameNum($index)" ng-repeat="limitItem in rdGateData.condition" data-container="body" data-animation="am-flip-x" data-auto-close="1" bs-popover data-placement="left" data-template-url="../../scripts/components/road/tpls/attr_gate_tpl/limitOfGateTpl.html">
+            <div style="width: 100px;padding-left: 10px;display: inline-block" ng-click="showGateInfo($index)">
+                <span>
+                    {{gateValidObj[limitItem.validObj]}}
+                </span>
+            </div>
+            <img src="../../images/newRoad/rightPanelIcon/icon_delete.png" ng-click="minusLimit($index,$event)">
+        </li>
+    </ul>
+</div>

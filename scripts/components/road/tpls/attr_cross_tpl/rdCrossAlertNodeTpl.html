@@ -1,0 +1,42 @@
+<style>
+    .fm-CrossSameNode {
+        width: 420px;
+        height: 270px;
+    }
+    .fm-CrossSameNode .titleBox{
+        height: 40px;
+        cursor: move;
+        padding: 0 20px;
+        border-bottom: 1px solid #3399ff;
+    }
+    .fm-CrossSameNode .title{
+        color: #3399ff;
+        font-size: 16px;
+        height: 40px;
+        line-height: 40px;
+    }
+    .contentWrapper{
+        text-indent: 10px;
+        max-height: 215px;
+    }
+    .lastBottomBorder{
+        border-bottom: 1px solid #ddd;
+    }
+</style>
+<div class="fm-CrossSameNode" ng-controller="rdCrossAlertNodeController">
+    <div drag-handle class="titleBox">
+        <div class="title" ng-bind="dialogName"></div>
+    </div>
+    <div class="contentWrapper scroll_style">
+        <table style="margin-bottom: 0" class="table">
+            <thead><td>类型</td><td>ID</td><td>选择</td></thead>
+            <tbody style="border-top: 1px solid #ddd;" ng-class="{'lastBottomBorder': $index===rdCrossNodeGroupList.length-1}" ng-repeat="group in rdCrossNodeGroupList">
+                <tr ng-repeat="item in group">
+                    <td style="border: none">{{item.properties.geoLiveType}}</td>
+                    <td style="border: none">{{item.properties.id}}</td>
+                    <td style="border: none"><input type="checkbox" ng-change="selectNode(item)" ng-model="item.checked"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

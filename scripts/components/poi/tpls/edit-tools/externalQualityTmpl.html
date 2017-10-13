@@ -1,0 +1,223 @@
+<div ng-controller="CheckResultCtl" class="fm-scroll fm-stretch">
+    <div class="ex-qua-container">
+        <div class="ex-qua-title">
+            <div ng-class="{'ex-qua-label': true, 'active': item.title == activeTab.title, 'changed': item.changed, 'saved': item.saved}" ng-click="changeLabel(item);" ng-repeat="item in exQuaTitles" style="width: {{item.width}}">{{item.title}}</div>
+        </div>
+        <div class="ex-qua-content">
+            <div class="ex-form-info">
+                <div class="ex-form-title">问题编号</div>
+                <div class="ex-form-content ex-form-5" style="width: 388px;" ng-bind="exQuaData.problemNum ? '编辑 - ' + exQuaData.problemNum : '新增 - 系统自动生成'"></div>
+            </div>
+            <div class="ex-form-info">
+                <div class="ex-form-title">质检方式 <span class="required-sign"> •</span></div>
+                <div class="ex-form-content ex-form-1" style="width: 152px;">
+                    <select class="fm-control" ng-model="exQuaData.checkMode" ng-options="v for v in qualityMethods">
+                        <option value="">-- 请选择 --</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="ex-qua-content">
+            <div class="ex-form-info">
+                <div class="ex-form-title">被质检项目</div>
+                <div class="ex-form-content ex-form-5" style="width: 388px;" ng-bind="taskName"></div>
+            </div>
+            <div class="ex-form-info">
+                <div class="ex-form-title">IDCode</div>
+                <div class="ex-form-content ex-form-1" style="width: 152px;" ng-bind="exQuaData.poiNum"></div>
+            </div>
+        </div>
+        <div class="ex-qua-content">
+            <div class="ex-form-info" style="flex-grow: 0.5;">
+                <div class="ex-form-title">省份</div>
+                <div class="ex-form-content ex-form-2" style="width: 154px;" ng-bind="exQuaData.province"></div>
+            </div>
+            <div class="ex-form-info" style="flex-grow: 0.5;">
+                <div class="ex-form-title">地市</div>
+                <div class="ex-form-content ex-form-2" style="width: 154px;" ng-bind="exQuaData.city"></div>
+            </div>
+            <div class="ex-form-info">
+                <div class="ex-form-title">作业基地 <span class="required-sign"> •</span></div>
+                <div class="ex-form-content ex-form-1" style="width: 152px;">
+                    <input type="text" class="fm-control" ng-model="exQuaData.group">
+                </div>
+            </div>
+        </div>
+        <div class="ex-qua-content">
+            <div class="ex-form-info" style="flex-grow: 0.5;">
+                <div class="ex-form-title">分类</div>
+                <div class="ex-form-content ex-form-2" style="width: 154px;" ng-bind="exQuaData.kindCode"></div>
+            </div>
+            <div class="ex-form-info" style="flex-grow: 0.5;">
+                <div class="ex-form-title">图幅号</div>
+                <div class="ex-form-content ex-form-2" style="width: 154px;" ng-bind="exQuaData.meshId"></div>
+            </div>
+            <div class="ex-form-info">
+                <div class="ex-form-title">问题分类<span class="required-sign"> •</span></div>
+                <div class="ex-form-content ex-form-1" style="width: 152px;">
+                    <select class="fm-control" ng-model="exQuaData.classBottom" ng-change="changeProblemKind(exQuaData.classBottom);" ng-options="v for v in quesKinds">
+                        <option value="">-- 请选择 --</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="ex-qua-content">
+            <div class="ex-form-info" style="flex-grow: 0.5;">
+                <div class="ex-form-title">问题类型<span class="required-sign"> •</span></div>
+                <div class="ex-form-content ex-form-2" style="width: 154px;">
+                    <select class="fm-control" ng-model="exQuaData.problemType" ng-change="changeProblemType(exQuaData.problemType);" ng-options="v for v in quesTypes">
+                        <option value="">-- 请选择 --</option>
+                    </select>
+                </div>
+            </div>
+            <div class="ex-form-info" style="flex-grow: 0.5;">
+                <div class="ex-form-title">问题现象<span class="required-sign"> •</span></div>
+                <div class="ex-form-content ex-form-2" style="width: 154px;">
+                    <select class="fm-control" ng-model="exQuaData.problemPhenomenon" ng-options="v for v in quesPhens">
+                        <option value="">-- 请选择 --</option>
+                    </select>
+                </div>
+            </div>
+            <div class="ex-form-info">
+                <div class="ex-form-title">问题等级<span class="required-sign"> •</span></div>
+                <div class="ex-form-content ex-form-1" style="width: 152px;" ng-bind="exQuaData.problemLevel"></div>
+            </div>
+        </div>
+        <div class="ex-qua-content" style="height: 60px;">
+            <div class="ex-form-info" style="height: 60px;">
+                <div class="ex-form-title" style="height: 60px;">问题描述<span class="required-sign"> •</span></div>
+                <div class="ex-form-content ex-form-8" style="width: 620px; height: 60px;">
+                    <textarea class="form-control qua-lang-input" cols="10" ng-model="exQuaData.problemDescription" rows="2">
+                    </textarea>
+                </div>
+            </div>
+        </div>
+        <div class="ex-qua-content">
+            <div class="ex-form-info" style="flex-grow: 0.335;">
+                <div class="ex-form-title">初步原因<span class="required-sign"> •</span></div>
+                <div class="ex-form-content ex-form-2" style="width: 154px;">
+                    <select class="fm-control" ng-model="exQuaData.intialCause" ng-change="changeIntialCause(exQuaData.intialCause);" ng-options="v.title as v.title for v in preLiCauseArray">
+                        <option value="">-- 请选择 --</option>
+                    </select>
+                </div>
+            </div>
+            <div class="ex-form-info">
+                <div class="ex-form-title">深度原因<span class="required-sign"> •</span></div>
+                <div class="ex-form-content ex-form-6" style="width: 386px;">
+                    <select class="fm-control" ng-model="exQuaData.rootCause" ng-options="v for v in primaryCauseArray">
+                        <option value="">-- 请选择 --</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="ex-qua-content">
+            <div class="ex-form-info">
+                <div class="ex-form-title">采集信息</div>
+                <div class="ex-form-content ex-form-8" style="width: 620px;justify-content: flex-start;">
+                    <!--<input type="checkbox" class="fm-control" />-->
+                    <div class="ex-form-group">
+                        <div class="ex-group-title">采集员：</div>
+                        <div class="ex-group-content" ng-bind="exQuaData.collectorUser"></div>
+                    </div>
+                    <div class="ex-form-group">
+                        <div class="ex-group-title">采集时间：</div>
+                        <div class="ex-group-content" ng-bind="exQuaData.collectorTime"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ex-qua-content" style="height: 60px;">
+            <div class="ex-form-info" style="height: 60px;">
+                <div class="ex-form-title" style="height: 60px;">备注</div>
+                <div class="ex-form-content ex-form-8" style="width: 620px; height: 60px;">
+                    <textarea class="form-control qua-lang-input" cols="10" ng-model="exQuaData.memo" rows="2">
+                    </textarea>
+                </div>
+            </div>
+        </div>
+        <div class="ex-qua-content" style="height: 60px;border-bottom-left-radius: 3px;border-bottom-right-radius: 3px;">
+            <div style="width: 468px;display: flex; flex-wrap: wrap; flex-grow: 1;">
+                <div class="ex-qua-content" style="height: 30px; width: 100%;">
+                    <div class="ex-form-info">
+                        <div class="ex-form-title">质检人</div>
+                        <div class="ex-form-content ex-form-2" style="width: 154px;" ng-bind="exQuaData.checkUser"></div>
+                    </div>
+                    <div class="ex-form-info">
+                        <div class="ex-form-title">质检日期</div>
+                        <div class="ex-form-content ex-form-2" style="width: 154px;" ng-bind="exQuaData.checkTime"></div>
+                    </div>
+                </div>
+                <div class="ex-qua-content ex-left-conner" style="height: 30px; ">
+                    <div class="ex-form-info">
+                        <div class="ex-form-title">版本号<span class="required-sign"> •</span></div>
+                        <div class="ex-form-content ex-form-2" style="width: 154px;">
+                            <select class="fm-control" ng-model="exQuaData.version" ng-options="v for v in versionNums">
+                                <option value="">-- 请选择 --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="ex-form-info">
+                        <div class="ex-form-title">确认人</div>
+                        <!--<div class="ex-form-content ex-form-2" style="width: 154px;" ng-bind="confirmUser"></div>-->
+                        <div class="ex-form-content ex-form-2" style="width: 154px;">
+                            <input type="text" class="fm-control" ng-model="exQuaData.confirmUser">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ex-second-content">
+                <div class="ex-form-info">
+                    <div class="ex-form-title" style="height: 60px;">操作</div>
+                    <div class="ex-form-content ex-form-1">
+                        <button class="fm-control fm-btn-primary" style="width: 170px; height: 20px;" ng-click="quaDoSave();">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="flex-wrap: wrap; height: auto;">
+            <div class="table-title">质检信息记录：</div>
+            <div class="fm-grid purple ex-table"
+                 ui-grid="gridOptions"
+                 ui-grid-auto-resize=""
+                 ui-grid-resize-columns=""
+                 ui-grid-selection=""></div>
+            <!--<div style="display: flex; flex-grow: 1;">
+                <table class="table table-bordered table-condensed fm-console-table wmContent ex-qua-table">
+                    <thead>
+                        <tr>
+                            <th width="30">序号</th>
+                            <th width="70">质检人</th>
+                            <th width="80">质检日期</th>
+                            <th width="70">质检方式</th>
+                            <th width="70">质检属性</th>
+                            <th width="70">问题分类</th>
+                            <th width="79">问题类型</th>
+                            <th width="150">问题现象</th>
+                            <th width="70">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in quaDataList" ng-class="{true: 'active'}[item.classMedium == activeTab.title]">
+                            <td>{{$index + 1}}</td>
+                            <td>{{item.checkUser}}</td>
+                            <td>{{item.checkTime}}</td>
+                            <td>{{item.checkMode}}</td>
+                            <td>{{item.classMedium}}</td>
+                            <td>{{item.classBottom}}</td>
+                            <td>{{item.problemType}}</td>
+                            <td>{{item.problemPhenomenon}}</td>
+                            <td>
+                                <span class="glyphicon glyphicon-remove" ng-click="quaDataDelete(item, $index);"></span>
+                                <span class="glyphicon glyphicon-pencil" ng-click="quaDataEdit(item);"></span>
+                            </td>
+                        </tr>
+                        <tr ng-show="!quaDataList.length">
+                            <td colspan="9" style="text-align: center">无数据</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>-->
+        </div>
+    </div>
+    <div class="fm-model-load" ng-show="showModelLoading"></div>
+</div>

@@ -1,0 +1,11 @@
+<div class="popover" tabindex="-1" style="width: 300px;height: 200px; background-color: #fff">
+    <div class="scroll_style linkForm_popover" ng-controller="carTypeController">
+        <div ng-repeat="item in carshowData">
+            {{item.id}}
+            <input type="checkbox" id="{{item.id + 'formType'}}" name="formType" ng-click="carSelect(item,$event)" ng-checked="item.checked"/>
+            <label for="{{item.id + 'formType'}}">
+                {{item.label}}
+            </label>
+        </div>
+    </div>
+</div>

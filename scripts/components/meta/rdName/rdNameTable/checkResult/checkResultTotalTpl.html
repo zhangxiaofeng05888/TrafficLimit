@@ -1,0 +1,37 @@
+<div ng-controller="checkResultTotalCtrl" style="width: 560px;height: 380px;">
+    <div class="" style="padding: 15px;">
+        <div style="margin-bottom: 10px;">
+            <div style="display: inline-block;padding-left: 5px;padding-right: 5px" ng-repeat="(key, value) in totalWay">
+                <input type="checkbox" name="totalWay" value={{key}} ng-click="totalWayChange($event)"/>
+                <label>
+                    <span>{{value}}</span>
+                </label>
+            </div>
+        </div>
+        <div>
+            <span style="font-size: 14px;color: #666;">检查规则配置</span>
+            <div style="height: 250px;border: 1px;" class="scroll-styled">
+                <script type="text/ng-template" id="headerCheckbox.html">
+                    <input type="checkbox" ng-model="checkboxes.checked" class="select-all" value=""/>
+                </script>
+                <table ng-table-dynamic="tableParams with cols" class="table table-condensed table-bordered md-table fm-scroll">
+                    <colgroup>
+                        <col ng-repeat="col in cols | filter:{show: true}" width="{{col.width || '100px'}}"/>
+                    </colgroup>
+                    <tr ng-if="!loadingCheckRstTotalData" ng-repeat="row in $data" ng-class="{true:'tr-backcolor',false:''}[row.checked]">
+                        <td ng-repeat="col in $columns" ng-switch="col.field">
+                            <input ng-switch-when="selector" type="checkbox" ng-model="row.checked" />
+                            <p class="text-ellipsis" title="{{row[col.field]}}" ng-bind-html="col.getValue?col.getValue(this,row):row[col.field]"></p>
+                        </td>
+                    </tr>
+                    <!--<tr class="text-center" ng-show="!$data.length"><td colspan="{{(cols | filter: {show: true}).length}}" ng-bind="loadTableDataMsg"></td></tr>-->
+                    <tr ng-if="!loadingCheckRstTotalData" class="text-center" ng-show="!$data.length"><td colspan="{{(cols | filter: {show: true}).length}}">无数据!!!</td></tr>
+                    <tr ng-if="loadingCheckRstTotalData"><td colspan="{{(cols | filter: {show: true}).length}}" class="text-center">数据加载中...</td></tr>
+                </table>
+            </div>
+        </div>
+        <div style="text-align:right;">
+            <button type="button" class="btn md-btn-success" ng-click="" style="margin:6px 8px" disabled>导出</button>
+        </div>
+    </div>
+</div>

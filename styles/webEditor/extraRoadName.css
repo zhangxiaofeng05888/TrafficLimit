@@ -1,0 +1,200 @@
+/*按钮字体特殊状态设置，不再默认*/
+
+.fm-roadname .btn.focus, .btn:focus, .btn:hover {
+    color: #fff;
+}
+
+.fm-roadname .fm-panel>.header {
+    background-color: #3399FF;
+}
+
+.fm-roadname .fm-panel>.header>.title {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.roadNameTitle {
+    background-image: url(../../images/png/title_bg.png);
+    background-size: cover;
+    height: 50px;
+    color: #fff;
+    /*为了消除滚动时产生部分覆盖*/
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 10px;
+}
+
+.roadNameTitle .flex-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 580px;
+}
+
+.roadNameTitle input.fm-control, .roadNameTitle select.fm-control {
+    background-color: #fff;
+}
+
+.roadNameTitle input.fm-control:hover, .roadNameTitle select.fm-control:hover {
+    background-color: rgba(86, 147, 255, 0.1);
+    color: #5693ff;
+    border-color: #5b93ff;
+}
+
+.roadNameTitle input.fm-control:focus, .roadNameTitle select.fm-control:focus {
+    background-color: rgba(86, 147, 255, 0.1);
+    color: #5693ff;
+    border-color: #5b93ff;
+}
+
+.roadNameTitle button.fm-control {
+    width: 24px;
+}
+
+
+/* 按钮样式*/
+
+.roadNameTitle button.search {
+    background: url(../../images/png/button_search_normal.png)center no-repeat;
+}
+
+.roadNameTitle button.searchActive {
+    background: url(../../images/png/button_search_active.png)center no-repeat;
+}
+
+.roadNameTitle button.add {
+    background: url(../../images/png/button_add_normal.png)center no-repeat;
+}
+
+.roadNameTitle button.addActive {
+    background: url(../../images/png/button_add_active.png)center no-repeat;
+}
+
+.roadNameTitle button.reset {
+    background: url(../../images/png/button_refresh_normal.png)center no-repeat;
+}
+
+.roadNameTitle button.resetActive {
+    background: url(../../images/png/button_refresh_active.png)center no-repeat;
+}
+
+.roadNameTitle button.setting {
+    border: 0 none !important;
+    background: url(../../images/png/button_settings_normal.png)center no-repeat;
+}
+
+.roadNameTitle button.settingActive {
+    background: url(../../images/png/button_settings_active.png)center no-repeat;
+}
+
+.roadNameTitle button.user {
+    background: url(../../images/png/usericon_normal.png)center no-repeat;
+}
+
+.roadNameTitle button.userActive {
+    background: url(../../images/png/usericon_active.png)center no-repeat;
+}
+
+.roadNameTitle button.details {
+    background: url(../../images/png/button_view_normal.png)center no-repeat;
+}
+
+.roadNameTitle button.detailsActive {
+    background: url(../../images/png/button_view_active.png)center no-repeat;
+}
+
+
+/*对应新增样式*/
+
+.fm-roadname ul.fm-ul-form>li>label {
+    text-align: left;
+    font-size: 10px;
+    padding-right: 0;
+}
+
+.fm-roadname ul.fm-ul-form>li>div {
+    padding-left: 0;
+}
+
+.fm-roadname .fa-arrows:before {
+    position: absolute;
+    top: 10px;
+    right: 34px;
+}
+
+.fm-roadname .editmark .fa-arrows:before {
+    position: absolute;
+    top: 10px;
+    right: 24px;
+}
+
+.fm-roadname .form-control {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding: 6px 6px;
+}
+
+
+/*弹出框*/
+
+.fm-roadname div.sweet-alert {
+    width: 300px;
+    height: 200px;
+    padding: 0 72px;
+    box-shadow: 2px 2px 6px #93bbff;
+}
+
+.fm-roadname div.sweet-alert h2 {
+    font-size: 12px;
+    color: #182848;
+    margin: 0;
+    line-height: 20px;
+    font-weight: 300;
+}
+
+.fm-roadname div.sweet-alert p {
+    font-size: 10px;
+}
+
+.fm-roadname .sweet-alert button.confirm {
+    width: 120px;
+    height: 24px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-size: 12px;
+    margin: 0;
+    background-color: #3399ff !important;
+    line-height: 0;
+}
+
+.fm-roadname .sweet-alert button.confirm:hover {
+    background-color: #0066cc !important;
+}
+
+.fm-roadname .glyphicon-search:before {
+    display: none;
+}
+
+.closeIt {
+    background: url(../../images/png/button_close_naromal.png)no-repeat center !important;
+    margin-top: 8px;
+    margin-right: -2px;
+    width: 24px;
+    height: 24px;
+}
+
+.fm-roadname .spe>thead:first-child>tr:first-child>th {
+    width: 38px;
+}
+
+.fm-roadname .spe>thead>tr>th {
+    margin-top: 0;
+}
+
+.nameGroupTable {
+    padding-top: 0px;
+}

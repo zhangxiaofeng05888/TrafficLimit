@@ -1,0 +1,58 @@
+<div class="fm-panel" ng-controller="hwInfoEditCtl" style="height:300px;width:800px;">
+    <div class="content" style="height:260px;">
+        <div>
+            <ul class="fm-ul fm-ul-form col-md-6">
+                <li>
+                    <label style="width:30%;">上行高速号码<span style="color:#ff6f9f;">*</span>:</label>
+                    <div>
+                        <input type="text" class="form-control editPanel_input" ng-model="hwInfoData.hwPidUp" disabled>
+                    </div>
+                </li>
+                <li>
+                    <label style="width:30%;">名称组号<span style="color:#ff6f9f;">*</span>:</label>
+                    <div>
+                        <input type="text" class="form-control editPanel_input" ng-model="hwInfoData.nameGroupid" disabled>
+                    </div>
+                </li>
+                <li>
+                    <label style="width:30%;">更新记录:</label>
+                    <div>
+                        <select class="fm-control editPanel_input" style="width:160px;" ng-model="hwInfoData.uRecord"
+                                placeholder_text_single="'--请选择--'"
+                                ng-options="value.id as value.label for value in uRecordOpt">
+                        </select>
+                    </div>
+                </li>
+            </ul>
+            <ul class="fm-ul fm-ul-form col-md-6">
+                <li>
+                    <label style="width:30%;">下行高速号码<span style="color:#ff6f9f;">*</span>:</label>
+                    <div>
+                        <input type="text" class="form-control editPanel_input" ng-model="hwInfoData.hwPidDw" disabled>
+                    </div>
+                </li>
+                <li>
+                    <label style="width:30%;">备用信息<span style="color:#ff6f9f;">*</span>:</label>
+                    <div>
+                        <select class="fm-control editPanel_input" style="width:160px;" ng-model="hwInfoData.memo"
+                                placeholder_text_single="'--请选择--'"
+                                ng-options="value.id as value.label for value in memoOpt">
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <label style="width:30%;">更新字段:</label>
+                    <div>
+                        <input type="text" class="form-control editPanel_input" ng-model="hwInfoData.uFields">
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div style="border-bottom: 1px solid #ddd;"></div>
+    <div style="text-align:right;">
+        <!--<button type="button" class="btn road-btn-main" ng-disabled="running" ng-click="doSave()" style="margin:6px 8px">保存</button>-->
+        <button ng-if="restBtn" type="button" class="btn md-btn-warning" ng-click="reset()" style="margin:6px 8px"><img src="../../images/meta/reset.png">重置</button>
+        <button type="button" class="btn md-btn-success" ng-click="doSave()" style="margin:6px 8px"><img src="../../images/meta/confirm.png">确定</button>
+    </div>
+</div>

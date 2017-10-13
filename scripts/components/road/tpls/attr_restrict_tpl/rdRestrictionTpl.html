@@ -1,0 +1,198 @@
+<style>
+    .showRdRestrictionController .detailUlCss label{
+        /*min-width: 50px;*/
+    }
+</style>
+<div style="height: 100%" class="scroll_style showRdRestrictionController" ng-controller="showRdRestrictionController" >
+    <div style="border-bottom: 1px solid #ccc" class="showArrows">
+        <div class="poiRightPanel_fold" style="border: none">
+            <strong id="box">{{restrictionType==0?'普通':'卡车'}}交限方向箭头</strong>
+        </div>
+        <!-- 普通交限 -->
+        <div ng-if="restrictionType==0" ng-repeat="item in rdRestrictCurrentData.details track by $index" class="col-md-3" style="text-align: center;position: relative">
+            <span style="position: absolute;top: 5px;right: 5px;font-size: 14px;color: #000" class="glyphicon glyphicon-remove-sign" ng-click="deleteDirect(item,$event,$index)"></span>
+            <img title="点击修改退出线"
+                 ng-src="../../images/road/1302/{{item.flag==1?'1302_1':'1302_2'}}_{{item.restricInfo}}.svg"
+                 class="show-tips"
+                 ng-class="{'active':$index==currentEditIndex}"
+                 ng-mousedown="showData($index)" />
+        </div>
+        <!-- 卡车交限 -->
+        <div ng-if="restrictionType==1" ng-repeat="item in rdRestrictCurrentData.details track by $index" class="col-md-3" style="text-align: center;position: relative">
+            <span style="position: absolute;top: 5px;right: 5px;font-size: 14px;color: #000" class="glyphicon glyphicon-remove-sign" ng-click="deleteDirect(item,$event,$index)"></span>
+            <img title="点击修改退出线"
+                 ng-src="../../images/road/1302/1302_0_{{item.restricInfo}}.svg"
+                 class="show-tips"
+                 ng-class="{'active':$index==currentEditIndex}"
+                 ng-mousedown="showData($index)" />
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <!--属性信息-->
+    <ul class="list-group detailUlCss">
+        <li>
+            <div class="blockDescLiDiv"><span style="letter-spacing: 1px">进 入 线</span></div>
+            <span>{{rdRestrictCurrentData.inLinkPid}}</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span style="letter-spacing: 1px">退 出 线</span></div>
+            <span>{{rdRestrictionCurrentDetail.outLinkPid}}</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>交限标志</span></div>
+            <input type="radio"
+                   id="flag0"
+                   class="radio_diy_class"
+                   ng-disabled="restrictionType===1"
+                   value=0
+                   ng-model="rdRestrictionCurrentDetail.flag"
+                   ng-change="changeType(rdRestrictionCurrentDetail)" />
+            <label for="flag0"> 未验证 </label>
+            <input type="radio"
+                   id="flag1"
+                   class="radio_diy_class"
+                   ng-disabled="restrictionType===1"
+                   value=1
+                   ng-model="rdRestrictionCurrentDetail.flag"
+                   ng-change="changeType(rdRestrictionCurrentDetail)" />
+            <label for="flag1"> 实地 </label>
+            <input type="radio"
+                   id="flag2"
+                   class="radio_diy_class"
+                   ng-disabled="restrictionType===1"
+                   value=2
+                   ng-model="rdRestrictionCurrentDetail.flag"
+                   ng-change="changeType(rdRestrictionCurrentDetail)" />
+            <label for="flag2"> 理论 </label>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>关系类型</span></div>
+            <input type="radio"
+                   id="relationshipType1"
+                   class="radio_diy_class"
+                   value=1
+                   ng-model="rdRestrictionCurrentDetail.relationshipType">
+            <label for="relationshipType1"> 路口 </label>
+            <input type="radio"
+                   id="relationshipType2"
+                   class="radio_diy_class"
+                   value=2
+                   ng-model="rdRestrictionCurrentDetail.relationshipType">
+            <label for="relationshipType2"> 线线 </label>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>限制类型</span></div>
+            <input type="radio"
+                   id="type0"
+                   class="radio_diy_class"
+                   value=0
+                   ng-model="rdRestrictionCurrentDetail.type"/>
+            <label for="type0" ng-click="changeLimitType(0);" style="display: inline;"> 未调查 </label>
+            <input type="radio"
+                   id="type1"
+                   class="radio_diy_class"
+                   value=1
+                   ng-model="rdRestrictionCurrentDetail.type"/>
+            <label for="type1" ng-click="changeLimitType(1);" style="display: inline;"> 禁入驶入 </label>
+            <input type="radio"
+                   id="type2"
+                   class="radio_diy_class"
+                   value=2
+                   ng-model="rdRestrictionCurrentDetail.type"
+                   title="时间段禁止" ng-disabled="rdRestrictionCurrentDetail.flag == 2">
+            <label for="type2" ng-click="changeLimitType(2);" style="display: inline;"> 时间段禁止 </label>
+        </li>
+        <li ng-if="rdRestrictionCurrentDetail.type=='2'" style="height: auto">
+            <div ng-include="dateURL" class="muti-date" is-relativePover="0" data-type="1" date-str='{{rdRestrictionCurrentDetail.conditions[0].timeDomain}}' style="margin: 0 9px;"></div>
+        </li>
+    </ul>
+    <!--经过线-->
+    <div class="vias">
+        <div class="poiRightPanel_fold" style="border: none">
+            <strong>经过线（{{rdRestrictionCurrentDetail.vias.length}}）条</strong>
+            <!--<div ng-if="rdRestrictionOriginDetail.vias.length">-->
+                <!--<span class="glyphicon glyphicon-edit" style="cursor:pointer;" title="修改经过线" ng-click="modifyThroughLink()"></span>-->
+            <!--</div>-->
+        </div>
+        <ul class="list-group detailUlCss" ng-repeat="item in rdRestrictionCurrentDetail.vias | orderBy: 'seqNum'" style="border-bottom: 1px solid #eff0fe;">
+            <li>
+                <div class="blockDescLiDiv"><span>Link序号</span></div>
+                {{item.seqNum}}
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>Link号码</span></div>
+                {{item.linkPid}}
+            </li>
+        </ul>
+    </div>
+    <!--限制信息（卡车）-->
+    <fast-collapse ng-if="restrictionType==1" expander-title="限制信息">
+        <ul class="list-group detailUlCss" style="margin-top: 8px;">
+            <li>
+                <div class="blockDescLiDiv"><span style="letter-spacing: 1px">本 外 埠</span></div>
+                <input type="radio"
+                       id="resOut0"
+                       class="radio_diy_class"
+                       value=0
+                       ng-model="rdRestrictionCurrentDetail.conditions[0].resOut" >
+                <label for="resOut0">&nbsp;不应用</label>
+                <input type="radio"
+                       id="resOut1"
+                       class="radio_diy_class"
+                       value=1
+                       ng-model="rdRestrictionCurrentDetail.conditions[0].resOut" >
+                <label for="resOut1">&nbsp;外埠</label>
+                <input type="radio"
+                       id="resOut2"
+                       class="radio_diy_class"
+                       value=2
+                       ng-model="rdRestrictionCurrentDetail.conditions[0].resOut" >
+                <label for="resOut2">&nbsp;本埠</label>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span style="letter-spacing: 1px">拖 挂 车</span></div>
+                <input type="radio" id="resTrailer0" name="resTrailer" value=0 class="radio_diy_class"  ng-model="rdRestrictionCurrentDetail.conditions[0].resTrailer">
+                <label for="resTrailer0">
+                    不限
+                </label>
+                <input type="radio" id="resTrailer1" name="resTrailer" value=1 class="radio_diy_class" ng-model="rdRestrictionCurrentDetail.conditions[0].resTrailer">
+                <label for="resTrailer1">
+                    限拖挂
+                </label>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>限　　重</span></div>
+                <input type="number"
+                       min="0"
+                       max="999.99"
+                       step="0.50"
+                       ng-keyup="verifyFloat($event,0,999.99);"
+                       ng-model="rdRestrictionCurrentDetail.conditions[0].resWeigh"
+                       class="form-control poiRightPanel_Input"
+                       style="width: 170px;"
+                       title="最大值是999.99，最多两位小数"/>&nbsp;吨
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span style="letter-spacing: 1px">限 轴 重</span></div>
+                <input type="number"
+                       min="0"
+                       max="999.99"
+                       step="0.50"
+                       ng-keyup="verifyFloat($event,0,999.99);"
+                       ng-model="rdRestrictionCurrentDetail.conditions[0].resAxleLoad"
+                       class="form-control poiRightPanel_Input"
+                       style="width: 170px;"
+                       title="最大值是999.99，最多两位小数"/>&nbsp;吨
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span style="letter-spacing: 1px">限 轴 数</span></div>
+                <input type="number"
+                       min="0"
+                       max="99"
+                       ng-keyup="verifyNumber($event,0,99);"
+                       class="form-control poiRightPanel_Input"
+                       ng-model="rdRestrictionCurrentDetail.conditions[0].resAxleCount" />
+            </li>
+        </ul>
+    </fast-collapse>
+</div>

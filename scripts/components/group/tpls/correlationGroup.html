@@ -1,0 +1,51 @@
+<div ng-controller="correlationGroupCtrl" style="font-size: 12px;color: #182848">
+    <div>
+        <div class="groupCorrelation_desc">
+            <span>情报主键</span>
+            <input type="text" class="tl_list_Input" ng-model="groupData.infoCode">
+        </div>
+        <div class="groupCorrelation_desc">
+            <span>组号</span>
+            <input type="text" class="tl_list_Input" ng-model="groupData.groupId">
+        </div>
+        <div class="groupCorrelation_desc">
+            <span>行政区划：</span>
+            <Span>{{groupData.cityName}}</Span>
+        </div>
+        <div class="groupCorrelation_desc">
+            <span>类型</span>
+            <input type="checkbox" id="type1" class="radio_diy_class" ng-model="groupData.groupType[0]" ng-checked="groupData.groupType[0]"/>
+            <label for="type1">
+                新增
+            </label>
+            <input type="checkbox" id="type2" class="radio_diy_class" ng-model="groupData.groupType[1]" ng-checked="groupData.groupType[1]"/>
+            <label for="type2">
+                删除
+            </label>
+            <input type="checkbox" id="type3" class="radio_diy_class" ng-model="groupData.groupType[2]" ng-checked="groupData.groupType[2]"/>
+            <label for="type3">
+                修改
+            </label>
+            <input type="checkbox" id="type4" class="radio_diy_class" ng-model="groupData.groupType[3]" ng-checked="groupData.groupType[3]"/>
+            <label for="type4">
+                已制作
+            </label>
+        </div>
+        <div>
+            <div class="list-title-btn" ng-click="connectGroup()" style="background-color: #5693ff;height: 24px;line-height: 24px;float: right;margin-right: 20px;margin-bottom: 10px">
+                <span style="color: #FFFFFF;font-size: 12px">关联</span>
+            </div>
+            <div class="list-title-btn" ng-click="searchList()" style="background-color: #5693ff;height: 24px;line-height: 24px;float: right;margin-right: 20px;margin-bottom: 10px">
+                <span style="color: #FFFFFF;font-size: 12px">查询</span>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="fm-job-panel fm-stretch">
+            <div ui-grid="gridOptions"
+                 ui-grid-resize-columns
+                 class="fm-grid wmContent" style="flex: 1; min-height: 60px">
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<style>
+    .datePickerDiy + div{
+        line-height: 30px;
+    }
+</style>
+<div class="scroll_style"  ng-controller="linksCtrl">
+    <ul class="list-group detailUlCss">
+        <li>
+            <div class="blockDescLiDiv">
+                <span>测线来源</span>
+            </div>
+            <select class="form-control poiRightPanel_select" ng-model="links.deep.src" ng-options="value.id as value.origin for value in linksOrigin"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>测线种别</span>
+            </div>
+            <select class="form-control poiRightPanel_select" ng-model="links.deep.kind" ng-options="value.id as value.label for value in linksKind"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>车道数</span>
+            </div>
+            <select class="form-control poiRightPanel_select" ng-model="links.deep.ln" ng-options="value.id as value.label for value in roadNumber"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>修形测线</span>
+            </div>
+            <input type="radio" name="modifyLinks" ng-value={{0}} ng-model="links.deep.shp" id="modifyLinks1" class="radio_diy_class"/>
+            <label for="modifyLinks1"><span> 否 </span></label>
+            <input type="radio" name="modifyLinks" ng-value={{1}} ng-model="links.deep.shp" id="modifyLinks2" class="radio_diy_class"/>
+            <label for="modifyLinks2"><span> 是 </span></label>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>测线长度</span>
+            </div>
+            <span>{{links.deep.len}}</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>在建</span>
+            </div>
+            <input type="radio" name="building" ng-value={{0}} ng-model="links.deep.cons" id="building1" class="radio_diy_class" ng-change="changeBuild()"/>
+            <label for="building1"><span> 否 </span></label>
+            <input type="radio" name="building" ng-value={{1}} ng-model="links.deep.cons" id="building2" class="radio_diy_class" ng-change="changeBuild()"/>
+            <label for="building2"><span> 是 </span></label>
+        </li>
+        <li style="line-height:48px;height:48px" ng-if="links.deep.cons === 1">
+            <div class="blockDescLiDiv" style="vertical-align: top;line-height: 24px">
+                <span>计划开通时间</span>
+            </div>
+            <input type="text" class="form-control poiRightPanel_Input datePickerDiy"
+                   data-date-format="yyyy-MM-dd" data-date-type="string" name="date" bs-datepicker
+                   ng-model="selectedDate" placement="auto" ng-change="changeDate(selectedDate)">
+        </li>
+        <li style="line-height:60px;height:60px">
+            <div class="blockDescLiDiv" style="vertical-align: top;">
+                <span>备注</span>
+            </div>
+            <textarea class="form-control poiRightPanel_area" type="text" rows=2 ng-model="links.content"></textarea>
+        </li>
+    </ul>
+</div>

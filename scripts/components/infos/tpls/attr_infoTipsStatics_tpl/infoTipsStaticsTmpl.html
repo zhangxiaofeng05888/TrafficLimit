@@ -1,0 +1,48 @@
+<style>
+    .statics_container{
+        width: 260px;
+        height: 200px;
+    }
+    .statics_container .blockDescLiDiv{
+        width: 100px;
+    }
+    .staticsheader{
+        height: 30px;
+    }
+
+</style>
+<div ng-controller="infoTipsStaticsCtrl">
+
+    <div class="statics_container">
+        <ul class="list-group detailUlCss">
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>作业量统计</span>
+                </div>
+            </li>
+            <li>
+                <div style="height: 1px;border: 0.5px solid black"></div>
+            </li>
+
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>tips总数：</span>
+                </div>
+                <span>{{result.total}}个</span>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>测线tips总条数：</span>
+                </div>
+                <span>{{result.total2001}}个</span>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>测线tips总里程：</span>
+                </div>
+                <span>{{result.length/1000}}公里</span>
+            </li>
+        </ul>
+    </div>
+</div>
+

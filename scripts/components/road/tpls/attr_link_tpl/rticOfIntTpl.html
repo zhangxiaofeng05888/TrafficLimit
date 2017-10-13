@@ -1,0 +1,34 @@
+<div class="popover" tabindex="-1" style="width: 300px;padding-bottom: 8px;">
+    <ul class="list-group detailUlCss" ng-controller="rticOfInternetController">
+        <li>
+            <div class="linkName_popover_Div"><span>RTIC代码</span></div>
+            <input class="form-control poiRightPanel_Input" name="rticCode" set-focus ng-model="currentInternetData.code" type="number" />
+        </li>
+        <li>
+            <div class="linkName_popover_Div"><span>RTIC等级</span></div>
+            <select class="form-control poiRightPanel_select linkName_popover_select" ng-model="currentInternetData.rank" ng-change="changeRank(currentInternetData.rank)" ng-options="value.id as value.label for value in rankoption"></select>
+        </li>
+        <li>
+            <div class="linkName_popover_Div"><span>RTIC方向</span></div>
+            <select  ng-model="currentInternetData.rticDir" class="form-control poiRightPanel_select linkName_popover_select" disabled
+                     ng-options="value.id as value.label for value in rticDroption">
+                <option>--</option>
+            </select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>上下标识</span></div>
+            <input type="radio" name="updownFlagRadio" ng-value="{{0}}" ng-model="currentInternetData.updownFlag" id="updownFlagRadio1" class="radio_diy_class" /><label for="updownFlagRadio1"><span> 上行 </span></label>
+            <input ng-if="linkData.direct != 1" disabled type="radio" name="updownFlagRadio" ng-value="{{1}}" ng-model="currentInternetData.updownFlag" id="updownFlagRadio3" class="radio_diy_class" /><label for="updownFlagRadio3" ng-if="linkData.direct != 1" disabled  style="padding-left: 15px"><span> 下行 </span></label>
+            <input ng-if="linkData.direct == 1" type="radio" name="updownFlagRadio" ng-value="{{1}}" ng-model="currentInternetData.updownFlag" id="updownFlagRadio3" class="radio_diy_class" /><label for="updownFlagRadio3" ng-if="linkData.direct == 1" style="padding-left: 15px"><span> 下行 </span></label>
+        </li>
+        <li>
+            <div class="blockDescLiDiv" style="line-height: 18px;vertical-align: middle">
+                <span style="display: block">RTIC域类</span>
+                <span style="display: block; text-align: right">型</span>
+            </div>
+            <input type="radio" disabled name="raticAreaType" ng-value={{0}} ng-model="currentInternetData.rangeType" id="raticAreaType1" class="radio_diy_class" /><label for="raticAreaType1"><span> 狭域  </span></label>
+            <input type="radio" name="raticAreaType" ng-value={{1}} ng-model="currentInternetData.rangeType" id="raticAreaType2" class="radio_diy_class" /><label for="raticAreaType2" style="padding-left: 15px"><span> 中域 </span></label>
+            <input type="radio" disabled name="raticAreaType" ng-value={{2}} ng-model="currentInternetData.rangeType" id="raticAreaType3" class="radio_diy_class" /><label for="raticAreaType3" style="padding-left: 15px"><span> 广域 </span></label>
+        </li>
+    </ul>
+</div>

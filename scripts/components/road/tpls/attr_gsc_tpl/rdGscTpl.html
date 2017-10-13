@@ -1,0 +1,51 @@
+<div style="height: 100%" class="scroll_style" ng-controller="rdGscController" >
+    <fast-collapse expander-title="基础属性">
+        <ul class="list-group detailUlCss" style="margin-top: 8px;margin-bottom: 8px;">
+            <li>
+                <div class="blockDescLiDiv"><span>处理标识</span></div>
+                <select
+                        ng-model="reGscData.processFlag"
+                        ng-options="value.id as value.label for value in processFlag"
+                        class="form-control roadLeftPanel_select"
+                >
+                </select>
+            </li>
+        </ul>
+    </fast-collapse>
+    <fast-collapse expander-title="组成link">
+        <ul class="list-group detailUlCss" ng-repeat="item in reGscData.links" style="margin-bottom: 5px;border-bottom: 1px solid #babfc8;">
+            <li>
+                <div class="blockDescLiDiv"><span>组成link{{$index+1}}</span></div>
+                <span>
+                    <a href="javascript:void(0);" ng-click="selectLink(item.linkPid, item.zlevel)">{{item.linkPid}}</a>
+                </span>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>高度层次</span></div>
+                <span>{{item.zlevel}}</span>
+            </li>
+            <li style="height: 48px;line-height: 48px">
+                <div class="blockDescLiDiv" style="line-height: 18px;vertical-align: middle">
+                    <span style="display: block">起终点</span>
+                    <span style="display: block">标识</span>
+                </div>
+                <input type="radio" name="startEnd{{$index}}" value={{0}} id="startEnd0" ng-model="item.startEnd" class="radio_diy_class" disabled/>
+                <label for="startEnd0">
+                    <span>形状点</span>
+                </label>
+                <input type="radio" name="startEnd{{$index}}" value={{1}} id="startEnd1" ng-model="item.startEnd" class="radio_diy_class" disabled/>
+                <label for="startEnd1" style="padding-left: 10px">
+                    <span>起点</span>
+                </label>
+                <input type="radio" name="startEnd{{$index}}" value={{2}} id="startEnd2" ng-model="item.startEnd" class="radio_diy_class" disabled/>
+                <label for="startEnd2" style="padding-left: 10px">
+                    <span>终点</span>
+                </label>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>要素类型</span></div>
+                <span>{{item.tableName}}</span>
+            </li>
+        </ul>
+    </fast-collapse>
+</div>

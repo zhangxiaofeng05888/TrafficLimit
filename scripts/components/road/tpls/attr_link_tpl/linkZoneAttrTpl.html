@@ -1,0 +1,20 @@
+<div class="popover" tabindex="-1" style="width: 300px;" ng-controller="linkZoneController">
+    <fast-collapse expander-title="Zone{{linkData.zones.length}}个">
+        <ul style="margin-bottom: 5px;position: relative" ng-style="{'border-bottom': linkData.zones.length>=2?'1px solid #ccc':''}" class="list-group detailUlCss" ng-repeat="item in linkData.zones">
+            <li>
+               <div class="blockDescLiDiv"><span>区划号码</span></div>
+               <input style="width: 180px" class="form-control poiRightPanel_Input" ng-disabled="true" ng-model="item.regionId" type="number" placeholder="0" />
+            </li>
+            <li>
+               <div class="blockDescLiDiv"><span>Zone类型</span></div>
+               <select style="width: 180px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="item.type" ng-options="value.id as value.label for value in typeoption"></select>
+            </li>
+            <li>
+               <div class="blockDescLiDiv"><span>Link左右</span></div>
+               <input type="radio" name="{{'side'+$index}}" ng-value={{0}} ng-model="item.side" id="{{'leftside'+$index}}" class="radio_diy_class"/><label for="{{'leftside'+$index}}"><span> 左 </span></label>
+               <input type="radio" name="{{'side'+$index}}" ng-value={{1}} ng-model="item.side" id="{{'rightside'+$index}}" class="radio_diy_class"/><label for="{{'rightside'+$index}}"><span> 右 </span></label>
+            </li>
+            <span style="position: absolute;top: 5px;right: 3px;padding: 1px 3px;border: 1px solid red;border-radius: 5px;color: red;cursor: pointer;font-size: 12px" class="glyphicon glyphicon-remove" ng-click="removeZone(item)"></span>
+        </ul>
+    </fast-collapse>
+</div>

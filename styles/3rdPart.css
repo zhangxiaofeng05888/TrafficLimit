@@ -1,0 +1,219 @@
+/*********************用于对第三方控件的样式的改写**********************/
+
+
+/*****全屏的ngDialog*****/
+
+.ngdialog.fm-fs-ngDialog {
+    padding: 0px;
+    margin: 0px;
+}
+
+.ngdialog.fm-fs-ngDialog .ngdialog-content {
+    font-family: 'Microsoft YaHei', 'Helvetica Neue', 'Hiragino Sans GB', '微软雅黑', '黑体', Arial, sans-serif;
+    border-radius: 0px;
+}
+
+.ngdialog.fm-fs-ngDialog .ngdialog-overlay {
+    display: none;
+}
+
+.ngdialog.fm-fs-ngDialog .ngdialog-close {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    right: 19px;
+    top: 19px;
+    background: url(../images/newPoi/taskList/icon_close.png) no-repeat;
+}
+
+
+/*****swal-alert*****/
+.sweet-alert .input-radio div {
+    text-align: left;
+    padding: 2px 0px 2px 30px;
+}
+.sweet-alert .input-radio input[type='radio'] {
+    width: 16px;
+    display: inline-block;
+    height: 16px;
+    box-shadow: none;
+    margin: 0px;
+}
+
+/*****ui-grid*****/
+
+.ui-grid.fm-grid {
+    border: none;
+    height: auto;
+}
+.ui-grid.fm-grid .ui-grid-canvas {
+    padding-top: 0px;
+}
+
+/*表头样式*/
+
+.ui-grid.fm-grid .ui-grid-header {
+    border-top: 1px solid #3399ff;
+    border-bottom: 1px solid #3399ff;
+}
+
+.ui-grid.fm-grid .ui-grid-header .ui-grid-header-cell-row {
+    /*height: 30px;*/
+    line-height: 20px;
+}
+
+.ui-grid.fm-grid .ui-grid-header .ui-grid-header-cell-row .ui-grid-header-cell {
+    border-right: 1px solid;
+    border-color: #bdceec;;
+}
+.ui-grid.fm-grid .ui-grid-header-cell:last-child {
+    border-right: none!important;
+}
+
+.ui-grid.fm-grid .ui-grid-header .ui-grid-top-panel {
+    border: none;
+    color: #3399ff;
+    background-image: none;
+    background-color: #FFFFFF;
+}
+
+/* viewPort中的样式*/
+
+.ui-grid.fm-grid .ui-grid-viewport {
+    border-bottom: 1px solid #3399ff;
+}
+
+.ui-grid-disable-selection {
+    user-select: text;
+}
+
+.ui-grid.fm-grid .ui-grid-header-cell:last-child .ui-grid-column-resizer.right {
+     border-right: none!important;
+}
+
+.ui-grid.fm-grid .ui-grid-row {
+    /*height: 30px;*/
+    line-height: 20px;
+    height: auto;
+    overflow: auto;
+    background-color: #FFFFFF;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+}
+
+.ui-grid.fm-grid .ui-grid-row:hover, .ui-grid.fm-grid .ui-grid-row:active, .ui-grid.fm-grid .ui-grid-row.ui-grid-row-selected {
+    background-color: #eaf5ff;
+    border-top: 1px solid #3f9fff;
+    border-bottom: 1px solid #3f9fff;
+}
+
+.ui-grid.fm-grid .ui-grid-cell {
+    border: none;
+    height: inherit!important;
+    background-color: transparent;
+}
+
+.ui-grid.fm-grid .ui-grid-cell .ui-grid-cell-contents {
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+    padding-left: 10px;
+}
+.ui-grid.fm-grid .ui-grid-header-cell .ui-grid-cell-contents {
+    padding-left: 10px;
+}
+
+.ui-grid.fm-grid .tableLoading {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 30px;
+    bottom: 45px;
+}
+
+.ui-grid.fm-grid .fm-grid-pager {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: auto;
+    line-height: 24px;
+    padding: 10px;
+    margin: 0px;
+}
+.ui-grid.fm-grid.tight .fm-grid-pager .count > select {
+    width: 60px;
+}
+.ui-grid.fm-grid.tight .fm-grid-pager .pagination>li>a {
+    padding: 0px 5px;
+}
+
+.ui-grid.fm-grid div.ui-grid-cell input[type="checkbox"] {
+    margin: 5px;
+    width: 12px;
+}
+
+.ui-grid.fm-grid div.ui-grid-cell input[type="text"], .ui-grid.fm-grid div.ui-grid-cell select {
+    border-radius: 3px;
+    padding: 3px 6px;
+    width: 100%;
+}
+/*紫色表格*/
+.fm-grid.purple .ui-grid-header-cell:last-child .ui-grid-column-resizer.right {
+    border-right: 1px solid #636ef5;
+}
+.fm-grid.purple .ui-grid-header {
+    border-top: 1px solid #636ef5;
+    border-bottom: 1px solid #636ef5;
+}
+.fm-grid.purple .ui-grid-header .ui-grid-top-panel {
+    color: #636ef5;
+}
+.fm-grid.purple .ui-grid-header-cell .ui-grid-cell-contents {
+    padding-left: 10px;
+    border-left: 1px solid #636ef5;
+}
+/*.fm-grid.purple .ui-grid-row {*/
+    /*border-top: 1px solid rgba(97, 109, 245, 0);*/
+    /*border-bottom: 1px solid #636ef5;*/
+/*}*/
+.fm-grid.purple .ui-grid-row:hover {
+    background-color: #eff0fe;
+    /*border-bottom: 1px solid #636ef5;*/
+    border-bottom: none;
+    border-top: 1px solid rgba(99, 110, 245, 0);
+}
+.fm-grid.purple .ui-grid-row.ui-grid-row-selected {
+    background-color: #eff0fe;
+    border-top: 1px solid rgba(99, 110, 245, 0);
+    /*border-bottom: 1px solid #636ef5;*/
+    border-bottom: none;
+}
+.fm-grid.purple .ui-grid-viewport {
+    border-bottom: 1px solid #636ef5;
+}
+.fm-grid.purple .ui-grid-viewport .ui-grid-canvas {
+    padding-top: 0;
+}
+.fm-grid .border-cell .ui-grid-header .ui-grid-header-cell-row .ui-grid-header-cell {
+    border-left: 1px solid #636ef5;
+}
+
+
+/*解决精编列表中列错位问题*/
+.col-grid.ui-grid.fm-grid .ui-grid-cell {
+    border: 1px solid transparent;
+}
+.col-grid.ui-grid.fm-grid .ui-grid-header {
+    border-left: 1px solid #636ef5;
+    border-right: 1px solid #636ef5;
+}
+.col-grid.ui-grid.fm-grid .ui-grid-viewport {
+    border-left: 1px solid #636ef5;
+    border-right: 1px solid #636ef5;
+}
+
+.progress-bar.fm-control {
+    background-color: #636ef5;
+    background-image: linear-gradient(to bottom,#636ef5,#454dab 100%);
+}

@@ -1,0 +1,79 @@
+<div ng-controller="restrictionCtrl" class="scroll_style">
+    <form class="w5c-form" w5c-form-validate="" novalidate name="infoRestrictionForm">
+        <ul class="list-group detailUlCss">
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>限速标志</span>
+                </div>
+                <input type="radio" name="speedFlag" ng-value={{0}} ng-model="speedLimit.deep.se" id="speedFlag1"
+                       class="radio_diy_class"/>
+                <label for="speedFlag1"><span>开始限速</span></label>
+                <input type="radio" name="speedFlag" ng-value={{1}} ng-model="speedLimit.deep.se" id="speedFlag2"
+                       class="radio_diy_class"/>
+                <label for="speedFlag2"><span>限速解除</span></label>
+            </li>
+            <li style="line-height:48px;height:48px">
+                <div class="blockDescLiDiv" style="vertical-align: top;line-height: 24px">
+                    <span>收费站前限速</span>
+                </div>
+                <input type="radio" name="tollSpeed" ng-value={{0}} ng-model="speedLimit.deep.toll" id="tollSpeed1"
+                       class="radio_diy_class"/>
+                <label for="tollSpeed1"><span>否</span></label>
+                <input type="radio" name="tollSpeed" ng-value={{1}} ng-model="speedLimit.deep.toll" id="tollSpeed2"
+                       class="radio_diy_class"/>
+                <label for="tollSpeed2"><span>是</span></label>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>角度</span>
+                </div>
+                <img ng-src="../../images/newPoi/leftPanelIcon/{{rotate}}" title="顺时针旋转180度"
+                     ng-click="changeRotate(180)" style="padding-left: 10px;padding-right: 10px;cursor: pointer">
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>限速值</span>
+                </div>
+                <input
+                        type="number"
+                        ng-model="speedLimit.deep.value"
+                        class="form-control poiRightPanel_Input"
+                        name="speedLimitName"
+                        ng-maxlength="3"
+                        min="5"
+                        max="120"
+                        required
+                        set-focus
+                        ng-pattern="/^(0|[1-9][0-9]*)$/"
+                />
+                <!--<input type="text" class="form-control poiRightPanel_Input" ng-model="speedLimit.deep.value"/>-->
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>采集标志</span>
+                </div>
+                <input type="radio" name="gatherFlag" ng-value={{0}} ng-model="speedLimit.deep.flag" id="gatherFlag1"
+                       class="radio_diy_class"/>
+                <label for="gatherFlag1"><span>现场采集</span></label>
+                <input type="radio" name="gatherFlag" ng-value={{1}} ng-model="speedLimit.deep.flag" id="gatherFlag2"
+                       class="radio_diy_class"/>
+                <label for="gatherFlag2"><span>理论判断</span></label>
+            </li>
+            <li style="line-height:60px;height:60px">
+                <div class="blockDescLiDiv" style="vertical-align: top">
+                    <span>文字说明</span>
+                </div>
+                <textarea class="form-control poiRightPanel_area" type="text" rows=2
+                          ng-model="speedLimit.deep.desc"></textarea>
+            </li>
+            <li style="line-height:60px;height:60px">
+                <div class="blockDescLiDiv" style="vertical-align: top">
+                    <span>备注</span>
+                </div>
+                <textarea class="form-control poiRightPanel_area" type="text" rows=2
+                          ng-model="speedLimit.content"></textarea>
+            </li>
+        </ul>
+    </form>
+</div>
+

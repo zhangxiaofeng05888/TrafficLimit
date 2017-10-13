@@ -1,0 +1,54 @@
+<style>
+    .batch-job .stage1 {
+        padding: 10px 10px 0px 10px;
+        font-size: 0px;
+    }
+    .batch-job button.execute {
+        margin-left: 10px;
+        color: #ffffff;
+        background-color: #636ef5;
+        border: none;
+    }
+    .batch-job button.return {
+        color: #ffffff;
+        background-color: #fa5883;
+        border: none;
+    }
+    .batch-job button.execute:hover, .batch-job button.execute:active{
+        background-color: #454dab;
+    }
+    .batch-job button.return:hover, .batch-job button.return:active{
+        background-color: #dd4e74;
+    }
+    .batch-job .stage2 {
+        width: 560px;
+        height: 160px;
+        padding: 10px 10px 0px 10px;
+    }
+    .batch-job .stage2 .desc {
+        text-align: center;
+        line-height: 30px;
+        font-size: 14px;
+    }
+    .batch-job .stage2 .info {
+        text-align: center;
+        line-height: 30px;
+        font-size: 18px;
+    }
+    .batch-job .stage2 .info > .succ {
+        color: green;
+    }
+    .batch-job .stage2 .info > .fail {
+        color: red;
+    }
+</style>
+<div ng-controller="StreetViewCtrl" class="fm-job-panel batch-job">
+    <div class="header" style="cursor: move;" drag-handle>
+        街景
+    </div>
+    <div class="content">
+        <div id="streetViewContainer" style="height: 300px;width: 500px">
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="popover" tabindex="-1" style="width: 300px;min-height: 185px;max-height:300px;">
+    <ul class="list-group detailUlCss" ng-controller="crfObjectNameCtrl">
+        <li style="position: relative">
+            <div class="linkName_popover_Div"><span>名称组号</span></div>
+            <input disabled class="form-control poiRightPanel_Input" type="text" style="padding-right: 30px" ng-model="currentName.nameGroupid"/>
+        </li>
+        <li style="position: relative">
+            <div class="linkName_popover_Div"><span>名称号码</span></div>
+            <input disabled class="form-control poiRightPanel_Input" type="text" style="padding-right: 30px" ng-model="currentName.pid"/>
+        </li>
+        <li>
+            <div class="linkName_popover_Div"><span>语言代码</span></div>
+            <select class="form-control poiRightPanel_select linkName_popover_select" ng-model="currentName.langCode" ng-click="langCodeChange(currentName.langCode)" ng-change="changeLangCode(currentName);">
+                <option value="{{value.id}}" ng-repeat="value in langCodeOptions" ng-selected="currentName.langCode == value.id" ng-disabled="(selectedLangcodeArr.indexOf(value.id) > -1)"> {{value.label}}</option>
+            </select>
+        </li>
+        <li style="position: relative">
+            <div class="linkName_popover_Div"><span>名称内容</span></div>
+            <!--<input class="form-control poiRightPanel_Input" type="text" ng-if="currentName.langCode != 'ENG'" style="padding-right: 30px" ng-blur="namePronunciation(currentName.name,currentName);" ng-model="currentName.name" placeholder="名称内容" />-->
+            <!--<input class="form-control poiRightPanel_Input" type="text" ng-if="currentName.langCode == 'ENG'" style="padding-right: 30px" maxlength="35" ng-model="currentName.name" placeholder="名称内容" />-->
+            <input class="form-control poiRightPanel_Input"
+                   type="text"
+                   ng-maxlength="35"
+                   ng-if="currentName.langCode != 'ENG'"
+                   ng-change="namePronunciation(currentName.name,currentName);"
+                   style="padding-right: 30px"
+                   ng-model="currentName.name"
+                   data-min-length="0"
+                   data-html="1"
+                   data-auto-select="true"
+                   data-animation="am-flip-x"
+                   bs-options="objName for objName in getObjName()"
+                   bs-typeahead>
+            <input class="form-control poiRightPanel_Input"
+                   type="text"
+                   ng-maxlength="120"
+                   ng-if="currentName.langCode == 'ENG'"
+                   style="padding-right: 30px"
+                   ng-model="currentName.name"
+                   data-min-length="0"
+                   data-html="1"
+                   data-auto-select="true"
+                   data-animation="am-flip-x"
+                   bs-options="objName for objName in getObjName()"
+                   bs-typeahead>
+        </li>
+        <li style="height: auto;">
+            <div class="linkName_popover_Div"><span>名称发音</span></div>
+            <div style="display: inline-block;text-align: left;margin-right: 14px;margin-top: 4px;line-height: 20px;vertical-align: top;width:180px;">
+                <span class="" ng-repeat="item in currentName.phoneticArr track by $index">
+                    <span ng-if="item.length>1">{<span ng-repeat="subitem in item" style="text-decoration: underline;cursor: pointer;color:red;margin-right: 4px;" ng-click="selectPolyphonic($event, $index, $parent.$parent.$index)">{{subitem}}</span>}</span>
+                    <span ng-if="item.length==1">{{item[0]}}</span>
+                </span>
+                <span style=""><img ng-show="currentName.langCode == 'CHI' || currentName.langCode == 'CHT'" style="cursor: pointer;position: absolute;top: 130px;left: 280px;" src="../../images/meta/refresh.png" ng-click="namePronunciation(currentName.name,currentName);"></span>
+            </div>
+        </li>
+        <!--<li style="position: relative">-->
+            <!--<div class="linkName_popover_Div"><span>名称发音</span></div>-->
+            <!--<input class="form-control poiRightPanel_Input" type="text" style="padding-right: 30px" ng-model="currentName.phonetic" placeholder="名称发音" ng-disabled="currentName.langCode == 'ENG'"/>-->
+        <!--</li>-->
+        <li >
+            <div class="linkName_popover_Div"><span>名称来源</span></div>
+            <input type="radio" id="originOfName0" class="radio_diy_class" name="originOfName0" value=0 ng-model="currentName.srcFlag">
+            <label for="originOfName0">
+                    <span>
+                    未定义
+                    </span>
+            </label>
+            <input type="radio" id="originOfName1" ng-click="changeNameSource(currentName);" class="radio_diy_class" ng-disabled="currentName.langCode == 'CHI' || currentName.langCode == 'CHT'" name="originOfName1" value=1 ng-model="currentName.srcFlag">
+            <label for="originOfName1">
+                    <span>
+                    翻译
+                    </span>
+            </label>
+        </li>
+    </ul>
+</div>

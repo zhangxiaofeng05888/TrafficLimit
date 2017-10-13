@@ -1,0 +1,29 @@
+<div class="fm-panel" ng-controller="RdNameSplitCtrl" style="width:330px;">
+    <div class="content">
+        <div style="height:120px;">
+            <div class="block">
+                <div style="margin:40px 30px">
+                    <label>
+                        <input type="radio" name="dataFlag" value="1" ng-model="dataFlag">
+                        对选中的数据进行道路名拆分（已选中{{selectedDataCount}}条）
+                    </label>
+                    </br>
+                    <label>
+                        <input type="radio" name="dataFlag" value="2" ng-model="dataFlag">
+                        对查询结果数据进行道路名拆分
+                    </label>
+                    </br>
+                    <!--<label>-->
+                        <!--<input type="radio" name="dataFlag" value="3" ng-model="dataFlag">-->
+                        <!--对整张表进行道路名拆分-->
+                    <!--</label>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="border-bottom: 1px solid #ddd;"></div>
+    <div style="text-align:right;">
+        <button type="button" class="btn md-btn-blue" ng-click="cancel()" style="margin:6px 8px"><img src="../../images/meta/cancel.png">取消</button>
+        <button type="button" class="btn md-btn-success" ng-click="doSplit()" style="margin:6px 8px"><img src="../../images/meta/confirm.png">确定</button>
+    </div>
+</div>

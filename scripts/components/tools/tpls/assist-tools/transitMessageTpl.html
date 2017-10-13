@@ -1,0 +1,137 @@
+<style>
+    .socket-message-container {
+        position: fixed;
+        width: 320px;
+        height: 110px;
+        left: 15px;
+        bottom: 10px;
+        opacity: 0.8;
+        color: #FFFFFF;
+        border-radius: 4px;
+        background-color: #484747;
+        box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.4);
+        transition: all linear 0.6s;
+    }
+    .socket-message-container.ng-hide-remove{
+        opacity: 0;
+        width: 100px;
+        left: -315px;
+    }
+    .socket-message-container.ng-hide-remove-active {
+        opacity: 0.8;
+        left: 15px;
+        width: 320px;
+    }
+    .socket-message-container.ng-hide-add-active {
+        opacity: 0;
+        bottom: -120px;
+    }
+    .socket-message-container:before {
+        content: '';
+        position: absolute;
+        left: -14px;
+        top: 40px;
+        border-style: solid;
+        border-width: 10px 14px 10px 0;
+        border-color: rgba(0, 0, 0, 0) #484747 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    }
+    .socket-message-container .socket-message-title {
+        overflow: auto;
+        height: 25px;
+    }
+    .socket-message-container .socket-message-title h1 {
+        font-size: 12px;
+        margin: 5px 10px;
+    }
+    .socket-message-container .socket-message-title h1 .infos {
+        margin: 0 5px 0 0;
+        vertical-align: top;
+    }
+    .socket-message-container .socket-message-title h1 .closeBtn {
+        transition: all .3s;
+        z-index: 3;
+        width: 15px;
+        height: 15px;
+        display: inline-block;
+        background: url(../../images/webEditor/left-panel/icon_close.png) no-repeat center center transparent;
+    }
+    .socket-message-container .socket-message-title h1 .closeBtn:hover{
+        cursor: pointer;
+        transform: rotate(90deg);
+    }
+    .socket-message-container .slider-container {
+        overflow: hidden;
+        height: 60px;
+        padding: 0 15px 0 10px;
+    }
+    .socket-message-container .slider-container .messageSilder {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        color: #FFFFFF;
+        padding: 10px 0 0;
+        list-style: none;
+        position: relative;
+    }
+    .socket-message-container .slider-container .messageSilder .messageContent{
+        padding: 0;
+        width: 100%;
+        line-height: 1.8em;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        top: 10px;
+        transition: all ease 0.6s;
+    }
+    .socket-message-container .slider-container .messageSilder .messageContent a.errorInfos {
+        margin: 0 5px;
+        color: red;
+    }
+    .socket-message-container .slider-container .messageSilder .messageContent a.errorInfos:hover{
+        color: #fff;
+    }
+    .socket-message-container .slider-container .messageSilder .messageContent.ng-hide-remove {
+        bottom: -50px;
+        transform: scale(0.5);
+    }
+    .socket-message-container .slider-container .messageSilder .messageContent.ng-hide-remove-active {
+        bottom: 0px;
+        transform: scale(1);
+    }
+    .socket-message-container .slider-container .messageSilder .messageContent.ng-hide-add-active {
+        bottom: 50px;
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    .socket-message-container .slider-container .messageSilder .messageContent.ng-leave-active {
+        bottom: 50px;
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    .socket-message-container .slider-container .messageSilder .messageContent span.label {
+        font-weight: normal;
+        padding: .1em .3em .2em;
+        font-size: 12px;
+    }
+    .socket-message-container .footer {
+        text-align: center;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 20px;
+    }
+</style>
+<div ng-cloak ng-hide="!messageBoxStatus" ng-controller="LogMessageCtrl" class='socket-message-container'>
+    <div class="socket-message-title">
+        <h1>
+            <span class="glyphicon glyphicon-info-sign infos"></span>
+            消息提示
+            <span ng-cloak ng-if="!logMessages.length" class="pull-right closeBtn" ng-click="hideMessageBox()"></span>
+        </h1>
+    </div>
+    <div class='slider-container'>
+        <ul class="messageSilder">
+            <li style="text-align: center;padding: 10px">{{statusMessage}}</li>
+        </ul>
+    </div>
+</div>

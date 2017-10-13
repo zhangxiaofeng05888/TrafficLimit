@@ -1,0 +1,42 @@
+<style>
+    .batchlist_li {
+        border-top: 1px solid #ffffff;
+        border-left: 1px solid #ffffff;
+        border-right: 1px solid #ffffff;
+        border-bottom: 1px solid #d2e1ff;
+    }
+    .batchlist_li_checked {
+        background-color: #eff0fe !important;
+        border: 1px solid #5693ff;
+    }
+    .batchlistContainer{
+        height: 100%;
+        width: 240px;
+        background-color: white;
+        overflow-y:auto
+    }
+    .batchlist_li_num{
+        width: 50px;
+        padding-left: 10px;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .batchlist_li_geo{
+        width: 40px;
+        display: inline-block;
+        margin-left: 30px
+    }
+</style>
+<div ng-controller="BatchResultController" class="batchlistContainer fm-scroll" >
+    <div class="poiRightPanel_fold" style="border: none">
+        <strong>批量选择结果</strong>
+    </div>
+    <ul class="list-group detailUlCss">
+        <li ng-class="{'batchlist_li': !(currentIndex==$index),'batchlist_li_checked': (currentIndex==$index)}"  ng-repeat="item in links"  >
+            <div class="batchlist_li_num"><span>{{$index + 1}}</span></div>
+            <div class="batchlist_li_geo"><span>{{item.pid}}</span></div>
+            <div class="batchlist_li_geo"><span>{{item.geoLiveType}}</span></div>
+        </li>
+    </ul>
+</div>

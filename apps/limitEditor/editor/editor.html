@@ -1,0 +1,113 @@
+<link href="../../scripts/libs/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="../../scripts/libs/leaflet-0.7.3/leaflet.css" rel="stylesheet" type="text/css"/>
+<link href="../../scripts/libs/angular-chosen/chosen.css" rel="stylesheet" type="text/css"/>
+<link href="../../scripts/libs/select2/css/select2.css" rel="stylesheet" type="text/css"/>
+<link href="../../scripts/libs/z-tree/css/zTreeStyle.css" rel="stylesheet" type="text/css"/>
+<link href="../../scripts/libs/angular-tree-control/tree-control.css" rel="stylesheet" type="text/css"/>
+<link href="../../scripts/libs/angularjs/w5c-validator/style.css" rel="stylesheet" type="text/css"/>
+<link href="../../styles/editor.css" rel="stylesheet" type="text/css"/>
+<link href="../../styles/pager.css" rel="stylesheet" type="text/css"/>
+<link href="../../styles/webEditor/editor-poi.css" rel="stylesheet" type="text/css"/>
+<link href="../../styles/webEditor/editor-road.css" rel="stylesheet" type="text/css"/>
+<link href="../../styles/webEditor/float-menu.css" rel="stylesheet" type="text/css"/>
+<style>
+    .map-container {
+        height: 100%;
+        width: 100%;
+        background-color: #f7f5f5;
+    }
+    .userToolbar {
+        position: absolute;
+        top: 10px;
+        text-align: center;
+        padding-bottom: 10px;
+        z-index: 10;
+    }
+    .userToolbar > div > div {
+        box-shadow: 0 0 10px #93bbff;
+        /*border-radius: 15px;*/
+        height: 30px;
+        width: 30px;
+        background: url("../../images/newPoi/toolIcon/menu_normal.png") no-repeat center center;
+    }
+    .userToolbar:hover > div > div{
+        background: url("../../images/newPoi/toolIcon/menu_active.png") no-repeat center center;
+    }
+    .userToolbar > div > div > .innerImg{
+        width: 10px;
+        height: 10px;
+        margin-left: 20px;
+        background: url("../../images/newPoi/toolIcon/menu_icon_notice.png") no-repeat center center;
+    }
+    .userToolbar > div > div + ul {
+        display: none;
+    }
+    .userToolbar:hover > div > div + ul {
+        width: 80px;
+        position: absolute;
+        display: block;
+        margin-left: -25px;
+    }
+    .bottomBar {
+        width: 100%;
+        height: 300px;
+        position: absolute;
+        bottom: 0;
+        z-index: 10;
+        box-shadow: 0 10px 10px 10px #c8ccd4;
+    }
+    .bottomBar > div{
+        width: 100%;
+        height: 100%;
+    }
+    .taskToolbar > div{
+        width: 100%;
+        height: 100%;
+        background: url("../../images/newPoi/toolIcon/taskList-normal.png") no-repeat center center;
+    }
+    .taskToolbar:hover > div {
+        background: url("../../images/newPoi/toolIcon/taskList-active.png") no-repeat center center;
+    }
+    .sceneToolbar > div{
+        width: 100%;
+        height: 100%;
+        background: url("../../images/newPoi/toolIcon/button_changjing_normal.png") no-repeat center center;
+    }
+    .sceneToolbar:hover > div {
+        background: url("../../images/newPoi/toolIcon/button_changjing_active.png") no-repeat center center;
+    }
+    .mapZoomBar {
+        position: absolute;
+        bottom: 10px;
+        right: 60px;
+    }
+</style>
+<script src="config/SymbolsFile.js"></script>
+<script src="config/ReferenceLayers.js"></script>
+<script src="config/FeatureLayers.js"></script>
+<script src="config/TipLayers.js"></script>
+<script src="config/ThematicLayers.js"></script>
+<script src="config/Scenes.js"></script>
+<script src="config/SourceConfig.js"></script>
+<script src="editor/components/map/layerConfig.js"></script>
+<div class="mapwapper" id="mainEditor" style="height: 100%;position: relative;overflow: hidden;">
+    <div ng-controller="mainMapCtrl" style="height: 100%;">
+        <div class="map-container" id="editorMap">
+            <div class="mapZoomBar" ng-style="{'right':rightPanelOpened ? 360 : 60}">
+                缩放等级：
+                <span ng-bind="zoom">
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="userToolbar" ng-include="rightUserToolTmpl" ng-style="{'right':rightPanelOpened ? 310 : 50}">
+    </div>
+    <div ng-show="policyFlag" class="bottomBar">
+        <div ng-include="bottomPanelTmpl">
+        </div>
+    </div>
+    <wmwindow ng-repeat="(key, item) in dialogManager" class="fm-wm-window" on-open="openDialog($dlg, key)" on-closed="closeDialog(key)" options="{{item.options}}" maximizable="false" title="{{item.title}}">
+        <div class="fm-stretch" ng-include="item.tmpl">
+        </div>
+    </wmwindow>
+</div>

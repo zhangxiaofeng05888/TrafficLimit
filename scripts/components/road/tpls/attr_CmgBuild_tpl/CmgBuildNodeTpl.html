@@ -1,0 +1,16 @@
+<div ng-controller="CmgBuildNodeController">
+    <ul class="list-group prop-list">
+        <li>
+            <div class="prop-name">形　　态</div>
+            <div class="prop-content">
+                <select class="fm-control poiRightPanel_select" style="vertical-align: initial;" ng-model="CmgBuildNodeData.form"
+                        ng-options="value.id as value.label disable when (value.id != CmgBuildNodeData.form) for value in form">
+                </select>
+            </div>
+        </li>
+        <li>
+            <div class="prop-name">图 幅 号</div>
+            <div class="prop-content">{{CmgBuildNodeData.meshId}}</div>
+        </li>
+    </ul>
+</div>

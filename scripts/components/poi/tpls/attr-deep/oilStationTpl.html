@@ -1,0 +1,94 @@
+<div ng-controller="OilStationCtl">
+    <fast-collapse expander-title='深度信息'>
+        <img ng-if="poi.rawFields.indexOf('7')>-1" src="../../images/poi/icon/little-cycle.png" class="icon-cycle-deep">
+        <form class="w5c-form" w5c-form-validate="" novalidate name="poiDeepInfoOilStationForm">
+        <ul class="list-group detailUlCss">
+            <li style="height: 60px;line-height: 60px">
+                <div class="blockDescLiDiv">
+                    <span>支付方式</span>
+                </div>
+                <div style="display: inline-block;width: 200px;line-height: 30px">
+                    <div style="display: inline-block;padding-left: 5px;padding-right: 5px" ng-repeat="(key, value) in paymentML" class="col-md-6">
+                        <input type="checkbox" name="paymentML" value={{value}} id={{key+'paymentML'}} class="radio_diy_class" ng-model="poi.oilstations[0].payment[key]" ng-disabled="isSpecialOperation"/>
+                        <label for={{key+'paymentML'}} >
+                            <span>{{value}}</span>
+                        </label>
+                    </div>
+                </div>
+            </li>
+            <li style="height: 120px;line-height: 90px">
+                <div class="blockDescLiDiv">
+                    <span>附属服务</span>
+                </div>
+                <div style="display: inline-block;width: 200px;line-height: 30px">
+                    <div style="display: inline-block;padding-left: 5px;padding-right: 5px" ng-repeat="(key, value) in serviceML" class="col-md-6">
+                        <input type="checkbox" name="serviceML" value={{value}} id={{key+'serviceML'}} class="radio_diy_class" ng-model="poi.oilstations[0].service[key]" ng-disabled="isSpecialOperation"/>
+                        <label for={{key+'serviceML'}} >
+                            <span>{{value}}</span>
+                        </label>
+                    </div>
+                </div>
+            </li>
+            <li style="height: 120px;line-height: 120px">
+                <div class="blockDescLiDiv">
+                    <span>汽 油</span>
+                </div>
+                <div style="display: inline-block;width: 200px;line-height: 30px">
+                    <div style="display: inline-block;padding-left: 5px;padding-right: 5px" ng-repeat="(key, value) in oilType" class="col-md-6">
+                        <input type="checkbox" name="oilType" value={{value}} id={{key+'oilType'}} class="radio_diy_class" ng-model="poi.oilstations[0].oilType[key]" ng-disabled="isSpecialOperation"/>
+                        <label for={{key+'oilType'}} >
+                            <span>{{value}}</span>
+                        </label>
+                    </div>
+                </div>
+            </li>
+            <li style="height: 120px;">
+                <div class="blockDescLiDiv">
+                    <span>甲醇汽油</span>
+                </div>
+                <div style="display: inline-block;width: 200px;line-height: 30px">
+                    <div style="display: inline-block;padding-left: 5px;padding-right: 5px" ng-repeat="(key, value) in mgType" class="col-md-6">
+                        <input type="checkbox" name="mgType" value={{value}} id={{key+'mgType'}} class="radio_diy_class" ng-model="poi.oilstations[0].mgType[key]" ng-disabled="isSpecialOperation"/>
+                        <label for={{key+'mgType'}} >
+                            <span>{{value}}</span>
+                        </label>
+                    </div>
+                </div>
+            </li>
+            <li style="height: 120px;">
+                <div class="blockDescLiDiv">
+                    <span>乙醇汽油</span>
+                </div>
+                <div style="display: inline-block;width: 200px;line-height: 30px">
+                    <div style="display: inline-block;padding-left: 5px;padding-right: 5px" ng-repeat="(key, value) in egType" class="col-md-6">
+                        <input type="checkbox" name="egType" value={{value}} id={{key+'egType'}} class="radio_diy_class" ng-model="poi.oilstations[0].egType[key]" ng-disabled="isSpecialOperation"/>
+                        <label for={{key+'egType'}} >
+                            <span>{{value}}</span>
+                        </label>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>燃料类型</span>
+                </div>
+                <div style="display: inline-block;width: 200px;line-height: 30px">
+                    <div style="display: inline-block;padding-left: 5px;padding-right: 5px" ng-repeat="(key, value) in fuelTypeML" class="col-md-6">
+                        <input type="checkbox" name="fuelTypeML" value={{value}} id={{key+'fuelTypeML'}} class="radio_diy_class" ng-change="getTruckInfo($event)" ng-model="poi.oilstations[0].fuelType[key]" ng-disabled="isSpecialOperation"/>
+                        <label for={{key+'fuelTypeML'}} >
+                            <span>{{value}}</span>
+                        </label>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>营业时间</span>
+                </div>
+                <input  name="oilStationOpenTime" class="form-control poiRightPanel_Input" type="text" ng-model="poi.oilstations[0].openHour" maxlength="254" ng-disabled="isSpecialOperation"/>
+            </li>
+        </ul>
+        </form>
+    </fast-collapse>
+</div>
+

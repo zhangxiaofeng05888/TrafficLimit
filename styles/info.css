@@ -1,0 +1,345 @@
+/*********************************滚动条样式************************************/
+.scroll_style {
+    overflow: auto;
+    height: 100%;
+}
+.scroll_style::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.1);
+}
+.scroll_style::-webkit-scrollbar-thumb {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background: #c1c1c1;
+}
+.scrollDiy::-webkit-scrollbar {
+    width: 0 !important;
+}
+/***************************自定义单选复选框样式***************************************/
+.radio_change_style {
+    position: relative;
+    top: 2px;
+}
+.radio_diy_class {
+    display: none;
+}
+.radio_diy_class + label {
+    font-weight: normal;
+    margin-bottom: 0;
+    min-width: 60px;
+}
+.radio_diy_class[type=radio]:disabled + label::before {
+    content: url('../images/newPoi/rightPanelIcon/radio_disable.png');
+    position: relative;
+    top: 2px;
+}
+.radio_diy_class[type=radio] + label::before {
+    content: url('../images/newPoi/rightPanelIcon/button-normal-radio.png');
+    position: relative;
+    top: 2px;
+}
+.radio_diy_class[type=radio]:checked:disabled + label::before {
+    content: url('../images/newPoi/rightPanelIcon/radio_checked_disable.png');
+    position: relative;
+    top: 2px;
+}
+.radio_diy_class[type=radio]:checked + label::before {
+    content: url('../images/newPoi/rightPanelIcon/button-click-radio.png');
+    position: relative;
+    top: 2px;
+}
+.radio_diy_class[type=checkbox] + label::before {
+    content: url('../images/newPoi/rightPanelIcon/button-normal-checkbox.png');
+    position: relative;
+    top: 2px;
+}
+.radio_diy_class[type=checkbox]:disabled + label::before {
+    content: url('../images/newPoi/rightPanelIcon/checkbox_disable.png');
+    position: relative;
+    top: 2px;
+}
+.radio_diy_class[type=checkbox]:checked + label::before {
+    content: url('../images/newPoi/rightPanelIcon/button-click-checkbox.png');
+    position: relative;
+    top: 2px;
+}
+.radio_diy_class[type=checkbox]:checked:disabled + label::before {
+    content: url('../images/newPoi/rightPanelIcon/checkbox_checked_disable.png');
+    position: relative;
+    top: 2px;
+}
+input[type=checkbox].tableList.blue {
+    content: url('../images/webEditor/form/checkbox2.png');
+}
+
+input[type=checkbox].tableList.blue:checked {
+    content: url('../images/webEditor/form/checkbox2-checked.png');
+}
+/**********************自定义input样式*************************/
+.tl_list_Input {
+    color: #182848;
+    font-size: 12px;
+    width: 190px;
+    height: 24px;
+    display: inline-block;
+    box-shadow: none;
+}
+.tl_list_area {
+    color: #182848;
+    font-size: 12px;
+    width: 190px;
+    height: 48px;
+    display: inline-block;
+    box-shadow: none;
+    resize: none;
+    border-color: rgba(24, 40, 72, 0.2);
+}
+.tl_list:focus {
+    border-color: #5693ff;
+    box-shadow: none;
+}
+/************************自定义下拉框样式*************************************/
+.tl_list_select {
+    font-size: 12px;
+    color: #182848;
+    display: inline-block;
+    width: 190px;
+    height: 24px;
+    border-color: rgba(24, 40, 72, 0.2);
+    border-radius: 3px;
+    padding: 0 0 0 10px;
+    box-shadow: none;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: url('../images/newPoi/rightPanelIcon/icon-select-open-normal.png') no-repeat right center transparent;
+    background-position-x: 175px;
+}
+.tl_list_select option[disabled] {
+    background-color: #eee;
+    color: #908c8c;
+    cursor: not-allowed;
+}
+.tl_list_select:focus {
+    border-color: #5693ff;
+    box-shadow: none;
+    background: url('../images/newPoi/rightPanelIcon/icon-select-open-active.png') no-repeat right center transparent;
+    background-position-x: 175px;
+    color: #5b93ff;
+}
+.tl_list_select.simple {
+    width: 160px;
+    background-position-x: 140px;
+}
+.tl_list_select > option {
+    font-size: 12px;
+    color: #182848;
+}
+.tl_list_select > option:hover {
+    background-color: rgba(88, 150, 255, 0.1);
+}
+.tl_list_select_small {
+    font-size: 12px;
+    color: #182848;
+    display: inline-block;
+    width: 120px;
+    height: 24px;
+    border-color: rgba(24, 40, 72, 0.2);
+    border-radius: 3px;
+    padding: 0 0 0 10px;
+    box-shadow: none;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: url('../images/newPoi/rightPanelIcon/icon-select-open-normal.png') no-repeat right center transparent;
+    background-position-x: 65px;
+}
+.tl_list_select_small:focus {
+    border-color: #5693ff;
+    box-shadow: none;
+    background: url('../images/newPoi/rightPanelIcon/icon-select-open-active.png') no-repeat right center transparent;
+    background-position-x: 65px;
+    color: #5b93ff;
+}
+.tl_list_select_small > option {
+    font-size: 12px;
+    color: #182848;
+}
+.tl_list_select_small > option:hover {
+    background-color: rgba(88, 150, 255, 0.1);
+}
+/****************************************************/
+.search-icon {
+    background-image: url('../images/webEditor/left-panel/button_search_normal.png');
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: text-top;
+}
+.search-icon:hover {
+    background-image: url('../images/webEditor/left-panel/button_search_active.png');
+}
+.edit-icon {
+    background-image: url('../images/webEditor/left-panel/edit-normal.svg');
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: text-top;
+}
+.edit-icon:hover {
+    background-image: url('../images/webEditor/left-panel/edit-active.svg');
+}
+/**********************************设置页面宽度和高度为100%************************************************/
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+/******************************任务列表左侧样式*************************************/
+.infoList_container {
+    width: 100%;
+    height: 100%;
+    padding-left: 240px;
+    font-size: 0;
+    background: url('../images/newPoi/taskList/button-big-background.png') no-repeat;
+    background-size: cover;
+}
+.infoList_leftDiv {
+    width: 240px;
+    height: 100%;
+    background: url('../images/newPoi/taskList/button-background-left.png') no-repeat;
+    background-size: cover;
+    margin-left: -240px;
+    float: left;
+}
+.taskList_leftDiv .left-menu-title .childInfoListTitle {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+}
+.listUlCss {
+    margin-bottom: 0;
+    display: block;
+    box-shadow: none;
+}
+.listUlCss > li {
+    list-style: none;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0);
+    border-bottom: 1px solid rgba(255, 255, 255, 0);
+}
+.infoListDesc {
+    font-size: 12px;
+    color: #c8cad1;
+    display: inline-block;
+    width: 182px;
+    padding-left: 35px;
+}
+.childInfoListTitle {
+    height: 60px;
+    line-height: 60px;
+    font-size: 14px;
+    color: #ffffff;
+}
+.childInfoListTitle > div {
+    width: 210px;
+    padding-left: 15px;
+    display: inline-block;
+}
+/******************************右侧任务列表*********************************/
+.infoList_rightDiv {
+    width: 100%;
+    padding-top: 180px;
+    height: 100%;
+}
+.infoList_rightDiv_search {
+    height: 180px;
+    width: 100%;
+    margin-top: -180px;
+}
+.infoList_rightDiv_choose {
+    display: inline-block;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+.infoList_rightDiv_choose > span, .infoList_rightDiv_choose > label{
+    font-size: 14px;
+    color: #FFFFFF;
+    padding-right: 5px;
+}
+.infoList_rightDiv_table {
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    font-size: 12px;
+}
+.list-title-btn {
+    width: 70px;
+    height: 24px;
+    background-color: white;
+    text-align: center;
+    border-radius: 3px;
+    border-color: rgba(24, 40, 72, 0.3);
+    line-height: 24px;
+    cursor: pointer;
+}
+/************************作业组样式*******************************/
+.groupList_rightDiv {
+    width:100%;
+    height: 100%;
+    padding-top: 100px
+}
+.groupList_top {
+    margin-top: -100px;
+    padding-left: 20px
+}
+.groupList_back {
+    padding-top: 20px;
+    font-size: 16px;
+    color: white;
+    height: 40px;
+}
+.groupList_button {
+    padding-top: 20px;
+    height: 60px;
+}
+.groupList_rightDiv_table {
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    font-size: 12px;
+}
+.groupEdit_container {
+    width:100%;
+    height: 100%;
+    font-size: 12px;
+    padding-left: 20px;
+    color: #182848
+}
+.groupEdit_container > div {
+    height: 30px;
+}
+.groupEdit_title {
+    width: 100px;
+    display: inline-block
+}
+.groupEdit_content {
+     display: inline-block
+ }
+.groupCorrelation_desc {
+    display: inline-block;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+.groupCorrelation_desc > span , .groupCorrelation_desc > label{
+    font-size: 12px;
+    color: #182848;
+    padding-right: 5px;
+}

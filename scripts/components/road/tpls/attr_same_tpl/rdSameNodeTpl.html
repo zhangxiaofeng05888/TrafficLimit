@@ -1,0 +1,12 @@
+<div style="height: 100%" class="scroll_style" ng-controller="SameNodeController">
+    <ul class="list-group detailUlCss" style="margin-top: 8px;" ng-repeat="node in rdSameNodeList.parts">
+        <li>
+            <div style="width: 80px;" class="blockDescLiDiv"><span>Node{{$index+1}}号码</span></div>
+            <span>{{node.nodePid}}</span>
+        </li>
+        <li>
+            <div style="width: 80px;" class="blockDescLiDiv"><span>Node{{$index+1}}类型</span></div>
+            <span>{{node.tableName}}</span>
+        </li>
+    </ul>
+</div>

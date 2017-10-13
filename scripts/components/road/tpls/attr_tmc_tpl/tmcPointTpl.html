@@ -1,0 +1,71 @@
+<div class="scroll_style" ng-controller="TmcPointCtl">
+    <div>
+        <fast-collapse expander-title="TMC点属性">
+            <ul class="list-group detailUlCss" style="margin-top: 8px;">
+                <li>
+                    <div class="blockDescLiDiv" style="line-height: 13px;vertical-align: middle;">
+                        <span style="display: block;">TMC点</span>
+                        <span style="display: block;">号码</span>
+                    </div>
+                    <input class="form-control poiRightPanel_Input" ng-model="tmcPointData.tmcId" type="text" readonly/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>位置代码</span></div>
+                    <input class="form-control poiRightPanel_Input" ng-model="tmcPointData.locCode" type="text" readonly/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv" style="line-height: 13px;vertical-align: middle;">
+                        <span style="display: block;">位置表</span>
+                        <span style="display: block;">代码</span>
+                    </div>
+                    <input class="form-control poiRightPanel_Input" ng-model="tmcPointData.loctableId" type="text" readonly/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv" style="line-height: 13px;vertical-align: middle;">
+                        <span style="display: block;">位置表</span>
+                        <span style="display: block;">标示</span>
+                    </div>
+                    <input class="form-control poiRightPanel_Input" ng-model="tmcPointData.cid" type="text" readonly/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv" style="line-height: 13px;vertical-align: middle;">
+                        <span style="display: block;">正方向</span>
+                        <span style="display: block;">偏移量</span>
+                    </div>
+                    <input class="form-control poiRightPanel_Input" ng-model="tmcPointData.locoffPos" type="text" readonly/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv" style="line-height: 13px;vertical-align: middle;">
+                        <span style="display: block;">负方向</span>
+                        <span style="display: block;">偏移量</span>
+                    </div>
+                    <input class="form-control poiRightPanel_Input" ng-model="tmcPointData.locoffNeg" type="text" readonly/>
+                </li>
+            </ul>
+        </fast-collapse>
+        <fast-collapse expander-title="TMC点译名（共 {{tmcPointData.names.length}} 条）">
+            <div ng-repeat="info in tmcPointData.names track by $index" style="margin-bottom: 10px;padding-bottom: 10px;border-bottom: 1px solid #eff0fe;">
+                <ul class="list-group detailUlCss" style="margin-top: 8px;">
+                    <li>
+                        <div class="blockDescLiDiv"><span>语言代码</span></div>
+                        <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" disabled ng-model="info.transLang"
+                                ng-options="value.id as value.label for value in langCodeOptions"></select>
+                    </li>
+                    <li>
+                        <div class="blockDescLiDiv"><span>名称内容</span></div>
+                        <input class="form-control poiRightPanel_Input" ng-model="info.translateName" type="text" readonly/>
+                    </li>
+                    <li>
+                        <div class="blockDescLiDiv"><span>名称发音</span></div>
+                        <input class="form-control poiRightPanel_Input" ng-model="info.phonetic" type="text" readonly/>
+                    </li>
+                    <li>
+                        <div class="blockDescLiDiv"><span>名称标志</span></div>
+                        <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" disabled ng-model="info.nameFlag"
+                                ng-options="value.id as value.label for value in nameFlagOptions"></select>
+                    </li>
+                </ul>
+            </div>
+        </fast-collapse>
+    </div>
+</div>

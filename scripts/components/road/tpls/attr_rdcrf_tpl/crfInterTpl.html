@@ -1,0 +1,28 @@
+<div ng-controller="crfInterCtrl" class="scroll_style">
+    <div class="poiRightPanel_fold">
+        <strong>
+            组成Link（共 <span ng-bind="crfInterData.links.length">0</span> 条）
+        </strong>
+    </div>
+    <ul class="list-group detailUlCss">
+        <li ng-repeat="cItem in crfInterData.links">
+            <div class="blockDescLiDiv">
+                <span>link{{$index+1}}</span>
+            </div>
+            <span>{{cItem.linkPid}}</span>
+        </li>
+    </ul>
+    <div class="poiRightPanel_fold">
+        <strong>
+            组成Node（共 <span ng-bind="crfInterData.nodes.length">0</span> 条）
+        </strong>
+    </div>
+    <ul class="list-group detailUlCss">
+        <li ng-repeat="cItem in crfInterData.nodes">
+            <div class="blockDescLiDiv">
+                <span>node{{$index+1}}</span>
+            </div>
+            <span>{{cItem.nodePid}}</span>
+        </li>
+    </ul>
+</div>

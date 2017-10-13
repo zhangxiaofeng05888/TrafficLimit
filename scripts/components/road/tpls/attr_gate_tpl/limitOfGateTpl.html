@@ -1,0 +1,22 @@
+<div class="popover" tabindex="-1" style="width: 300px;height: 270px;">
+    <ul class="list-group detailUlCss" ng-controller="limitOfGateController">
+        <li>
+            <div class="linkName_popover_Div">
+                <span>
+                    通行对象
+                </span>
+            </div>
+            <input type="radio" name="nameType" value="0"  id="validObj0" ng-model="condition.validObj" class="radio_diy_class" ng-disabled="rdGateDataCheck"/>
+            <label for="validObj0">
+                <span>机动车辆</span>
+            </label>
+            <input type="radio" name="nameType" value="1"  id="validObj1" ng-model="condition.validObj" class="radio_diy_class" ng-disabled="rdGateDataCheck"/>
+            <label for="validObj1">
+                <span>行人</span>
+            </label>
+        </li>
+        <li  style="height: auto">
+            <div ng-include="dateURL" is-relativePover="1" class="muti-date" data-type="1" date-str='{{condition.timeDomain}}'></div>
+        </li>
+    </ul>
+</div>

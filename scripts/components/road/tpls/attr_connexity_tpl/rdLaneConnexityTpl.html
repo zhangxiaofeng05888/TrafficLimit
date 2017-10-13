@@ -1,0 +1,144 @@
+<style>
+    .lane-card {
+        display: inline-block;
+        padding: 8px;
+        border: 1px solid #bfbfff;
+        position: relative;
+        height: 85px;
+        list-style-type: none;
+    }
+    .lane-card.active {
+        box-shadow: 0px 0px 7px 4px #868ff7;
+    }
+    .lane-card >  img {
+        width: 26px;
+        height: 26px;
+        margin: 5px 0px;
+        /*cursor: pointer;*/
+        /*transition: all 0.5s;*/
+        display: block;
+    }
+    #rdLaneConnexity .lane-info > div {
+        display: inline-block;
+        line-height: 25px;
+        background-color: #fff;
+        border-top: 1px solid rgb(180, 193, 219);
+        border-right: 1px solid rgb(180, 193, 219);
+        border-bottom: 1px solid rgb(180, 193, 219);
+        color: #182848;
+        width: 18px;
+        text-align: center;
+        cursor: pointer;
+    }
+    #rdLaneConnexity .lane-info > div:first-child {
+        border-left: 1px solid rgb(180, 193, 219);
+    }
+    #rdLaneConnexity .lane-info > div.active {
+        background-color: rgb(99, 110, 245);
+        color: #fff;
+        font-weight: bold;
+    }
+    #rdLaneConnexity .lane-info > div.disabled {
+        background-color: rgba(180, 193, 219, 0.3);
+        color: #182848;
+        font-weight: initial;
+        cursor: not-allowed;
+    }
+</style>
+<div style="height: 100%" id="rdLaneConnexity" class="fm-scroll" ng-controller="rdLaneConnexityController">
+    <div style="padding: 10px;">
+        <ul class="list-group item-list">
+            <li ng-repeat="item in CurrentObject.lanes track by $index" style="padding: 5px;" ng-click="selectLane($index)">
+                <div class="lane-card" ng-class="{true: 'active'}[$index == currentLaneIndex]">
+                    <img ng-src="../../images/road/1301/1301_{{item.extend == 0 ? 0 : 2}}_{{item.direct}}.svg">
+                    <img ng-if="item.busDirect" ng-src="../../images/road/1301/1301_1_{{item.busDirect}}.svg">
+                </div>
+            </li>
+        </ul>
+    </div>
+    <hr class="apart-line"/>
+    <div>
+        <ul class="list-group prop-list">
+            <li>
+                <div class="prop-name">进入线</div>
+                <div class="prop-content">{{CurrentObject.inLinkPid}}</div>
+            </li>
+            <li>
+                <div class="prop-name">车道总数</div>
+                <div class="prop-content">{{CurrentObject.laneNum}}</div>
+            </li>
+            <li>
+                <div class="prop-name">附加车道</div>
+                <div class="prop-content">
+                    <label for="leftAddtionalLane">左</label>
+                    <span id="leftAddtionalLane" style="width: 60px;">{{CurrentObject.leftExtend}}</span>
+                    <label for="rightAddtionalLane">右</label>
+                    <span id="rightAddtionalLane" style="width: 60px;">{{CurrentObject.rightExtend}}</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <fast-collapse expander-title="退出线">
+    <div ng-repeat="item in CurrentObject.topos | filter: topoFilter track by $index">
+        <hr ng-if="$index > 0" class="apart-line" style="margin: 0px 15px;"/>
+        <ul class="list-group prop-list" >
+            <li>
+                <div class="prop-name">退出linkID</div>
+                <div class="prop-content">
+                    <a href="javascript:void(0);" ng-click="selectOutLink(item.outLinkPid)">{{item.outLinkPid}}</a>
+                </div>
+            </li>
+            <li>
+                <div class="prop-name">通达方向</div>
+                <div class="prop-content">
+                    <select class="fm-control" style="vertical-align: initial;" ng-model="item.reachDir" ng-options="it.value as it.text for it in reachDirList" ng-change="changeReachDir(item)">
+                    </select>
+                </div>
+            </li>
+            <li>
+                <div class="prop-name">普通车道</div>
+                <div class="prop-content lane-info">
+                    <div ng-repeat="it in CurrentObject.lanes track by $index"
+                        ng-class="{'active': item.inLaneInfo[$index] == 1, 'disabled': directMapping[it.direct].indexOf(item.reachDir) < 0}"
+                        ng-click="toggleMatchLane(item, $index, 1)">
+                        {{$index + 1}}
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="prop-name">公交车道</div>
+                <div class="prop-content lane-info">
+                    <div ng-repeat="it in CurrentObject.lanes track by $index"
+                        ng-class="{'active': item.busLaneInfo[$index] == 1, 'disabled': !(it.busDirect && directMapping[it.busDirect].indexOf(item.reachDir) >= 0)}"
+                        ng-click="toggleMatchLane(item, $index, 2)">
+                        {{$index + 1}}
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="prop-name">关系类型</div>
+                <div class="prop-content">
+                    <input id="relationship{{$index}}-1" type="radio" name="relationship{{$index}}" class="fm-control" value=1 ng-model="item.relationshipType">
+                    <label for="relationship{{$index}}-1">
+                        路口
+                    </label>
+                    <input id="relationship{{$index}}-2" type="radio" name="relationship{{$index}}" class="fm-control" value=2 ng-model="item.relationshipType">
+                    <label for="relationship{{$index}}-2">
+                        线线
+                    </label>
+                </div>
+            </li>
+            <li>
+                <div class="prop-name">经过线</div>
+                <div class="prop-content">
+                    <ul class="item-list">
+                        <li ng-repeat="cItem in item.vias track by $index">
+                            <a href="javascript:void(0);" ng-click="selectViaLink(cItem.linkPid)">{{cItem.linkPid}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+    </fast-collapse>
+</div>

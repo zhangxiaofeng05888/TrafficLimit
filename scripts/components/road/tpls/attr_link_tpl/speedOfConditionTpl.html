@@ -1,0 +1,33 @@
+<div class="popover" tabindex="-1" style="width: 300px; min-height: 250px;" ng-controller="conditionSpeedController">
+   <form class="w5c-form" novalidate w5c-form-validate="" name="conditionLimitSpeed">
+    <ul class="list-group detailUlCss">
+        <li>
+            <div class="blockDescLiDiv"><span>限速类型</span></div>
+            <span>条件限速</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>限速条件</span></div>
+            <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="currentSpeedData.speedDependent" ng-options="value.id as value.label for value in speedDependentOption"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>顺向速度</span></div>
+            <input class="form-control poiRightPanel_Input" ng-pattern="/^\d{1,3}$/" set-focus required name="conditionStraightSpeed" ng-change="changeClass(currentSpeedData,2)" ng-disabled="linkData.direct == 3" ng-model="currentSpeedData.fromSpeedLimit" ng-blur="hideDirect()" ng-focus="showDirect(2)" type="number" min="0" />
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>逆向速度</span></div>
+            <input class="form-control poiRightPanel_Input"  ng-pattern="/^\d{1,3}$/" set-focus required name="conditionReverseSpeed" ng-change="changeClass(currentSpeedData,3)" ng-disabled="linkData.direct == 2" ng-model="currentSpeedData.toSpeedLimit" ng-blur="hideDirect()" ng-focus="showDirect(3)" type="number" min="0" />
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>顺向来源</span></div>
+            <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-change="changeKind(speedLimitData.kind, '{{speedLimitData.kind}}')" ng-model="currentSpeedData.fromLimitSrc" ng-disabled="linkData.direct == 3" ng-options="value.id as value.label for value in fromLimitSrcOption"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>逆向来源</span></div>
+            <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-change="changeKind(speedLimitData.kind, '{{speedLimitData.kind}}')" ng-model="currentSpeedData.toLimitSrc" ng-disabled="linkData.direct == 2" ng-options="value.id as value.label for value in fromLimitSrcOption"></select>
+        </li>
+        <li style="height: auto">
+            <div ng-include="dateURL" class="muti-date" is-relativePover="1" data-type="2" date-str='{{currentSpeedData.timeDomain}}' style="width:100%;"></div>
+        </li>
+    </ul>
+   </form>
+</div>

@@ -1,0 +1,45 @@
+<style>
+    .load_container{
+        width: 300px;
+        height: 150px;
+    }
+    .load_container img{
+        width: 60%;
+        height: 100px;
+    }
+
+    .ckeckjob-boxsize.header {
+        height: 50px;
+    }
+    .ckeckjob-boxsize  a{
+        cursor: pointer;
+    }
+</style>
+<div ng-controller="CheckTipsPanelCtrl" class="ckeckjob-boxsize">
+    <div ng-if="check_loading">
+        <div class="header">
+            <span>正在检查......</span>
+        </div>
+
+        <div class="load_container">
+            <img src="../../images/info/loading.gif"/>
+        </div>
+    </div>
+
+    <div ng-if="check_done">
+        <div class="header">
+            <span>检查完成</span>
+        </div>
+        <div class="header">
+            <span>没有错误！</span>
+        </div>
+    </div>
+    <div ng-if="check_done_error">
+        <div class="header">
+            <span>检查报错！</span>
+        </div>
+        <div class="header">
+            <span>有错误{{errorNum}}条</span><a ng-click="getErrors()">;点击查看</a>
+        </div>
+    </div>
+</div>

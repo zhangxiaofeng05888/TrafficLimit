@@ -1,0 +1,31 @@
+<div ng-controller="roadNameCtrl" class="scroll_style">
+    <ul class="list-group detailUlCss">
+        <li ng-if="roadName.deep.n_array.length > 0" ng-repeat="item in roadName.deep.n_array track by $index">
+            <div class="blockDescLiDiv">
+                <span>{{$index === 0 ?'道路名称':''}}</span>
+            </div>
+            <input type="text" class="form-control poiRightPanel_Input" ng-model="item" style="width: 120px"
+                   ng-change="changeName(item, $index)"/>
+            <img src="../../images/newPoi/rightPanelIcon/button-delete.png"
+                 style="float: right;margin-right: 20px;margin-top: 5px;" ng-click="deleteName()"
+                 ng-show="$index === 0">
+            <img src="../../images/newPoi/rightPanelIcon/button-add.png"
+                 style="float: right;margin-right: 10px;margin-top: 5px;" title="点击添加道路名" ng-click="addName()"
+                 ng-show="$index === 0">
+        </li>
+        <li ng-if="roadName.deep.n_array.length === 0">
+            <div class="blockDescLiDiv">
+                <span>道路名称</span>
+            </div>
+            <span>请为当前道路重新命名</span>
+            <img src="../../images/newPoi/rightPanelIcon/button-add.png"
+                 style="float: right;margin-right: 20px;margin-top: 5px;" title="点击添加道路名" ng-click="addName()">
+        </li>
+        <li style="line-height:60px;height:60px">
+            <div class="blockDescLiDiv" style="vertical-align: top">
+                <span>备注</span>
+            </div>
+            <textarea class="form-control poiRightPanel_area" type="text" rows=2 ng-model="roadName.content"></textarea>
+        </li>
+    </ul>
+</div>

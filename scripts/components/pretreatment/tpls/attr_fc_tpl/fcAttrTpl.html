@@ -1,0 +1,30 @@
+<style>
+    .list-group.detailUlCss label{
+        min-width: 30px;
+    }
+</style>
+<div ng-controller="fcAttrCtrl">
+    <ul class="list-group detailUlCss">
+        <li>
+            <div class="blockDescLiDiv">
+                <span>功能等级</span>
+            </div>
+            <input type="radio" name="speedFlag" ng-value={{1}} ng-disabled="inputExpress" ng-click="selectLevel(1)" ng-model="level" id="Flag1" class="radio_diy_class"/>
+            <label for="Flag1"><span>1</span></label>
+            <input type="radio" name="speedFlag" ng-value={{2}} ng-disabled="inputExpress" ng-click="selectLevel(2)" ng-model="level" id="Flag2" class="radio_diy_class"/>
+            <label for="Flag2"><span>2</span></label>
+            <input type="radio" name="speedFlag" ng-value={{3}} ng-disabled="inputExpress" ng-click="selectLevel(3)" ng-model="level" id="Flag3" class="radio_diy_class"/>
+            <label for="Flag3"><span>3</span></label>
+            <input type="radio" name="speedFlag" ng-value={{4}} ng-disabled="inputExpress" ng-click="selectLevel(4)" ng-model="level" id="Flag4" class="radio_diy_class"/>
+            <label for="Flag4"><span>4</span></label>
+            <input type="radio" name="speedFlag" ng-value={{5}} ng-disabled="inputExpress" ng-click="selectLevel(5)" ng-model="level" id="Flag5" class="radio_diy_class"/>
+            <label for="Flag5"><span>5</span></label>
+        </li>
+        <li style="line-height:60px;height:60px">
+            <div class="blockDescLiDiv" style="vertical-align: top">
+                <span>备注</span>
+            </div>
+            <textarea class="form-control poiRightPanel_area" type="text" rows=2 ng-disabled="inputExpress"  ng-model="fc.content"></textarea>
+        </li>
+    </ul>
+</div>

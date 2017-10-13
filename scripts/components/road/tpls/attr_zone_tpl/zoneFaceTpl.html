@@ -1,0 +1,40 @@
+<div ng-controller="zoneFaceController">
+    <ul class="list-group detailUlCss">
+        <li>
+            <div class="blockDescLiDiv"><span>区划号码</span></div>
+            <span>{{zoneFaceData.regionId}}</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>图幅号</span></div>
+            <span>{{zoneFaceData.meshId}}</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>面积</span></div>
+            <span>{{zoneFaceData.area}} 平方米</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>周长</span></div>
+            <span>{{zoneFaceData.perimeter}} 米</span>
+        </li>
+    </ul>
+    <ul class="list-group detailUlCss">
+        <li style="min-height: 30px;height: auto">
+            <div class="blockDescLiDiv" style="float: left"><span>关联link</span></div>
+            <div style="float: left;width: 210px;max-height: 300px;overflow-y: auto" class="scroll_style ng-scope">
+                <span ng-repeat="item in zoneFaceData.faceTopos">
+                {{item.linkPid}}
+                </span>
+            </div>
+        </li>
+    </ul>
+    <ul class="list-group detailUlCss">
+        <li style="height: 60px">
+            <div class="blockDescLiDiv" style="float: left;"><span>批量处理</span></div>
+            <div class="btnDiy_div" style="float: left;">
+                <button ng-click="setZoneID()" class="btn-xs btn-diy" style="display: block;width: 100px" title="为目标Zone面内的道路赋 ZoneID">赋 ZoneID</button>
+                <button ng-click="deleteZoneID()" class="btn-xs btn-diy" style="display: block;margin-top: 5px;width: 100px" title="为目标Zone面内的道路删除 ZoneID">删除 ZoneID</button>
+            </div>
+        </li>
+    </ul>
+</div>
+

@@ -1,0 +1,44 @@
+<style>
+    .roadRightPanel_tab_list {
+        padding-left: 12px;
+        font-size: 0;
+    }
+    .roadRightPanel_tab_list > div{
+        cursor: pointer;
+        height: 40px;
+        width: 46px;
+        display: inline-block;
+        position: relative;
+        font-size: 12px;
+    }
+    .roadRightPanel_tab_list_normal {
+        color: #182848;
+        opacity: 0.5;
+        border-bottom: 2px solid #ffffff;
+    }
+    .roadRightPanel_tab_list_active {
+        color: #636ef5;
+        border-bottom: 2px solid #636ef5;
+    }
+    .roadRightPanel_tab_list > div > div{
+        line-height: 14px;
+        height: 26px;
+        width: 24px;
+        position: absolute;
+        margin: auto;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+    }
+</style>
+<div ng-controller="rdLinkTabPanelCtrl" style="height: 100%;padding-top: 40px">
+    <div class="roadRightPanel_tab_list" style="margin-top: -40px">
+        <div ng-click="changeRoadModule(item)" ng-repeat="item in roadTabList" ng-class="{'roadRightPanel_tab_list_active': item.tpl === roadTabSelect, 'roadRightPanel_tab_list_normal': item.tpl !== roadTabSelect}">
+            <div ng-style="{ 'height': $index === 2 ? '12px': null }">
+                <span>{{item.name}}</span>
+            </div>
+        </div>
+    </div>
+    <div ng-include="roadPantlUrl" class="scroll_style"></div>
+</div>

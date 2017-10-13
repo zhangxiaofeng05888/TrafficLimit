@@ -1,0 +1,12 @@
+<div>
+    <div  class="poiRightPanel_fold" ng-click="toggle()" >
+        <strong>
+            {{title}}
+        </strong>
+        <div ng-if="toolIcon" class="toolIcon" ng-bind-html="toolIcon"></div>
+        <div>
+            <img ng-src="{{showMe?'../../images/newPoi/rightPanelIcon/icon-right-open.png':'../../images/newPoi/rightPanelIcon/icon-right-close.png'}}"/>
+        </div>
+    </div>
+    <div  ng-show="showMe" ng-transclude></div>
+</div>

@@ -1,0 +1,138 @@
+<div ng-controller="CmgBuildFeatureCtrl">
+    <form class="w5c-form" w5c-form-validate="" novalidate name="CmgBuildFaceForm">
+        <ul class="list-group prop-list">
+            <li>
+                <div class="prop-name">建筑物号码</div>
+                <div class="prop-content">{{cmgBuildFeatureData.pid}}</div>
+            </li>
+            <li>
+                <div class="prop-name">建筑物种别</div>
+                <div class="prop-content">
+                    <select class="fm-control" style="vertical-align: initial;" ng-model="cmgBuildFeatureData.kind"
+                            ng-options="value.id as value.label for value in kindOpt">
+                    </select>
+                </div>
+            </li>
+        </ul>
+    </form>
+    <div class="poiRightPanel_fold" style="border: none">
+        <strong>
+            建筑物名称[共{{nameGroup.length}}组]
+        </strong>
+        <div>
+            <img src="../../images/newRoad/rightPanelIcon/icon_add.png" style="cursor: pointer" ng-click="addGroup()"/>
+        </div>
+    </div>
+    <div class="nameGroups"  ng-repeat="item in nameGroup" ng-init="outerIndex = $index">
+        <div class="poiRightPanel_fold">
+            <strong style="font-size: 12px;">名称组{{item[0].nameGroupid}}</strong>
+            <div><i class="fa fa-plus-square-o" style="font-size: 16px;; cursor: pointer" aria-hidden="true" ng-click="addItem($index)"></i></div>
+            <div style="padding-right: 8px;: 8px"><i class="fa fa-minus-square-o" style="font-size: 16px; cursor: pointer" aria-hidden="true" ng-click="removeGroup($index)"></i></div>
+        </div>
+        <ul class="list-group detailUlCss">
+            <li ng-class="{'linkName_li': !(currentGroupIndex==$parent.$parent.$index&&currentItempIndex==$index),'linkName_li_checked': (currentGroupIndex==$parent.$parent.$index&&currentItempIndex==$index)}" ng-click="rememberNameNum($parent.$parent.$index, $index)" ng-repeat="subItem in item" data-container="body" data-animation="am-flip-x" data-auto-close="1" bs-popover data-placement="left" data-template-url="../../scripts/components/road/tpls/attr_CmgBuild_tpl/CmgBuildNameTpl.html">
+                <div style="width: 50px;padding-left: 10px;display: inline-block">
+                    <span>{{$index + 1}}</span><!--名称组号-->
+                </div>
+                <div style="width: 100px;display: inline-block" ng-repeat="code in langCodeOptions | filter: subItem.langCode as results track by code.id">
+                    <span>{{code.label}}</span><!--名称分类-->
+                </div>
+                <div style="width: 110px;display: inline-table">
+                    <div class="text-ellipsis" style="max-width: 80px;" title="{{subItem.baseName}}">{{subItem.baseName === ''? '未命名': subItem.baseName}}</div><!--语言代码-->
+                </div>
+                <img style="cursor: pointer" src="../../images/newRoad/rightPanelIcon/icon_delete.png" ng-click="removeItem($index, $parent.$parent.$index, subItem)">
+            </li>
+        </ul>
+    </div>
+    <div class="poiRightPanel_fold" style="border: none">
+        <strong>
+            建筑物关联POI[共{{cmgBuildFeatureData.pois.length}}个]
+        </strong>
+        <div>
+
+        </div>
+    </div>
+    <div class="poiRightPanel_fold" style="border: none">
+        <strong>
+            建筑物3D图标表[共{{cmgBuildFeatureData.build3dicons.length}}个]
+        </strong>
+        <div ng-if="cmgBuildFeatureData.build3dicons.length == 0">
+            <img src="../../images/newRoad/rightPanelIcon/icon_add.png" style="cursor: pointer"  ng-click="addCmgBuilding3dIcon()"/>
+        </div>
+        <div ng-if="cmgBuildFeatureData.build3dicons.length == 1">
+            <i class="fa fa-minus-square-o" style="font-size: 16px; cursor: pointer" aria-hidden="true" ng-click="deleteCmgBuilding3dIcon()"></i>
+        </div>
+    </div>
+    <div>
+        <form class="w5c-form" w5c-form-validate="" novalidate name="cmgBuilding3dIconForm">
+            <ul class="list-group prop-list" ng-repeat="item in cmgBuildFeatureData.build3dicons">
+                <li>
+                    <div class="prop-name">图标宽度</div>
+                    <div class="prop-content">
+                        <input class="fm-control" ng-model="item.width" type="text"/>
+                    </div>
+                </li>
+                <li>
+                    <div class="prop-name">图标高度</div>
+                    <div class="prop-content">
+                        <input class="fm-control" ng-model="item.height" type="text"/>
+                    </div>
+                </li>
+                <li>
+                    <div class="prop-name">图标文件名</div>
+                    <div class="prop-content">
+                        <input class="fm-control" ng-model="item.iconName" type="text"/>
+                    </div>
+                </li>
+                <li>
+                    <div class="prop-name">通道文件名</div>
+                    <div class="prop-content">
+                        <input class="fm-control" ng-model="item.alphaName" type="text"/>
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </div>
+    <div class="poiRightPanel_fold" style="border: none">
+        <strong>
+            建筑物3D模型表[共{{cmgBuildFeatureData.build3dmodels.length}}组]
+        </strong>
+        <div>
+            <img src="../../images/newRoad/rightPanelIcon/icon_add.png" style="cursor: pointer" ng-click="addCmgBuilding3dmodel()"/>
+        </div>
+    </div>
+    <div class="nameGroups"  ng-repeat="item in cmgBuildFeatureData.build3dmodels" ng-init="outerIndex = $index">
+        <div class="poiRightPanel_fold">
+            <strong style="font-size: 12px;">模型表{{item.modelId}}</strong>
+            <div style="padding-right: 8px;: 8px"><i class="fa fa-minus-square-o" style="font-size: 16px; cursor: pointer" aria-hidden="true" ng-click="removeCmgBuilding3dmodel($index)"></i></div>
+        </div>
+        <ul class="list-group prop-list">
+            <li>
+                <div class="prop-name">分辨率</div>
+                <div class="prop-content">
+                    <select class="fm-control" style="vertical-align: initial;" ng-model="item.resolution"
+                            ng-options="value.id as value.label for value in resolutionOpt">
+                    </select>
+                </div>
+            </li>
+            <li>
+                <div class="prop-name">模型文件名</div>
+                <div class="prop-content">
+                    <input class="fm-control" ng-model="item.modelName" type="text"/>
+                </div>
+            </li>
+            <li>
+                <div class="prop-name">材质文件名</div>
+                <div class="prop-content">
+                    <input class="fm-control" ng-model="item.materialName" type="text"/>
+                </div>
+            </li>
+            <li>
+                <div class="prop-name">纹理文件名</div>
+                <div class="prop-content">
+                    <input class="fm-control" ng-model="item.textureName" type="text"/>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

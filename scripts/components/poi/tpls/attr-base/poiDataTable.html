@@ -1,0 +1,225 @@
+<link rel="stylesheet" href="../../scripts/libs/ng-dialog/css/ngDialog.css">
+<link rel="stylesheet" href="../../scripts/libs/ng-dialog/css/ngDialog-theme-default.css">
+<link rel="stylesheet" href="../../scripts/libs/ng-dialog/css/ngDialog-theme-plain.css">
+<!--<link rel="stylesheet" href="../../scripts/libs/ng-dialog/css/ngDialog-custom-width.css">-->
+<link href="../../scripts/libs/ng-table/ng-table.css" rel="stylesheet" type="text/css"/>
+<link href="../../scripts/libs/sweet-alert-upgrade/sweetalert.css" rel="stylesheet" type="text/css"/>
+<link href="../../scripts/libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="../../styles/webEditor/editor-poi.css">
+<style>
+    .pioDataTable-btn-success{
+        /* 以下几个和button有关的class 都是修改本页面bootstrap的默认样式*/
+        background-color: #ffffff;
+        color: #182848;
+        border: 1px solid #FFFFFF;
+        border-radius: 5px;
+        outline: none;
+    }
+    .pioDataTable-btn-default{
+        background-color: #ececec;
+        border: 1px solid #ececec;
+        color: #182848;
+    }
+    .pioDataTable-btn-success:hover,.pioDataTable-btn-info:hover{
+        background-color: #ececec;
+        color: #182848;
+        border-radius: 5px;
+        border: 1px solid #ececec;
+    }
+    .pioDataTable-btn-success:active,.pioDataTable-btn-success:visited,.pioDataTable-btn-success:focus{
+        background-color: #ffffff;
+        color: #182848;
+        border: 1px solid #FFFFFF;
+        border-radius: 5px;
+    }
+    .pioDataTable-btn{
+        padding-top: 4px;
+        padding-bottom: 4px;
+        outline: none !important;
+    }
+    .pioDataTable-search{
+        line-height: 24px;
+        border-radius: 5px;
+    }
+    .tableDiy > thead {
+        border-bottom-color: #FFFFFF;
+        border-bottom-style: 2px solid;
+    }
+    .tableDiy > thead > tr{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .tableDiy > thead > tr > th {
+        padding: 10px;
+
+    }
+</style>
+
+<div ng-controller="PoiDataListCtl">
+    <div style="display: inline-block;width: 100%;">
+        <div style="width: 100%; text-align: center; padding-top: 20px; padding-right: 50px; padding-left: 50px">
+            <div class="btn-group btn-group-justified" role="group"
+                 style="width: 400px;display: inline-block;height: 30px ; float: left;"
+                 ng-if="dataTableType==1">
+                <div class="btn-group" role="group" style="">
+                    <button class="btn pioDataTable-btn"  ng-class="{1: 'pioDataTable-btn-success pioDataTable-btn-success:visited pioDataTable-btn-success:hover pioDataTable-btn-success:active',2:'pioDataTable-btn-default',3:'pioDataTable-btn-default'}[dataListType]"
+                            ng-click="changeDataList(1)">待作业
+                    </button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button class="btn pioDataTable-btn" ng-class="{3: 'pioDataTable-btn-default',2: 'pioDataTable-btn-success pioDataTable-btn-success:visited pioDataTable-btn-success:hover pioDataTable-btn-success:focus pioDataTable-btn-success:active', 1: 'pioDataTable-btn-default'}[dataListType]"
+                            ng-click="changeDataList(2)">已作业
+                    </button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button class="btn pioDataTable-btn" ng-class="{3: 'pioDataTable-btn-success pioDataTable-btn-success:visited pioDataTable-btn-success:hover pioDataTable-btn-success:focus pioDataTable-btn-success:active',2: 'pioDataTable-btn-default', 1: 'pioDataTable-btn-default'}[dataListType]"
+                    ng-click="changeDataList(3)">已提交
+                    </button>
+                </div>
+            </div>
+            <div class="btn-group btn-group-justified" role="group"
+                 style="padding-bottom:0px;width: 400px;display: inline-block;margin-left: 10px"
+                 ng-if="dataTableType==2">
+                <div class="btn-group" role="group">
+                    <button class="btn pioDataTable-btn" ng-class="{1: 'pioDataTable-btn-success pioDataTable-btn-success:focus .pioDataTable-btn-success:active',2:'pioDataTable-btn-default',3:'pioDataTable-btn-default'}[tipsListType]"
+                            ng-click="changeTipsList(1)">全部
+                    </button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button class="btn pioDataTable-btn" ng-class="{3: 'pioDataTable-btn-default',2: 'pioDataTable-btn-success pioDataTable-btn-success:focus .pioDataTable-btn-success:active', 1: 'pioDataTable-btn-default'}[tipsListType]"
+                            ng-click="changeTipsList(2)">待处理
+                    </button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button class="btn pioDataTable-btn" ng-class="{3: 'pioDataTable-btn-success pioDataTable-btn-success:focus .pioDataTable-btn-success:active',2: 'pioDataTable-btn-default', 1: 'pioDataTable-btn-default'}[tipsListType]"
+                            ng-click="changeTipsList(3)">已处理
+                    </button>
+                </div>
+            </div>
+            <div class="btn-group btn-group-justified" role="group"
+                 style="padding-bottom:0px;width: 266px;display: inline-block;">
+                <div class="btn-group" role="group">
+                    <button class="btn pioDataTable-btn" ng-class="{1: 'pioDataTable-btn-success pioDataTable-btn-success:focus .pioDataTable-btn-success:active',2:'pioDataTable-btn-default'}[dataTableType]"
+                            ng-click="changeDataTable(1)">POI完善中
+                    </button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button class="btn pioDataTable-btn" ng-class="{2: 'pioDataTable-btn-success pioDataTable-btn-success:focus .pioDataTable-btn-success:active', 1: 'pioDataTable-btn-default'}[dataTableType]"
+                            ng-click="changeDataTable(2)">TIPS完善中
+                    </button>
+                </div>
+            </div>
+
+            <div style="display: inline-block;width: 400px; float: right">
+            <input style="width: 400px;" type="text" class="search pioDataTable-search" ng-model="searchText" ng-keypress="doSearchPoiList($event)"
+                   placeholder="名称或者PID"/>
+            </div>
+        </div>
+    </div>
+    <div style="display: inline-block;width: 100%">
+        <div ng-if="dataTableType==1" style="width: 100%;padding-left: 50px;padding-right: 50px;">
+            <div class="table_div_new content scroll_style" ng-style="tableHeight" ng-if="dataListType==1">
+                <table ng-table-dynamic="tableParams with cols1" class="table table-condensed tableDiy">
+                    <colgroup>
+                        <col ng-repeat="col in cols1" width="{{col.width || '400'}}"/>
+                    </colgroup>
+                    <tr ng-repeat="row in $data" ng-dblclick="showPoi(row)">
+                        <td ng-repeat="col in $columns" ng-switch="col.field">
+                            <span ng-if="!col.html"
+                                  ng-bind-html="col.getValue?col.getValue(this,row):row[col.field]"></span>
+                            <span ng-if="col.html" fm-bind-compiled-html="col.getValue(this, row)"></span>
+                        </td>
+                    </tr>
+                    <tr class="text-center" ng-show="!$data.length">
+                        <td colspan="{{cols1.length}}" ng-bind="poiListTableMsg"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="table_div_new content scroll_style " ng-style="tableHeight" ng-if="dataListType==2" >
+                <table ng-table-dynamic="tableParams with cols2" class="table table-condensed tableDiy">
+                    <colgroup>
+                        <col ng-repeat="col in cols2" width="{{col.width || '400'}}"/>
+                    </colgroup>
+                    <tr ng-repeat="row in $data" ng-dblclick="showPoi(row)">
+                        <td ng-repeat="col in $columns" ng-switch="col.field">
+                            <span ng-if="!col.html"
+                                  ng-bind-html="col.getValue?col.getValue(this,row):row[col.field]"></span>
+                            <span ng-if="col.html" fm-bind-compiled-html="col.getValue(this, row)"></span>
+                        </td>
+                    </tr>
+                    <tr class="text-center" ng-show="!$data.length">
+                        <td colspan="{{cols2.length}}" ng-bind="poiListTableMsg"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="table_div_new content scroll_style " ng-style="tableHeight" ng-if="dataListType==3" >
+                <table ng-table-dynamic="tableParams with cols3" class="table table-condensed tableDiy">
+                    <colgroup>
+                        <col ng-repeat="col in cols3" width="{{col.width || '400'}}"/>
+                    </colgroup>
+                    <tr ng-repeat="row in $data" ng-dblclick="showPoi(row)">
+                        <td ng-repeat="col in $columns" ng-switch="col.field">
+                            <span ng-if="!col.html"
+                                  ng-bind-html="col.getValue?col.getValue(this,row):row[col.field]"></span>
+                            <span ng-if="col.html" fm-bind-compiled-html="col.getValue(this, row)"></span>
+                        </td>
+                    </tr>
+                    <tr class="text-center" ng-show="!$data.length">
+                        <td colspan="{{cols3.length}}" ng-bind="poiListTableMsg"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div ng-if="dataListType==2 && dataTableType==1" style="position: absolute;right: 10px;top: 40px;cursor: pointer;">
+            <img style="margin-top: 30px;float: left" src="../../images/newPoi/leftPanelIcon/upload.png"
+                 ng-click="doSubmitData()" title="提交数据">
+        </div>
+    </div>
+    <div style="width: 100%" ng-if="dataTableType==2">
+        <div class="col-md-2" style="padding: 0px;margin-left: 20px">
+            <div style="padding: 0px 0px 4px 0px;color: white;">共{{tipTypes}}类，{{tipCount}}个Tips</div>
+            <div class="table_div_new content scroll_style" style="padding: 0px;" ng-style="tableHeight">
+                <table ng-table-dynamic="tableParams1 with tipsCols"
+                       class="table table-condensed scroll-styled scrollDiy">
+                    <colgroup>
+                        <col ng-repeat="col in tipsCols" width="{{col.width || '400'}}"/>
+                    </colgroup>
+                    <tr ng-repeat="row in $data" ng-click="getTipsDetail(row)"
+                        ng-class="{true:'row_selected'}[itemActive == row.id]">
+                        <td ng-repeat="col in $columns" ng-switch="col.field">
+                            <span ng-if="!col.html"
+                                  ng-bind-html="col.getValue?col.getValue(this,row):row[col.field]"></span>
+                            <span ng-if="col.html" fm-bind-compiled-html="col.getValue(this, row)"></span>
+                        </td>
+                    </tr>
+                    <tr class="text-center" ng-show="!$data.length">
+                        <td colspan="{{tipsCols.length}}" ng-bind="poiListTableMsg"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="scroll-styled scrollDiy col-md-2" style="padding: 0px;" ng-style="tableHeight">
+            <div class="table_div_new content scroll_style" style="padding: 0px">
+                <table ng-table-dynamic="tableParams2 with dataCols" class="table table-condensed">
+                    <colgroup>
+                        <col ng-repeat="col in dataCols" width="{{col.width || '400'}}"/>
+                    </colgroup>
+                    <tr ng-repeat="row in $data track by $index" ng-click="showTips(row)">
+                        <td ng-repeat="col in $columns" ng-switch="col.field">
+                            <span ng-if="!col.html"
+                                  ng-bind-html="col.getValue?col.getValue(this,row):row[col.field]"></span>
+                            <span ng-if="col.html" fm-bind-compiled-html="col.getValue(this, row)"></span>
+                        </td>
+                    </tr>
+                    <tr class="text-center" ng-show="!$data.length">
+                        <td colspan="{{dataCols.length}}" ng-bind="poiListTableMsg"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div ng-if="showLoading.flag" id="loadingAnimate" class="show-animation" ng-include="'svgLoading.html'"></div>
+</div>
+

@@ -1,0 +1,134 @@
+/**
+ * Created by wangmingdong on 2016/8/31.
+ * Class Rdnode
+ */
+
+FM.dataApi.RdLane = FM.dataApi.Feature.extend({
+
+    setAttributes: function (data) {
+        this.geoLiveType = 'RDLANE';
+        this.pid = data.pid;
+        this.linkPid = data.linkPid;
+        this.laneNum = data.laneNum || 1;
+        this.travelFlag = data.travelFlag || 0;
+        this.seqNum = data.seqNum || 1;
+        this.laneForming = data.laneForming || 0;
+        this.laneDir = data.laneDir || 1;
+        this.laneType = data.laneType || 1;
+        if (data.arrowDir == '' || typeof (data.arrowDir) === 'undefined') {
+            this.arrowDir = 9;
+        } else {
+            this.arrowDir = data.arrowDir;
+        }
+        this.laneMark = data.laneMark || 0;
+        this.width = data.width || 0;
+        this.restrictHeight = data.restrictHeight || 0;
+        this.transitionArea = data.transitionArea || 0;
+        this.fromMaxSpeed = data.fromMaxSpeed || 0;
+        this.toMaxSpeed = data.toMaxSpeed || 0;
+        this.fromMinSpeed = data.fromMinSpeed || 0;
+        this.toMinSpeed = data.toMinSpeed || 0;
+        this.elecEye = data.elecEye || 0;
+        this.laneDivider = data.laneDivider || 0;
+        this.centerDivider = data.centerDivider || 0;
+        this.speedFlag = data.speedFlag || 0;
+        this.srcFlag = data.srcFlag || 1;
+        this.rowId = data.rowId || null;
+        this.conditions = [];
+        if (data.conditions && data.conditions.length > 0) {
+            for (var i = 0; i < data.conditions.length; i++) {
+                var condition = FM.dataApi.rdLaneCondition(data.conditions[i]);
+                this.conditions.push(condition);
+            }
+        }
+        this.rowId = data.rowId || null;
+    },
+
+    /**
+     * 获取RdLane简略信息
+     * @method getSnapShot
+     *
+     * @return {object} getSnapShot.
+     */
+    getSnapShot: function () {
+        var data = {};
+        data.pid = this.pid;
+        data.linkPid = this.linkPid;
+        data.laneNum = this.laneNum;
+        data.travelFlag = this.travelFlag;
+        data.seqNum = this.seqNum;
+        data.laneForming = this.laneForming;
+        data.laneDir = this.laneDir;
+        data.laneType = this.laneType;
+        data.arrowDir = this.arrowDir;
+        data.laneMark = this.laneMark;
+        data.width = parseInt(this.width, 10);
+        data.restrictHeight = parseInt(this.restrictHeight, 10);
+        data.transitionArea = this.transitionArea;
+        data.fromMaxSpeed = parseInt(this.fromMaxSpeed, 10);
+        data.toMaxSpeed = parseInt(this.toMaxSpeed, 10);
+        data.fromMinSpeed = parseInt(this.fromMinSpeed, 10);
+        data.toMinSpeed = parseInt(this.toMinSpeed, 10);
+        data.elecEye = this.elecEye;
+        data.laneDivider = this.laneDivider;
+        data.centerDivider = this.centerDivider;
+        data.speedFlag = this.speedFlag;
+        data.srcFlag = this.srcFlag;
+        data.rowId = this.rowId;
+        data.conditions = [];
+        for (var i = 0; i < this.conditions.length; i++) {
+            data.conditions.push(this.conditions[i].getIntegrate());
+        }
+        data.geoLiveType = this.geoLiveType;
+        return data;
+    },
+
+    /**
+     * 获取RdLane详细信息
+     * @method getIntegrate
+     *
+     * @return {object} getIntegrate.
+     */
+    getIntegrate: function () {
+        var data = {};
+        data.pid = this.pid;
+        data.linkPid = this.linkPid;
+        data.laneNum = this.laneNum;
+        data.travelFlag = this.travelFlag;
+        data.seqNum = this.seqNum;
+        data.laneForming = this.laneForming;
+        data.laneDir = this.laneDir;
+        data.laneType = this.laneType;
+        data.arrowDir = this.arrowDir;
+        data.laneMark = this.laneMark;
+        data.width = parseInt(this.width, 10);
+        data.restrictHeight = parseInt(this.restrictHeight, 10);
+        data.transitionArea = this.transitionArea;
+        data.fromMaxSpeed = parseInt(this.fromMaxSpeed, 10);
+        data.toMaxSpeed = parseInt(this.toMaxSpeed, 10);
+        data.fromMinSpeed = parseInt(this.fromMinSpeed, 10);
+        data.toMinSpeed = parseInt(this.toMinSpeed, 10);
+        data.elecEye = this.elecEye;
+        data.laneDivider = this.laneDivider;
+        data.centerDivider = this.centerDivider;
+        data.speedFlag = this.speedFlag;
+        data.srcFlag = this.srcFlag;
+        data.rowId = this.rowId;
+        data.conditions = [];
+        for (var i = 0; i < this.conditions.length; i++) {
+            data.conditions.push(this.conditions[i].getIntegrate());
+        }
+        // data.geoLiveType = this.geoLiveType;
+        return data;
+    }
+});
+
+/** *
+ * RdLane初始化函数
+ * @param id
+ * @param options 其他可选参数
+ * @returns {.dataApi.rdNode}
+ */
+FM.dataApi.rdLane = function (data, options) {
+    return new FM.dataApi.RdLane(data, options);
+};

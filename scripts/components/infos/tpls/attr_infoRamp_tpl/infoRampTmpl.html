@@ -1,0 +1,16 @@
+<div class="scroll_style" ng-controller="rampCtrl">
+    <ul class="list-group detailUlCss">
+        <li>
+            <div class="blockDescLiDiv">
+                <span>是否匝道</span>
+            </div>
+            <span>{{ramp.track.t_command === 1 ? '非匝道' : '匝道'}}</span>
+        </li>
+        <li style="line-height:60px;height:60px">
+            <div class="blockDescLiDiv" style="vertical-align: top;">
+                <span>备注</span>
+            </div>
+            <textarea class="form-control poiRightPanel_area" type="text" rows=2 ng-model="ramp.content"></textarea>
+        </li>
+    </ul>
+</div>

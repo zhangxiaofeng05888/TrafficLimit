@@ -1,0 +1,34 @@
+<style type="text/css">
+    .poiCheckResultTable .relateTable {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        top: 0px;
+        bottom: 0px;
+        background-color: #fff;
+        z-index: 1000;
+    }
+</style>
+<div ng-controller="poiCheckResultCtrl" class="fm-job-panel fm-stretch poiCheckResultTable">
+    <div ui-grid="gridOptions"
+         ui-grid-selection
+         ui-grid-auto-resize
+         ui-grid-pagination
+         ui-grid-resize-columns
+         class="fm-grid wmContent">
+        <!--loading效果-->
+        <div ng-show="loadingFlag" class="tableLoading" ng-include="'./svgLoading.html'"></div>
+        <!--关联poi面板-->
+        <div ng-if="isShowRelateTable" class="relateTable">
+            <div ui-grid="relateTableOptions"
+                 ui-grid-selection
+                 ui-grid-auto-resize
+                 ui-grid-resize-columns
+                 class="fm-grid" style="flex: 1; min-height: 60px"></div>
+            <div class="footer" style="padding: 5px 20px;">
+                <button class="fm-control fm-btn-primary pull-right" ng-click="goBack()">返回</button>
+            </div>
+        </div>
+    </div>
+</div>

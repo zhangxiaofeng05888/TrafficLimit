@@ -1,0 +1,41 @@
+<div class="popover" tabindex="-1" style="width: 310px;min-height: 185px;overflow-y: auto;max-height:300px;">
+    <div ng-controller="TollGateNameCtl">
+        <form class="w5c-form" w5c-form-validate="" novalidate name="tollgateNameForm">
+            <ul class="list-group detailUlCss">
+                <li>
+                    <div class="linkName_popover_Div"><span>名称组号</span></div>
+                    <input type="text" readonly class="form-control poiRightPanel_Input"  ng-model="tollGateNames.nameGroupid"/>
+                </li>
+                <li>
+                    <div class="linkName_popover_Div"><span>名称号码</span></div>
+                    <input type="text" readonly class="form-control poiRightPanel_Input"  ng-model="tollGateNames.pid"/>
+                </li>
+                <li>
+                    <div class="linkName_popover_Div"><span>代码语言</span></div>
+                    <select class="form-control poiRightPanel_select linkName_popover_select" ng-model="tollGateNames.langCode" ng-click="langCodeChange(tollGateNames.langCode)" ng-change="changeLangCode(tollGateNames);">
+                        <option value="{{value.id}}" ng-repeat="value in langCodeOptions" ng-selected="tollGateNames.langCode == value.id" ng-disabled="(selectedLangcodeArr.indexOf(value.id) > -1)"> {{value.label}}</option>
+                    </select>
+                </li>
+                <li>
+                    <div class="linkName_popover_Div"><span>名称内容</span></div>
+                    <input type="text" class="form-control poiRightPanel_Input" ng-if="tollGateNames.langCode != 'ENG'" name="name"  maxlength="35" ng-model="tollGateNames.name" ng-change="namePronunciation(tollGateNames.name,tollGateNames);"/>
+                    <input class="form-control poiRightPanel_Input" type="text" ng-if="tollGateNames.langCode == 'ENG'" name="name"  maxlength="120" ng-model="tollGateNames.name" placeholder="名称内容" />
+                </li>
+                <!--<li>-->
+                    <!--<div class="linkName_popover_Div"><span>名称发音</span></div>-->
+                    <!--<input type="text" class="form-control poiRightPanel_Input" ng-model="tollGateNames.phonetic" name="phonetic" maxlength="206" ng-disabled="tollGateNames.langCode == 'ENG'"/>-->
+                <!--</li>-->
+                <li style="height:auto;">
+                    <div class="linkName_popover_Div"><span>名称发音</span></div>
+                    <div style="display: inline-block;text-align: left;margin-right: 14px;margin-top: 4px;line-height: 20px;vertical-align: top;width:180px;">
+                <span class="" ng-repeat="item in tollGateNames.phoneticArr track by $index">
+                    <span ng-if="item.length>1">{<span ng-repeat="subitem in item" style="text-decoration: underline;cursor: pointer;color:red;margin-right: 4px;" ng-click="selectPolyphonic($event, $index, $parent.$parent.$index)">{{subitem}}</span>}</span>
+                    <span ng-if="item.length==1">{{item[0]}}</span>
+                </span>
+                        <span style=""><img ng-show="tollGateNames.langCode == 'CHI' || tollGateNames.langCode == 'CHT'" style="cursor: pointer;position: absolute;top: 130px;left: 280px;" src="../../images/meta/refresh.png" ng-click="namePronunciation(tollGateNames.name,tollGateNames);"></span>
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </div>
+</div>

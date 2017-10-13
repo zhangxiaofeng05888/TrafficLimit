@@ -1,0 +1,138 @@
+<style>
+    .sceneLayerPanel ul{
+        list-style-type: none;
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+    .sceneLayerPanel ul > li {
+        list-style-type: none;
+        line-height: 30px;
+        padding-left: 10px;
+    }
+    .sceneLayerPanel ul > li label {
+        color: #182848;
+        cursor: pointer;
+    }
+    .sceneLayerPanel ul > li input {
+        cursor: pointer;
+    }
+    .sceneLayerPanel ul > li:hover > label {
+        color: #636ef5;
+    }
+    .sceneLayerPanel ul.sceneLayers {
+        height: 150px;
+        overflow-y: auto;
+    }
+    .sceneLayerPanel ul.sceneLayers div.layerControl {
+        display: inline-block;
+        float: right;
+        margin-right: 3px;
+    }
+    .sceneLayerPanel ul.sceneLayers div.layerControl span:hover {
+        background-color: #636ef5;
+    }
+    .sceneLayerPanel div.bottomRender div.subHeader {
+        border-bottom: 1px solid #b8cdf7;
+        border-top: 1px solid #b8cdf7;
+        background-color: #eff0fe;
+        padding-left: 10px;
+        min-height: 36px;
+    }
+    .sceneLayerPanel div.bottomRender div.subHeader input {
+        width: 70%;
+        margin-bottom: 7px;
+        background-color: #eff0fe;
+    }
+    .sceneLayerPanel ul.twoColumn > li {
+        width:49%;
+        display: inline-block;
+        vertical-align: top;
+    }
+    .sceneLayerPanel ul.threeColumn > li {
+        width:29%;
+        display: inline-block;
+    }
+    .subTitle {
+        height: 35px;
+        color: #636ef5;
+        padding-left: 5px;
+        padding-top: 8px;
+        font-weight: bold;
+        background-color: #d2e1ff;
+    }
+</style>
+<div ng-controller="LayersSwitchController" class="fm-panel">
+    <div class="header">
+        <div class="title">
+        </div>
+    </div>
+    <div class="content sceneLayerPanel">
+        <div>
+            <div class="subTitle">
+                <span>状态</span>
+            </div>
+            <ul class="twoColumn">
+                <li ng-repeat="item in status">
+                    <input
+                            type="checkbox"
+                            value="{{item.id}}"
+                            ng-checked="item.visible"
+                            id="status_{{item.id}}"
+                            class="radio_diy_class"
+                            ng-click="getStatus(item)"
+                    />
+                    <label for="status_{{item.id}}">
+                        <span>{{item.label}}</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <div class="subTitle">
+                <span>类型</span>
+            </div>
+            <ul class="twoColumn">
+                <li ng-repeat="item in geometryType">
+                    <input
+                            type="checkbox"
+                            value="{{item.id}}"
+                            id="type_{{item.id}}"
+                            ng-checked="item.visible"
+                            class="radio_diy_class"
+                            ng-click="getGeometryType(item)"
+                    />
+                    <label for="type_{{item.id}}">
+                        <span>{{item.label}}</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <!--<div>-->
+            <!--<div class="subTitle">-->
+                <!--<span>Tips 类型</span>-->
+            <!--</div>-->
+            <!--<ul class="twoColumn">-->
+                <!--<li style="width: 100%;border-bottom:1px dotted #636ef5;">-->
+                    <!--<input type="checkbox" id="isAllScene" class="radio_diy_class" ng-model="info.isAllFlag"-->
+                           <!--ng-change="selectAll(info.isAllFlag)"/>-->
+                    <!--<label for="isAllScene">-->
+                        <!--<span>{{info.msg}}</span>-->
+                    <!--</label>-->
+                <!--</li>-->
+                <!--<li ng-repeat="item in tipsArr | filter:{name: options.inputContext}">-->
+                    <!--<input-->
+                            <!--type="checkbox"-->
+                            <!--value="{{item.id}}"-->
+                            <!--id="tipKind_{{item.id}}"-->
+                            <!--class="radio_diy_class"-->
+                            <!--ng-change="toggleFrozenLayers(item)"-->
+                            <!--ng-model="item.options.visible"-->
+                    <!--/>-->
+                    <!--<label for="tipKind_{{item.id}}">-->
+                        <!--<span>{{item.name}}</span>-->
+                    <!--</label>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    </div>
+</div>

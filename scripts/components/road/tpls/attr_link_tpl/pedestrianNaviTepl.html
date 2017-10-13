@@ -1,0 +1,53 @@
+<div id="pedestrianDiv" ng-controller="pedestrianNaviController" style="border-top: 1px #d2e1ff solid;">
+    <ul class="list-group detailUlCss" style="margin-top: 8px;">
+        <li>
+            <div class="blockDescLiDiv" style="width: 78px;"><span>DICI城市类型</span></div>
+            <input type="radio" name="diciTypeRadio" value=0 ng-model="linkData.diciType" id="diciTypeRadio1" class="radio_diy_class"/><label for="diciTypeRadio1"><span> 不应用 </span></label>
+            <input type="radio" name="diciTypeRadio" value=1 ng-model="linkData.diciType" id="diciTypeRadio2" class="radio_diy_class"/><label for="diciTypeRadio2"><span> 全要素 </span></label>
+            <input type="radio" name="diciTypeRadio" value=2 ng-model="linkData.diciType" id="diciTypeRadio3" class="radio_diy_class"/><label for="diciTypeRadio3"><span> 简版 </span></label>
+        </li>
+        <li>
+            <div class="blockDescLiDiv" style="width: 78px;"><span>人行便道标记</span></div>
+            <input type="radio" name="sideWalkFlagRadio" ng-disabled="linkData.kind==10" value=0 ng-model="linkData.sidewalkFlag" id="sideWalkFlagRadio1" class="radio_diy_class"/><label for="sideWalkFlagRadio1"><span> 未采集 </span></label>
+            <input type="radio" name="sideWalkFlagRadio" ng-disabled="linkData.kind==10" value=1 ng-model="linkData.sidewalkFlag" id="sideWalkFlagRadio2" class="radio_diy_class"/><label for="sideWalkFlagRadio2"><span> 有 </span></label>
+            <input type="radio" name="sideWalkFlagRadio" ng-disabled="linkData.kind==10" value=2 ng-model="linkData.sidewalkFlag" id="sideWalkFlagRadio3" class="radio_diy_class"/><label for="sideWalkFlagRadio3"><span> 无 </span></label>
+        </li>
+        <li>
+            <div class="blockDescLiDiv" style="width: 78px;"><span>人行阶梯标记</span></div>
+            <input type="radio" name="walkStairFlagRadio" ng-value="{{0}}" ng-model="linkData.walkstairFlag" id="walkStairFlagRadio1" class="radio_diy_class"/><label for="walkStairFlagRadio1"><span> 未采集 </span></label>
+            <input type="radio" name="walkStairFlagRadio" ng-value="{{1}}" ng-model="linkData.walkstairFlag" id="walkStairFlagRadio2" class="radio_diy_class"/><label for="walkStairFlagRadio2"><span> 有 </span></label>
+            <input type="radio" name="walkStairFlagRadio" ng-value="{{2}}" ng-model="linkData.walkstairFlag" id="walkStairFlagRadio3" class="radio_diy_class"/><label for="walkStairFlagRadio3"><span> 无 </span></label>
+        </li>
+        <li>
+            <div class="blockDescLiDiv" style="width: 78px;"><span>行人步行</span></div>
+            <input type="radio" name="walkFlagRadio" ng-disabled="linkData.kind==10" value=0 ng-model="linkData.walkFlag" id="walkFlagRadio1" class="radio_diy_class"/><label for="walkFlagRadio1"><span> 未调查 </span></label>
+            <input type="radio" name="walkFlagRadio" ng-disabled="linkData.kind==10" value=1 ng-model="linkData.walkFlag" id="walkFlagRadio2" class="radio_diy_class"/><label for="walkFlagRadio2"><span> 允许 </span></label>
+            <input type="radio" name="walkFlagRadio" ng-disabled="linkData.kind==10" value=2 ng-model="linkData.walkFlag" id="walkFlagRadio3" class="radio_diy_class"/><label for="walkFlagRadio3"><span> 禁止 </span></label>
+        </li>
+    </ul>
+
+    <div class="poiRightPanel_fold" style="border: none">
+        <strong>人行便道<span style="font-size: 12px;margin-left: 15px;">[{{linkData.sidewalks.length}}个]</span></strong>
+        <div><img src="../../images/newRoad/rightPanelIcon/icon_add.png" ng-click="addSideWalkInfo()"/></div>
+    </div>
+    <ul class="list-group detailUlCss">
+        <li ng-class="{'linkName_li': !(currentSideWalkIndex==$index),'linkName_li_checked': (currentSideWalkIndex==$index)}" ng-click="getCurrentEditSideWalkData($index, item)" ng-repeat="item in linkData.sidewalks" data-container="body" data-animation="am-flip-x" data-auto-close="1" bs-popover data-placement="left" data-template-url="../../scripts/components/road/tpls/attr_link_tpl/sideWalkDetailTpl.html">
+            <div style="width: 50px;padding-left: 10px;display: inline-block"><span>{{$index + 1}}</span></div>
+            <div style="width: 105px;display: inline-block"><span>{{sidewalkLocoptions[item.sidewalkLoc]}}</span></div>
+            <div style="width: 105px;display: inline-block"><span>{{dividerTypeoptions[item.dividerType]}}</span></div>
+            <img src="../../images/newRoad/rightPanelIcon/icon_delete.png" ng-click="deleteSideWalkInfo($index, item, $event)">
+        </li>
+    </ul>
+    <div class="poiRightPanel_fold" style="border: none">
+        <strong>人行阶梯<span style="font-size: 12px;margin-left: 15px;">[{{linkData.walkstairs.length}}个]</span></strong>
+        <div><img src="../../images/newRoad/rightPanelIcon/icon_add.png" ng-click="addWalkStairs()"/></div>
+    </div>
+    <ul class="list-group detailUlCss">
+        <li ng-class="{'linkName_li': !(currentWalkStairsIndex==$index),'linkName_li_checked': (currentWalkStairsIndex==$index)}" ng-click="getCurrentEditWalkStairsData($index, item)" ng-repeat="item in linkData.walkstairs" data-container="body" data-animation="am-flip-x" data-auto-close="1" bs-popover data-placement="left" data-template-url="../../scripts/components/road/tpls/attr_link_tpl/walkStarsDetailTpl.html">
+            <div style="width: 30px;padding-left: 10px;display: inline-block"><span>{{$index + 1}}</span></div>
+            <div style="width: 115px;display: inline-block"><span>{{upAndDownFlag[item.stairFlag]}}</span></div>
+            <div style="width: 115px;display: inline-block"><span>{{sidewalkLocoptions[item.stairLoc]}}</span></div>
+            <img src="../../images/newRoad/rightPanelIcon/icon_delete.png" ng-click="deleteWalkStairs($index, item, $event)">
+        </li>
+    </ul>
+</div>

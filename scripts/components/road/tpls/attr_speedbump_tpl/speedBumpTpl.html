@@ -1,0 +1,17 @@
+<div ng-controller="SpeedBumpCtl">
+    <ul class="list-group detailUlCss" style="margin-top: 8px;">
+        <li>
+            <div class="blockDescLiDiv"><span>进入线</span></div>
+            {{speedBumpData.linkPid}}
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>进入点</span></div>
+            {{speedBumpData.nodePid}}
+        </li>
+        <li>
+            <div class="blockDescLiDiv" style="vertical-align: top;"><span>备注信息</span></div>
+            <textarea class="form-control poiRightPanel_area" ng-model="speedBumpData.memo" type="text" rows="2"></textarea>
+        </li>
+    </ul>
+</div>
+

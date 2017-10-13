@@ -1,0 +1,25 @@
+<div ng-controller="adLinkController">
+    <ul class="list-group detailUlCss" style="margin-top: 8px;">
+        <li>
+            <div class="blockDescLiDiv"><span>种别</span></div>
+            <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="adLinkData.kind" ng-change="changeAdlinkKind()" ng-options="value.id as value.label for value in kind"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>形态</span></div>
+            <select ng-if="[0,1,2,3].indexOf(adLinkData.kind)!=-1" style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="adLinkData.form" ng-options="value.id as value.label disable when (value.id!=1) for value in form"></select>
+            <select ng-if="[0,1,2,3].indexOf(adLinkData.kind)==-1" style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="adLinkData.form" ng-options="value.id as value.label for value in form"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span style="letter-spacing: 1px;">比例尺</span></div>
+            <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="adLinkData.scale" ng-options="value.id as value.label for value in scale"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span style="letter-spacing: 1px;">图幅号</span></div>
+            <input class="form-control poiRightPanel_Input" class="chosen-disabled" ng-model="adLinkData.meshId" type="text" disabled="disabled" />
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span style="letter-spacing: 1px;">Link长度</span></div>
+            <input class="form-control poiRightPanel_Input" class="chosen-disabled" ng-model="adLinkData.length" type="text" disabled="disabled" />
+        </li>
+    </ul>
+</div>

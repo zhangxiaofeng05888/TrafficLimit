@@ -1,0 +1,95 @@
+<style>
+    .suitActive {
+        border-top: 1px solid #3f9fff;
+        border-bottom: 1px solid #3f9fff;
+        background-color: #eaf5ff;
+    }
+
+</style>
+<div ng-controller="RdNameCheckCtrl" style="width: 620px;height: 450px;">
+    <div class="" style="padding: 15px 15px 0px 15px">
+        <div style="margin-bottom: 10px;">
+            <input type="radio" value="0" name="checkRange" ng-model="checkRange" ng-click="checkRangeChange()">
+            <span style="font-size: 14px;color: #666;margin-right: 20px;">检查选中数据</span>
+            <input type="radio" value="1" name="checkRange" ng-model="checkRange" ng-click="checkRangeChange()">
+            <span style="font-size: 14px;color: #666;margin-right: 20px;">检查本次查询结果</span>
+            <input type="radio" value="2" name="checkRange" ng-model="checkRange" ng-click="checkRangeChange()">
+            <span style="font-size: 14px;color: #666;">检查全部数据</span>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <span style="font-size: 14px;color: #666;">检查范围</span>
+            <select class="fm-control"  ng-model="checkAdminId"  style="width:160px;"
+                    placeholder_text_single="'--请选择--'" search_contains=true
+                    chosen ng-options="value.id as value.label for value in adminOpt" ng-disabled="adminDisable">
+            </select>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <span style="font-size: 14px;color: #666;margin-right: 5px;">检查描述</span><input type="text" class="form-control editPanel_input" ng-model="checkMsg" style="width: 370px;">
+        </div>
+        <div class="fm-panel" style="height:330px;width:100%;">
+            <div class="header" style="margin-top: 10px;background-color: #1A90FE">
+                <div class="title" style="margin-left: 10px;">
+                    <h5>检查规则配置</h5>
+                </div>
+                <div class="toolbar pull-right">
+                    <input type="text" style="margin-top:3px;" class="form-control" placeholder="请输入规则号" ng-model="ruleCode" ng-change="filterRuleCode()">
+                </div>
+            </div>
+            <div class="content fm-table-content">
+                <div class="row" style="height:230px;">
+                    <div class="scroll-styled" style="width: 45%;float:left;height:230px;margin-left:15px;">
+                        <table class="table table-bordered table-condensed">
+                            <thead>
+                            <tr>
+                                <th>选择</th>
+                                <th>检查类型</th>
+                                <th>范围</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-if="suites.length == 0">
+                                <td colspan="3" class="text-center">暂时无数据!!!</td>
+                            </tr>
+                            <tr ng-class-odd="'tableOdd'" ng-repeat="item in suites" ng-class="{'suitActive': item.selected}">
+                                <td style="width:40px;"><input ng-click="selectSuite(item)" class="fatherSelect fm-control" ng-model="item.checked" type="checkbox"/></td>
+                                <td style="cursor: pointer"  ng-bind="item.suiteName" ng-click="refreshRulesBySuitId(item)"></td>
+                                <td ng-bind="item.suiteRange" ng-click="refreshRulesBySuitId(item)"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="scroll-styled" style="width: 48%;float:right;height: 230px;padding: 0 10px 0 0">
+                        <table class="table table-bordered table-condensed" style="height:230px;">
+                            <thead>
+                            <tr>
+                                <th>选择</th>
+                                <th>检查项</th>
+                                <th>规则号</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-if="checkRulesList.length == 0">
+                                <td colspan="3" class="text-center">无数据!!!</td>
+                            </tr>
+                            <tr ng-if="!loaddingSuites" ng-repeat="item in checkRulesList">
+                                <td style="width:10px;"><input ng-change="selectRule(item)" ng-model="item.checked" type="checkbox" class="fm-control"/></td>
+                                <td title="{{item.ruleName}}" style="width:100px;">{{item.ruleName.length>12?item.ruleName.substr(0,12)+'...':item.ruleName}}</td>
+                                <td style="width:40px;">{{item.ruleCode}}</td>
+                            </tr>
+                            <tr ng-if="loaddingSuites">
+                                <td colspan="3" class="text-center">数据加载中...</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div style="text-align:right;">
+                    <button type="button" class="btn md-btn-warning" ng-click="reset()" style="margin:6px 8px"><img src="../../images/meta/reset.png">重置</button>
+                    <button type="button" class="btn md-btn-blue" ng-click="cancel()" style="margin:6px 8px"><img src="../../images/meta/cancel.png">取消</button>
+                    <button ng-if="!checkDisable" type="button" class="btn md-btn-success" ng-click="doExecute()" ng-disabled=checkDisable style="margin:6px 8px"><img src="../../images/meta/check.png">检查</button>
+                    <button ng-if="checkDisable" type="button" class="btn md-btn-success" ng-disabled=checkDisable style="margin:6px 8px"><img src="../../images/meta/check.png">检查中...</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

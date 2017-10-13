@@ -1,0 +1,53 @@
+<style>
+    .btnDiy_div {
+        display: inline-block;
+        float: right;
+        padding-right: 20px;
+    }
+    .btn-diy {
+        width: 100px;
+        height: 24px;
+        border: none;
+        background-color: #636ef5;
+        color: #ffffff;
+    }
+    .btn-diy:hover {
+        border: none;
+        background-color: #454dab;
+        color: #ffffff;
+    }
+</style>
+<div ng-controller="rdNodeCtrl" >
+    <ul class="list-group detailUlCss" style="margin-top: 8px;">
+        <li>
+            <div class="blockDescLiDiv"><span>种　　别</span></div>
+            <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="rdNodeData.kind" ng-options="value.id as value.label for value in kindOptions"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>数据来源</span></div>
+            <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="rdNodeData.srcFlag" ng-options="value.id as value.label for value in srcFlagOptions"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>精度级别</span></div>
+            <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="rdNodeData.digitalLevel" ng-options="value.id as value.label for value in digitalLeveOptions"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span style="letter-spacing: 1px;">图 幅 号</span></div>
+            <span style="padding: 0 7px 0 0;" ng-repeat="item in rdNodeData.meshes">{{item.meshId}}</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>形　　态</span></div>
+            <div class="btnDiy_div">
+                <button class="btn-xs btn-diy" data-container="body" data-animation="am-flip-x" data-auto-close="1" bs-popover data-placement="left" data-template-url="../../scripts/components/road/tpls/attr_node_tpl/rdNodeFormTpl.html">修改Node形态</button>
+            </div>
+        </li>
+        <!--显示选中的node种别-->
+        <div ng-style="{'border-top':newFromOfWRoadDate.length > 0 ? '1px solid #636ef5': null,'border-bottom':newFromOfWRoadDate.length > 0 ? '1px solid #636ef5': null}">
+            <li ng-repeat="item in newFromOfWRoadDate track by $index" style="padding-left: 10px">
+                <div style="display: inline-block;width: 168px">
+                    <span>{{item.label}}</span>
+                </div>
+            </li>
+        </div>
+    </ul>
+</div>

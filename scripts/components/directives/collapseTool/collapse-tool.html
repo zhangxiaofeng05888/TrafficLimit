@@ -1,0 +1,12 @@
+<div>
+    <div class="toolPanel">
+        <strong>
+            {{title}}
+        </strong>
+        <div class="toolPanel_default">默认</div>
+        <div class="toolPanel_collapes" ng-click="toggle()">
+            <img ng-src="{{showMe?'../../images/newPoi/rightPanelIcon/icon-right-open.png':'../../images/newPoi/rightPanelIcon/icon-right-close.png'}}"/>
+        </div>
+    </div>
+    <div  ng-show="showMe" ng-transclude></div>
+</div>

@@ -1,0 +1,106 @@
+<div ng-controller="deepParkingCtl">
+    <fast-collapse expander-title='停车场信息'>
+        <form class="w5c-form" w5c-form-validate="" novalidate name="deepParkingForm">
+            <ul class="list-group deepUlCss">
+                <li style="height: 60px;line-height: 60px">
+                    <div class="deepDescLiDiv">
+                        <span>类 型</span>
+                    </div>
+                    <div style="display: inline-block;width: 200px;line-height: 30px">
+                        <div style="display: inline-block;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in parkingBuildingType" class="col-md-6">
+                            <input type="radio" name="type" value={{key}} id={{key+'Type'}} class="radio_diy_class" ng-model="poi.parkings[0].parkingType"/>
+                            <label for={{key+'Type'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </li>
+                <li style="height: 60px;line-height: 60px">
+                    <div class="deepDescLiDiv">
+                        <span>收费标准</span>
+                    </div>
+                    <div style="display: inline-block;width: 200px;line-height: 30px">
+                        <div style="display: inline-block;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in tollStd" ng-if="key != 5" class="col-md-4">
+                            <input type="checkbox" name="card" value={{key}} id={{key+'tollStd'}} class="radio_diy_class" ng-model="poi.parkings[0].tollStd[key]" ng-click="tollStdChange($event)"/>
+                            <label for={{key+'tollStd'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                        <div style="display: inline-block;color: greenyellow;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in tollStd" ng-if="key == 5" class="col-md-4">
+                            <input type="checkbox" name="card" value={{key}} id={{key+'tollStd'}} class="radio_diy_class" ng-model="poi.parkings[0].tollStd[key]" ng-click="tollStdChange($event)"/>
+                            <label for={{key+'tollStd'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </li>
+                <li style="height: 30px;line-height: 30px">
+                    <div class="deepDescLiDiv">
+                        <span>收费描述</span>
+                    </div>
+                    <input class="form-control deepPanel_Input" ng-model="poi.parkings[0].tollDes" type="text" ng-maxlength="127" name="tollDes" ng-change="desToDBC()"/>
+                </li>
+                <li style="height: 60px;line-height: 60px">
+                    <div class="deepDescLiDiv">
+                        <span>收费方式</span>
+                    </div>
+                    <div style="display: inline-block;width: 200px;line-height: 30px">
+                        <div style="display: inline-block;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in tollWay" class="col-md-6">
+                            <input type="checkbox" name="card" value={{key}} id={{key+'tollWay'}} class="radio_diy_class" ng-model="poi.parkings[0].tollWay[key]"/>
+                            <label for={{key+'tollWay'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="deepDescLiDiv">
+                        <span>营业时间</span>
+                    </div>
+                    <input name="deepParkingOpenTime" class="form-control deepPanel_Input" ng-model="poi.parkings[0].openTiime" type="text" ng-change="desToDBC()"/>
+                </li>
+                <li style="height: 90px;line-height: 90px">
+                    <div class="deepDescLiDiv">
+                        <span>支付方式</span>
+                    </div>
+                    <div style="display: inline-block;width: 200px;line-height: 30px">
+                        <div style="display: inline-block;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in paymentObj" class="col-md-6">
+                            <input type="checkbox" name="card" value={{key}} id={{key+'payment'}} class="radio_diy_class" ng-model="poi.parkings[0].payment[key]"/>
+                            <label for={{key+'payment'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="deepDescLiDiv">
+                        <span>车位数量</span>
+                    </div>
+                    <input class="form-control deepPanel_Input" set-focus ng-model="poi.parkings[0].totalNum" type="number" min="0" name="totalNum" ng-maxLength="10" ng-blur="avgTotalNum()" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+                </li>
+                <li style="height: 240px;line-height: 240px">
+                    <div class="deepDescLiDiv" style="line-height: 18px;margin-top: 100px">
+                        <span style="display: block">收费备注</span>
+                        <!--由 停车备注 改为 收费备注（和王涵确认）-->
+                        <!--<span style="display: block">（大陆）</span>-->
+                    </div>
+                    <div style="display: inline-block;width: 200px;line-height: 30px">
+                        <div style="display: inline-block;color: greenyellow;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in remark" ng-if="key == 0" class="col-md-6">
+                            <input type="checkbox" name="card" value={{key}} id={{key+'remark'}} class="radio_diy_class" ng-model="poi.parkings[0].remark[key]" ng-click="remarkChange($event)"/>
+                            <label for={{key+'remark'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                        <div style="display: inline-block;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in remark" ng-if="key != 0" ng-class="{false:'col-md-12',true:'col-md-6'}[key < 4]">
+                            <input type="checkbox" name="card" value={{key}} id={{key+'remark'}} class="radio_diy_class" ng-model="poi.parkings[0].remark[key]" ng-click="remarkChange($event)"/>
+                            <label for={{key+'remark'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </fast-collapse>
+</div>
+

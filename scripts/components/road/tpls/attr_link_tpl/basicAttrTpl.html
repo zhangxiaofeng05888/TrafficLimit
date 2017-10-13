@@ -1,0 +1,196 @@
+<style>
+    .btnDiy_div {
+        display: inline-block;
+        float: right;
+        padding-right: 10px;
+    }
+    .btn-diy {
+        width: 100px;
+        height: 24px;
+        border: none;
+        background-color: #636ef5;
+        color: #ffffff;
+    }
+    .btn-diy:hover {
+        border: none;
+        background-color: #454dab;
+        color: #ffffff;
+    }
+    .linkType_style_normal {
+        display: inline-block;
+        color: #fa5883;
+        cursor: pointer;
+    }
+    .linkType_style1_active {
+        display: inline-block;
+        color: #636ef5;
+        cursor: pointer;
+    }
+    input[type=number]{
+        padding:6px;
+    }
+    .rdLinkBasic .blockDescLiDiv{
+        width: 60px;
+        margin-right: 30px;
+    }
+</style>
+<div class="rdLinkBasic" ng-controller="basicAttrCtrl">
+    <form class="w5c-form" w5c-form-validate="" novalidate name="rdLinkForm">
+        <fast-collapse expander-title="基础属性">
+            <ul class="list-group detailUlCss">
+                <li>
+                    <div class="blockDescLiDiv"><span style="letter-spacing: 1px">图 幅 号</span></div>
+                    <input class="form-control poiRightPanel_Input" class="chosen-disabled" ng-model="linkData.meshId" type="text" disabled="disabled" />
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>道路种别</span></div>
+                    <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-change="changeKind(linkData.kind, '{{linkData.kind}}')" ng-model="linkData.kind" ng-options="value.id as value.label for value in kindOptions"></select>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>道路方向</span></div>
+                    <input class="form-control poiRightPanel_Input" class="chosen-disabled" ng-value="linkData.direct=='1'?'1 双方向':linkData.direct=='2'?'2 顺方向':'3 逆方向'" type="text" disabled="disabled" />
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span style="letter-spacing: 1px">车 道 数</span></div>
+                    <span>总 </span>
+                    <input class="form-control poiRightPanel_Input limit-length" id="LaneNum" ng-model="linkData.laneNum" name="laneNum" type="number" set-focus style="width: 45px;" ng-change="changeTotalLane()" />
+                    <span ng-class="{'chosen-disabled':!(linkData.direct==1)}"> 左 </span>
+                    <input class="form-control poiRightPanel_Input" ng-disabled="linkData.direct!=1" ng-class="{'chosen-disabled':!(linkData.direct==1)}" id="leftLaneNum" type="number" set-focus style="width: 45px" ng-model="linkData.laneLeft" ng-change="changeLeftOrRightLane()" />
+                    <span ng-class="{'chosen-disabled':!(linkData.direct==1)}"> 右 </span>
+                    <input class="form-control poiRightPanel_Input" ng-disabled="linkData.direct!=1" ng-class="{'chosen-disabled':!(linkData.direct==1)}" id="rightLneNum" type="number" set-focus style="width: 45px" ng-model="linkData.laneRight" ng-change="changeLeftOrRightLane()" />
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>车道等级</span></div>
+                    <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="linkData.laneClass" ng-options="value.id as value.label for value in laneClassOptions">
+                        <option value="">-- 请选择 --</option>
+                    </select>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>上下分离</span></div>
+                    <input type="radio" name="location" ng-value={{0}} ng-model="linkData.multiDigitized" id="location1" class="radio_diy_class"/><label for="location1"><span> 否 </span></label>
+                    <input type="radio" name="location" ng-value={{1}} ng-model="linkData.multiDigitized" id="location2" class="radio_diy_class"/><label for="location2"><span> 是 </span></label>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span style="letter-spacing: 1px;">IMI代码</span></div>
+                    <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="linkData.imiCode" ng-options="value.id as value.label for value in imiCodeOptions"></select>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>功能等级</span></div>
+                    <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="linkData.functionClass" ng-options="value.id as value.label for value in functionClassOptions"></select>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>开发状态</span></div>
+                    <input type="radio" name="developStateRadio" ng-value={{0}} ng-model="linkData.developState" id="develop1" class="radio_diy_class"/><label for="develop1"><span> 非详细 </span></label>
+                    <input type="radio" name="developStateRadio" ng-value={{1}} ng-model="linkData.developState" id="develop2" class="radio_diy_class"/><label for="develop2"><span> 详细 </span></label>
+                    <input type="radio" name="developStateRadio" ng-value={{2}} ng-model="linkData.developState" id="develop3" class="radio_diy_class"/><label for="develop3"><span> 未验证 </span></label>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>是否高架</span></div>
+                    <input type="radio" name="isViaductRadio" ng-value={{2}} ng-model="linkData.isViaduct" id="viaduct1" class="radio_diy_class"/><label for="viaduct1"><span> 否 </span></label>
+                    <input type="radio" name="isViaductRadio" ng-value={{1}} ng-model="linkData.isViaduct" id="viaduct2" class="radio_diy_class"/><label for="viaduct2"><span> 是 </span></label>
+                    <input type="radio" name="isViaductRadio" ng-value={{0}} ng-model="linkData.isViaduct" id="viaduct3" class="radio_diy_class"/><label for="viaduct3"><span> 未调查 </span></label>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>特殊交通</span></div>
+                    <input type="radio" name="specialTrafficRadio" ng-value={{0}} ng-model="linkData.specialTraffic" id="specialTrans1" class="radio_diy_class"/><label for="specialTrans1"><span> 否 </span></label>
+                    <input type="radio" name="specialTrafficRadio" ng-value={{1}} ng-model="linkData.specialTraffic" id="specialTrans2" class="radio_diy_class"/><label for="specialTrans2"><span> 是 </span></label>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>铺设状态</span></div>
+                    <input type="radio" name="paveStatusRadio" ng-value={{0}} ng-model="linkData.paveStatus" id="paveStatus1" class="radio_diy_class"/><label for="paveStatus1"><span> 已铺设 </span></label>
+                    <input type="radio" name="paveStatusRadio" ng-value={{1}} ng-model="linkData.paveStatus" id="paveStatus2" class="radio_diy_class"/><label for="paveStatus2"><span> 未铺设 </span></label>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>城市道路</span></div>
+                    <input type="radio" name="urbanRadio" ng-value={{0}} ng-change="changeUrban()" ng-model="linkData.urban" id="urbanRoad1" class="radio_diy_class"/><label for="urbanRoad1"><span> 否 </span></label>
+                    <input type="radio" name="urbanRadio" ng-value={{1}} ng-change="changeUrban()" ng-model="linkData.urban" id="urbanRoad2" class="radio_diy_class"/><label for="urbanRoad2"><span> 是 </span></label>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>道路形态</span></div>
+                    <div class="btnDiy_div">
+                        <button class="btn-xs btn-diy" data-container="body" data-animation="am-flip-x" data-auto-close="1" bs-popover data-placement="left" data-template-url="../../scripts/components/road/tpls/attr_link_tpl/basicOfFormWayTpl.html">修改道路形态</button>
+                    </div>
+                </li>
+                <div ng-style="{'border-top':linkData.forms.length > 0 ? '1px solid #636ef5': null,'border-bottom':linkData.forms.length > 0 ? '1px solid #636ef5': null}" style="max-height: 185px" class="scroll_style">
+                    <li ng-repeat="item in linkData.forms | filter:{'_deleted': false}" style="padding-left: 10px">
+                        <div style="display: inline-block;width: 168px">
+                            <span>{{fromOfWayOption[item.formOfWay]}}</span>
+                        </div>
+                        <div ng-if="item.formOfWay!=1" ng-class="{'linkType_style_normal':item.auxiFlag === 0,'linkType_style1_active':item.auxiFlag !== 0}" ng-click="rememberLinkFormIndex($index, item)" data-container="body" data-animation="am-flip-x" data-auto-close="1" bs-popover data-placement="left" data-template-url="../../scripts/components/road/tpls/attr_link_tpl/formTypeFlagTpl.html">
+                            <span style="text-decoration: underline" ng-bind="auxiFlagoption[item.auxiFlag]"></span>
+                        </div>
+                        <div ng-if="item.formOfWay==1" ng-class="{'linkType_style_normal':item.auxiFlag === 0,'linkType_style1_active':item.auxiFlag !== 0}">
+                            <span style="color: #CCCCCC" ng-bind="auxiFlagoption[item.auxiFlag]"></span>
+                        </div>
+                    </li>
+                </div>
+            </ul>
+        </fast-collapse>
+        <fast-collapse expander-title="附加属性">
+            <ul class="list-group detailUlCss">
+                <li>
+                    <div class="blockDescLiDiv"><span>收费信息</span></div>
+                    <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="linkData.tollInfo" ng-options="value.id as value.label for value in toolinfoOption"></select>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>计费标准</span></div>
+                    <input type="text" class="form-control poiRightPanel_Input" set-focus name="feeStd" required ng-change="verifyfeeStd(linkData.feeStd, {{linkData.feeStd}})" ng-model="linkData.feeStd" />
+                </li>
+                <li>
+                    <div class="blockDescLiDiv" style="line-height: 18px;vertical-align: middle">
+                        <span style="display: block">计费赋值</span>
+                        <span style="display: block; text-align: right">标识</span>
+                    </div>
+                    <input type="radio" name="feeFlagRadio" ng-value={{0}} ng-model="linkData.feeFlag" id="feeFlag1" class="radio_diy_class"/><label for="feeFlag1"><span> 不应用 </span></label>
+                    <input type="radio" name="feeFlagRadio" ng-value={{1}} ng-model="linkData.feeFlag" id="feeFlag2" class="radio_diy_class"/><label for="feeFlag2"><span> 人工 </span></label>
+                    <input type="radio" name="feeFlagRadio" ng-value={{2}} ng-model="linkData.feeFlag" id="feeFlag3" class="radio_diy_class"/><label for="feeFlag3"><span> 程序 </span></label>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>区域标识</span></div>
+                    <input class="form-control poiRightPanel_Input" set-focus min="0" max="999999" ng-model="linkData.systemId" type="number" placeholder="0" />
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>左区划号</span></div>
+                    <input class="form-control poiRightPanel_Input" class="chosen-disabled" ng-model="linkData.leftRegionId" type="text" disabled="disabled" />
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>右区划号</span></div>
+                    <input class="form-control poiRightPanel_Input" class="chosen-disabled" ng-model="linkData.rightRegionId" type="text" disabled="disabled" />
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>起点号码</span></div>
+                    <input class="form-control poiRightPanel_Input" class="chosen-disabled" ng-model="linkData.sNodePid" type="text" disabled="disabled" />
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>终点号码</span></div>
+                    <input class="form-control poiRightPanel_Input" class="chosen-disabled" ng-model="linkData.eNodePid" type="text" disabled="disabled" />
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>LINK长度</span></div>
+                    <input class="form-control poiRightPanel_Input" class="chosen-disabled" ng-model="linkData.length" type="text" disabled="disabled" />
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>精度级别</span></div>
+                    <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="linkData.digitalLevel" ng-options="value.id as value.label for value in digitalLevelOption"></select>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>数据来源</span></div>
+                    <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="linkData.srcFlag" ng-options="value.id as value.label for value in srcFlagOption"></select>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv" style="line-height: 18px;vertical-align: middle">
+                        <span style="display: block">占道停车</span>
+                        <span style="display: block; text-align: right">场</span>
+                    </div>
+                    <input type="radio" name="parkingFlagRadio" ng-value={{0}} ng-model="linkData.parkingFlag" id="parkingFlag1" class="radio_diy_class"/><label for="parkingFlag1"><span> 否 </span></label>
+                    <input type="radio" name="parkingFlagRadio" ng-value={{1}} ng-model="linkData.parkingFlag" id="parkingFlag2" class="radio_diy_class"/><label for="parkingFlag2"><span> 是 </span></label>
+                </li>
+            </ul>
+        </fast-collapse>
+        <div class="poiRightPanel_fold" style="margin-top: 6px">
+            <strong>zone属性</strong>
+            <span ng-if="!linkData.zones.length">[ 共 {{linkData.zones.length}} 条 ]</span>
+            <span ng-if="linkData.zones.length" style="cursor: pointer" data-container="body" data-animation="am-flip-x" data-auto-close="1" bs-popover data-placement="left" data-template-url="../../scripts/components/road/tpls/attr_link_tpl/linkZoneAttrTpl.html">[ 共 {{linkData.zones.length}} 条 ]</span>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,47 @@
+<style>
+    .tipschecktitle{
+        height: 40px;
+        width: 100%;
+        line-height: 40px;
+        cursor: move;
+    }
+    .tipschecktitle span{
+        position: absolute;
+        left: 10px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    .check-result-pager .page{
+        width: 100px;
+    }
+    .confirm{
+        background-color:rgba(169,169,169,0.5)
+    }
+    .noconfirm{
+        background-color: white;
+    }
+    tr:hover{
+        background: aliceblue;
+    }
+</style>
+<div ng-controller="checkInfoTipsCtl as check">
+    <div class="tipschecktitle"  drag-handle> <span>检查结果</span></div>
+    <div class="scroll_style" style="width:800px;height: 260px;overflow: auto" >
+        <table ng-table-dynamic="nameGroupTableParams with nameGroupTableCols"
+               class="table table-condensed table-bordered md-table" template-pagination="../../scripts/components/tools/tpls/assist-tools/tipsCheckResultPageTpl.html" >
+            <colgroup>
+                <col ng-repeat="col in nameGroupTableCols | filter:{show: true}" width="{{col.width || '35'}}"/>
+            </colgroup>
+            <tr ng-class ="{true:'confirm', false:'noconfirm'}[row.ckConfirm==1]"  ng-repeat="row in $data" ng-click="location(row,$index,'namegroup')" ng-dblClick="confirmResult(row,$index,'namegroup')"
+                 >
+                <td class="text-center" ng-repeat="col in $columns">
+                    <span ng-if="!col.html" class="text-ellipsis" title="{{row[col.field]}}" ng-bind-html="col.getValue?col.getValue(this,row):row[col.field]"></span>
+                    <span ng-if="col.html" fm-bind-compiled-html="col.getValue(this, row)"></span>
+                </td>
+            </tr>
+            <tr class="text-center" ng-show="!$data.length">
+                <td colspan="{{(nameGroupTableCols | filter: {show: true}).length}}" ng-bind="loadTableDataMsg"></td>
+            </tr>
+        </table>
+    </div>
+</div>

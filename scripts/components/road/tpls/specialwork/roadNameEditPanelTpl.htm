@@ -1,0 +1,287 @@
+<style>
+    .extraEdit > .search {
+        border: 0px;
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        background: url(../../images/png/button_search_normal.png) center no-repeat;
+    }
+    .extraEdit > .clear {
+        border: 0px;
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        background: url(../../images/png/button_clear.png) center no-repeat;
+    }
+</style>
+<div class="fm-panel marker" ng-controller="RoadNameEditPanelCtl" style="margin:0px;width:660px">
+    <div class="header" drag-handle>
+        <div class="title">编辑当前道路名</div>
+        <div class="toolbar pull-right editmark">
+            <button type="button" class="close closeIt" style="opacity:1;position:relative" ng-click="closeEditPanel()"
+                    title="关闭"></button>
+        </div>
+    </div>
+    <div class="content">
+        <div style="height:280px; width:660px">
+            <form class="w5c-form" w5c-form-validate="" novalidate name="RoadNameEditPanelForm">
+                <ul class="fm-ul fm-ul-form" style="margin-left:10px"> <!-- col-md-4相当于设置width:33.33%-->
+                    <li>
+                        <label>道路名组ID</label>
+                        <div style="position:relative" class="extraEdit">
+                            <input placeholder_text_single="点击按钮选择" type="text"
+                                   class="form-control poiRightPanel_Input"
+                                   ng-model="roadNameData.nameGroupid" ng-disabled=true>
+                            <button type="button" title="搜索" ng-show="nameGroupidEditable" class="search"
+                                    ng-click="openSearchModal('nameGroup')"></button>
+                        </div>
+                    </li>
+                    <li>
+                        <label>道路名发音</label>
+                        <div>
+                            <input type="text" class="form-control poiRightPanel_Input"
+                                   ng-model="roadNameData.namePhonetic" name="namePhonetic" ng-maxlength="240">
+                        </div>
+                    </li>
+                    <li>
+                        <label>类型名称</label>
+                        <div style="position:relative" class="extraEdit">
+                            <input type="text" placeholder_text_single="点击按钮选择"
+                                   class="form-control poiRightPanel_Input chosen-disabled"
+                                   ng-model="roadNameData.type"
+                                   ng-disabled=true>
+                            <button type="button" title="搜索" ng-show="typeEditable" class="search"
+                                    ng-click="openSearchModal('type')"></button>
+                            <button type="button" title="清除" ng-show="typeClearable" class="clear"
+                                    ng-click="clearRoadType()"></button>
+                        </div>
+                    </li>
+                    <li>
+                        <label>基本名发音</label>
+                        <div>
+                            <input type="text" class="form-control poiRightPanel_Input"
+                                   ng-model="roadNameData.basePhonetic"
+                                   ng-class="{true:'chosen-disabled'}[basePhoneticDisable]" ng-disabled="basePhoneticDisable"
+                                   name="basePhonetic" ng-maxlength="240">
+                        </div>
+                    </li>
+                    <li>
+                        <label>中缀名称</label>
+                        <div>
+                            <select class="fm-control" ng-model="roadNameData.infix" no_results_text="'--无--'"
+                                    placeholder_text_single="'--请选择--'"
+                                    ng-options="value.id as value.label for value in infixOpt"
+                                    ng-change="getPy($event, this, 'infix', 'infixPhonetic')"
+                                    ng-class="{true:'chosen-disabled'}[infixDisable]" ng-disabled=infixDisable
+                            >
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <label>后缀发音</label>
+                        <div>
+                            <input type="text" class="form-control poiRightPanel_Input chosen-disabled"
+                                   ng-model="roadNameData.suffixPhonetic" ng-disabled=true>
+                        </div>
+                    </li>
+                    <li>
+                        <label>道路类型</label>
+                        <div>
+                            <select class="fm-control" ng-model="roadNameData.roadType"
+                                    placeholder_text_single="'--请选择--'"
+                                    ng-options="value.id as value.label for value in roadTypeOpt"
+                                    ng-change="roadTypeChange($event, this)"
+                                    ng-class="{true:'chosen-disabled'}[roadTypeDisable]"
+                                    ng-disabled=roadTypeDisable>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <label style="width: 126px">HW标识</label>
+                        <div>
+                            <select class="fm-control" ng-model="roadNameData.hwInfoFlag"
+                                    placeholder_text_single="'--请选择--'"
+                                    ng-options="value.id as value.label for value in hwInfoFlagOpt"
+                                    ng-change="hwInfoFlagChange($event, this)"
+                                    ng-class="{true:'chosen-disabled'}[hwInfoFlagDisable]"
+                                    ng-disabled=hwInfoFlagDisable>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <label>备注信息</label>
+                        <div style="diaplay:inline-block">
+                            <input style="width:345px" type="text" class="form-control poiRightPanel_Input"
+                                   ng-model="roadNameData.memo">
+                        </div>
+                    </li>
+                </ul>
+                <ul class="fm-ul fm-ul-form" style="margin:0 35px">
+                    <li>
+                        <label>语言类型</label>
+                        <div>
+                            <select class="fm-control disabled" ng-model="roadNameData.langCode"
+                                    placeholder_text_single="'--请选择--'"
+                                    ng-options="value.id as value.label for value in langCodeOpt"
+                                    ng-change="langCodeChange($event, this)"
+                                    ng-class="{true:'chosen-disabled'}[langCodeDisable]"
+                                    ng-disabled=langCodeDisable>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <label>名称语音</label>
+                        <div>
+                            <input type="text" class="form-control poiRightPanel_Input"
+                                   ng-model="roadNameData.voiceFile"
+                                   ng-class="{true:'chosen-disabled'}[voiceFileDisable]" ng-
+                                   disabled="voiceFileDisable">
+                        </div>
+                    </li>
+                    <li>
+                        <label style="width:70px;">类型名发音</label>
+                        <div><input type="text" class="form-control poiRightPanel_Input chosen-disabled"
+                                    ng-model="roadNameData.typePhonetic"
+                                    ng-class="{true:'chosen-disabled'}[typePhoneticDisable]" ng-
+                                    disabled="typePhoneticDisable"></div>
+                    </li>
+                    <li>
+                        <label>前缀名称</label>
+                        <div>
+                            <select class="fm-control" ng-model="roadNameData.prefix"
+                                    no_results_text="'--无--'" placeholder_text_single="'--请选择--'"
+                                    ng-options="value.id as value.label for value in prefixOpt"
+                                    ng-change="getPy($event, this, 'prefix', 'prefixPhonetic')"
+                                    ng-class="{true:'chosen-disabled'}[prefixDisable]" ng-disabled=prefixDisable>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <label>中缀发音</label>
+                        <div><input type="text" class="form-control poiRightPanel_Input chosen-disabled"
+                                    ng-model="roadNameData.infixPhonetic" ng-disabled=true></div>
+                    </li>
+                    <li>
+                        <label style="position: relative;">行政区划 <span
+                                style="color:#ff6f9f;position:absolute;top:2px">*</span></label>
+                        <div>
+                            <select class="fm-control" ng-model="roadNameData.adminId"
+                                    placeholder_text_single="'--请选择--'" search_contains=true
+                                    ng-options="value.id as value.label for value in adminOpt"
+                                    chosen ng-change="adminIdChange($event,this)"
+                                    ng-class="{true:'chosen-disabled'}[adminIdDisable]" ng-disabled=adminIdDisable>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <label>路线号码</label>
+                        <div><input type="text" class="form-control poiRightPanel_Input"
+                                    ng-model="roadNameData.routeId">
+                        </div>
+                    </li>
+                    <li>
+                        <label>地级市</label>
+                        <div><input type="text" class="form-control poiRightPanel_Input"
+                                    ng-model="roadNameData.city" disabled></div>
+                    </li>
+                </ul>
+                <ul class="fm-ul fm-ul-form">
+                    <li>
+                        <label style="position:relative">道路名称 <span
+                                style="color:#ff6f9f;position:absolute;top:2px">*</span></label>
+                        <div>
+                            <input type="text" class="form-control poiRightPanel_Input" ng-model="roadNameData.name"
+                                   ng-class="{true:'chosen-disabled'}[nameDisable]" ng-disabled=nameDisable
+                                   ng-change="getPronunciation('name','namePhonetic','voiceFile')"
+                                   name="name" ng-maxlength="roadNameMax">
+                        </div>
+                    </li>
+                    <li>
+                        <label>名称来源</label>
+                        <div>
+                            <select class="fm-control" ng-model="roadNameData.srcFlag"
+                                    placeholder_text_single="'--请选择--'"
+                                    ng-options="value.id as value.label for value in srcFlagOpt"
+                                    ng-change="srcFlagChange($event, this)"
+                                    ng-class="{true:'chosen-disabled'}[srcFlagDisable]" ng-disabled=srcFlagDisable>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <label>基本名称</label>
+                        <div><input type="text" class="form-control poiRightPanel_Input"
+                                    ng-model="roadNameData.base"
+                                    ng-blur="getPy($event, this, 'base', 'basePhonetic')"
+                                    ng-class="{true:'chosen-disabled'}[baseDisable]" ng-disabled=baseDisable
+                                    name="base" ng-maxlength="35">
+                        </div>
+                    </li>
+                    <li>
+                        <label style="width:70px;">前缀发音</label>
+                        <div><input type="text" class="form-control poiRightPanel_Input chosen-disabled"
+                                    ng-model="roadNameData.prefixPhonetic" ng-disabled=true></div>
+                    </li>
+                    <li>
+                        <label>后缀名称</label>
+                        <div>
+                            <select class="fm-control" ng-model="roadNameData.suffix"
+                                    no_results_text="'--无--'" placeholder_text_single="'--请选择--'"
+                                    ng-options="value.id as value.label for value in suffixOpt"
+                                    ng-change="getPy($event, this, 'suffix', 'suffixPhonetic')"
+                                    ng-class="{true:'chosen-disabled'}[suffixDisable]" ng-disabled=suffixDisable>
+                                <option></option>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <label>国家编号</label>
+                        <div>
+                            <select class="fm-control" ng-model="roadNameData.codeType"
+                                    placeholder_text_single="'--请选择--'"
+                                    ng-options="value.id as value.label for value in codeTypeOpt"
+                                    ng-change="codeTypeChange($event, this)"
+                                    ng-class="{true:'chosen-disabled'}[codeTypeDisable]"
+                                    ng-disabled=codeTypeDisable>
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <label>来源履历</label>
+                        <div><input type="text" class="form-control poiRightPanel_Input"
+                                    ng-model="roadNameData.srcResume">
+                        </div>
+                    </li>
+                    <li>
+                        <label>拆分标识</label>
+                        <div>
+                            <select class="fm-control" ng-model="roadNameData.splitFlag"
+                                    placeholder_text_single="'--请选择--'"
+                                    ng-options="value.id as value.label for value in splitFlagOpt"
+                                    ng-change="splitFlagChange($event, this)">
+                            </select>
+                        </div>
+                    </li>
+                    <li>
+                        <label></label>
+                        <div>
+                            <button type="button" style="margin:0" class="btn road-btn-main" ng-disabled="running"
+                                    ng-click="doSave()" style="margin:6px 8px">保存
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <div ng-show="searchModal" class="div-float"
+             style="top:60px;left:150px;width:600px;border-radius:5px;z-index:1000">
+            <button type="button" class="close"
+                    style="padding:0px 4px;font-size:28px;color:gray;opacity:1;display:none;"
+                    ng-click="closeSearchModal()"><span>&times;</span></button>
+            <div ng-include="searchModalTpl"></div>
+        </div>
+    </div>
+</div>

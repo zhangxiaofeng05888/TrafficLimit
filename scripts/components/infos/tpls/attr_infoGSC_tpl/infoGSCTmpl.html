@@ -1,0 +1,24 @@
+<div ng-controller="gscCtrl" class="scroll_style">
+    <ul class="list-group detailUlCss" ng-repeat="item in gscData.deep.f_array" style="margin-bottom: 5px;border-bottom: 1px solid #babfc8;">
+        <li>
+            <div class="blockDescLiDiv"><span>组成link{{$index+1}}</span></div>
+            <span title="{{item.id}}">{{item.id.length > 20 ? item.id.substring(0, 20) + '...' : item.id}}</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>高度层次</span></div>
+            <span>{{item.z}}</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>要素类型</span></div>
+            <span>{{item.type === 1 ? 'RDLINK' : item.type === 2 ? 'TIPLINKS' : 'RWLINK'}}</span>
+        </li>
+    </ul>
+    <ul class="list-group detailUlCss">
+        <li style="line-height:60px;height:60px">
+            <div class="blockDescLiDiv" style="vertical-align: top;">
+                <span>备注</span>
+            </div>
+            <textarea class="form-control poiRightPanel_area" type="text" rows=2 ng-model="gscData.content"></textarea>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,138 @@
+<div ng-controller="MessageAlertCtrl" style="background-color: #fff;height: 100%;box-shadow: 0 0 10px #93bbff;">
+    <div class="message-panel-title">
+        <div class="message-panel-title-name text-center">
+            <div ng-class="{'msg-menu': true,'active':activeMainMenu == 'message'}" ng-click="changeMainType('message');">
+                <strong>消息列表</strong>
+            </div>
+            <div ng-class="{'msg-menu': true,'active':activeMainMenu == 'record'}" ng-click="changeMainType('record');">
+                <strong>履历操作</strong>
+            </div>
+        </div>
+        <div class="message-img-clear" title="清空" ng-click="clearData();" ng-if="activeMainMenu == 'record'">
+            清空
+        </div>
+    </div>
+    <div class="message-panel-container scroll_style" ng-if="activeMainMenu == 'message'">
+        <div class="message-title">
+            <div ng-class="{'message-title-name': true,'active':activeMenu == 'system'}" ng-click="changeChildType('system');">系统消息</div>
+            <div ng-class="{'message-title-name': true,'active':activeMenu == 'manage'}" ng-click="changeChildType('manage');">管理消息</div>
+            <div ng-class="{'message-title-name': true,'active':activeMenu == 'history'}" ng-click="changeChildType('history');">历史消息</div>
+        </div>
+        <div class="message-content">
+            <!--<div class="message-list-empty" ng-if="activeMenu == 'history'">
+                <div class="message-list-info-empty">
+                    努力建设中...
+                </div>
+            </div>-->
+            <div class="message-list-empty" ng-if="msgList.isLoading && activeMenu != 'history'">
+                <div class="message-list-info-empty">
+                    加载中...
+                </div>
+            </div>
+            <!--无数据处理-->
+            <div class="message-list-empty" ng-if="!msgList.isLoading && (activeMenu == 'system' && !msgList.systemList.length || activeMenu == 'manage' && !msgList.manageList.length || activeMenu == 'history' && !msgList.historyList.length)">
+                <div class="message-list-info-empty">
+                    找不到任何数据
+                </div>
+            </div>
+            <!--系统消息-->
+            <div class="message-list" ng-repeat="(key, value) in msgList.sys" ng-show="activeMenu == 'system'">
+                <div class="message-list-title" ng-click="doCollapse('system', $index);">
+                    <div class="message-list-name">{{key}}</div>
+                    <div ng-class="{'message-list-collapse': true, 'open': msgList.systemList[$index]}"></div>
+                </div>
+                <div ng-class="{'message-list-detail': true, 'open': msgList.systemList[$index]}">
+                    <div class="message-list-info" ng-repeat="item in value">
+                        <div class="message-list-info-title clearfix">
+                            <div class="message-list-info-name" title="系统消息-{{item.msgTitle}}">系统消息-{{item.msgTitle}}</div>
+                            <div class="message-list-info-time">{{item.time}}</div>
+                        </div>
+                        <div class="message-list-info-content">
+                            {{item.jobId ? 'JobId: ' + item.jobId + ' ' : ''}}{{item.msgContent}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--管理消息-->
+            <div class="message-list" ng-repeat="(key, value) in msgList.manage" ng-show="activeMenu == 'manage'">
+                <div class="message-list-title" ng-click="doCollapse('manage', $index);">
+                    <div class="message-list-name">{{key}}</div>
+                    <div ng-class="{'message-list-collapse': true, 'open': msgList.manageList[$index]}"></div>
+                </div>
+                <div ng-class="{'message-list-detail': true, 'open': msgList.manageList[$index]}">
+                    <div class="message-list-info" ng-repeat="item in value">
+                        <div class="message-list-info-title clearfix">
+                            <div class="message-list-info-name" title="管理消息-{{item.pushUserName}}">管理消息-{{item.pushUserName}}</div>
+                            <div class="message-list-info-time">{{item.time}}</div>
+                        </div>
+                        <div class="message-list-info-content">
+                            {{item.msgContent}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--历史消息-->
+            <div class="message-list" ng-repeat="(key, value) in msgList.his" ng-show="activeMenu == 'history'">
+                <div class="message-list-title" ng-click="doCollapse('history', $index);" sticky>
+                    <div class="message-list-name">{{key}}</div>
+                    <div ng-class="{'message-list-collapse': true, 'open': msgList.historyList[$index]}"></div>
+                </div>
+                <div ng-class="{'message-list-detail': true, 'open': msgList.historyList[$index]}">
+                    <div class="message-list-info" ng-repeat="item in value">
+                        <div class="message-list-info-title clearfix">
+                            <div class="message-list-info-name" ng-if="item.msgType == 1" title="系统消息-{{item.msgTitle}}">系统消息-{{item.msgTitle}}</div>
+                            <div class="message-list-info-name" ng-if="item.msgType == 2" title="管理消息-{{item.pushUserName}}">管理消息-{{item.pushUserName}}</div>
+                            <div class="message-list-info-time">{{item.time}}</div>
+                        </div>
+                        <div class="message-list-info-content">
+                            {{item.msgContent}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--历史消息结尾处提示-->
+            <div class="message-load-more" ng-if="activeMenu == 'history' && msgList.his">
+                <div class="message-load-more-text" ng-click="getMoreHistory();" ng-if="!msgList.isHisLoading && msgList.getNewHis">
+                    点击加载更多
+                </div>
+                <div class="message-load-more-text" ng-if="msgList.isHisLoading && msgList.getNewHis">
+                    正在加载请稍后...
+                </div>
+                <div class="message-load-more-text nothing" ng-if="!msgList.getNewHis && msgList.his.length">
+                    已经没有数据了
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="message-panel-container scroll_style" ng-if="activeMainMenu == 'record'">
+        <!--<div class="message-title">
+            <div ng-class="{'message-title-name': true,'active':activeMenu == 'jobRecord'}" ng-click="changeChildType('jobRecord');">作业履历</div>
+            <div ng-class="{'message-title-name': true,'active':activeMenu == 'operation'}" ng-click="changeChildType('operation');">操作记录</div>
+        </div>-->
+        <div class="message-list">
+            <div ng-repeat="item in recordResult" ng-if="recordResult.length">
+                <div class="message-list-history" ng-if="item.pid">
+                    <div class="message-list-info-title clearfix">
+                        <div class="message-list-info-left show-map-pid" ng-click="showOnMap(item.pid, item.type);" title="点击定位查询">{{item.pid}}</div>
+                        <div class="message-list-info-right">{{item.type}}</div>
+                    </div>
+                    <div class="message-list-info-ellipsis" title="{{item.op}}">
+                        {{item.op}}
+                    </div>
+                </div>
+                <div class="message-list-history" ng-if="!item.pid">
+                    <div class="message-list-info-content" title="{{item.op}}">
+                        {{item.op}}
+                    </div>
+                </div>
+            </div>
+            <div ng-if="!recordResult.length">
+                <div class="message-list-empty">
+                    <div class="message-list-info-empty">
+                        当前无履历信息
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

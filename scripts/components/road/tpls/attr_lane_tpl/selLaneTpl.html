@@ -1,0 +1,17 @@
+<div class="popover" tabindex="-1" style="width: 300px;height: 200px;">
+    <!--<div class="pull-left" style="margin-top: -8px;color: #555;">第{{laneIndex+1}}车道</div>-->
+    <div class="pull-right" style="margin-top: -10px;">
+        <button type="button" class="close" aria-label="Close" ng-click="showLaneDirect($event,-1);"
+                style="color: #fff;opacity: 1;margin-top: -4px;margin-right: -8px;">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <!--<div class="clearfix"></div>-->
+    <div class="line line-date"></div>
+    <div class="form-group fix-time tooltip-slide-well scroll_style">
+        <li ng-repeat="item in laneDirectArray" ng-class="{'lane-libs':true,'active':selectLaneActive == item}" ng-click="selectLaneDir(item,$index);">
+            <img ng-src="../../images/road/1301/1301_0_{{item}}.svg"/>
+        </li>
+    </div>
+    <div class='tooltip-arrow-right'></div>
+</div>

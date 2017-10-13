@@ -1,0 +1,55 @@
+<style>
+    .relationInfoTpl .poiName {
+        display: inline-block;
+        color: #182848;
+        line-height: 18px;
+        vertical-align: top;
+    }
+    .relationInfoTpl .poiName:hover {
+        color: #636ef5;
+        cursor: pointer;
+    }
+    .relationInfoTpl .poiParent {
+        width: 156px;
+    }
+    .relationInfoTpl .poiChild {
+        width: 186px;
+    }
+    .relationInfoTpl span {
+        word-wrap: break-word;
+        word-break:break-all;
+    }
+</style>
+<div ng-controller="relationInfoCtl">
+    <fast-collapse expander-title='父子关系'>
+        <ul class="list-group detailUlCss relationInfoTpl" style="padding-top: 5px;">
+            <li style="height: inherit;">
+                <div class="blockDescLiDiv" style="line-height: 18px;">
+                    <span>父POI:</span>
+                </div>
+                <span ng-if="poi.parents.length == 0" style="font-weight: normal;line-height: 18px;vertical-align: top;">无</span>
+                <div class="poiName poiParent" ng-if="poi.parents.length > 0">
+                    <span title="{{pidName[poi.parents[0].parentPoiPid]}}" ng-click="showPoiInMap(poi.parents[0].parentPoiPid)">{{pidName[poi.parents[0].parentPoiPid]}}</span>
+                </div>
+                <a ng-if="poi.parents.length > 0" style="padding-left: 10px;" href="javascript:void(0);" title="解除父" ng-click="deleteParent(poi)">
+                    <img src="../../images/newPoi/rightPanelIcon/button-delete.png" style="vertical-align: top;" ng-show="!isSpecialOperation">
+                </a>
+            </li>
+            <li ng-if="poi.children.length > 0" ng-repeat="item in poi.children" style="height: inherit;padding-top: 5px;">
+                <div class="blockDescLiDiv" style="line-height: 18px;">
+                    <span>{{$index === 0 ?'子POI:':''}}</span>
+                </div>
+                <div class="poiName poiChild" ng-click="showPoiInMap(item.childPoiPid)">
+                    <span title="{{pidName[item.childPoiPid]}}">{{pidName[item.childPoiPid]}}</span>
+                </div>
+            </li>
+            <li ng-if="poi.children.length == 0">
+                <div class="blockDescLiDiv">
+                    <span>子POI:</span>
+                </div>
+                <span style="font-weight: normal">无</span>
+            </li>
+        </ul>
+    </fast-collapse>
+</div>
+

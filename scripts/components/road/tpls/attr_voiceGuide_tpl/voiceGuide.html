@@ -1,0 +1,116 @@
+<style>
+    .topDelete {
+        float: right;
+        font-size: 12px;
+        top: 5px;
+        margin-top: -10px;
+        color: black;
+        cursor: pointer;
+    }
+</style>
+<div ng-controller="voiceGuideCtl" class="scroll_style">
+    <div style="text-align: center;">
+        <div style="display: inline-block;padding-top: 10px;margin: 0px 8px;" class="guide-img-array" ng-repeat="item in voiceGuide.details">
+            <span class="glyphicon glyphicon-remove-sign topDelete" ng-click="minusDetails($index)"></span>
+            <img class="lanePic" ng-class="{true: 'imageActive',false: ''}[$index == selectIndex]"
+                 ng-click="showDetailsInfo($index)"
+                 ng-src="../../images/road/voiceGuide/{{imageCode[item.guideCode]}}">
+        </div>
+    </div>
+    <ul class="list-group detailUlCss">
+        <li>
+            <div class="blockDescLiDiv">
+                <span>进入线</span>
+            </div>
+            <span>
+                {{voiceGuide.inLinkPid}}
+            </span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>Node号码</span>
+            </div>
+            <span>
+                {{voiceGuide.nodePid}}
+            </span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>退出线</span>
+            </div>
+            <span>
+                {{voiceGuide.details[selectIndex].outLinkPid}}
+            </span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>语音类型</span>
+            </div>
+            <select class="form-control poiRightPanel_select" ng-model="voiceGuide.details[selectIndex].guideType"
+                    ng-options="value.id as value.label for value in guideTypeList"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>语音代码</span>
+            </div>
+            <select class="form-control poiRightPanel_select" ng-model="voiceGuide.details[selectIndex].guideCode"
+                    ng-options="value.id as value.label for value in guideCodeList"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>处理标志</span>
+            </div>
+            <input type="radio" name="handleFlag" value=0 ng-model="voiceGuide.details[selectIndex].processFlag"
+                   id="handleFlag1"
+                   class="radio_diy_class"/>
+            <label for="handleFlag1">
+                <span>无</span>
+            </label>
+            <input type="radio" name="handleFlag" value=1 ng-model="voiceGuide.details[selectIndex].processFlag"
+                   id="handleFlag2"
+                   class="radio_diy_class"/>
+            <label for="handleFlag2" style="padding-left: 16px">
+                <span>人工</span>
+            </label>
+            <input type="radio" name="handleFlag" value=2 ng-model="voiceGuide.details[selectIndex].processFlag"
+                   id="handleFlag3"
+                   class="radio_diy_class"/>
+            <label for="handleFlag3" style="padding-left: 16px">
+                <span>批处理</span>
+            </label>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>关系类型</span>
+            </div>
+            <input type="radio" name="relationType" value=1 ng-model="voiceGuide.details[selectIndex].relationshipType"
+                   id="relationType1"
+                   class="radio_diy_class"/>
+            <label for="relationType1">
+                <span>路口</span>
+            </label>
+            <input type="radio" name="relationType" value=2 ng-model="voiceGuide.details[selectIndex].relationshipType"
+                   id="relationType2"
+                   class="radio_diy_class"/>
+            <label for="relationType2" style="padding-left: 16px">
+                <span>线线</span>
+            </label>
+        </li>
+    </ul>
+    <div class="poiRightPanel_fold">
+        <strong>
+            经过线（共 {{voiceGuide.details[selectIndex].vias ? voiceGuide.details[selectIndex].vias.length : 0}} 条）
+        </strong>
+    </div>
+    <ul class="list-group detailUlCss">
+        <li ng-repeat="via in voiceGuide.details[selectIndex].vias">
+            <div class="blockDescLiDiv">
+                <span>道路线{{$index + 1}}</span>
+            </div>
+            <span>{{via.linkPid}}</span>
+        </li>
+    </ul>
+</div>
+
+
+

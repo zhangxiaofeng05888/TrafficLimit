@@ -1,0 +1,8 @@
+# /node_modules/* and /bower_components/* ignored by default
+
+scripts/libs
+dest/
+apps/imeep
+apps/newImeep
+#弹出任务列表组件样式忽略
+!node_modules/ng-dialog/css

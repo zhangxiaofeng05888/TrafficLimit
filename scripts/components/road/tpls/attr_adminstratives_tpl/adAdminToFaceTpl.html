@@ -1,0 +1,96 @@
+<style>
+    .fm-toFace .adminContent{
+        flex: 1;
+        display: flex;
+    }
+    .fm-toFace .adminContent .contentBox {
+        flex: 1;
+    }
+    .fm-toFace .adminContent .contentBox div{
+        height: 30px;
+        font-size: 12px;
+        color: #182848;
+        padding: 10px 0 10px 50px;
+        font-weight: normal;
+        margin: 0;
+    }
+    .fm-toFace .adminContent .datalist {
+        width: 70%;
+        height: 80%;
+        margin: 0 15%;
+        list-style: none;
+        border: 1px solid #3399ff;
+        border-radius: 5px;
+        padding: 5px 10px;
+    }
+    .fm-toFace .adminContent .datalist li{
+        padding: 3px 0px;
+        cursor: pointer;
+    }
+    .fm-toFace .adAdminfooter{
+        height: 40px;
+        padding: 8px 20px;
+        text-align: right;
+    }
+    .fm-toFace .adAdminfooter button{
+        display: inline-block;
+        width: 100px;
+        height: 24px;
+        padding: 0;
+        border-style: none;
+    }
+    .fm-toFace .adAdminfooter .relieve{
+        background-image: url(../../images/road/adAdminToFace/button_relieve_normal.png);
+    }
+    .fm-toFace .adAdminfooter .build{
+        background-image: url(../../images/road/adAdminToFace/button_build_normal.png);
+    }
+    .fm-toFace .adAdminfooter .relieve:hover,
+    .fm-toFace .adAdminfooter .relieve:active{
+        background-image: url(../../images/road/adAdminToFace/button_relieve_active.png);
+    }
+    .fm-toFace .adAdminfooter .build:hover,
+    .fm-toFace .adAdminfooter .build:active{
+        background-image: url(../../images/road/adAdminToFace/button_build_active.png);
+    }
+    .fm-toFace .adAdmincontent-left, .fm-toFace .adAdmincontent-right{
+        width: 180px;
+        height: 180px;
+        float: left;
+    }
+    .fm-toFace .adAdmincontent-left{
+        margin-right: 20px
+    }
+    .fm-toFace .active{
+        background-color: #3399ff;
+        color: white;
+    }
+</style>
+<div class="fm-job-panel fm-stretch fm-toFace" ng-controller="adAdminToFaceController">
+    <div class="adminContent">
+        <div class="contentBox">
+            <div>行政区划代表点</div>
+            <ul class="datalist scroll_style">
+                <li ng-repeat="point in selectedData.adAdminPid"
+                    ng-class="{'active':$index==pointIndex}"
+                    ng-click="selectPoint(point, $index)">
+                    {{point.properties.id}}
+                    <span ng-show="selectedFace.regionId==point.properties.id" class="glyphicon glyphicon-link pull-right" aria-hidden="true"></span>
+                </li>
+            </ul>
+        </div>
+        <div class="contentBox">
+            <div>{{faceType=='ZONEFACE'?'区域面':faceType=='ADFACE'?'行政区划面':'行政区划面/区域面'}}</div>
+            <ul class="datalist scroll_style">
+                <li ng-repeat="face in faces" ng-class="{'active':$index==faceIndex}" ng-click="selectFace(face, $index)">
+                    {{face.properties.id}}
+                    <span ng-show="face.properties.regionId!=0" class="glyphicon glyphicon-link pull-right" aria-hidden="true"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="adAdminfooter">
+        <button class="relieve" ng-click="dismissRealte()" title="解除关联"></button>
+        <button class="build" ng-click="doRealted()" title="建立关联"></button>
+    </div>
+</div>

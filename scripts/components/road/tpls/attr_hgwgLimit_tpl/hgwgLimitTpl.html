@@ -1,0 +1,54 @@
+<div ng-controller="hgwgLimitCtl">
+    <form class="w5c-form" novalidate w5c-form-validate="" name="limitHGW">
+        <ul class="list-group detailUlCss" style="margin-top: 8px;">
+            <li>
+                <div class="blockDescLiDiv"><span>Link号码</span></div>
+                <input class="form-control poiRightPanel_Input" ng-model="hgwgLimitObj.linkPid" type="text" readonly/>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>限高</span></div>
+                <input class="form-control poiRightPanel_Input" set-focus ng-pattern="/^(\d|[0-9]\d+)(\.\d+)?$/"
+                       name="limitHeight" style="width: 170px;" ng-blur="formateNumbers('resHigh',999.99,2)" required
+                       min="0" ng-model="hgwgLimitObj.resHigh" type="number"/>
+                米
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>限宽</span></div>
+                <input class="form-control poiRightPanel_Input" set-focus ng-pattern="/^(\d|[0-9]\d+)(\.\d+)?$/"
+                       name="limitWidth" style="width: 170px;" ng-blur="formateNumbers('resWidth',999.99,2)" required
+                       ng-model="hgwgLimitObj.resWidth" min="0" type="number"/>
+                米
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>限重</span></div>
+                <input class="form-control poiRightPanel_Input" set-focus ng-pattern="/^(\d|[0-9]\d+)(\.\d+)?$/"
+                       name="limitWeight" style="width: 170px;" ng-blur="formateNumbers('resWeigh',999.99,2)" required
+                       ng-model="hgwgLimitObj.resWeigh" min="0" type="number"/>
+                吨
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>轴重限制</span></div>
+                <input class="form-control poiRightPanel_Input" set-focus ng-pattern="/^(\d|[1-9]\d+)(\.\d+)?$/"
+                       name="limitAxleLoad" min="0" style="width: 170px;"
+                       ng-blur="formateNumbers('resAxleLoad',999.99,2)" required ng-model="hgwgLimitObj.resAxleLoad"
+                       type="number"/>
+                吨
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>作用方向</span></div>
+                <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select"
+                        ng-model="hgwgLimitObj.direct"
+                        ng-options="value.id as value.label for value in directList" disabled></select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>图幅号吗</span></div>
+                <input class="form-control poiRightPanel_Input" ng-model="hgwgLimitObj.meshId" type="text" readonly/>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>坐标</span></div>
+                <input class="form-control poiRightPanel_Input" ng-model="hgwgLimitObj.geometryStr" type="text"
+                       readonly/>
+            </li>
+        </ul>
+    </form>
+</div>

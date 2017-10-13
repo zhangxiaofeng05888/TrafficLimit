@@ -1,0 +1,80 @@
+<style>
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+        padding: 6px;
+        border: 1px solid #d1d4da;
+    }
+</style>
+<div ng-controller="tollGateCtrl" class="scroll_style ng-scope">
+    <ul class="list-group detailUlCss">
+        <li>
+            <div class="blockDescLiDiv">
+                <span>名称</span>
+            </div>
+            <input type="text" class="form-control poiRightPanel_Input" ng-model="tollGate.deep.name"/>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>收费类型</span>
+            </div>
+            <select class="form-control poiRightPanel_select" ng-model="tollGate.deep.tp"
+                    ng-options="value.id as value.label for value in tollTypeObj"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>是否跨省</span>
+            </div>
+            <select class="form-control poiRightPanel_select" ng-model="tollGate.deep.loc"
+                    ng-options="value.id as value.label for value in interstates"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>收费标牌</span>
+            </div>
+            <select class="form-control poiRightPanel_select" ng-model="tollGate.deep.photo"
+                    ng-options="value.id as value.label for value in tollPhoto"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>通道总数</span>
+            </div>
+            <select class="form-control poiRightPanel_select" ng-model="tollGate.deep.pNum"
+                    ng-options="value.id as value.label for value in roadNumber" ng-change="changeTollNum()"></select>
+        </li>
+    </ul>
+    <table class="table table-bordered table-striped" style="font-size: 12px;text-align: center;margin-top: 30px" ng-show="tollGate.deep.pNum > 0">
+        <thead>
+        <tr>
+            <th style="text-align: center;font-weight: normal">通道编号</th>
+            <th style="text-align: center;font-weight: normal">ETC通道</th>
+            <th style="text-align: center;font-weight: normal">称重通道</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in tollNumData">
+            <td>{{$index + 1}}</td>
+            <td>
+                <input type="checkbox" id="etc + {{$index}}" ng-checked="item.etcPass === 1"
+                       class="radio_diy_class" ng-click="changeEtc($event, $index)"/>
+                <label for="etc + {{$index}}">
+                    <span></span>
+                </label>
+            </td>
+            <td>
+                <input type="checkbox" id="wgt + {{$index}}" ng-checked="item.wgtPass === 1"
+                       class="radio_diy_class" ng-click="changeWgt($event, $index)"/>
+                <label for="wgt + {{$index}}">
+                    <span></span>
+                </label>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <ul class="list-group detailUlCss">
+        <li style="line-height:60px;height:60px">
+            <div class="blockDescLiDiv" style="vertical-align: top;">
+                <span>备注</span>
+            </div>
+            <textarea class="form-control poiRightPanel_area" type="text" rows=2 ng-model="tollGate.content"></textarea>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,151 @@
+<style>
+    .fm-pic-show {
+        position: absolute;
+        border: 1px solid #636ef5;
+        z-index: 999;
+        border-radius: 4px;
+        padding-left: 4px;
+        padding-top: 6px;
+        background-color: #eff0fe;
+        min-width: 60%;
+        min-height: 193px;
+        width: 70%;
+    }
+    .fm-pic-show .fm-option-hide {
+        position: absolute;
+        right: -4px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        top: -3px;
+    }
+    .fm-pic-show .fm-pic-show-well {
+        min-width: 100%;
+        min-height: 246px;
+    }
+    .fm-pic-show .fm-pic-show-well .fm-img-well {
+        float: left;
+        padding: 3px;
+        border: solid 1px #636ef5;
+        border-radius: 4px;
+        margin: 4px;
+        cursor: pointer;
+        width: 45%;
+        text-align: center;
+    }
+    .fm-pic-show .fm-pic-show-well .fm-img-well img {
+        width: 65px;
+        height: 55px;
+        margin: 6px;
+    }
+    .fm-pic-show .fm-pic-show-well .fm-img-well div {
+        color: black;
+        font-size: 11px;
+        text-align: center;
+        margin-top: 2px;
+        line-height: 16px;
+        height: 32px;
+    }
+    .head-img .img{
+        text-align: center;
+        margin: 0 auto;
+    }
+    .head-img .img img{
+        height: 80px;
+        width: 120px;
+        margin-top: 10px;
+    }
+</style>
+<div ng-controller="warningInfoCtl">
+    <div class="head-img">
+        <div ng-if="typeCodeImg" class="img">
+            <img ng-src="../../images/road/warningInfo/{{typeCodeImg}}.svg">
+        </div>
+        <div ng-if="!typeCodeImg" class="img">
+            <img ng-src="../../images/road/img/noimg.png">
+        </div>
+    </div>
+    <form class="w5c-form" w5c-form-validate="" novalidate name="warningInfoForm">
+        <ul class="list-group detailUlCss">
+            <li>
+                <div class="blockDescLiDiv"><span>进入线</span></div>
+                <span>{{rdWarningInfoObj.linkPid}}</span>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>进入点</span></div>
+                <span>{{rdWarningInfoObj.nodePid}}</span>
+            </li>
+            <li>
+                <div class="blockDescLiDiv" style="float: left">
+                    <span style="display: block">标牌类型</span>
+                </div>
+                <div style="float: left;">
+                    <input type="text" class="form-control poiRightPanel_Input" style="width:80px;" ng-model="rdWarningInfoObj.typeCode" ng-keydown="showPicSelect()" name="typeCode" required/>
+                    <input type="text" disabled class="form-control poiRightPanel_Input" style="width:110px" ng-model="temp.typeCodeName" />
+                    <div class="fm-pic-show" ng-show="showImgData" style="display: block;position: absolute">
+                        <div class="fm-option-hide">
+                            <button type="button" class="close" aria-label="Close" ng-click="hidePicSelect($event)">
+                                <span aria-hidden="true" class="glyphicon glyphicon-remove-sign"></span>
+                            </button>
+                        </div>
+                        <div class="fm-pic-show-well">
+                            <div class="fm-img-well" ng-repeat="picture in pictures" ng-click="selectPicCode(picture.code)">
+                                <img ng-src="{{picture.src}}" title="{{picture.name}}">
+                                <div>{{picture.code}}</div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="pull-left num-well">
+                            第 <span class="pic-num" ng-bind="picNowNum">1</span> 页 |
+                            共 <span class="pic-total" ng-bind="picTotal">1</span> 页
+                        </div>
+                        <div class="pic-show-btn pull-right">
+                            <div class="pull-right btn-group">
+                                <button class="btn btn-default btn-xs pic-pre" ng-click="picPre()" ng-disabled="picNowNum == 1">
+                                    <i class="glyphicon glyphicon-menu-left"></i>
+                                </button>
+                                <button class="btn btn-default btn-xs pic-next" ng-click="picNext()" ng-disabled="picNowNum == picTotal">
+                                    <i class="glyphicon glyphicon-menu-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="pic-loading" ng-show="showPicLoading" ng-bind="loadText">loading...</div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>有效距离</span></div>
+                <input type="text" name="validDistance" required class="form-control poiRightPanel_Input" ng-keyup="verifyNumber($event,0,99999,'validDis');" ng-model="rdWarningInfoObj.validDis"/>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>预告距离</span></div>
+                <input type="text"  name="announcedDistance" required class="form-control poiRightPanel_Input" ng-keyup="verifyNumber($event,0,99999,'warnDis');" ng-model="rdWarningInfoObj.warnDis"/>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>文字说明</span></div>
+                <input type="text" class="form-control poiRightPanel_Input" ng-model="rdWarningInfoObj.descript" >
+            </li>
+            <li style="height: auto;">
+                <div ng-include="dateURL" class="muti-date" data-type="1" style="width:101%;padding: 5px;"></div>
+            </li>
+            <li>
+                <!--<div ng-include="carPopoverURL" data-type="1" style="width:100%;padding: 5px;"></div>-->
+                <div class="blockDescLiDiv" style="float: left;">
+                    <span>车辆类型</span>
+                </div>
+                <div class="btnDiy_div">
+                    <a href="javascript:void(0);" style="cursor: pointer;" data-container="body" data-animation="am-flip-x" data-auto-close="1" bs-popover data-placement="top" data-template-url="../../scripts/components/road/tpls/attr_warningInfo_tpl/carTypeTpl.html">添加</a>
+                    <input type="checkbox" ng-model="checkValueFlag" id="allow" ng-checked="checkValueFlag"
+                           class="radio_diy_class" ng-click="checkAllow()"/>
+                    <label for="allow" style="padding-left: 15px">
+                        <span>允许</span>
+                    </label>
+                </div>
+            </li>
+            <div ng-style="{'border-top':carData.length > 0 ? '1px solid #636ef5': null,'border-bottom':carData.length > 0 ? '1px solid #636ef5': null}">
+                <li ng-repeat="item in carData track by $index" style="padding-left: 10px;cursor:pointer;" ng-if="item.checked" ng-click="carSelect(item);">
+                    <span>{{item.label}}</span>
+                </li>
+            </div>
+        </ul>
+    </form>
+</div>

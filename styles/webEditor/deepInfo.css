@@ -1,0 +1,263 @@
+.deepLeft_container {
+    width: 100%;
+    height: 100%;
+    padding-left: 240px;
+    font-size: 0;
+}
+.deepLeft_div {
+    width: 240px;
+    height: 100%;
+    background-color:#fff;
+    background-size: cover;
+    margin-left: -240px;
+    float: left;
+    border-right: solid 1px ;
+    border-right-color: #6eb9ff;
+}
+.deep_title {
+    height: 45px;
+    line-height: 45px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #685dff;
+}
+.deep_subTitle {
+    background-color: #e3e3ff;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    color: #1c1c20;
+}
+.list_item {
+    margin-bottom: 0;
+    display: block;
+    box-shadow: none;
+}
+.list_item > li {
+    list-style: none;
+    height: 30px;
+    line-height: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0);
+    border-bottom: 1px solid rgba(255, 255, 255, 0);
+}
+.list_item > li > div {
+    font-size: 14px;
+    color: #050505;
+    display: inline-block;
+    padding-left: 35px;
+}
+.deepPanel_fold {
+    background-color: #eff0fe;
+    width: 100%;
+    height: 40px;
+    padding-left: 10px;
+    line-height: 40px;
+    font-size: 14px;
+    color: #636ef5;
+    border-top: 1px #d2e1ff solid;
+}
+.deepPanel_fold > div {
+    height: 39px;
+    float: right;
+    padding-right: 16px;
+}
+.deepUlCss {
+    margin-bottom: 8px;
+    background-color: #ffffff;
+    display: block;
+    box-shadow: none;
+    border: none;
+}
+.deepUlCss > li {
+    list-style: none;
+    background-color: #ffffff;
+    font-size: 12px;
+    height: 30px;
+    line-height: 30px;
+    color: #182848;
+}
+.deepUlCss > div > li {
+    list-style: none;
+    background-color: #ffffff;
+    font-size: 12px;
+    height: 30px;
+    line-height: 30px;
+    color: #182848;
+}
+.deepDescLiDiv {
+    display: inline-block;
+    width: 62px;
+    text-align: right;
+    margin-right: 25px;
+    vertical-align: top;
+}
+.deepMiddleLiDiv {
+    vertical-align: middle;
+}
+.deepPanel_Input {
+    color: #182848;
+    font-size: 12px;
+    width: 190px;
+    height: 24px;
+    display: inline-block;
+    box-shadow: none;
+    border-color: rgba(24, 40, 72, 0.2);
+}
+.deepPanel_area {
+    color: #182848;
+    margin-top: 6px;
+    font-size: 12px;
+    width: 190px;
+    height: 48px;
+    display: inline-block;
+    box-shadow: none;
+    resize: none;
+    border-color: rgba(24, 40, 72, 0.2);
+}
+.deepPanel_area:focus {
+    /*border-color: #5693ff;*/
+    box-shadow: none;
+}
+.deepPanel_select {
+    font-size: 12px;
+    color: #182848;
+    display: inline-block;
+    width: 135px;
+    height: 24px;
+    border-color: rgba(24, 40, 72, 0.2);
+    border-radius: 3px;
+    padding: 0 0 0 10px;
+    box-shadow: none;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: url('../../images/newPoi/rightPanelIcon/icon-select-open-normal.png') no-repeat right center transparent;
+    background-position-x: 115px;
+}
+.deepPanel_select:focus {
+    border-color: #5693ff;
+    box-shadow: none;
+    background: url('../../images/newPoi/rightPanelIcon/icon-select-open-active.png') no-repeat right center transparent;
+    background-position-x: 115px;
+    color: #5b93ff;
+}
+.deepPanel_select > option {
+    font-size: 12px;
+    color: #182848;
+}
+.deepPanel_select > option:hover {
+    background-color: rgba(88, 150, 255, 0.1);
+}
+/****************************表格样式*************************************/
+.scroll-styled {
+    overflow: auto;
+}
+.scrollDiy::-webkit-scrollbar {
+    width: 0 !important;
+}
+.table_div {
+    font-size: 12px;
+    background-color: #eff0fe;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 100%;
+    text-align: center;
+}
+.ng-table-sort-header > th {
+    text-align: center;
+}
+.ng-table-pager {
+    margin-top: -15px;
+    text-align: left;
+}
+.ng-table-counts {
+    margin-top: 20px;
+}
+.search {
+    outline: none;
+    padding: 2px 2px 2px 10px;
+    border: solid #CCC 1px;
+    border-radius: 12px;
+}
+.dropdown .dropdown-menu-right{
+    padding-left: 10px;
+}
+.ngdialog.blank-style {
+    padding: 0px;
+}
+.ngdialog.ngdialog-theme-default .ngdialog-content {
+    border-radius: 0;
+    padding: 0;
+    background: none;
+    background-size: cover;
+    font-family: "Microsoft Yahei", Verdana, Arial, Helvetica, sans-serif;
+}
+/*滚动条样式*/
+.scroll_deep {
+    overflow: auto;
+}
+.scroll_deep::-webkit-scrollbar {
+    width: 6px;
+    background: rgba(0, 0, 0, 0.1);
+}
+.scroll_deep::-webkit-scrollbar-thumb {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background: #c1c1c1;
+}
+/*自定义单选复选框样式*/
+.radio_change_style {
+    position: relative;
+    top: 2px;
+}
+.radio_diy_class {
+    display: none;
+}
+.radio_diy_class + label {
+    font-weight: normal;
+    margin-bottom: 0;
+}
+.radio_diy_class[type=radio]:disabled + label::before {
+    content: url('../../images/newPoi/rightPanelIcon/radio_disable.png');
+    position: relative;
+    top: 2px;
+}
+.radio_diy_class[type=radio] + label::before {
+    content: url('../../images/newPoi/rightPanelIcon/button-normal-radio.png');
+    position: relative;
+    top: 2px;
+}
+.radio_diy_class[type=radio]:checked:disabled + label::before {
+    content: url('../../images/newPoi/rightPanelIcon/radio_checked_disable.png');
+    position: relative;
+    top: 2px;
+}
+.radio_diy_class[type=radio]:checked + label::before {
+    content: url('../../images/newPoi/rightPanelIcon/button-click-radio.png');
+    position: relative;
+    top: 2px;
+}
+.radio_diy_class[type=checkbox] + label::before {
+    content: url('../../images/newPoi/rightPanelIcon/button-normal-checkbox.png');
+    position: relative;
+    top: 2px;
+}
+.radio_diy_class[type=checkbox]:disabled + label::before {
+    content: url('../../images/newPoi/rightPanelIcon/checkbox_disable.png');
+    position: relative;
+    top: 2px;
+}
+.radio_diy_class[type=checkbox]:checked + label::before {
+    content: url('../../images/newPoi/rightPanelIcon/button-click-checkbox.png');
+    position: relative;
+    top: 2px;
+}
+.radio_diy_class[type=checkbox]:checked:disabled + label::before {
+    content: url('../../images/newPoi/rightPanelIcon/checkbox_checked_disable.png');
+    position: relative;
+    top: 2px;
+}
+.fm-specialopt {
+    color: greenyellow;
+}

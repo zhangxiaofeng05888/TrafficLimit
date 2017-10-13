@@ -1,0 +1,86 @@
+<style type="text/css">
+	.check-result {
+		margin-bottom: 0px;
+	}
+	.check-result .title {
+		height: 40px;
+		line-height: 40px;
+		padding-left: 10px;
+		position: relative;
+		border-top: 1px solid #3399ff;
+	}
+	.check-result .title span {
+		font-size: 18px;
+		margin: 0 3px;
+		vertical-align: sub;
+	}
+	.check-result .title span.refresh {
+		color: rgba(24, 40, 72, 0.5);
+		cursor: pointer;
+		position: absolute;
+		right: 15px;
+		top: 10px;
+	}
+	.check-result .title .filterPart {
+		margin: 0 0 0 3px;
+		width: 120px;
+	}
+	.check-result a.check-target {
+		word-break: break-all;
+		white-space: nowrap;
+	}
+	.check-result .pageName {
+		display: inline-block;
+		color: #ff6699;
+		font-size: 14px;
+		font-weight: bold;
+		vertical-align: top;
+		width: 80px;
+		cursor: move;
+	}
+	.check-result .btn {
+		width: 20px;
+		height: 20px;
+		padding: 0px;
+		border-radius: 3px;
+		margin-right: 4px;
+	}
+	.check-result .btn.un {
+		background: url('../../images/webEditor/check/status-un.png') no-repeat center center transparent;
+	}
+	.check-result .btn.un.active {
+		background: url('../../images/webEditor/check/status-un-active.png') no-repeat center center transparent;
+	}
+	.check-result .btn.al {
+		background: url('../../images/webEditor/check/status-al.png') no-repeat center center transparent;
+	}
+	.check-result .btn.al.active {
+		background: url('../../images/webEditor/check/status-al-active.png') no-repeat center center transparent;
+	}
+	.check-result .btn.no {
+		background: url('../../images/webEditor/check/status-no.png') no-repeat center center transparent;
+	}
+	.check-result .btn.no.active {
+		background: url('../../images/webEditor/check/status-no-active.png') no-repeat center center transparent;
+	}
+	.check-result .btn.ex {
+		background: url('../../images/webEditor/check/status-ex.png') no-repeat center center transparent;
+	}
+	.check-result .btn.ex.active {
+		background: url('../../images/webEditor/check/status-ex-active.png') no-repeat center center transparent;
+	}
+</style>
+<div ng-controller="checkResultSubModalCtl" class="fm-job-panel fm-stretch check-result">
+	<div class="title">
+		<span class="glyphicon glyphicon-refresh refresh pull-right" ng-click="refreshCheckResult();"></span>
+	</div>
+	<div id="dataGrid"
+		 ui-grid="gridOptions"
+		 ui-grid-selection
+		 ui-grid-pagination
+		 ui-grid-auto-resize
+		 ui-grid-resize-columns
+		 class="fm-grid" style="flex: 1; min-height: 60px">
+		<div ng-show="loadingFlag" class="tableLoading" ng-include="'./svgLoading.html'"></div>
+	</div>
+</div>

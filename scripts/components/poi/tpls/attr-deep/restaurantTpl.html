@@ -1,0 +1,192 @@
+<div ng-controller="restaurantCtl">
+    <fast-collapse expander-title='深度信息'>
+        <img ng-if="poi.rawFields.indexOf('7')>-1" src="../../images/poi/icon/little-cycle.png" class="icon-cycle-deep">
+        <form class="w5c-form" w5c-form-validate="" novalidate name="poiDeepInfoRestaurantForm">
+            <ul class="list-group detailUlCss">
+                <!--<li style="height: 210px;line-height: 210px">-->
+                    <!--<div class="blockDescLiDiv" style="line-height: 18px;">-->
+                        <!--<span style="display: block">信用卡</span>-->
+                        <!--<span style="display: block">类型</span>-->
+                    <!--</div>-->
+                    <!--<div style="display: inline-block;width: 200px;line-height: 30px">-->
+                        <!--<div style="display: inline-block;color: greenyellow;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in creditCard" ng-if="key == 0" class="col-md-12">-->
+                            <!--<input type="checkbox" name="creditCard" value={{key}} id={{key+'creditCard'}} class="radio_diy_class" ng-model="poi.restaurants[0].creditCard[key]" ng-click="creditCardChange($event)" ng-disabled="isSpecialOperation"/>-->
+                            <!--<label for={{key+'creditCard'}} >-->
+                                <!--<span>{{value}}</span>-->
+                            <!--</label>-->
+                        <!--</div>-->
+                        <!--<div style="display: inline-block;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in creditCard" ng-if="key != 0" class="col-md-12">-->
+                            <!--<input type="checkbox" name="creditCard" value={{key}} id={{key+'creditCard'}} class="radio_diy_class" ng-model="poi.restaurants[0].creditCard[key]" ng-click="creditCardChange($event)" ng-disabled="isSpecialOperation"/>-->
+                            <!--<label for={{key+'creditCard'}} >-->
+                                <!--<span>{{value}}</span>-->
+                            <!--</label>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<div class="blockDescLiDiv">-->
+                        <!--<span>停车信息</span>-->
+                    <!--</div>-->
+                    <!--<select class="form-control poiRightPanel_select" ng-model="poi.restaurants[0].parking"-->
+                            <!--ng-options="value.id as value.label for value in parkingOptions"-->
+                            <!--ng-disabled="isSpecialOperation">-->
+                    <!--</select>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<div class="blockDescLiDiv">-->
+                        <!--<span>人均消费</span>-->
+                    <!--</div>-->
+                    <!--<input type="number" ng-disabled="isSpecialOperation" set-focus class="form-control poiRightPanel_Input" ng-model="poi.restaurants[0].avgCost" min="0" maxLength="6" required ng-blur="avgCostBlur()" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<div class="blockDescLiDiv">-->
+                        <!--<span>营业时间</span>-->
+                    <!--</div>-->
+                    <!--<input type="text" ng-disabled="isSpecialOperation" name="restaurantOpenTime" class="form-control poiRightPanel_Input" ng-model="poi.restaurants[0].openHour"/>-->
+                <!--</li>-->
+                <!--菜品风味的特殊处理-->
+                <!--110200-->
+                <li ng-if="poi.kindCode == '110200'">
+                    <div class="blockDescLiDiv">
+                        <span>菜品风味</span>
+                    </div>
+                    <div style="display: inline-block;width: 200px;line-height: 30px">
+                        <div style="display: inline-block;color: greenyellow;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in foodType1Obj" ng-if="key == 2016 || key == 1001 || key == 3009 || key == 3015" class="col-md-4">
+                            <input type="checkbox" ng-disabled="isSpecialOperation" name="foodType1Obj" value={{key}} id={{key+'foodType1Obj'}} class="radio_diy_class" ng-model="poi.restaurants[0].foodType1[key]" ng-click="foodType1Change($event)"/>
+                            <label for={{key+'foodType1Obj'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                        <div style="display: inline-block;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in foodType1Obj" ng-if="key != 2016 && key != 1001 && key != 3009 && key != 3015" class="col-md-4">
+                            <input type="checkbox" ng-disabled="isSpecialOperation" name="foodType1Obj" value={{key}} id={{key+'foodType1Obj'}} class="radio_diy_class" ng-model="poi.restaurants[0].foodType1[key]" ng-click="foodType1Change($event)"/>
+                            <label for={{key+'foodType1Obj'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </li>
+                <li ng-if="poi.kindCode == '110200'">
+                    <div class="blockDescLiDiv">
+                        <span></span>
+                    </div>
+                    <div style="display: inline-block;width: 200px;line-height: 30px">
+                        <div style="display: inline-block;color: greenyellow;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in foodType2Obj" ng-if="key == 3015" class="col-md-4">
+                            <input type="checkbox" ng-disabled="isSpecialOperation" name="foodType2Obj" value={{key}} id={{key+'foodType2Obj'}} class="radio_diy_class" ng-model="poi.restaurants[0].foodType2[key]" ng-click="foodType2Change($event)"/>
+                            <label for={{key+'foodType2Obj'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                        <div style="display: inline-block;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in foodType2Obj" ng-if="key!= 3015" class="col-md-4">
+                            <input type="checkbox" ng-disabled="isSpecialOperation" name="foodType2Obj" value={{key}} id={{key+'foodType2Obj'}} class="radio_diy_class" ng-model="poi.restaurants[0].foodType2[key]" ng-click="foodType2Change($event)"/>
+                            <label for={{key+'foodType2Obj'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </li>
+                <!--end110200-->
+                <!--110101 &&　110103-->
+                <li ng-if="poi.kindCode == '110101' || poi.kindCode == '110103'" style="height: 270px;line-height: 270px">
+                    <div class="blockDescLiDiv">
+                        <span>菜品风味</span>
+                    </div>
+                    <div style="display: inline-block;width: 200px;line-height: 30px">
+                        <div style="display: inline-block;color: greenyellow;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in foodType1Obj" ng-if="key == 2016 || key == 1001 || key == 3009 || key == 3015" class="col-md-6">
+                            <input type="checkbox" ng-disabled="isSpecialOperation" name="foodType1Obj" value={{key}} id={{key+'foodType1Obj'}} class="radio_diy_class" ng-model="poi.restaurants[0].foodType1[key]" ng-click="foodType1Change($event)"/>
+                            <label for={{key+'foodType1Obj'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                        <div style="display: inline-block;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in foodType1Obj" ng-if="key != 2016 && key != 1001 && key != 3009 && key != 3015" ng-class="{false:'col-md-12',true:'col-md-6'}[key != '2005']">
+                            <input type="checkbox" ng-disabled="isSpecialOperation" name="foodType1Obj" value={{key}} id={{key+'foodType1Obj'}} class="radio_diy_class" ng-model="poi.restaurants[0].foodType1[key]" ng-click="foodType1Change($event)"/>
+                            <label for={{key+'foodType1Obj'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </li>
+                <li ng-if="poi.kindCode == '110101' || poi.kindCode == '110103'" style="height: 120px;line-height: 120px">
+                    <div class="blockDescLiDiv">
+                        <span></span>
+                    </div>
+                    <div style="display: inline-block;width: 200px;line-height: 30px">
+                        <div style="display: inline-block;color: greenyellow;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in foodType2Obj" ng-if="key == 3015" class="col-md-6">
+                            <input type="checkbox" ng-disabled="isSpecialOperation" name="foodType2Obj" value={{key}} id={{key+'foodType2Obj'}} class="radio_diy_class" ng-model="poi.restaurants[0].foodType2[key]" ng-click="foodType2Change($event)"/>
+                            <label for={{key+'foodType2Obj'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                        <div style="display: inline-block;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in foodType2Obj" ng-if="key!= 3015" class="col-md-6">
+                            <input type="checkbox" ng-disabled="isSpecialOperation" name="foodType2Obj" value={{key}} id={{key+'foodType2Obj'}} class="radio_diy_class" ng-model="poi.restaurants[0].foodType2[key]" ng-click="foodType2Change($event)"/>
+                            <label for={{key+'foodType2Obj'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </li>
+                <!--end110101　＆＆　110103-->
+                <!--110102-->
+                <li ng-if="poi.kindCode == '110102'" style="height: 480px;line-height: 480px">
+                    <div class="blockDescLiDiv">
+                        <span>菜品风味</span>
+                    </div>
+                    <div style="display: inline-block;width: 200px;line-height: 30px">
+                        <div style="display: inline-block;color: greenyellow;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in foodType1Obj" ng-if="key == 2016 || key == 1001 || key == 3009 || key == 3015" class="col-md-6">
+                            <input type="checkbox" ng-disabled="isSpecialOperation" name="foodType1Obj" value={{key}} id={{key+'foodType1Obj'}} class="radio_diy_class" ng-model="poi.restaurants[0].foodType1[key]" ng-click="foodType1Change($event)"/>
+                            <label for={{key+'foodType1Obj'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                        <div style="display: inline-block;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in foodType1Obj" ng-if="key != 2016 && key != 1001 && key != 3009 && key != 3015" class="col-md-6">
+                            <input type="checkbox" ng-disabled="isSpecialOperation" name="foodType1Obj" value={{key}} id={{key+'foodType1Obj'}} class="radio_diy_class" ng-model="poi.restaurants[0].foodType1[key]" ng-click="foodType1Change($event)"/>
+                            <label for={{key+'foodType1Obj'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </li>
+                <li ng-if="poi.kindCode == '110102'" style="height: 120px;line-height: 120px">
+                    <div class="blockDescLiDiv">
+                        <span></span>
+                    </div>
+                    <div style="display: inline-block;width: 200px;line-height: 30px">
+                        <div style="display: inline-block;color: greenyellow;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in foodType2Obj" ng-if="key == 3015" class="col-md-6">
+                            <input type="checkbox" ng-disabled="isSpecialOperation" name="foodType2Obj" value={{key}} id={{key+'foodType2Obj'}} class="radio_diy_class" ng-model="poi.restaurants[0].foodType2[key]" ng-click="foodType2Change($event)"/>
+                            <label for={{key+'foodType2Obj'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                        <div style="display: inline-block;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in foodType2Obj" ng-if="key!= 3015" ng-class="{false:'col-md-6',true:'col-md-12'}[key == '3010' || key == '3011']">
+                            <input type="checkbox" ng-disabled="isSpecialOperation" name="foodType2Obj" value={{key}} id={{key+'foodType2Obj'}} class="radio_diy_class" ng-model="poi.restaurants[0].foodType2[key]" ng-click="foodType2Change($event)"/>
+                            <label for={{key+'foodType2Obj'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </li>
+                <!--end110102-->
+                <!--110302-->
+                <li ng-if="poi.kindCode == '110302'" style="height: 60px;">
+                    <div class="blockDescLiDiv">
+                        <span>菜品风味</span>
+                    </div>
+                    <div style="display: inline-block;width: 200px;line-height: 30px">
+                        <div style="display: inline-block;color: greenyellow;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in foodType2Obj" ng-if="key == 3015" class="col-md-6">
+                            <input type="checkbox" ng-disabled="isSpecialOperation" name="foodType2Obj" value={{key}} id={{key+'foodType2Obj'}} class="radio_diy_class" ng-model="poi.restaurants[0].foodType2[key]" ng-click="foodType2Change($event)"/>
+                            <label for={{key+'foodType2Obj'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                        <div style="display: inline-block;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in foodType2Obj" ng-if="key!= 3015" class="col-md-6">
+                            <input type="checkbox" ng-disabled="isSpecialOperation" name="foodType2Obj" value={{key}} id={{key+'foodType2Obj'}} class="radio_diy_class" ng-model="poi.restaurants[0].foodType2[key]" ng-click="foodType2Change($event)"/>
+                            <label for={{key+'foodType2Obj'}} >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </li>
+                <!--end菜品风味的特殊处理-->
+            </ul>
+        </form>
+    </fast-collapse>
+</div>

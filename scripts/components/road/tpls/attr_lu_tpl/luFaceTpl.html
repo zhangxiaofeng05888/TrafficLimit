@@ -1,0 +1,63 @@
+<div ng-controller="luFaceCtrl">
+    <ul class="list-group detailUlCss">
+        <li>
+            <div class="blockDescLiDiv"><span>FACE种别</span></div>
+            <select ng-model="luFaceData.kind"
+                    ng-options="value.id as value.label for value in kind"
+                    class="form-control roadLeftPanel_select"
+            >
+            </select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>FACE面积</span></div>
+            <span>{{luFaceData.area}} 平方米</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>FACE周长</span></div>
+            <span>{{luFaceData.perimeter}} 米</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>图幅号</span></div>
+            <span>{{luFaceData.meshId}}</span>
+        </li>
+    </ul>
+    <!--名称组展示-->
+    <div class="poiRightPanel_fold" style="border: none">
+        <strong>名　　称 [ 共{{nameGroup.length}}组 ]</strong>
+        <div><img style="cursor: pointer" src="../../images/newRoad/rightPanelIcon/icon_add.png" ng-click="addGroup()"/></div>
+    </div>
+    <div class="nameGroups"  ng-repeat="item in nameGroup" ng-init="outerIndex = $index">
+        <div class="poiRightPanel_fold">
+            <strong style="font-size: 12px;">名称组{{item[0].nameGroupid}}</strong>
+            <div><i class="fa fa-plus-square-o" style="font-size: 16px;; cursor: pointer" aria-hidden="true" ng-click="addItem($index)"></i></div>
+            <div style="padding-right: 8px;: 8px"><i class="fa fa-minus-square-o" style="font-size: 16px; cursor: pointer" aria-hidden="true" ng-click="removeGroup($index)"></i></div>
+        </div>
+        <ul class="list-group detailUlCss">
+            <li ng-class="{'linkName_li': !(currentGroupIndex==$parent.$parent.$index&&currentItempIndex==$index),'linkName_li_checked': (currentGroupIndex==$parent.$parent.$index&&currentItempIndex==$index)}" ng-click="rememberNameNum($parent.$parent.$index, $index)" ng-repeat="subItem in item" data-container="body" data-animation="am-flip-x" data-auto-close="1" bs-popover data-placement="left" data-template-url="../../scripts/components/road/tpls/attr_lu_tpl/luFaceNameTpl.html">
+                <div style="width: 50px;padding-left: 10px;display: inline-block">
+                    <span>{{$index + 1}}</span><!--名称组号-->
+                </div>
+                <div style="width: 100px;display: inline-block" ng-repeat="code in langCodeOptions | filter: subItem.langCode as results track by code.id">
+                    <span>{{code.label}}</span><!--名称分类-->
+                </div>
+                <div style="width: 110px;display: inline-table">
+                    <div class="text-ellipsis" style="max-width: 80px;" title="{{subItem.name}}">{{subItem.name === ''? '未命名': subItem.name}}</div><!--语言代码-->
+                </div>
+                <img style="cursor: pointer" src="../../images/newRoad/rightPanelIcon/icon_delete.png" ng-click="removeItem($index, $parent.$parent.$index, subItem)">
+            </li>
+        </ul>
+    </div>
+    <div class="content scroll-styled dark" style="height:90%;">
+        <div class="clearfix"></div>
+    	<!--end 名称组-->
+        <ul class="list-group detailUlCss">
+            <li>
+                <div class="blockDescLiDiv" style="float: left;"><span>批量处理</span></div>
+                <div class="btnDiy_div" style="float: left;">
+                    <button ng-click="setUrban()" class="btn-xs btn-diy" style="display: block;width: inherit;" title="为目标BUA面内的道路赋 ZoneID">赋值 Urban</button>
+                    <button ng-click="deleteUrban()" class="btn-xs btn-diy" style="display: block;margin-top: 5px;width: inherit;" title="为目标BUA面内的道路删除 ZoneID">删除 Urban</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+<div class="poiRightPanel_container" ng-controller="trafficSignalCtl">
+    <div ng-style="rightPanelHeight" class="scroll_style">
+        <ul class="list-group detailUlCss" style="margin-top: 8px;">
+            <li>
+                <div class="blockDescLiDiv" style="letter-spacing: 1px;"><span>关联线</span></div>
+                <input class="form-control poiRightPanel_Input" ng-model="trafficSignalData.linkPid" type="text" readonly/>
+            </li>
+            <li>
+                <div class="blockDescLiDiv" style="letter-spacing: 1px;"><span>关联点</span></div>
+                <input class="form-control poiRightPanel_Input" ng-model="trafficSignalData.nodePid" type="text" readonly/>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span style="letter-spacing: 1px;">灯位置</span>
+                </div>
+                <input type="checkbox" id="location0" ng-checked="trafficPosition.left" ng-click="locationClick(trafficPosition.left,1)" class="radio_diy_class"/>
+                <label for="location0">
+                    <span>左</span>
+                </label>
+                <input type="checkbox" id="location1" ng-checked="trafficPosition.right" ng-click="locationClick(trafficPosition.right,2)" class="radio_diy_class"/>
+                <label for="location1" style="padding-left: 20px">
+                    <span>右</span>
+                </label>
+                <input type="checkbox" id="location2" ng-checked="trafficPosition.up" ng-click="locationClick(trafficPosition.up,4)" class="radio_diy_class"/>
+                <label for="location2" style="padding-left: 20px">
+                    <span>上</span>
+                </label>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span style="letter-spacing: 1px;">灯类型</span>
+                </div>
+                <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="trafficSignalData.type"
+                        ng-options="value.id as value.label for value in lampType" ng-change="changeElecType(electronicEyeData.kind);"></select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span>控制标志</span>
+                </div>
+                <input type="radio" name="flag" value="0" id="flag0" ng-model="trafficSignalData.flag" class="radio_diy_class"/>
+                <label for="flag0">
+                    <span>不受控</span>
+                </label>
+                <input type="radio" name="flag" value="1" id="flag1" ng-model="trafficSignalData.flag" class="radio_diy_class"/>
+                <label for="flag1" style="padding-left: 20px">
+                    <span>受控</span>
+                </label>
+                <input type="radio" name="flag" value="2" id="flag2" ng-model="trafficSignalData.flag" class="radio_diy_class"/>
+                <label for="flag2" style="padding-left: 20px">
+                    <span>无</span>
+                </label>
+            </li>
+            <li>
+                <div class="blockDescLiDiv">
+                    <span style="letter-spacing: 1px;">KG标志</span>
+                </div>
+                <input type="radio" name="kgFlag" value="0" id="kgFlag0" ng-model="trafficSignalData.kgFlag" class="radio_diy_class" disabled/>
+                <label for="kgFlag0">
+                    <span>KG公用</span>
+                </label>
+                <input type="radio" name="kgFlag" value="1" id="kgFlag1" ng-model="trafficSignalData.kgFlag" class="radio_diy_class" disabled/>
+                <label for="kgFlag1">
+                    <span>K 专用</span>
+                </label>
+                <input type="radio" name="kgFlag" value="2" id="kgFlag2" ng-model="trafficSignalData.kgFlag" class="radio_diy_class" disabled/>
+                <label for="kgFlag2">
+                    <span>G 专用</span>
+                </label>
+            </li>
+        </ul>
+    </div>
+</div>

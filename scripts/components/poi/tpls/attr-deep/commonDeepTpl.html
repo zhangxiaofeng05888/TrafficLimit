@@ -1,0 +1,169 @@
+<style>
+    .datepicker.dropdown-menu button {
+        outline: 0;
+        border: 0
+    }
+
+    .datepicker.dropdown-menu tbody {
+        height: 180px;
+    }
+    .datepicker.dropdown-menu button {
+        border-radius: 0;
+        box-shadow: none;
+        background: #FFF;
+    }
+
+    .datepicker.dropdown-menu tbody button {
+        padding: 8px;
+        border: 0;
+        border-radius: 0;
+        background: #FFF;
+        box-shadow: none;
+    }
+    .datepicker.dropdown-menu tbody button:hover {
+        box-shadow: none;
+    }
+    .datepicker.dropdown-menu tbody .btn-primary {
+        background: #636ef5;
+        color: #fff;
+    }
+    .datepicker.dropdown-menu.datepicker-mode-1 tbody button, .datepicker.dropdown-menu.datepicker-mode-2 tbody button {
+        height: 65px
+    }
+</style>
+<div ng-controller="commonDeepCtl">
+    <div class="deepPanel_fold">
+        <strong>
+            通用信息
+        </strong>
+        <img style="float: right;margin-right: 10px;margin-top: 8px;"
+             src="../../images/newPoi/rightPanelIcon/button_baidu_normal.png" ng-click="openBaidu()">
+    </div>
+    <form class="w5c-form" w5c-form-validate="" novalidate name="commonDeepForm">
+        <ul class="prop-list">
+            <li>
+                <div class="prop-name">
+                    <span>主页网址</span>
+                </div>
+                <div class="prop-content">
+                    <textarea class="form-control deepPanel_area" ng-model="details.webSite" type="text" style="resize: auto;" rows=2></textarea>
+                </div>
+            </li>
+            <li>
+                <div class="prop-name">
+                    <span>简 介</span>
+                </div>
+                <div class="prop-content">
+                    <textarea class="form-control deepPanel_area" ng-model="details.briefDesc" type="text" rows=2
+                      ng-maxlength="127" name="briefDesc" ng-change="strToDBC('briefDesc', details.briefDesc)"></textarea>
+                </div>
+            </li>
+            <li ng-if="teleSum > 0" ng-repeat="item in contacts |filter:{contactType:11} ">
+                <div class="prop-name">
+                    <span>{{$index === 0 ?'传 真':''}}</span>
+                </div>
+                <div class="prop-content">
+                    <input class="form-control deepPanel_Input" type="text" style="width: 55px"
+                           ng-blur="checkTelAreaCode($index,$event)" maxlength="5" ng-model="item.code"
+                           name="teleArea" w5c-remote-check="queryTelephone(item)" required
+                           onkeyup="this.value=this.value.replace(/\D/g,'')"
+                           onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+                    <input class="form-control deepPanel_Input" type="text" style="width: 84px" maxlength="8"
+                           ng-blur="checkTelNo($index,$event)" ng-model="item.contact"
+                           w5c-dynamic-name="rename('teleContact',$index)" w5c-dynamic-element w5c-dynamic-customizer="checkContact(item)" required
+                           onkeyup="this.value=this.value.replace(/\D/g,'')"
+                           onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+                    <img src="../../images/newPoi/rightPanelIcon/button-delete.png"
+                         ng-click="deleteContact($index)">
+                    <img src="../../images/newPoi/rightPanelIcon/button-add.png" ng-click="addContact()"
+                         ng-show="$index === 0">
+                </div>
+            </li>
+            <li ng-if="teleSum==0">
+                <div class="prop-name">
+                    <span>传 真</span>
+                </div>
+                <div class="prop-content">
+                    <img style="float: right;margin-right: 18px;margin-top: 5px" src="../../images/newPoi/rightPanelIcon/button-add.png" ng-click="addContact()">
+                </div>
+            </li>
+            <li style="font-size: 12px;">
+                <div class="pull-left" style="color: #44809e;padding-left: 10px">注：POI所在地区号为</div>
+                <div class="pull-left" style="color: red">{{areaCode.code}}</div>
+                <div class="pull-left" style="color: #44809e">，传真号码长度为</div>
+                <div class="pull-left" style="color: red">{{areaCode.len}}</div>
+                <div class="pull-left" style="color: #44809e">位。</div>
+            </li>
+            <li style="font-size: 12px;">
+                <div style="color: #44809e;padding-left: 10px">最多可录入3组传真号。</div>
+            </li>
+            <li ng-show="showHospital">
+                <div class="prop-name">
+                    <span>医院等级</span>
+                </div>
+                <div class="prop-content">
+                    <select fm-edit-view class="form-control deepPanel_select" ng-model="details.hospitalClass"
+                            ng-options="value.id as value.label for value in hospitalClassState">
+                    </select>
+                </div>
+            </li>
+            <li>
+                <div class="prop-name">
+                    <span>营业时间</span>
+                </div>
+                <div class="prop-content">
+                    <img style="float: right;margin-right: 18px;margin-top: 5px"
+                     src="../../images/newPoi/rightPanelIcon/button-add.png" ng-click="addBusinessTime()">
+                </div>
+            </li>
+            <li ng-repeat="info in timeItems"
+                style="border: 1px solid #e4dfdf;margin-left: 10px;margin-right: 2px;margin-bottom: 3px">
+                <div class="prop-name" style="width: 75px; padding-right: 15px;">
+                    <span>始终月日</span>
+                </div>
+                <div class="prop-content">
+                    <img src="../../images/newPoi/rightPanelIcon/button-delete-small.png" title="删除记录"
+                         style="padding-left: 2px;cursor: pointer;float: right;position: relative;right: -10px;"
+                         ng-click="deleteItem($index)">
+                    <input class="form-control deepPanel_Input" type="text" style="width: 80px"
+                           ng-model="info.monDaySrt" data-date-format="MM-dd" data-date-type="number" data-placement="auto" data-autoclose="1" name="date" bs-datepicker ng-blur="changeTimeItem($index)"/>
+                    <span>-</span>
+                    <input class="form-control deepPanel_Input" type="text" style="width: 80px"
+                       ng-model="info.monDayEnd" data-date-format="MM-dd" data-date-type="number" data-placement="auto" data-autoclose="1" name="date2" bs-datepicker ng-blur="changeTimeItem($index)"/>
+                </div>
+                <div class="prop-name" style="width: 75px; padding-right: 15px;">
+                    <span>周营业日</span>
+                </div>
+                <div class="prop-content" style="display: inline-block;width: 180px;line-height: 30px">
+                    <div style="display: inline-block;" ng-repeat="(key, value) in weekOpenDays" class="col-md-3">
+                        <input fm-edit-view type="checkbox" name="card" value={{key}} id="validWeek{{$parent.$index}}+{{key}}" class="radio_diy_class"
+                               ng-model="info.validWeek[key]" ng-click="changeTimeItem($parent.$index)"/>
+                        <label for="validWeek{{$parent.$index}}+{{key}}">
+                            <span>{{value}}</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="prop-name" style="width: 75px; padding-right: 15px;">
+                    <span>营业时间</span>
+                </div>
+                <div class="prop-content">
+                    <input class="form-control deepPanel_Input" type="text" style="width: 80px"
+                           ng-model="info.timeSrt" size="8" name="time" bs-timepicker data-time-format="HH:mm" data-placement="auto" data-length="1" data-minute-step="1" data-arrow-behavior="picker" ng-blur="changeTimeItem($index)"/>
+                    <span>-</span>
+                    <input class="form-control deepPanel_Input" type="text" style="width: 80px"
+                       ng-model="info.timeEnd" size="8" name="time" bs-timepicker data-time-format="HH:mm" data-placement="auto" data-length="1" data-minute-step="1" data-arrow-behavior="picker" ng-blur="changeTimeItem($index)"/>
+                </div>
+            </li>
+            <li>
+                <div class="prop-name">
+                    <span>备 注</span>
+                </div>
+                <div class="prop-content">
+                    <textarea class="form-control deepPanel_area" ng-model="details.memo" type="text" rows=2></textarea>
+                </div>
+            </li>
+        </ul>
+    </form>
+</div>
+

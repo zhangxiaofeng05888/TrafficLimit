@@ -1,0 +1,82 @@
+<div ng-controller="CmgBuildFaceCtrl">
+    <form class="w5c-form" w5c-form-validate="" novalidate name="CmgBuildFaceForm">
+    <ul class="list-group prop-list">
+        <li>
+            <div class="prop-name">建筑物号码</div>
+            <div class="prop-content">{{CmgBuildFaceData.buildingPid}}</div>
+        </li>
+        <li>
+            <div class="prop-name">能否拔高</div>
+            <div class="prop-content">
+                <input type="radio" id="CmgBuildFaceData-massing1" name="isMassing" class="fm-control" value=1 ng-model="CmgBuildFaceData.massing">
+                <label for="CmgBuildFaceData-massing1">能</label>
+                <input type="radio" id="CmgBuildFaceData-massing0" name="isMassing" class="fm-control" value=0 ng-model="CmgBuildFaceData.massing">
+                <label for="CmgBuildFaceData-massing0">不能</label>
+            </div>
+        </li>
+        <li>
+            <div class="prop-name">建筑物高度</div>
+            <div class="prop-content">
+                <input class="fm-control" name="cmgBuildFaceData-Height" ng-model="CmgBuildFaceData.height" min="0" type="number"
+                       ng-pattern="/^(0|[1-9][0-9]*)$/" set-focus w5c-dynamic-element />
+            </div>
+        </li>
+        <li>
+            <div class="prop-name">高度精确度</div>
+            <div class="prop-content">
+                <select class="fm-control" style="vertical-align: initial;" ng-model="CmgBuildFaceData.heightAcuracy"
+                        ng-options="value.id as value.label for value in heightAcuracyOpt">
+                </select>
+            </div>
+        </li>
+        <li>
+            <div class="prop-name">高度值来源</div>
+            <div class="prop-content">
+                <select class="fm-control" style="vertical-align: initial;" ng-model="CmgBuildFaceData.heightSource"
+                        ng-options="value.id as value.label for value in heightSourceOpt">
+                </select>
+            </div>
+        </li>
+        <li>
+            <div class="prop-name">数据来源</div>
+            <div class="prop-content">
+                <select class="fm-control" style="vertical-align: initial;" ng-model="CmgBuildFaceData.dataSource"
+                        ng-options="value.id as value.label for value in dataSourceOpt">
+                </select>
+            </div>
+        </li>
+        <li>
+            <div class="prop-name">墙面材料</div>
+            <div class="prop-content">
+                <select class="fm-control" style="vertical-align: initial;" ng-model="CmgBuildFaceData.wallMaterial"
+                        ng-options="value.id as value.label for value in wallMaterialOpt">
+                </select>
+            </div>
+        </li>
+        <li>
+            <div class="prop-name">FACE面积</div>
+            <div class="prop-content">{{options.area}}</div>
+        </li>
+        <li>
+            <div class="prop-name">FACE周长</div>
+            <div class="prop-content">{{options.perimeter}}</div>
+        </li>
+        <li>
+            <div class="prop-name">图幅号码</div>
+            <div class="prop-content">{{CmgBuildFaceData.meshId}}</div>
+        </li>
+        <li>
+            <div class="prop-name">创建时间</div>
+            <div class="prop-content">{{CmgBuildFaceData.createTime}}</div>
+        </li>
+        <li>
+            <div class="prop-name">link序号</div>
+            <div class="prop-content">{{options.seqNum}}</div>
+        </li>
+        <li>
+            <div class="prop-name">link号码</div>
+            <div class="prop-content">{{options.linkPid}}</div>
+        </li>
+    </ul>
+    </form>
+</div>

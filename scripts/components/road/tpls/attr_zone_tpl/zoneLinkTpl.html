@@ -1,0 +1,25 @@
+<div ng-controller="zoneLinkController">
+    <ul class="list-group detailUlCss" style="margin-top: 8px;">
+        <li>
+            <div class="blockDescLiDiv"><span>种别</span></div>
+            <select ng-if="zoneLinkData.kinds[0].kind==0" style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="zoneLinkData.kinds[0].kind" ng-options="value.id as value.label disable when value.id!=0 for value in kindOpt"></select>
+            <select ng-if="zoneLinkData.kinds[0].kind!=0" style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="zoneLinkData.kinds[0].kind" ng-options="value.id as value.label disable when value.id==0 for value in kindOpt"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>形态</span></div>
+            <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="zoneLinkData.kinds[0].form" ng-options="value.id as value.label disable when value.id==0 for value in form"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span style="letter-spacing: 1px;">比例尺</span></div>
+            <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="zoneLinkData.scale" ng-options="value.id as value.label for value in scale"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span style="letter-spacing: 1px;">图幅号</span></div>
+            <input class="form-control poiRightPanel_Input" class="chosen-disabled" ng-model="zoneLinkData.meshId" type="text" disabled="disabled" />
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span style="letter-spacing: 1px;">Link长度</span></div>
+            <input class="form-control poiRightPanel_Input" class="chosen-disabled" ng-model="zoneLinkData.length" type="text" disabled="disabled" />
+        </li>
+    </ul>
+</div>

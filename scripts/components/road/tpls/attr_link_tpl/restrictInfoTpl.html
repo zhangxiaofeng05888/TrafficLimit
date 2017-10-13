@@ -1,0 +1,43 @@
+<div ng-controller="restrictInfoController" style="height: 100%;border-top: 1px #d2e1ff solid;">
+    <ul class="list-group detailUlCss" style="padding: 5px 0;">
+        <li>
+            <div class="linkName_popover_Div"><span>供用信息</span></div>
+            <select class="form-control poiRightPanel_select linkName_popover_select" ng-model="linkData.appInfo" ng-options="value.id as value.label for value in appInfoOptions"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv" style="height: 48px;line-height: 18px;vertical-align: middle">
+                <span style="display: block; letter-spacing: 1px">卡车验证</span>
+                <span style="display: block; text-align: right">标识</span>
+            </div>
+            <input type="radio" name="truckFlag" ng-value={{0}} ng-model="linkData.truckFlag" id="truckFlag1" class="radio_diy_class"/><label for="truckFlag1"><span> 是 </span></label>
+            <input type="radio" name="truckFlag" ng-value={{1}} ng-model="linkData.truckFlag" id="truckFlag2" class="radio_diy_class"/><label for="truckFlag2"><span> 否 </span></label>
+        </li>
+    </ul>
+    <form class="w5c-form" w5c-form-validate="" novalidate name="restrictInfoForm">
+        <div class="poiRightPanel_fold" style="border: none">
+            <strong>普通限制信息<span style="font-size: 12px;margin-left: 15px;">[{{linkData.limits.length}}个]</span></strong>
+            <div><img src="../../images/newRoad/rightPanelIcon/icon_add.png" ng-click="addNormalLimitInfo()"/></div>
+        </div>
+        <ul class="list-group detailUlCss">
+            <li ng-class="{'linkName_li': !(currentOrdinaryIndex==$index),'linkName_li_checked': (currentOrdinaryIndex==$index)}" ng-click="getCurrentEditOrdinaryData($index, item)" ng-repeat="item in linkData.limits" data-container="body" data-animation="am-flip-x" data-auto-close="1" data-container="" bs-popover data-placement="left" data-template-url="../../scripts/components/road/tpls/attr_link_tpl/limitOfOrdinaryTpl.html">
+                <div style="width: 50px;padding-left: 10px;display: inline-block"><span>{{$index + 1}}</span></div>
+                <div style="width: 216px;display: inline-block"><span>{{typeOptions[item.type]}}</span></div>
+                <img src="../../images/newRoad/rightPanelIcon/icon_delete.png" ng-click="deleteNormalLimitInfo($index, item,$event)">
+            </li>
+        </ul>
+        <div class="poiRightPanel_fold" style="border: none">
+            <strong>卡车限制信息<span style="font-size: 12px;margin-left: 15px;">[{{linkData.limitTrucks.length}}个]</span></strong>
+            <div><img src="../../images/newRoad/rightPanelIcon/icon_add.png" ng-click="addTruckLimitInfo()"/></div>
+        </div>
+        <ul class="list-group detailUlCss">
+            <li ng-class="{'linkName_li': !(currentTruckIndex==$index),'linkName_li_checked': (currentTruckIndex==$index)}" ng-click="getCurrentEditTruckData($index, item)" ng-repeat="item in linkData.limitTrucks" data-container="body" data-animation="am-flip-x" data-auto-close="1" bs-popover data-placement="left" data-template-url="../../scripts/components/road/tpls/attr_link_tpl/limitOfTruckTpl.html">
+                <div style="width: 50px;padding-left: 10px;display: inline-block"><span>{{$index + 1}}</span></div>
+                <div style="width: 216px;display: inline-block"><span>{{limitDirOptions[item.limitDir]}}</span></div>
+                <img src="../../images/newRoad/rightPanelIcon/icon_delete.png" ng-click="deleteTruckLimitInfo($index, item,$event)">
+                <input class="form-control poiRightPanel_Input" ng-model="item.resWeigh" name="resWeigh" required type="hidden" max="999.99" min="0" type="hidden" /><!--pattern="^(\d{1,3}|\d{1,3}\.\d{1,2})$"-->
+                <input class="form-control poiRightPanel_Input" ng-model="item.resAxleLoad" name="resAxleLoad" required type="hidden" max="999.99" min="0" type="hidden" />
+                <input class="form-control poiRightPanel_Input" ng-model="item.resAxleCount" name="resAxleCount" required max="99" min="-99" type="hidden" />
+            </li>
+        </ul>
+    </form>
+</div>

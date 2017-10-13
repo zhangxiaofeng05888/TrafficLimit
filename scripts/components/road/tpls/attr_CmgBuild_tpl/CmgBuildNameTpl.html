@@ -1,0 +1,78 @@
+<div class="popover" tabindex="-1" style="width: 310px;min-height: 305px;max-height:365px;overflow-y: auto;">
+    <ul class="list-group detailUlCss" ng-controller="CmgBuildNameCtrl">
+        <li style="position: relative">
+            <div class="linkName_popover_Div"><span>名称组号</span></div>
+            <input disabled class="form-control poiRightPanel_Input" type="text" style="padding-right: 30px" ng-model="cmgBuildNames.nameGroupid"/>
+        </li>
+        <li style="position: relative">
+            <div class="linkName_popover_Div"><span>名称号码</span></div>
+            <input disabled class="form-control poiRightPanel_Input" type="text" style="padding-right: 30px" ng-model="cmgBuildNames.pid"/>
+        </li>
+        <li>
+            <div class="linkName_popover_Div"><span>语言代码</span></div>
+            <select class="form-control poiRightPanel_select linkName_popover_select" ng-model="cmgBuildNames.langCode" ng-click="langCodeChange(cmgBuildNames.langCode)" ng-change="changeLangCode(cmgBuildNames);">
+                <option value="{{value.id}}" ng-repeat="value in langCodeOptions" ng-selected="cmgBuildNames.langCode == value.id" ng-disabled="(selectedLangcodeArr.indexOf(value.id) > -1)"> {{value.label}}</option>
+            </select>
+        </li>
+        <li >
+            <div class="linkName_popover_Div"><span>名称来源</span></div>
+            <input type="radio" id="originOfName0" class="radio_diy_class" name="originOfName0" value=0 ng-model="cmgBuildNames.srcFlag">
+            <label for="originOfName0">
+                    <span>
+                    未定义
+                    </span>
+            </label>
+            <input type="radio" id="originOfName1" ng-click="changeNameSource(cmgBuildNames);" class="radio_diy_class" ng-disabled="cmgBuildNames.langCode == 'CHI' || cmgBuildNames.langCode == 'CHT'" name="originOfName1" value=1 ng-model="cmgBuildNames.srcFlag">
+            <label for="originOfName1">
+                    <span>
+                    翻译
+                    </span>
+            </label>
+        </li>
+        <li style="position: relative;">
+            <div class="linkName_popover_Div"><span>全称</span></div>
+            <input class="form-control poiRightPanel_Input" type="text" ng-if="cmgBuildNames.langCode != 'ENG'" style="padding-right: 30px" ng-change="namePronunciation(cmgBuildNames.fullName,cmgBuildNames,'fullName','fullNamePhonetic','fullNamePhoneticArr');" ng-model="cmgBuildNames.fullName" placeholder="建筑物全称"/>
+            <input class="form-control poiRightPanel_Input" type="text" ng-if="cmgBuildNames.langCode == 'ENG'"  maxlength="120" ng-model="cmgBuildNames.fullName" placeholder="建筑物全称"/>
+        </li>
+        <li style="position: relative;height:auto;">
+            <div class="linkName_popover_Div"><span>全称发音</span></div>
+            <div style="display: inline-block;text-align: left;margin-right: 14px;margin-top: 4px;line-height: 20px;vertical-align: top;width:180px;">
+                <span class="" ng-repeat="item in cmgBuildNames.fullNamePhoneticArr track by $index">
+                    <span ng-if="item.length>1">{<span ng-repeat="subitem in item" style="text-decoration: underline;cursor: pointer;color:red;margin-right: 4px;" ng-click="selectPolyphonic($event, $index, $parent.$parent.$index, 'fullNamePhoneticArr')">{{subitem}}</span>}</span>
+                    <span ng-if="item.length==1">{{item[0]}}</span>
+                </span>
+                <span style=""><img ng-show="cmgBuildNames.langCode == 'CHI' || cmgBuildNames.langCode == 'CHT'" style="cursor: pointer;position: absolute;top: 10px;left: 280px;" src="../../images/meta/refresh.png" ng-click="namePronunciation(cmgBuildNames.fullName,cmgBuildNames,'fullName','fullNamePhonetic','fullNamePhoneticArr');"></span>
+            </div>
+        </li>
+        <li style="position: relative;">
+            <div class="linkName_popover_Div"><span>基本名</span></div>
+            <input class="form-control poiRightPanel_Input" type="text" ng-if="cmgBuildNames.langCode != 'ENG'" style="padding-right: 30px" ng-change="namePronunciation(cmgBuildNames.baseName,cmgBuildNames,'baseName','baseNamePhonetic','baseNamePhoneticArr');" ng-model="cmgBuildNames.baseName" placeholder="建筑物基本名"/>
+            <input class="form-control poiRightPanel_Input" type="text" ng-if="cmgBuildNames.langCode == 'ENG'"  maxlength="120" ng-model="cmgBuildNames.baseName" placeholder="建筑物基本名"/>
+        </li>
+        <li style="position: relative;height:auto;">
+            <div class="linkName_popover_Div"><span>基本名发音</span></div>
+            <div style="display: inline-block;text-align: left;margin-right: 14px;margin-top: 4px;line-height: 20px;vertical-align: top;width:180px;">
+                <span class="" ng-repeat="item in cmgBuildNames.baseNamePhoneticArr track by $index">
+                    <span ng-if="item.length>1">{<span ng-repeat="subitem in item" style="text-decoration: underline;cursor: pointer;color:red;margin-right: 4px;" ng-click="selectPolyphonic($event, $index, $parent.$parent.$index, 'baseNamePhoneticArr')">{{subitem}}</span>}</span>
+                    <span ng-if="item.length==1">{{item[0]}}</span>
+                </span>
+                <span style=""><img ng-show="cmgBuildNames.langCode == 'CHI' || cmgBuildNames.langCode == 'CHT'" style="cursor: pointer;position: absolute;top: 10px;left: 280px;" src="../../images/meta/refresh.png" ng-click="namePronunciation(cmgBuildNames.baseName,cmgBuildNames,'baseName','baseNamePhonetic','baseNamePhoneticArr');"></span>
+            </div>
+        </li>
+        <li style="position: relative;height: auto;">
+            <div class="linkName_popover_Div"><span>楼号</span></div>
+            <input class="form-control poiRightPanel_Input" type="text" ng-if="cmgBuildNames.langCode != 'ENG'" style="padding-right: 30px" ng-change="namePronunciation(cmgBuildNames.buildNumber,cmgBuildNames,'buildNumber','buildNumPhonetic','buildNumPhoneticArr');" ng-model="cmgBuildNames.buildNumber" placeholder="建筑物楼号"/>
+            <input class="form-control poiRightPanel_Input" type="text" ng-if="cmgBuildNames.langCode == 'ENG'"  maxlength="120" ng-model="cmgBuildNames.buildNumber" placeholder="建筑物楼号"/>
+        </li>
+        <li style="position: relative">
+            <div class="linkName_popover_Div"><span>楼号发音</span></div>
+            <div style="display: inline-block;text-align: left;margin-right: 14px;margin-top: 4px;line-height: 20px;vertical-align: top;width:180px;">
+                <span class="" ng-repeat="item in cmgBuildNames.buildNumPhoneticArr track by $index">
+                    <span ng-if="item.length>1">{<span ng-repeat="subitem in item" style="text-decoration: underline;cursor: pointer;color:red;margin-right: 4px;" ng-click="selectPolyphonic($event, $index, $parent.$parent.$index, 'buildNumPhoneticArr')">{{subitem}}</span>}</span>
+                    <span ng-if="item.length==1">{{item[0]}}</span>
+                </span>
+                <span style=""><img ng-show="cmgBuildNames.langCode == 'CHI' || cmgBuildNames.langCode == 'CHT'" style="cursor: pointer;position: absolute;top: 10px;left: 280px;" src="../../images/meta/refresh.png" ng-click="namePronunciation(cmgBuildNames.buildNumber,cmgBuildNames,'buildNumber','buildNumPhonetic','buildNumPhoneticArr');"></span>
+            </div>
+        </li>
+    </ul>
+</div>

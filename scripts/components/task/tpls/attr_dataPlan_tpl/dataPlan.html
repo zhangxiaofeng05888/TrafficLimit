@@ -1,0 +1,61 @@
+<style>
+    .fm-sameNode {
+        width: 420px;
+    }
+    .fm-sameNode .sameNodefooter{
+        height: 40px;
+        padding: 8px 20px;
+        text-align: right;
+    }
+    .fm-sameNode .adAdminfooter button{
+        display: inline-block;
+        width: 100px;
+        height: 25px;
+        padding: 0;
+    }
+    .fm-sameNode .titleBox{
+        height: 40px;
+        cursor: move;
+        padding: 0 20px;
+        border-bottom: 1px solid #3399ff;
+    }
+    .fm-sameNode .title{
+        color: #3399ff;
+        font-size: 16px;
+        height: 40px;
+        line-height: 40px;
+    }
+    .fm-sameNode .bulidSameNode{
+        background: #3399ff;
+        border: none;
+        color: white;
+        border-radius: 4px;
+        padding: 3px 10px;
+    }
+</style>
+<div class="fm-job-panel fm-stretch fm-sameNode" ng-controller="dataPlanCtrl">
+    <div style="border-bottom: 1px solid #3399ff;" class="content scroll_style">
+        <div class="scroll_style" style="text-align: center;padding-top: 40px;padding-left: -40px">
+            <div style="display: inline-block; vertical-align: top">
+                <span>选择数据状态</span>
+            </div>
+            <div style="display: inline-block">
+                <div>
+                    <input type="radio" value={{1}} id="startEnd0" ng-model="workData" class="radio_diy_class"/>
+                    <label for="startEnd0">
+                        <span>需要作业数据</span>
+                    </label>
+                </div>
+                <div>
+                    <input type="radio" value={{0}} id="startEnd1" ng-model="workData" class="radio_diy_class"/>
+                    <label for="startEnd1">
+                        <span>不需作业数据</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sameNodefooter">
+        <button class="bulidSameNode" ng-click="saveDataPlan()" title="提交">提交</button>
+    </div>
+</div>

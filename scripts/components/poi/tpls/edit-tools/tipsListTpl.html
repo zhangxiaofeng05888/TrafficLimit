@@ -1,0 +1,42 @@
+<style type="text/css">
+    .poiCheckResultTable .relateTable {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        top: 0px;
+        bottom: 0px;
+        background-color: #fff;
+        z-index: 1000;
+    }
+    .search-icon {
+        background-image: url('../../images/webEditor/left-panel/button_search_normal.png');
+        height: 16px;
+        width: 16px;
+        cursor: pointer;
+        display: inline-block;
+        margin-left: 10px;
+        vertical-align: text-top;
+    }
+    .search-icon:hover {
+        background-image: url('../../images/webEditor/left-panel/button_search_active.png');
+    }
+</style>
+<div ng-controller="tipsListCtrl" class="fm-job-panel fm-stretch poiCheckResultTable">
+    <div class="form-group" style="padding-left: 10px">
+        <input type="text" class="form-control poiRightPanel_Input" ng-model="searchModel.beginTime" data-max-date="{{searchModel.endTime}}" bs-datepicker
+               data-date-format="yyyy-MM-dd" data-date-type="string">
+        <input type="text" class="form-control poiRightPanel_Input" ng-model="searchModel.endTime" data-min-date="{{searchModel.beginTime}}" bs-datepicker
+               data-date-format="yyyy-MM-dd" data-date-type="string">
+        <div class="search-icon" title="搜索" ng-click="searchTipList()"></div>
+    </div>
+    <div ui-grid="gridOptions"
+         ui-grid-selection
+         ui-grid-auto-resize
+         ui-grid-pagination
+         ui-grid-resize-columns
+         class="fm-grid wmContent">
+        <!--loading效果-->
+        <div ng-show="loadingFlag" class="tableLoading" ng-include="'./svgLoading.html'"></div>
+    </div>
+</div>

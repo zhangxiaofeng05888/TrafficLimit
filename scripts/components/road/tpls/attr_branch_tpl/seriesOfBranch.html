@@ -1,0 +1,136 @@
+<div class="scroll_style" ng-controller="SeriesOfBranchCtrl">
+    <div class="pic-map-show" ng-if="diverObj.seriesbranches[0].arrowCode">
+        <img class="pic-map-img" ng-src="{{arrowMapShow}}">
+        <img class="pic-modal-img" ng-src="{{patternCodeSrc}}" alt="无此底图">
+    </div>
+    <fast-collapse expander-title="基本信息">
+        <div>
+            <ul class="list-group detailUlCss" style="margin-top: 8px;">
+                <li>
+                    <div class="blockDescLiDiv" style="letter-spacing: 1px;"><span>进 入 线</span></div>
+                    {{diverObj.inLinkPid}}
+                </li>
+                <li>
+                    <div class="blockDescLiDiv" style="letter-spacing: 1px;"><span>退 出 线</span></div>
+                    {{diverObj.outLinkPid}}
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>关系类型</span></div>
+                    <input type="radio" name="relationshipType" value="1" id="relationshipType1" ng-model="diverObj.relationshipType" class="radio_diy_class"/>
+                    <label for="relationshipType1">
+                        <span>路口</span>
+                    </label>
+                    <input type="radio" name="relationshipType" value="2" id="relationshipType2" ng-model="diverObj.relationshipType" class="radio_diy_class"/>
+                    <label for="relationshipType2" style="padding-left: 20px">
+                        <span>线线</span>
+                    </label>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>声音方向</span></div>
+                    <input type="radio" name="voiceDir" value="0" id="voiceDir0" ng-model="diverObj.seriesbranches[0].voiceDir" class="radio_diy_class"/>
+                    <label for="voiceDir0">
+                        <span>无</span>
+                    </label>
+                    <input type="radio" name="voiceDir" value="2" id="voiceDir1" ng-model="diverObj.seriesbranches[0].voiceDir" class="radio_diy_class"/>
+                    <label for="voiceDir1" style="padding-left: 20px">
+                        <span>右</span>
+                    </label>
+                    <input type="radio" name="voiceDir" value="5" id="voiceDir2" ng-model="diverObj.seriesbranches[0].voiceDir" class="radio_diy_class"/>
+                    <label for="voiceDir2" style="padding-left: 20px">
+                        <span>左</span>
+                    </label>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv" style="line-height: 18px;vertical-align: middle;">
+                        <span style="letter-spacing: 1px;">箭头图</span>
+                        <span style="display: block;">标志</span>
+                    </div>
+                    <input type="radio" name="arrowFlag" value="0" id="arrowFlag0" ng-model="diverObj.seriesbranches[0].arrowFlag" class="radio_diy_class"/>
+                    <label for="arrowFlag0">
+                        <span>无</span>
+                    </label>
+                    <input type="radio" name="arrowFlag" value="1" id="arrowFlag1" ng-model="diverObj.seriesbranches[0].arrowFlag" class="radio_diy_class"/>
+                    <label for="arrowFlag1" style="padding-left: 20px">
+                        <span>直行箭头标志</span>
+                    </label>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>分歧类型</span></div>
+                    <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="diverObj.seriesbranches[0].type"
+                            ng-options="value.id as value.label for value in branchTypeOptions"></select>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>箭头图号</span></div>
+                    <input class="form-control poiRightPanel_Input" ng-model="diverObj.seriesbranches[0].arrowCode" maxlength="8" ng-change="showPicSelect()" type="text"/>
+                    <div class="pic-show" ng-show="showImgData">
+                        <div class="option-hide">
+                            <button type="button" class="close" aria-label="Close" ng-click="hidePicSelect($event)">
+                                <span aria-hidden="true" class="glyphicon glyphicon-remove-sign"></span>
+                            </button>
+                        </div>
+                        <div class="pic-show-well">
+                            <div class="img-well" ng-repeat="picture in pictures" ng-click="selectPicCode(picture.fileName)">
+                                <img class="show-img" ng-src="{{picture.fileContent}}" title="{{picture.fileName}}">
+                                <div class="img-describe">{{picture.fileName}}</div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="pull-left num-well">
+                            第 <span class="pic-num" ng-bind="picNowNum">1</span> 页 |
+                            共 <span class="pic-total" ng-bind="picTotal">1</span> 页
+                        </div>
+                        <div class="pic-show-btn pull-right">
+                            <div class="pull-right btn-group">
+                                <button class="btn btn-default btn-xs pic-pre" ng-click="picPre()" ng-disabled="picNowNum == 1">
+                                    <i class="glyphicon glyphicon-menu-left"></i>
+                                </button>
+                                <button class="btn btn-default btn-xs pic-next" ng-click="picNext()" ng-disabled="picNowNum == picTotal">
+                                    <i class="glyphicon glyphicon-menu-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="pic-loading" ng-show="showPicLoading" ng-bind="loadText">loading...</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>模式图号</span></div>
+                    {{diverObj.seriesbranches[0].patternCode}}
+                </li>
+            </ul>
+        </div>
+    </fast-collapse>
+    <!--<fast-collapse expander-title="经过线（{{diverObj.vias.length}}）条">
+        <div>
+            <ul class="list-group detailUlCss" ng-repeat="viasItem in diverObj.vias | orderBy: 'viasItem.seqNum'" style="margin-bottom: 10px;padding-bottom: 10px;border-bottom: 1px solid #eff0fe;">
+                <li>
+                    <div class="blockDescLiDiv"><span>Link序号</span></div>
+                    {{viasItem.seqNum}}
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>Link号码</span></div>
+                    {{viasItem.linkPid}}
+                </li>
+            </ul>
+        </div>
+    </fast-collapse>-->
+
+    <div class="vias">
+        <div class="poiRightPanel_fold" style="border: none">
+            <strong>经过线（{{diverObj.vias.length}}）条</strong>
+
+            <!--<div ng-if="diverObj.vias.length">
+                <span class="glyphicon glyphicon-edit" style="cursor:pointer;" title="修改经过线" ng-click="modifyThroughLink()"></span>
+            </div>-->
+        </div>
+        <ul class="list-group detailUlCss" ng-repeat="viasItem in diverObj.vias | orderBy: 'viasItem.seqNum'" style="margin-bottom: 10px;padding-bottom: 10px;border-bottom: 1px solid #eff0fe;">
+            <li>
+                <div class="blockDescLiDiv"><span>Link序号</span></div>
+                {{viasItem.seqNum}}
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>Link号码</span></div>
+                {{viasItem.linkPid}}
+            </li>
+        </ul>
+    </div>
+</div>

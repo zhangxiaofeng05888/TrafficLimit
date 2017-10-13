@@ -1,0 +1,31 @@
+<div class="groupList_rightDiv" ng-controller="groupListCtrl">
+    <div class="groupList_top">
+        <div class="groupList_back">
+            <span ng-click="backInfoList()">返回情报列表</span>
+        </div>
+        <div class="groupList_button">
+            <div class="list-title-btn" style="display: inline-block" ng-click="addGroupList()">
+                <span style="color: #182848;font-size: 12px">新增</span>
+            </div>
+            <div class="list-title-btn" style="display: inline-block;margin-left: 20px" ng-click="editGroupList()">
+                <span style="color: #182848;font-size: 12px">编辑</span>
+            </div>
+            <div class="list-title-btn" style="display: inline-block;margin-left: 20px" ng-click="correlationGroup()">
+                <span style="color: #182848;font-size: 12px">关联</span>
+            </div>
+            <div class="list-title-btn" style="display: inline-block;margin-left: 20px" ng-click="deleteGroup()">
+                <span style="color: #182848;font-size: 12px">删除</span>
+            </div>
+        </div>
+    </div>
+    <div class="groupList_rightDiv_table">
+        <div class="fm-job-panel fm-stretch">
+            <div ui-grid="gridOptions"
+                 ui-grid-resize-columns
+                 class="fm-grid wmContent" style="flex: 1; min-height: 60px">
+                <!--loading效果-->
+                <!--<div ng-show="loadingFlag" class="tableLoading" ng-include="'./svgLoading.html'"></div>-->
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,220 @@
+<div ng-controller="chargingPlotCtrl">
+    <fast-collapse expander-title='深度信息'>
+        <img ng-if="poi.rawFields.indexOf('7')>-1" src="../../images/poi/icon/little-cycle.png" class="icon-cycle-deep">
+        <form class="w5c-form" w5c-form-validate="" novalidate name="poiDeepInfoChargingPlotForm">
+        <div ng-repeat="charging in poi.chargingplots" ng-init="outerIndex = $index">
+            <div style="height: 50px;line-height: 50px;font-size: 14px;color: #48556e">
+                <span style="margin-left: 50px">专有信息{{$index+1}}</span>
+                <img style="float: right;margin-right: 20px;margin-top: 15px;" src="../../images/newPoi/rightPanelIcon/button-delete.png" ng-if="poi.chargingplots.length==2"  title="删除一组专有信息"
+                        ng-click="removeChargPole($index)" ng-disabled="isSpecialOperation"/>
+                <img style="float: right;margin-right: 20px;margin-top: 15px;" ng-if="poi.chargingplots.length==1 ||poi.chargingplots.length==0" src="../../images/newPoi/rightPanelIcon/button-add.png"
+                     title="增加一组专有信息" style="margin-right: 5px;" ng-click="addChargPole()" ng-disabled="isSpecialOperation"/>
+
+            </div>
+            <ul class="list-group detailUlCss">
+                <!--<li>-->
+                    <!--<div class="blockDescLiDiv">-->
+                        <!--<span>充电桩组</span>-->
+                    <!--</div>-->
+                    <!--<input type="text" value="1"  neverDis="neverDis" disabled class="form-control poiRightPanel_Input chosen-disabled" ng-model="charging.groupId"/>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<div class="blockDescLiDiv">-->
+                        <!--<span>同组桩数</span>-->
+                    <!--</div>-->
+                    <!--<input type="text"  value="1" neverDis="neverDis" disabled class="form-control poiRightPanel_Input chosen-disabled" ng-model="charging.count"/>-->
+                <!--</li>-->
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>电流类型</span>
+                    </div>
+                    <input type="radio" ng-disabled="isSpecialOperation" name="acdc{{$index}}" ng-value="{{0}}" id="within1{{$index}}" checked class="radio_diy_class" ng-model="charging.acdc"/>
+                    <label for="within1{{$index}}">
+                        <span>交流充电</span>
+                    </label>
+                    <input type="radio" ng-disabled="isSpecialOperation" name="acdc{{$index}}" ng-value="{{1}}" id="within2{{$index}}" class="radio_diy_class" ng-model="charging.acdc"/>
+                    <label for="within2{{$index}}">
+                        <span>直流充电</span>
+                    </label>
+                </li>
+                <li style="height: 180px;line-height: 180px">
+                    <div class="blockDescLiDiv">
+                        <span>插头类型</span>
+                    </div>
+                    <div style="display: inline-block;width: 200px;line-height: 30px">
+                        <div style="display: inline-block;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in chargingPlugType" class="col-md-12">
+                            <input type="checkbox" name="chargingPlugType" value={{key}} id="chargingPlugType{{$index}}+{{key}}" class="radio_diy_class" ng-model="charging.plugType[key]"
+                                   ng-click="chargingPlugTypeChange($event,charging)" ng-disabled="isSpecialOperation"/>
+                            <label for="chargingPlugType{{$index}}+{{key}}" >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>充电功率</span>
+                    </div>
+                    <input type="text" style="width: 160px;margin-right: 4px;" w5c-dynamic-element w5c-dynamic-name="rename('chargingPower',$index)" ng-maxlength="50" class="form-control poiRightPanel_Input" ng-model="charging.power" ng-disabled="isSpecialOperation"/>KW
+                </li>
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>充电电压</span>
+                    </div>
+                    <input  type="text" style="width: 160px;margin-right: 4px;" w5c-dynamic-element w5c-dynamic-name="rename('chargingVoltage',$index)" ng-maxlength="50" class="form-control poiRightPanel_Input" ng-model="charging.voltage" ng-disabled="isSpecialOperation"/>V
+                </li>
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>充电电流</span>
+                    </div>
+                    <input type="text" style="width: 160px;margin-right: 4px;" w5c-dynamic-element w5c-dynamic-name="rename('chargingC',$index)" ng-maxlength="50" class="form-control poiRightPanel_Input" ng-model="charging.current" ng-disabled="isSpecialOperation"/>A
+                </li>
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>充电模式</span>
+                    </div>
+                    <input type="radio" name="mode{{$index}}" value="0" id="mode1{{$index}}" checked class="radio_diy_class" ng-model="charging.mode" ng-disabled="isSpecialOperation"/>
+                    <label for="mode1{{$index}}">
+                        <span>常规充电</span>
+                    </label>
+                    <input type="radio" name="mode{{$index}}" value="1" id="mode2{{$index}}" class="radio_diy_class" ng-model="charging.mode" ng-disabled="isSpecialOperation"/>
+                    <label for="mode2{{$index}}">
+                        <span>快速充电</span>
+                    </label>
+                </li>
+                <!--<li>-->
+                    <!--<div class="blockDescLiDiv">-->
+                        <!--<span>备注信息</span>-->
+                    <!--</div>-->
+                    <!--<input type="text" class="form-control poiRightPanel_Input" ng-model="charging.memo" ng-disabled="isSpecialOperation"/>-->
+                <!--</li>-->
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>插孔数量</span>
+                    </div>
+                    <input type="number" set-focus class="form-control poiRightPanel_Input" ng-model="charging.plugNum" ng-disabled="isSpecialOperation" min="0"
+                           maxLength="6" onkeyup="this.value=this.value.replace(/\D/g,'')"
+                           onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>充电价格</span>
+                    </div>
+                    <input type="text" w5c-dynamic-element w5c-dynamic-name="rename('chargingPrice',$index)" ng-maxlength="254" class="form-control poiRightPanel_Input" ng-model="charging.prices" ng-disabled="isSpecialOperation"/>
+                </li>
+                <li style="height: 270px;line-height: 270px">
+                    <div class="blockDescLiDiv">
+                        <span>开放状态</span>
+                    </div>
+                    <div style="display: inline-block;width: 200px;line-height: 30px">
+                        <div style="display: inline-block;color: greenyellow;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in chargingOpenType" ng-if="key == 1" class="col-md-12">
+                            <input type="checkbox" name="chargingOpenType{{$index}}" value={{key}} id="chargingOpenType{{$index}}+{{key}}+{{outerIndex}}" class="radio_diy_class" ng-model="charging.openType[key]"
+                                   ng-click="changeOpenType($event,charging)" ng-disabled="isSpecialOperation"/>
+                            <label for="chargingOpenType{{$index}}+{{key}}+{{outerIndex}}" >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                        <div style="display: inline-block;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in chargingOpenType" ng-if="key != 1" class="col-md-12">
+                            <input type="checkbox" name="chargingOpenType{{$index}}" value={{key}} id="chargingOpenType{{$index}}+{{key}}+{{outerIndex}}" class="radio_diy_class" ng-model="charging.openType[key]"
+                                   ng-click="changeOpenType($event,charging)" ng-disabled="isSpecialOperation"/>
+                            <label for="chargingOpenType{{$index}}+{{key}}+{{outerIndex}}" >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                        <div style="display: inline-block;padding-left: 0px;padding-right: 0px" class="col-md-12">
+                            <input type="checkbox" name="chargingOpenType{{$index}}" value=99 id="chargingOpenType{{$index}}+99+{{outerIndex}}" class="radio_diy_class" ng-model="charging.isBrandOpen"
+                                   ng-click="changeBrandOpen($event,charging)" ng-checked="charging.isBrandOpen"/>
+                            <label for="chargingOpenType{{$index}}+99+{{outerIndex}}" >
+                                <span>对某品牌汽车开放</span>
+                            </label>
+                        </div>
+                        <select class="form-control poiRightPanel_select"  ng-model="charging.selectedChain"
+                                no_results_text="'--无--'"  placeholder_text_single="'--请选择--'" search_contains=true
+                                ng-options="value as lable.chainName for (value, lable) in chainListPlot"
+                                chosen ng-change="brandChange($event, this)" ng-disabled="!charging.isBrandOpen">
+                            <option></option>
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>可用状态</span>
+                    </div>
+                    <select class="form-control poiRightPanel_select" ng-model="charging.availableState"
+                            ng-options="value.id as value.label for value in chargingAvailableState" ng-disabled="isSpecialOperation">
+                    </select>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>设备厂商</span>
+                    </div>
+                    <input type="text" class="form-control poiRightPanel_Input" maxlength="254" ng-model="charging.manufacturer" ng-disabled="isSpecialOperation"/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>出厂编号</span>
+                    </div>
+                    <input type="text" class="form-control poiRightPanel_Input" maxlength="254" ng-model="charging.factoryNum" ng-disabled="isSpecialOperation"/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>充电桩编号</span>
+                    </div>
+                    <input type="text" class="form-control poiRightPanel_Input" maxlength="50" ng-model="charging.plotNum" ng-disabled="isSpecialOperation"/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>产品型号</span>
+                    </div>
+                    <input type="text" class="form-control poiRightPanel_Input" maxlength="254" ng-model="charging.productNum" ng-disabled="isSpecialOperation"/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>泊位号码</span>
+                    </div>
+                    <input type="text" class="form-control poiRightPanel_Input" maxlength="50" ng-model="charging.parkingNum" ng-disabled="isSpecialOperation"/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>位置类型</span>
+                    </div>
+                    <input type="radio" name="locationType{{$index}}" value="0" id="locationType1{{$index}}" checked class="radio_diy_class" ng-model="charging.locationType" ng-disabled="isSpecialOperation"/>
+                    <label for="locationType1{{$index}}">
+                        <span>室外</span>
+                    </label>
+                    <input type="radio" name="locationType{{$index}}" value="1" id="locationType2{{$index}}" class="radio_diy_class" ng-model="charging.locationType" ng-disabled="isSpecialOperation"/>
+                    <label for="locationType2{{$index}}">
+                        <span>室内地上</span>
+                    </label>
+                    <input type="radio" name="locationType{{$index}}" value="2" id="locationType3{{$index}}" class="radio_diy_class" ng-model="charging.locationType" ng-disabled="isSpecialOperation"/>
+                    <label for="locationType3{{$index}}">
+                        <span>地下</span>
+                    </label>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>楼层</span>
+                    </div>
+                    <input type="number" class="form-control poiRightPanel_Input" ng-model="charging.floor" min="-5"
+                           maxLength="6" onkeyup="this.value=this.value.replace(/\D/g,'')"
+                           onafterpaste="this.value=this.value.replace(/\D/g,'')" ng-disabled="isSpecialOperation"/>
+                </li>
+                <li style="height: 90px;line-height: 90px">
+                    <div class="blockDescLiDiv">
+                        <span>支付方式</span>
+                    </div>
+                    <div style="display: inline-block;width: 200px;line-height: 30px">
+                        <div style="display: inline-block;padding-left: 0px;padding-right: 0px" ng-repeat="(key, value) in charginPayment" class="col-md-6">
+                            <input type="checkbox" name="charginPayment" value={{value}} id="charginPayment{{$index}}+{{key}}" class="radio_diy_class" ng-click="changeCharginPayment($event,charging)" ng-model="charging.payment[key]"  ng-disabled="isSpecialOperation"/>
+                            <label for="charginPayment{{$index}}+{{key}}" >
+                                <span>{{value}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        </form>
+    </fast-collapse>
+</div>
+

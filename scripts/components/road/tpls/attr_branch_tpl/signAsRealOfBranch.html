@@ -1,0 +1,89 @@
+<div ng-controller="SignAsRealOfBranchCtrl" style="height:100%;">
+    <div ng-style="rightPanelHeight" class="scroll_style" id="signAsRealDiv">
+        <div id="signAsRealPanel" style="height: 0;"></div>
+        <fast-collapse expander-title="基本信息">
+            <div>
+                <ul class="list-group detailUlCss" style="margin-top: 8px;">
+                    <li>
+                        <div class="blockDescLiDiv" style="letter-spacing: 1px;"><span>进 入 线</span></div>
+                        {{diverObj.inLinkPid}}
+                    </li>
+                    <li>
+                        <div class="blockDescLiDiv" style="letter-spacing: 1px;"><span>退 出 线</span></div>
+                        {{diverObj.outLinkPid}}
+                    </li>
+                    <li>
+                        <div class="blockDescLiDiv"><span>关系类型</span></div>
+                        <input type="radio" name="relationshipType" value="1" id="relationshipType1" ng-model="diverObj.relationshipType" class="radio_diy_class"/>
+                        <label for="relationshipType1">
+                            <span>路口</span>
+                        </label>
+                        <input type="radio" name="relationshipType" value="2" id="relationshipType2" ng-model="diverObj.relationshipType" class="radio_diy_class"/>
+                        <label for="relationshipType2" style="padding-left: 20px">
+                            <span>线线</span>
+                        </label>
+                    </li>
+                    <li>
+                        <div class="blockDescLiDiv" style="line-height: 18px;vertical-align: middle;">
+                            <span style="display: block;letter-spacing: 1px;">实 景 看</span>
+                            <span style="display: block;">板　　号</span>
+                        </div>
+                        {{diverObj.signasreals[0].pid}}
+                    </li>
+                    <li>
+                        <div class="blockDescLiDiv"><span>SVG图号</span></div>
+                        <input class="form-control poiRightPanel_Input" ng-model="diverObj.signasreals[0].svgfileCode" set-focus ng-change="showSVGPicSelect();" maxlength="12" type="text"/>
+                        <div class="pic-show" ng-show="showSVGImg">
+                            <div class="option-hide">
+                                <button type="button" class="close" aria-label="Close" ng-click="hideSVGPicSelect($event)">
+                                    <span aria-hidden="true" class="glyphicon glyphicon-remove-sign"></span>
+                                </button>
+                            </div>
+                            <div class="pic-show-well">
+                                <div class="img-well" ng-repeat="picture in pictures" ng-click="selectSVGPicCode(picture)">
+                                    <img class="show-img" ng-src="{{picture.fileContent}}" title="{{picture.fileName}}">
+                                    <div class="img-describe">{{picture.fileName}}</div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="pull-left num-well">
+                                第 <span class="pic-num" ng-bind="picNowNum">1</span> 页 |
+                                共 <span class="pic-total" ng-bind="picTotal">1</span> 页
+                            </div>
+                            <div class="pic-show-btn pull-right">
+                                <div class="pull-right btn-group">
+                                    <button class="btn btn-default btn-xs pic-pre" ng-click="picPre(2)" ng-disabled="picNowNum == 1">
+                                        <i class="glyphicon glyphicon-menu-left"></i>
+                                    </button>
+                                    <button class="btn btn-default btn-xs pic-next" ng-click="picNext(2)" ng-disabled="picNowNum == picTotal">
+                                        <i class="glyphicon glyphicon-menu-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="pic-loading" ng-show="showPicLoading" ng-bind="loadText">loading...</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="blockDescLiDiv"><span>箭头图号</span></div>
+                        <input class="form-control poiRightPanel_Input" ng-model="diverObj.signasreals[0].arrowCode" ng-change="showPicSelect(diverObj.signasreals[0].arrowCode)" type="text" ng-disabled="!diverObj.signasreals[0].svgfileCode"/>
+                    </li>
+                </ul>
+            </div>
+        </fast-collapse>
+        <div class="vias">
+            <div class="poiRightPanel_fold" style="border: none">
+                <strong>经过线（{{diverObj.vias.length}}）条</strong>
+            </div>
+            <ul class="list-group detailUlCss" ng-repeat="viasItem in diverObj.vias | orderBy: 'viasItem.seqNum'" style="margin-bottom: 10px;padding-bottom: 10px;border-bottom: 1px solid #eff0fe;">
+                <li>
+                    <div class="blockDescLiDiv"><span>Link序号</span></div>
+                    {{viasItem.seqNum}}
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>Link号码</span></div>
+                    {{viasItem.linkPid}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

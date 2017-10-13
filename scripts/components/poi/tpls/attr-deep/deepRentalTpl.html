@@ -1,0 +1,45 @@
+<div ng-controller="CarRentalCtl">
+    <!--<fast-collapse expander-title='通用信息'>-->
+        <div class="deepPanel_fold">
+            <strong>
+                汽车租赁信息
+            </strong>
+            <img style="float: right;margin-right: 10px;margin-top: 8px;" src="../../images/newPoi/rightPanelIcon/button_baidu_normal.png" ng-click="openBaidu()">
+        </div>
+        <ul class="list-group deepUlCss">
+            <li>
+                <div class="deepDescLiDiv">
+                    <span>营业时间</span>
+                </div>
+                <input fm-edit-view type="text" class="form-control deepPanel_Input" ng-model="carrentals.openHour" ng-change="strToDBC('openHour', carrentals.openHour)"/>
+            </li>
+            <li>
+                <div class="deepDescLiDiv">
+                    <span>交通线路</span>
+                </div>
+                <input fm-edit-view type="text" class="form-control deepPanel_Input" ng-maxlength="127" ng-model="carrentals.howToGo" ng-change="strToDBC('howToGo', carrentals.howToGo)"/>
+            </li>
+            <li>
+                <div class="deepDescLiDiv">
+                    <span>地址描述</span>
+                </div>
+                <input fm-edit-view type="text" class="form-control deepPanel_Input" ng-maxlength="127" ng-model="carrentals.address" ng-change="strToDBC('address', carrentals.address)"/>
+            </li>
+            <li>
+                <div class="deepDescLiDiv">
+                    <span>主页网址</span>
+                </div>
+                <a ng-if="editWeb == true" href="{{carrentals.webSite}}" title="{{carrentals.webSite}}" target="_Blank">{{carrentals.webSite.length > 26 ? carrentals.webSite.substring(0,25) + '...' :carrentals.webSite}}</a>
+                <input ng-if="editWeb == false" fm-edit-view type="text" title="{{carrentals.webSite}}" class="form-control deepPanel_Input" ng-model="carrentals.webSite"/>
+            </li>
+            <li>
+                <div class="deepDescLiDiv">
+                    <span>400电话</span>
+                </div>
+                <label style="font-weight: normal" ng-if="editPhone == true" >{{carrentals.phone400}}</label>
+                <input ng-if="editPhone == false" fm-edit-view type="text" class="form-control deepPanel_Input" ng-model="carrentals.phone400"/>
+            </li>
+        </ul>
+    <!--</fast-collapse>-->
+</div>
+

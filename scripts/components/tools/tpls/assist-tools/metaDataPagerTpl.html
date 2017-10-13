@@ -1,0 +1,23 @@
+<div class="ng-cloak ng-table-pager fm-grid-pager">
+    <div class="total" style="width:120px;">
+        共 <span ng-bind="params.total()"></span> 条数据
+    </div>
+    <div class="page">
+        <ul ng-if="pages.length" class="pagination">
+            <li ng-class="{'disabled': !page.active && !page.current, 'active': page.current}" ng-repeat="page in pages" ng-switch="page.type">
+                <a ng-switch-when="prev" ng-click="params.page(page.number)" href="" class="prev-page"></a>
+                <a ng-switch-when="first" ng-click="params.page(page.number)" href=""><span ng-bind="page.number"></span></a>
+                <a ng-switch-when="page" ng-click="params.page(page.number)" href=""><span ng-bind="page.number"></span></a>
+                <a ng-switch-when="more" ng-click="params.page(page.number)" href="">&#8230;</a>
+                <a ng-switch-when="last" ng-click="params.page(page.number)" href=""><span ng-bind="page.number"></span></a>
+                <a ng-switch-when="next" ng-click="params.page(page.number)" href="" class="next-page"></a>
+            </li>
+        </ul>
+    </div>
+    <div ng-if="params.settings().counts.length" class="count">
+        <span>每页&nbsp;</span>
+        <select class="select-arrowduwn" ng-init="pageSize=10" ng-model="pageSize" ng-options="count for count in params.settings().counts" ng-change="params.count(pageSize)">
+        </select>
+        <span>&nbsp;条</span>
+    </div>
+</div>

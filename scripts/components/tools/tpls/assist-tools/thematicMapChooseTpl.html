@@ -1,0 +1,16 @@
+<fast-collapse expander-title="专题图">
+    <ul ng-controller="ThematicMap">
+        <li>
+            <input type="radio" name="optionsRadios" value="close" id="closeTM" class="radio_diy_class" ng-checked="temSelectId === 0" ng-click="selectThematicMap({type: 'close'},$event)"/>
+            <label for="closeTM">
+                <span>关闭专题图</span>
+            </label>
+        </li>
+        <li ng-repeat="item in ThematicMapArray">
+            <input type="radio" name="optionsRadios" value={{item.type}} id="{{item.type + $index}}" class="radio_diy_class" ng-click="selectThematicMap(item,$event)" ng-checked="temSelectId === item.id"/>
+            <label for="{{item.type + $index}}">
+                <span>{{item.name}}</span>
+            </label>
+        </li>
+    </ul>
+</fast-collapse>

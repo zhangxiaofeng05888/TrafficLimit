@@ -1,0 +1,42 @@
+<div class="popover" tabindex="-1" style="width: 300px;height: 275px;">
+    <form class="w5c-form" w5c-form-validate="" novalidate name="truckLimitInfoForm">
+        <ul class="list-group detailUlCss" ng-controller="truckLimitInfoController">
+            <li ng-style="setStyle()">
+                <div class="linkName_popover_Div"><span>限制方向</span></div>
+                <select class="form-control poiRightPanel_select linkName_popover_select" ng-model="currentActiveTrucksLimits.limitDir" ng-options="value.id as value.label for value in limitDirOptions" ng-change="changeLimitDirect(currentActiveTrucksLimits.limitDir)"></select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv" style="height: 48px;line-height: 18px;vertical-align: middle">
+                    <span style="display: block; letter-spacing: 1px">拖挂车限</span>
+                    <span style="display: block; text-align: right">制</span>
+                </div>
+                <input type="radio" name="resTrailerRadio" ng-value={{0}} ng-model="currentActiveTrucksLimits.resTrailer" id="resTrailerRadio1" class="radio_diy_class"/><label for="resTrailerRadio1"><span> 不限制拖挂车 </span></label>
+                <input type="radio" name="resTrailerRadio" ng-value={{1}} ng-model="currentActiveTrucksLimits.resTrailer" id="resTrailerRadio2" class="radio_diy_class"/><label for="resTrailerRadio2"><span> 限制拖挂车 </span></label>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>车辆限重</span></div>
+                <input class="form-control poiRightPanel_Input" ng-model="currentActiveTrucksLimits.resWeigh" required name="resWeight" pattern="^0$|^[1-9][0-9]{0,2}$|^[1-9][0-9]{0,2}\.[0-9]{0,2}$|^0\.[0-9]{0,2}$" type="number" placeholder="0" set-focus />
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>限制轴重</span></div>
+                <input class="form-control poiRightPanel_Input" ng-model="currentActiveTrucksLimits.resAxleLoad" required name="resAxleLoad" pattern="^0$|^[1-9][0-9]{0,2}$|^[1-9][0-9]{0,2}\.[0-9]{0,2}$|^0\.[0-9]{0,2}$" type="number" placeholder="0" set-focus />
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>限制轴数</span></div>
+                <input class="form-control poiRightPanel_Input" ng-model="currentActiveTrucksLimits.resAxleCount" required name="resAxleCount" pattern="^0$|^[-]{0,1}[1-9]$|^[-]{0,1}[1-9][0-9]$" type="number" placeholder="0" set-focus />
+            </li>
+            <li>
+                <div class="blockDescLiDiv" style="height: 48px;line-height: 18px;vertical-align: middle">
+                    <span style="display: block; letter-spacing: 1px">本外埠车</span>
+                    <span style="display: block; text-align: right">辆限制</span>
+                </div>
+                <input type="radio" name="resOutRadio" ng-value={{1}} ng-model="currentActiveTrucksLimits.resOut" id="resOutRadio0" class="radio_diy_class"/><label for="resOutRadio0"><span> 外埠 </span></label>
+                <input type="radio" name="resOutRadio" ng-value={{2}} ng-model="currentActiveTrucksLimits.resOut" id="resOutRadio1" class="radio_diy_class"/><label for="resOutRadio1"><span> 本埠 </span></label>
+                <input type="radio" name="resOutRadio" ng-value={{0}} ng-model="currentActiveTrucksLimits.resOut" id="resOutRadio2" class="radio_diy_class"/><label for="resOutRadio2"><span> 不应用 </span></label>
+            </li>
+            <li style="height: auto">
+                <div ng-include="dateURL" is-relativePover="1" class="muti-date" data-type="2" date-str='{{currentActiveTrucksLimits.timeDomain}}' style="width:100%;padding: 10px 0;"></div>
+            </li>
+        </ul>
+    </form>
+</div>

@@ -1,0 +1,72 @@
+<style>
+    .restric-card {
+        transition: all 0.5s;
+        cursor: pointer;
+        position: relative;
+    }
+    .restric-card > img {
+        text-align: center;
+        margin: 5px;
+        width: 40px;
+        height: 40px;
+        transition: all 0.3s;
+    }
+    .restric-card:hover, .restric-card:focus {
+        box-shadow: 0px 0px 7px 4px #868ff7;
+    }
+    .restric-card.added > img {
+        margin: 5px;
+        padding: 5px;
+        width: 34px;
+        height: 40px;
+    }
+    .restric-card.added .remove {
+        font-size: 12px;
+        color: #0000ff;
+        cursor: pointer;
+        position: absolute;
+        top: 1px;
+        right: 1px;
+    }
+    .restric-card.added:hover, .restric-card.added:focus {
+        box-shadow: none;
+    }
+    .restric-card.added.active {
+        box-shadow: 0px 0px 7px 4px #868ff7;
+    }
+</style>
+<div class="fm-scroll" ng-controller="RestrictionTopoEditCtrl" oncontextmenu="return false;" style="height: 100%;">
+    <div class="fm-panel" style="height: auto;">
+        <div class="header">
+            <div class="title">
+                交限箭头
+            </div>
+        </div>
+        <div class="content" style="padding: 20px;text-align: center;">
+            <ul class="list-group item-list">
+                <li class="restric-card" ng-click="addRestriction(item)" ng-repeat="item in restrictionData" style="padding: 5px;">
+                    <img ng-src="../../images/road/1302/1302_{{item.type}}_{{item.direct}}.svg">
+                    </img>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="fm-panel" style="height: auto;">
+        <div class="header">
+            <div class="title">
+                已选交限
+            </div>
+        </div>
+        <div class="content" style="min-height: 230px; padding: 10px;">
+            <ul class="list-group item-list">
+                <li ng-click="selectItem($index, $event)" ng-repeat="item in selectedArray track by $index" style="padding: 5px;">
+                    <div class="restric-card added" ng-class="{true: 'active'}[$index === selectedItemIndex]">
+                        <img ng-src="../../images/road/1302/1302_{{truckFlag ? 0 : item.type}}_{{item.direct}}.svg"/>
+                        <span class="glyphicon glyphicon-remove-sign remove" ng-click="deleteRestriction($index, $event)">
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

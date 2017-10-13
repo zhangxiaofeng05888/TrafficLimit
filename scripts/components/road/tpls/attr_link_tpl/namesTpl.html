@@ -1,0 +1,87 @@
+<div ng-controller="nameController" style="height: 100%;">
+    <div class="poiRightPanel_fold" style="border: none">
+        <strong>道路名</strong>
+        <div><img src="../../images/newRoad/rightPanelIcon/icon_add.png" ng-click="addRoadLinkName()"/></div>
+    </div>
+    <form class="w5c-form" w5c-form-validate="" novalidate name="rdLinkNamesForm">
+        <ul id="official" ng-drop="false" ng-if="(linkData.names | filter:{nameClass: 1}).length" class="list-group detailUlCss">
+            <li class="linkName_li" style="color: #636ef5;padding-left: 10px;">{{nameClass[1]+'名称'}}</li>
+            <li ng-click="rememberNameNum(item)"
+                ng-class="{'linkName_li': !(currentActiveRoadName.$$hashKey==item.$$hashKey),'linkName_li_checked': (currentActiveRoadName.$$hashKey==item.$$hashKey)}"
+                ng-repeat="item in linkData.names | filter:{nameClass: 1}"
+
+                ng-drop="true"
+                ng-drop-success="onDropComplete($index, $data, $event, '#official')"
+
+                data-container="body"
+                data-animation="am-flip-x"
+                data-auto-close="1"
+                bs-popover
+                data-placement="left"
+                data-template-url="../../scripts/components/road/tpls/attr_link_tpl/namesOfDetailTpl.html">
+                <div ng-drag="true" ng-drag-data="item">
+                    <div style="width: 40px;padding-left: 10px;display: inline-block">{{item.seqNum}}</div>
+                    <div style="width: 40px;display: inline-block">{{nameClass[item.nameClass]}}</div>
+                    <div style="width: 90px;display: inline-table">
+                        <div class="text-ellipsis" style="max-width: 85px;" title="{{item.name}}">{{item.name === ''? '未命名': item.name}}</div>
+                    </div>
+                    <div style="width: 80px;display: inline-block">{{item.nameGroupid}}</div>
+                    <img style="padding: 5px 8px;" src="../../images/newRoad/rightPanelIcon/icon_delete.png" ng-click="deleteLinkName(item)">
+                    <input style="display: none" type="text" name="nameGroupid" pattern="[1-9]+\d*" ng-model="item.nameGroupid" />
+                </div>
+            </li>
+        </ul>
+        <ul id="alien" ng-drop="false" ng-if="(linkData.names | filter:{nameClass: 2}).length" class="list-group detailUlCss">
+            <li class="linkName_li" style="color: #636ef5;padding-left: 10px;">{{nameClass[2]+'名称'}}</li>
+            <li ng-click="rememberNameNum(item)"
+                ng-class="{'linkName_li': !(currentActiveRoadName.$$hashKey==item.$$hashKey),'linkName_li_checked': (currentActiveRoadName.$$hashKey==item.$$hashKey)}"
+                ng-repeat="item in linkData.names | filter:{nameClass: 2}"
+
+                ng-drop="true"
+                ng-drop-success="onDropComplete($index, $data, $event, '#alien')"
+
+                data-container="body"
+                data-animation="am-flip-x"
+                data-auto-close="1"
+                bs-popover
+                data-placement="left"
+                data-template-url="../../scripts/components/road/tpls/attr_link_tpl/namesOfDetailTpl.html">
+                <div ng-drag="true" ng-drag-data="item">
+                    <div style="width: 40px;padding-left: 10px;display: inline-block">{{item.seqNum}}</div>
+                    <div style="width: 40px;display: inline-block">{{nameClass[item.nameClass]}}</div>
+                    <div style="width: 90px;display: inline-table">
+                        <div class="text-ellipsis" style="max-width: 85px;" title="{{item.name}}">{{item.name === ''? '未命名': item.name}}</div>
+                    </div>
+                    <div style="width: 80px;display: inline-block">{{item.nameGroupid}}</div>
+                    <img style="padding: 5px 8px;" src="../../images/newRoad/rightPanelIcon/icon_delete.png" ng-click="deleteLinkName(item)">
+                    <input style="display: none" type="text" name="nameGroupid" pattern="[1-9]+\d*" ng-model="item.nameGroupid" />
+                </div>
+            </li>
+        </ul>
+        <ul id="ever" ng-drop="false" ng-if="(linkData.names | filter:{nameClass: 3}).length" class="list-group detailUlCss">
+            <li class="linkName_li" style="color: #636ef5;padding-left: 10px;">{{nameClass[3]+'名称'}}</li>
+            <li ng-click="rememberNameNum(item)"
+                ng-class="{'linkName_li': !(currentActiveRoadName.$$hashKey==item.$$hashKey),'linkName_li_checked': (currentActiveRoadName.$$hashKey==item.$$hashKey)}"
+                ng-repeat="item in linkData.names | filter:{nameClass: 3}"
+                ng-drop="true"
+                ng-drop-success="onDropComplete($index, $data, $event, '#ever')"
+                data-container="body"
+                data-animation="am-flip-x"
+                data-auto-close="1"
+                bs-popover
+                data-placement="left"
+                data-template-url="../../scripts/components/road/tpls/attr_link_tpl/namesOfDetailTpl.html">
+                <div ng-drag="true" ng-drag-data="item">
+                    <div style="width: 40px;padding-left: 10px;display: inline-block">{{item.seqNum}}</div>
+                    <div style="width: 40px;display: inline-block">{{nameClass[item.nameClass]}}</div>
+                    <div style="width: 90px;display: inline-table">
+                        <div class="text-ellipsis" style="max-width: 85px;" title="{{item.name}}">{{item.name === ''? '未命名': item.name}}</div>
+                    </div>
+                    <div style="width: 80px;display: inline-block">{{item.nameGroupid}}</div>
+                    <img style="padding: 5px 8px;" src="../../images/newRoad/rightPanelIcon/icon_delete.png" ng-click="deleteLinkName(item)">
+                    <input style="display: none" type="text" name="nameGroupid" pattern="[1-9]+\d*" ng-model="item.nameGroupid" />
+                </div>
+            </li>
+        </ul>
+    </form>
+</div>

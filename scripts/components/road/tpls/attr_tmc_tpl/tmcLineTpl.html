@@ -1,0 +1,101 @@
+<div class="scroll_style" ng-controller="TmcLineCtl">
+    <div>
+        <fast-collapse expander-title="TMC线属性">
+            <ul class="list-group detailUlCss" style="margin-top: 8px;">
+                <li>
+                    <div class="blockDescLiDiv" style="line-height: 13px;vertical-align: middle;">
+                        <span style="display: block;">TMC线</span>
+                        <span style="display: block;">号码</span>
+                    </div>
+                    <input type="text" disabled class="fm-control poiRightPanel_Input" ng-model="tmcLineData.tmcId"/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>位置代码</span>
+                    </div>
+                    <input type="text" disabled class="fm-control poiRightPanel_Input" ng-model="tmcLineData.locCode"/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv" style="line-height: 13px;vertical-align: middle;">
+                        <span style="display: block;">位置表</span>
+                        <span style="display: block;">代码</span>
+                    </div>
+                    <input type="text" disabled class="fm-control poiRightPanel_Input" ng-model="tmcLineData.loctableId"/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>类型代码</span>
+                    </div>
+                    <select style="width: 190px;line-height: 1;" ng-model="tmcLineData.typeCode" class="fm-control poiRightPanel_select"
+                            ng-options="value.id as value.label for value in typeCodeOptions" disabled>
+                    </select>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>道路序号</span>
+                    </div>
+                    <input type="text" disabled class="fm-control poiRightPanel_Input" ng-model="tmcLineData.seqNum"/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv" style="line-height: 13px;vertical-align: middle;">
+                        <span style="display: block;">正方向</span>
+                        <span style="display: block;">偏移量</span>
+                    </div>
+                    <input type="text" disabled class="fm-control poiRightPanel_Input" ng-model="tmcLineData.locoffPos"/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv" style="line-height: 13px;vertical-align: middle;">
+                        <span style="display: block;">负方向</span>
+                        <span style="display: block;">偏移量</span>
+                    </div>
+                    <input type="text" disabled class="fm-control poiRightPanel_Input" ng-model="tmcLineData.locoffNeg"/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv" style="line-height: 13px;vertical-align: middle;">
+                        <span style="display: block;">上级道</span>
+                        <span style="display: block;">路参考</span>
+                    </div>
+                    <input type="text" disabled class="fm-control poiRightPanel_Input" ng-model="tmcLineData.uplineTmcId"/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>区域参考</span>
+                    </div>
+                    <input type="text" disabled class="fm-control poiRightPanel_Input" ng-model="tmcLineData.areaTmcId"/>
+                </li>
+            </ul>
+        </fast-collapse>
+        <fast-collapse expander-title="TMC线译名 （共 {{tmcLineData.names.length}} 条）">
+            <ul class="list-group detailUlCss" style="margin-bottom: 10px;padding-bottom: 10px;border-bottom: 1px solid #eff0fe;" ng-repeat="info in tmcLineData.names track by $index">
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>语言代码</span>
+                    </div>
+                    <select style="width: 190px;line-height: 1;" ng-model="info.transLang" class="fm-control poiRightPanel_select"
+                            ng-options="value.id as value.label for value in langCodeOptions" disabled>
+                    </select>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>名称内容</span>
+                    </div>
+                    <input type="text" disabled class="fm-control poiRightPanel_Input" ng-model="info.translateName"/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>名称发音</span>
+                    </div>
+                    <input type="text" disabled class="fm-control poiRightPanel_Input" ng-model="info.phonetic"/>
+                </li>
+                <li>
+                    <div class="blockDescLiDiv">
+                        <span>名称标志</span>
+                    </div>
+                    <select style="width: 190px;line-height: 1;" ng-model="info.nameFlag" class="fm-control poiRightPanel_select"
+                            ng-options="value.id as value.label for value in nameFlagOptions" disabled>
+                    </select>
+                </li>
+            </ul>
+        </fast-collapse>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+<!--右侧属性编辑面板-->
+<div ng-controller="poiEditCtrl">
+    <fast-collapse expander-title='基本信息'>
+        <form class="w5c-form" w5c-form-validate="" novalidate name="poiInfoForm">
+            <table class="table table-bordered agent-edit-table">
+                <tr>
+                    <td class="name" style="width: 18%;">名称</td>
+                    <td style="width: 41%;"><input class="form-control input-sm" ng-model="editingPoi.name"> </td>
+                    <td style="width: 41%;" class="agentInfo" ng-dblclick="editingPoi.name=dealership.dp_attr.name"><span ng-bind="dealership.dp_attr.name"></span></td>
+                </tr>
+                <tr>
+                    <td class="name">别名</td>
+                    <td><input class="form-control input-sm" ng-model="editingPoi.shortName"> </td>
+                    <td class="agentInfo" ng-dblclick="editingPoi.shortName=dealership.dp_attr.shortName"><span ng-bind="dealership.dp_attr.shortName"></span></td>
+                </tr>
+                <tr>
+                    <td class="name">地址</td>
+                    <td><input class="form-control input-sm" ng-model="editingPoi.address"> </td>
+                    <td class="agentInfo" ng-dblclick="editingPoi.address=dealership.dp_attr.address"><span ng-bind="dealership.dp_attr.address"></span></td>
+                </tr>
+                <tr>
+                    <td class="name">分类</td>
+                    <td>
+                        <select style="width: 150px;" class="form-control poiRightPanel_chosen" ng-model="editingPoi.kindCode"
+                                no_results_text="'没有找到'"  placeholder_text_single="'--请选择--'" search_contains=true
+                                ng-options="value as lable.kindName for (value, lable) in metaData.kindFormat"
+                                chosen ng-change="kindChange(this)">
+                            <option></option>
+                        </select>
+                        {{editingPoi.kindCode}}
+                    </td>
+                    <td class="agentInfo" ng-dblclick="copyKindCode()">
+                        <span ng-bind="dealership.dp_attr.kindCode"></span>--
+                        <span ng-bind="metaData.kindFormat[dealership.dp_attr.kindCode].kindName"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="name">品牌</td>
+                    <td>
+                        <select class="form-control poiRightPanel_chosen"  ng-model="editingPoi.chain"
+                                no_results_text="'--无--'"  placeholder_text_single="'--请选择--'" search_contains=true
+                                ng-options="value as lable.chainName for (value, lable) in chainList"
+                                chosen ng-change="brandChange(this)">
+                            <option></option>
+                        </select>
+                    </td>
+                    <td class="agentInfo" ng-dblclick="copyChain()">
+                        <span ng-bind="dealership.dp_attr.chain"></span>--
+                        <span ng-bind="chainList[dealership.dp_attr.chain].chainName"></span>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </fast-collapse>
+    <fast-collapse expander-title='扩展信息'>
+        <table class="table table-bordered agent-edit-table">
+            <tr>
+                <td class="name" style="width: 18%;">电话(维修)</td>
+                <td style="width: 41%;"><input class="form-control input-sm" ng-model="editingPoi.telService"> </td>
+                <td style="width: 41%;" class="agentInfo" ng-dblclick="editingPoi.telService=dealership.dp_attr.telService"><span ng-bind="dealership.dp_attr.telService"></span></td>
+            </tr>
+            <tr>
+                <td class="name">电话(销售)</td>
+                <td><input class="form-control input-sm" ng-model="editingPoi.telSale"> </td>
+                <td class="agentInfo" ng-dblclick="editingPoi.telSale=dealership.dp_attr.telSale"><span ng-bind="dealership.dp_attr.telSale"></span></td>
+            </tr>
+            <tr>
+                <td class="name">电话(其他)</td>
+                <td><input class="form-control input-sm" ng-model="editingPoi.telOther"> </td>
+                <td class="agentInfo" ng-dblclick="editingPoi.telOther=dealership.dp_attr.telOther"><span ng-bind="dealership.dp_attr.telOther"></span></td>
+            </tr>
+            <tr>
+                <td class="name">特殊电话(其他)</td>
+                <td>
+                    <input class="form-control input-sm" ng-model="editingPoi.telephoneSpecial">
+                </td>
+                <td class="agentInfo"></td>
+            </tr>
+            <tr>
+                <td class="name">邮编</td>
+                <td>
+                    <input class="form-control input-sm" ng-model="editingPoi.postCode">
+                </td>
+                <td class="agentInfo" ng-dblclick="editingPoi.postCode=dealership.dp_attr.postCode"><span ng-bind="dealership.dp_attr.postCode"></span></td>
+            </tr>
+            <tr>
+                <td class="name">备注</td>
+                <td colspan="2">
+                    <input class="form-control input-sm" ng-model="dealership.c_memo">
+                </td>
+            </tr>
+        </table>
+    </fast-collapse>
+</div>

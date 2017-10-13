@@ -1,0 +1,29 @@
+<div style="height: 100%" class="scroll_style" ng-controller="adFaceController">
+    <ul class="list-group detailUlCss">
+        <li>
+            <div class="blockDescLiDiv"><span>区划号码</span></div>
+            <span>{{adFaceData.regionId}}</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv" style="letter-spacing: 1px"><span>图 幅 号</span></div>
+            <span>{{adFaceData.meshId}}</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>面　　积</span></div>
+            <span>{{adFaceData.area}} 平方米</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>周　　长</span></div>
+            <span>{{adFaceData.perimeter}} 米</span>
+        </li>
+    </ul>
+    <ul class="list-group detailUlCss">
+        <li>
+            <div class="blockDescLiDiv" style="float: left;"><span>批量处理</span></div>
+            <div class="btnDiy_div" style="float: left;">
+                <button ng-click="batchAdminID('addAdminId')" class="btn-xs btn-diy" style="display: block;width: inherit;" title="为目行政区划内的Link赋 AdminID">赋AdminID（道路）</button>
+                <button ng-click="batchAdminID('addAdminIdToPoi')" class="btn-xs btn-diy" style="display: block;margin-top: 5px;width: inherit;" title="删除行政区划内的所选要素赋 ZoneID">赋AdminID（合并）</button>
+            </div>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,267 @@
+<div class="nameOfBraDiv scroll_style" ng-controller="SignBoardOfBranchCtrl">
+    <div>
+        <div class="pic-map-show" ng-if="diverObj.signboards[0].arrowCode">
+            <img class="pic-map-img" ng-src="{{arrowMapShow}}">
+            <img class="pic-modal-img" ng-src="{{backimageCodeSrc}}" alt="无此底图">
+        </div>
+        <fast-collapse expander-title="基本信息">
+            <div>
+                <ul class="list-group detailUlCss" style="margin-top: 8px;">
+                    <li>
+                        <div class="blockDescLiDiv" style="letter-spacing: 1px;"><span>进 入 线</span></div>
+                        {{diverObj.inLinkPid}}
+                    </li>
+                    <li>
+                        <div class="blockDescLiDiv" style="letter-spacing: 1px;"><span>退 出 线</span></div>
+                        {{diverObj.outLinkPid}}
+                    </li>
+                    <li>
+                        <div class="blockDescLiDiv"><span>关系类型</span></div>
+                        <input type="radio" name="relationshipType" value="1" id="relationshipType1" ng-model="diverObj.relationshipType" class="radio_diy_class"/>
+                        <label for="relationshipType1">
+                            <span>路口</span>
+                        </label>
+                        <input type="radio" name="relationshipType" value="2" id="relationshipType2" ng-model="diverObj.relationshipType" class="radio_diy_class"/>
+                        <label for="relationshipType2" style="padding-left: 20px">
+                            <span>线线</span>
+                        </label>
+                    </li>
+                    <li>
+                        <div class="blockDescLiDiv" style="line-height: 18px;vertical-align: middle;">
+                            <span style="display: block;letter-spacing: 1px;">方 向 看</span>
+                            <span style="display: block;">板　　号</span>
+                        </div>
+                        {{diverObj.signboards[0].pid}}
+                    </li>
+                    <li>
+                        <div class="blockDescLiDiv"><span>箭头图号</span></div>
+                        <input class="form-control poiRightPanel_Input" ng-model="diverObj.signboards[0].arrowCode" maxlength="11" ng-change="showPicSelect()" type="text"/>
+                        <div class="pic-show" ng-show="showImgData">
+                            <div class="option-hide">
+                                <button type="button" class="close" aria-label="Close" ng-click="hidePicSelect($event)">
+                                    <span aria-hidden="true" class="glyphicon glyphicon-remove-sign"></span>
+                                </button>
+                            </div>
+                            <div class="pic-show-well">
+                                <div class="img-well" ng-repeat="picture in pictures" ng-click="selectPicCode(picture.fileName)">
+                                    <img class="show-img" ng-src="{{picture.fileContent}}" title="{{picture.fileName}}">
+                                    <div class="img-describe">{{picture.fileName}}</div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="pull-left num-well">
+                                第 <span class="pic-num" ng-bind="picNowNum">1</span> 页 |
+                                共 <span class="pic-total" ng-bind="picTotal">1</span> 页
+                            </div>
+                            <div class="pic-show-btn pull-right">
+                                <div class="pull-right btn-group">
+                                    <button class="btn btn-default btn-xs pic-pre" ng-click="picPre()" ng-disabled="picNowNum == 1">
+                                        <i class="glyphicon glyphicon-menu-left"></i>
+                                    </button>
+                                    <button class="btn btn-default btn-xs pic-next" ng-click="picNext()" ng-disabled="picNowNum == picTotal">
+                                        <i class="glyphicon glyphicon-menu-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="pic-loading" ng-show="showPicLoading" ng-bind="loadText">loading...</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="blockDescLiDiv"><span>模式图号</span></div>
+                        {{diverObj.signboards[0].backimageCode}}
+                        <!--<input class="form-control poiRightPanel_Input" ng-model="diverObj.signboards[0].backimageCode" type="text"/>-->
+                    </li>
+                </ul>
+            </div>
+        </fast-collapse>
+        <!--名称组展示-->
+        <div class="poiRightPanel_fold" style="border: none">
+            <strong>名　　称 [ 共{{nameGroup.length}}组 ]</strong>
+            <div><img style="cursor: pointer" src="../../images/newRoad/rightPanelIcon/icon_add.png" ng-click="addGroup()"/></div>
+        </div>
+        <div class="nameGroups" ng-drop-success="onDropComplete($index, $data)" ng-drop="true"  ng-repeat="item in nameGroup" ng-init="outerIndex = $index">
+            <div ng-drag="true" ng-drag-data="item">
+                <div class="poiRightPanel_fold">
+                    <strong style="font-size: 12px;">名称组{{item[0].nameGroupid}}</strong>
+                    <!--<div><i class="fa fa-plus-square-o" style="font-size: 16px;; cursor: pointer" aria-hidden="true" ng-click="addItem(outerIndex)"></i></div>-->
+                    <div style="padding-right: 8px;: 8px"><i class="fa fa-minus-square-o" style="font-size: 16px; cursor: pointer" aria-hidden="true" ng-click="removeGroup(outerIndex)"></i></div>
+                </div>
+                <ul class="list-group detailUlCss">
+                    <li ng-class="{'linkName_li': !(currentGroupIndex==outerIndex&&currentItempIndex==$index),'linkName_li_checked': (currentGroupIndex==outerIndex&&currentItempIndex==$index)}" ng-click="rememberNameNum(outerIndex, $index)" ng-repeat="subItem in item" data-container="body" data-animation="am-flip-x" data-auto-close="1" bs-popover data-placement="auto bottom-left" data-template-url="../../scripts/components/road/tpls/attr_branch_tpl/rdBranchNamesTpl.html">
+                        <div style="width: 100px;display: inline-block;padding-left: 10px;" ng-repeat="code in langCodeOptions | filter: subItem.langCode as results track by code.id">
+                            <span>{{code.label}}</span><!--名称分类-->
+                        </div>
+                        <div style="width: 110px;display: inline-table">
+                            <div class="text-ellipsis" style="max-width: 80px;" title="{{subItem.name}}">{{subItem.name === ''? '未命名': subItem.name}}</div><!--语言代码-->
+                        </div>
+                        <!--<img style="cursor: pointer" src="../../images/newRoad/rightPanelIcon/icon_delete.png" ng-click="removeItem($index, outerIndex, subItem)">-->
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--<fast-collapse expander-title="经过线（{{diverObj.vias.length}}）条">
+            <div>
+                <ul class="list-group detailUlCss" ng-repeat="viasItem in diverObj.vias | orderBy: 'viasItem.seqNum'" style="margin-bottom: 10px;padding-bottom: 10px;border-bottom: 1px solid #eff0fe;">
+                    <li>
+                        <div class="blockDescLiDiv"><span>Link序号</span></div>
+                        {{viasItem.seqNum}}
+                    </li>
+                    <li>
+                        <div class="blockDescLiDiv"><span>Link号码</span></div>
+                        {{viasItem.linkPid}}
+                    </li>
+                </ul>
+            </div>
+        </fast-collapse>-->
+        <div class="vias">
+            <div class="poiRightPanel_fold" style="border: none">
+                <strong>经过线（{{diverObj.vias.length}}）条</strong>
+
+                <!--<div ng-if="diverObj.vias.length">
+                    <span class="glyphicon glyphicon-edit" style="cursor:pointer;" title="修改经过线" ng-click="modifyThroughLink()"></span>
+                </div>-->
+            </div>
+            <ul class="list-group detailUlCss" ng-repeat="viasItem in diverObj.vias | orderBy: 'viasItem.seqNum'" style="margin-bottom: 10px;padding-bottom: 10px;border-bottom: 1px solid #eff0fe;">
+                <li>
+                    <div class="blockDescLiDiv"><span>Link序号</span></div>
+                    {{viasItem.seqNum}}
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>Link号码</span></div>
+                    {{viasItem.linkPid}}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--<div class="fm-component" >
+        <div class="content">
+            <div class="picMapShow">
+                <img class="picMapImg" ng-src="{{arrowMapShow}}" image-404="../../../images/road/img/noimg.png">
+                <img class="picModalImg" ng-src="{{backimageCodeSrc}}" image-404="../../../images/road/img/noimg.png" alt="无此底图">
+                <div class="picMapDesc" ng-bind="diverObj.signboards[0].arrowCode"></div>
+            </div>
+                &lt;!&ndash;begin 模式图信息&ndash;&gt;
+                <form>
+                    <ul class="fm-ul fm-ul-form">
+                        <li>
+                            <label>进入线</label>
+                            <div >
+                                <input type="text" class="rounded chosen-disabled" placeholder="入" ng-model="diverObj.inLinkPid" disabled>
+                            </div>
+                        </li>
+                        <li>
+                            <label>退出线</label>
+                            <div >
+                                <input type="text" class="rounded chosen-disabled" placeholder="出" ng-model="diverObj.outLinkPid" disabled>
+                            </div>
+                        </li>
+                        <li>
+                            <label>关系类型</label>
+                            <div >
+                                <div class="btn-group d-radio-btn" data-toggle="buttons" style="z-index:0">
+                                    <label ng-class="{'btn-primary':item.code==diverObj.relationshipType,'btn-default':item.code!=diverObj.relationshipType,'btn btn-sm relation-type':true}" ng-repeat="item in relationType" ng-click="switchRelType(item.code)">
+                                        <input type="radio" name="relationType" value="{{item.code}}" autocomplete="off" data-relation-type="{{item.code}}">{{item.label}}
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <label>方向看板号</label>
+                            <div >
+                                <div class="show-val" ng-bind="diverObj.signboards[0].pid"></div>
+                            </div>
+                        </li>
+                        <li>
+                            <label>箭头图号</label>
+                            <div >
+                                <div ng-show="diverObj.signboards[0].branchType != 3">
+                                    <input type="text" class="rounded form-pic-input" placeholder="箭头图代码" ng-model="diverObj.signboards[0].arrowCode" ng-keydown="showPicSelect()">
+                                </div>
+                                <div ng-show="diverObj.signboards[0].branchType == 3">
+                                    <input type="text" class="rounded form-pic-input" placeholder="箭头图代码" ng-model="diverObj.signboards[0].arrowCode" ng-keydown="showPicSelect()" data-toggle="tooltip" data-placement="top" title="3D分歧箭头图号必须e或c开头">
+                                </div>
+                                <div class="pic-show" ng-show="showImgData" style="right: 37px;margin-top: 25px;">
+                                    <div class="option-hide">
+                                        <button type="button" class="close" aria-label="Close" ng-click="hidePicSelect($event)">
+                                            <span aria-hidden="true" class="glyphicon glyphicon-remove-sign"></span>
+                                        </button>
+                                    </div>
+                                    <div class="pic-show-well">
+                                        <div class="img-well" style="width:87px;" ng-repeat="picture in pictures" ng-click="selectPicCode(picture.fileName)">
+                                            <img class="show-img" ng-src="{{picture.fileContent}}" title="{{picture.fileName}}">
+                                            <div class="img-describe">{{picture.fileName}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="pull-left num-well">
+                                        第 <span class="pic-num" ng-bind="picNowNum">1</span> 页 |
+                                        共 <span class="pic-total" ng-bind="picTotal">1</span> 页
+                                    </div>
+                                    <div class="pic-show-btn pull-right">
+                                        <div class="pull-right btn-group">
+                                            <button class="btn btn-default btn-xs pic-pre" ng-click="picPre()" ng-disabled="picNowNum == 1">
+                                                <i class="glyphicon glyphicon-menu-left"></i>
+                                            </button>
+                                            <button class="btn btn-default btn-xs pic-next" ng-click="picNext()" ng-disabled="picNowNum == picTotal">
+                                                <i class="glyphicon glyphicon-menu-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="pic-loading" ng-show="showPicLoading" ng-bind="loadText">loading...</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <label>模式图号</label>
+                            <div >
+                                <div ng-show="diverObj.signboards[0].branchType != 3">
+                                    <div ng-bind="diverObj.signboards[0].backimageCode" class="show-val"></div>
+                                </div>
+                                <div ng-show="diverObj.signboards[0].branchType == 3">
+                                    <input type="text" class="d-input" placeholder="模式图号" ng-model="diverObj.signboards[0].backimageCode" ng-change="changeBackimageCode()" data-toggle="tooltip" data-placement="top" title="3D分歧模式图号必须5或8开头"/>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </form>
+        </div>
+        &lt;!&ndash;end 模式图信息&ndash;&gt;
+        &lt;!&ndash;begin 名称信息&ndash;&gt;
+        <div class="content">
+			<div class="content">
+	            <ul class="list-group list-group-lg m-b-none">
+	                <li class="list-group-item">
+	                    <div class="list-name">
+	                        <a ng-click="addItem()" class="fm-cursor">名称（共 {{nameGroup.length}} 组）</a>
+	                    </div>
+	                    <div class="list-add-icon" ng-click="addItem();">
+	                        <i class="glyphicon glyphicon-plus-sign"></i>
+	                    </div>
+	                    <div class="list-line"></div>
+	                </li>
+	                <li class="list-group-item">
+	                    <ul ng-repeat="namesItem in nameGroup | orderBy:'nameGrouppid'" class="list-group child-list-ul list-group-lg m-b-none">
+	                        <li class="list-group-item" ng-repeat="item in namesItem | orderBy:'pid'">
+	                            <label class="control-label fm-cursor" ng-click="showDetail(0 ,namesItem,item.nameGroupid);" ng-bind="item.name"></label>
+	                            <i class="glyphicon glyphicon-remove-circle" ng-click="removeItem($index,item)"></i>
+	                        </li>
+	                    </ul>
+	                </li>
+	            </ul>
+        	</div>
+		</div>
+        &lt;!&ndash; <div class="module-box show-detail-title" ng-click="showDetail(0);">
+            <div class="box-head font-bold">
+                名称信息（共 <span ng-bind="diverObj.signboards[0].names.length"></span> 条）
+            </div>
+        </div> &ndash;&gt;
+        &lt;!&ndash;end 名称信息&ndash;&gt;
+        &lt;!&ndash;begin 经过线&ndash;&gt;
+        <div class="module-box show-detail-title" ng-click="showDetail(1);">
+            <div class="box-head font-bold">
+                经过线 （共 <span ng-bind="diverObj.vias.length"></span> 条）
+            </div>
+        </div>
+        &lt;!&ndash;end 经过线&ndash;&gt;
+    </div>-->
+</div>

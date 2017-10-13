@@ -1,0 +1,12 @@
+<div style="height: 100%" class="scroll_style"  ng-controller="SameLinkController">
+    <ul class="list-group detailUlCss" style="margin-top: 8px;" ng-repeat="link in rdSameLinkList.parts">
+        <li>
+            <div style="width: 80px;" class="blockDescLiDiv"><span>Link{{$index+1}}号码</span></div>
+            <span>{{link.linkPid}}</span>
+        </li>
+        <li>
+            <div style="width: 80px;" class="blockDescLiDiv"><span>Link{{$index+1}}类型</span></div>
+            <span>{{link.tableName}}</span>
+        </li>
+    </ul>
+</div>

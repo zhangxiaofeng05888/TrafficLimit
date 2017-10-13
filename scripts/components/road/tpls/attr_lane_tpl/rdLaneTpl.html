@@ -1,0 +1,149 @@
+<style>
+    .muti-date > .datetip {
+        position: fixed !important;
+        top: 220px !important;
+        right: 320px !important;
+    }
+</style>
+<div class="scroll_style" style="height: 100%" ng-controller="ClmCtl">
+    <form class="w5c-form" w5c-form-validate="" novalidate name="laneName">
+    <div class="attr-img-container">
+        <div class="col-md-12 lane-top-container">
+            <label class="col-md-3" style="padding-left:0px">车道总数</label>
+            <div class="col-md-9">
+                <span class="range-min">0</span>
+                <input type="range" name="range" min="0" max="16" step="1" ng-model="laneLength"
+                       ng-change="changeCarLane();" tooltip-placement="top" uib-tooltip="{{clmData.laneInfos.length}}"/>
+                <span class="range-max">16</span>
+            </div>
+        </div>
+        <div class="lane-img-container" ng-style="laneStyle">
+            <div class="roadside-left"></div>
+            <div class="lane-driveway"
+                 ng-class="{'lane-driveway animated-fast fadeInRight':true,'active':laneIndex == $index}"
+                 ng-repeat="item in clmData.laneInfos track by $index">
+                <span class="top">{{$index + 1}}</span>
+                <div class="middle" ng-click="showLaneDirect($event,$index,item.arrowDir);" data-container="body" data-animation="am-flip-x" data-auto-close="1" bs-popover data-placement="left" data-template-url="../../scripts/components/road/tpls/attr_lane_tpl/selLaneTpl.html">
+                    <img ng-src="../../images/road/1301/1301_0_{{item.arrowDir}}.svg" style="width:30px;height:30px;" />
+                </div>
+                <span class="bottom" ng-click="removeLane($index);" ng-if="clmData.laneInfos.length!=1">
+            <i class="glyphicon glyphicon-remove"></i>
+          </span>
+            </div>
+            <div class="roadside-left"></div>
+        </div>
+    </div>
+    <ul class="list-group detailUlCss">
+        <li>
+            <div class="blockDescLiDiv"><span>道路线</span></div>
+            <span>{{laneInfo.pid}}</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv" style="width: 60px"><span>中央隔离带</span></div>
+            <select ng-model="laneInfo.centerDivider"
+                    class="form-control roadLeftPanel_select"
+                    ng-options="value.id as value.label for value in laneDividerObj">
+            </select>
+        </li>
+    </ul>
+    <ul class="list-group detailUlCss">
+
+        <li>
+            <div class="blockDescLiDiv"><span>车道方向</span></div>
+            <input id="dir1" type="radio" ng-model="laneInfo.laneDir" value="1" name="laneDirGroup" class="radio_diy_class"/>
+            <label for="dir1">
+                无
+            </label>
+            <input id="dir2" type="radio" ng-model="laneInfo.laneDir" value="2" name="laneDirGroup" class="radio_diy_class"/>
+            <label for="dir2">
+                顺
+            </label>
+            <input id="dir3" type="radio" ng-model="laneInfo.laneDir" value="3" name="laneDirGroup" class="radio_diy_class"/>
+            <label for="dir3">
+                逆
+            </label>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>车道标识</span></div>
+            <select ng-model="laneInfo.laneForming"
+                    class="form-control roadLeftPanel_select"
+                    ng-options="value.id as value.label for value in laneFormingObj">
+            </select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>车道类型</span></div>
+            <select ng-model="laneInfo.laneType" ng-click="changeLaneType();"
+                    class="form-control roadLeftPanel_select"
+                    ng-options="value.id as value.label for value in laneTypeObj">
+            </select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>车道限宽</span></div>
+            <input type="text" required value="0" ng-pattern="/^(\d|[0-9]\d+)(\.\d+)?$/"  maxlength="3" name="laneLimitWidth" ng-model="laneInfo.width" style="width: 160px;" class="form-control poiRightPanel_Input" />米
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>车道限高</span></div>
+            <input type="text" value="0"  required ng-pattern="/^(\d|[0-9]\d+)(\.\d+)?$/"  maxlength="3" name="laneLimitHeight" ng-model="laneInfo.restrictHeight" style="width: 160px;" class="form-control poiRightPanel_Input"/>米
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>车道限速</span></div>
+            <input type="text"  required w5c-dynamic-element  ng-pattern="/^(0|[1-9][0-9]*)$/"  ng-maxlength="4" name="laneLimitSpeed"   ng-if="clmData.laneDir == 2" ng-model="laneInfo.fromMaxSpeed" style="width: 80px;" class="form-control poiRightPanel_Input"/>
+            <input type="text"  required  w5c-dynamic-element ng-pattern="/^(0|[1-9][0-9]*)$/"  ng-maxlength="4" name="laneLimitQiuk" ng-if="clmData.laneDir == 3" ng-model="laneInfo.toMaxSpeed" style="width: 80px;" class="form-control poiRightPanel_Input"/>
+        </li>
+        <li>
+            <div class="blockDescLiDiv" style="width: 60px"><span>车道隔离带</span></div>
+            <select ng-model="laneInfo.laneDivider"
+                    class="form-control roadLeftPanel_select"
+                    ng-options="value.id as value.label for value in laneDividerObj">
+            </select>
+        </li>
+    </ul>
+    <ul class="list-group detailUlCss" ng-if="laneInfo.laneType == 11">
+        <hr>
+        <li>
+            <div class="blockDescLiDiv"><span>车道方向</span></div>
+            <input id="direction1" type="radio" ng-model="laneInfo.conditions[0].direction" value="1" name="laneDirGroup" class="radio_diy_class"/>
+            <label for="direction1">
+                 无
+            </label>
+            <input id="direction2" type="radio" ng-model="laneInfo.conditions[0].direction" value="2" name="laneDirGroup" class="radio_diy_class"/>
+            <label for="direction2">
+                 顺
+            </label>
+            <input id="direction3" type="radio" ng-model="laneInfo.conditions[0].direction" value="3" name="laneDirGroup" class="radio_diy_class"/>
+            <label for="direction3">
+                逆
+            </label>
+        </li>
+        <li>
+            <div class="blockDescLiDiv" style="width: 60px;"><span>车道时间段</span></div>
+        </li>
+        <li style="height: auto">
+            <div ng-include="dateURL" class="muti-date" is-relativePover="0" data-type="1" date-str='{{laneInfo.conditions[0].directionTime}}' style="width:100%;"></div>
+        </li>
+        <hr>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>车辆类型</span>
+            </div>
+            <div class="btnDiy_div">
+                <button class="btn-xs btn-diy" data-container="body" data-animation="am-flip-x" data-auto-close="1" bs-popover data-placement="left" data-template-url="../../scripts/components/road/tpls/attr_variableSpeed_tpl/carTypeTpl.html">添加</button>
+                <input type="checkbox" ng-model="checkValueFlag" id="allow" ng-checked="checkValueFlag"
+                       class="radio_diy_class" ng-click="checkAllowed()"/>
+                <label for="allow" style="padding-left: 15px"><span> 允许</span></label>
+            </div>
+        </li>
+        <div ng-style="{'border-top':carData.length > 0 ? '1px solid #636ef5': null,'border-bottom':carData.length > 0 ? '1px solid #636ef5': null}">
+            <li ng-repeat="item in vehicleOptions" style="padding-left: 10px" ng-if="item.checked">
+                <span>{{item.label}}</span>
+            </li>
+        </div>
+        <li>
+            <div class="blockDescLiDiv" style="width: 60px;"><span>车辆时间段</span></div>
+        </li>
+        <li style="height: auto">
+            <div ng-include="dateDoubleURL" class="muti-date" data-type="1" date-str='{{laneInfo.conditions[0].vehicleTime}}' style="width:100%;"></div>
+        </li>
+    </ul>
+    </form>
+</div>

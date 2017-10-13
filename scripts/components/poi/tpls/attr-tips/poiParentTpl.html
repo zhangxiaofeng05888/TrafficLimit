@@ -1,0 +1,25 @@
+<div ng-controller="PoiParentController" class="fm-panel">
+    <div class="header">
+        <div class="title">修改POI父子关系</div>
+    </div>
+    <div class="content fm-scroll">
+        <table class="table">
+            <tbody>
+                <tr ng-repeat="node in parent">
+                    <td class="tdWidthContent">{{node.name}}</td>
+                    <td class="tdWidthLable">{{node.kindName}}</td>
+                    <td ng-if="node.color==1" class="tdWidthInput"><label class="label label-default">{{node.labelText}}</label> </td>
+                    <td ng-if="node.color==2" class="tdWidthInput"><label class="label label-info">{{node.labelText}}</label> </td>
+                    <td>
+                        <input class="btn btn-warning btn-xs" type="button" ng-click="changePoiParent(node.pid)" value="{{node.inputText}}">
+                    </td>
+                </tr>
+                <tr ng-if="!parent || parent.length==0">
+                    <td colspan="4" style="text-align: center;line-height: 40px;font-size: 16px;color: blue;">
+                        没有框选到符合条件的数据
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

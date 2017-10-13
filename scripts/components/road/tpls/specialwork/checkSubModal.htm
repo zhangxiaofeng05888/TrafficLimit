@@ -1,0 +1,79 @@
+<style>
+    .check-stage2 {
+        min-height: 200px;
+        display: flex;
+        flex-flow: column nowrap;
+    }
+    .check-stage2 > .flex-row {
+        display: flex;
+    }
+    .check-stage2 .left {
+        flex: 1 0 140px;
+        padding: 0px 10px;
+    }
+    .check-stage2 .right {
+        flex: 2 0 420px;
+        padding: 0px 10px;
+    }
+    .check-stage2 input[type='text'] {
+        height: 30px;
+        border: 1px solid #3399ff;
+        opacity: 0.5;
+    }
+    .check-stage2 .fm-blue-box {
+        margin: 0px;
+    }
+</style>
+<div class="fm-job-panel fm-stretch" ng-controller="CheckSubModalCtrl">
+    <div class="content check-stage2">
+        <div class="flex-row" style="flex: 0 0 50px;align-items: center;">
+            <div class="left">
+                <input class="fm-control" ng-model="suiteName" placeholder="输入搜索suit包" type="text"/>
+            </div>
+            <div class="right">
+                <input class="fm-control" ng-model="ruleCode" placeholder="输入搜索检查规则号" type="text"/>
+            </div>
+        </div>
+        <div class="flex-row" style="flex: 1 0 150px;">
+            <div class="left" style="display: grid;">
+                <div class="fm-blue-box fm-scroll">
+                    <ul class="rule-list" ng-show="!loaddingSuites">
+                        <li ng-class="{'active': item.selected}" ng-repeat="item in suites | filter: {suiteName: suiteName}">
+                            <input class="fm-control" ng-click="selectSuite(item)" ng-model="item.checked" type="checkbox"/>
+                            <label class="fm-ellipsis" ng-click="refreshRulesBySuitId(item)" ng-bind="item.suiteName" title="{{item.suiteName}}">
+                            </label>
+                        </li>
+                    </ul>
+                    <div ng-show="loaddingSuites" style="font-size: 12px;text-align: center;">
+                        Suite包加载中...
+                    </div>
+                </div>
+            </div>
+            <div class="right" style="display: grid;">
+                <div class="fm-blue-box fm-scroll">
+                    <ul class="rule-list">
+                        <li ng-repeat="item in checkRulesList | filter: {ruleCode: ruleCode} track by item.ruleCode">
+                            <input class="fm-control " id="chk-rule-{{item.ruleCode}}" ng-click="selectRule(item)" ng-model="item.checked" type="checkbox"/>
+                            <label for="chk-rule-{{item.ruleCode}}" style="display: flex;width: 100%;" title="{{item.ruleDesc}}">
+                                <span class="fm-ellipsis" ng-bind="item.ruleCode" style="flex: 0 0 80px;">
+                                </span>
+                                <span class="fm-ellipsis" ng-bind="item.ruleName" style="flex: 1 0 120px;padding-left: 5px;">
+                                </span>
+                                <span class="fm-ellipsis" ng-bind="item.ruleDesc" style="flex: 4 0 100px;padding-left: 5px;">
+                                </span>
+                            </label>
+                        </li>
+                    </ul>
+                    <div ng-if="loadingRules" style="font-size: 12px;text-align: center;">
+                        规则加载中...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <button class="fm-control fm-btn-primary" ng-click="doExecute()">
+            运 行
+        </button>
+    </div>
+</div>

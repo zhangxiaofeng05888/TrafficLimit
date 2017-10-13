@@ -1,0 +1,51 @@
+<style>
+    .btnDiy_div {
+        display: inline-block;
+        float: right;
+        padding-right: 20px;
+    }
+    .btn-diy {
+        width: 100px;
+        height: 24px;
+        border: none;
+        background-color: #636ef5;
+        color: #ffffff;
+    }
+    .btn-diy:hover {
+        border: none;
+        background-color: #454dab;
+        color: #ffffff;
+    }
+    .linkType_style_normal {
+        display: inline-block;
+        color: #fa5883;
+        cursor: pointer;
+    }
+    .linkType_style1_active {
+        display: inline-block;
+        color: #636ef5;
+        cursor: pointer;
+    }
+</style>
+<div ng-controller="luLinkController">
+    <ul class="list-group detailUlCss" style="margin-top: 8px;">
+        <li>
+            <div class="blockDescLiDiv"><span>种别</span></div>
+            <div class="btnDiy_div">
+                <button class="btn-xs btn-diy" data-container="body" data-animation="am-flip-x" data-auto-close="1" bs-popover data-placement="left" data-template-url="../../scripts/components/road/tpls/attr_lu_tpl/luKindTpl.html">编辑</button>
+            </div>
+        </li>
+        <!--显示选中的node种别-->
+        <div ng-style="{'border-top':showData.length > 0 ? '1px solid #636ef5': null,'border-bottom':showData.length > 0 ? '1px solid #636ef5': null}">
+            <li ng-repeat="item in showData track by $index" style="padding-left: 10px">
+                <div style="display: inline-block;width: 168px">
+                    <span>{{item.label}}</span>
+                </div>
+            </li>
+        </div>
+        <li>
+            <div class="blockDescLiDiv"><span style="letter-spacing: 1px;">图幅号</span></div>
+            <input class="form-control poiRightPanel_Input" class="chosen-disabled" ng-model="luLinkData.meshId" type="text" disabled="disabled" />
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,21 @@
+
+<div class="fm-panel" style="width: 300px;box-shadow: none" ng-controller="operatorListCtrl">
+    <div class="header">
+        <div class="title">
+            <span style="font-size: 14px;">选择作业类型 </span>
+        </div>
+        <div class="tool-bar">
+            <span style="cursor: pointer;color: #ffffff;"> </span>
+        </div>
+    </div>
+    <div  class="scroll_style">
+        <ul class="list-group detailUlCss">
+            <li style="line-height:60px;height:60px" ng-repeat="item in operatorList">
+                <input name="operatortype" type="radio"  value="{{item.id}}" ng-model="checkedId" ng-click="changeOperateType(item)"/>
+                <span>{{item.name}}</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+

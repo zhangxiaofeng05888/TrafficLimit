@@ -1,0 +1,37 @@
+<div class="groupEdit_container" ng-controller="editGroupCtrl">
+    <div>
+        <div class="groupEdit_title">
+            <span>组号：</span>
+        </div>
+        <div class="groupEdit_content">
+            <span>{{groupData.groupId}}</span>
+        </div>
+    </div>
+    <div>
+        <div class="groupEdit_title">
+            <span>行政区划：</span>
+        </div>
+        <div class="groupEdit_content">
+            <span>{{groupData.cityName}}</span>
+        </div>
+    </div>
+    <div>
+        <div class="groupEdit_title">
+            <span>类型：</span>
+        </div>
+        <div class="groupEdit_content">
+            <select class="tl_list_select" ng-options="value.value as value.name for value in groupType" ng-model="groupData.groupType"></select>
+        </div>
+    </div>
+    <div style="height: 48px">
+        <div class="groupEdit_title" style="vertical-align: top">
+            <span>限制规定：</span>
+        </div>
+        <div class="groupEdit_content">
+            <textarea class="tl_list_area" type="text" rows=2 ng-model="groupData.principle"></textarea>
+        </div>
+    </div>
+    <div class="list-title-btn" ng-click="saveGroup()" style="background-color: #5693ff;height: 24px;line-height: 24px;float: right;margin-right: 20px;margin-top: 20px">
+        <span style="color: #FFFFFF;font-size: 12px">保存</span>
+    </div>
+</div>

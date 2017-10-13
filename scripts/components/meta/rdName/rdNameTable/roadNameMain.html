@@ -1,0 +1,138 @@
+<!--<link rel="stylesheet" type="text/css" href="../../styles/webEditor/roadName.css">-->
+<div ng-controller="RoadNameMainCtl">
+    <!--查询条件panel-->
+    <div style="height: 90px;width:100%;padding-left: 20px;margin-top: 10px;">
+        <ul class="fm-ul fm-ul-form col-md-8">
+            <li class="col-md-6">
+                <span style="font-size: 14px;font-weight: bold;">道路名称:</span>
+                <div>
+                    <input type="text" class="form-control form-control-md" ng-model="filterName">
+                </div>
+            </li>
+            <li class="col-md-6">
+                <span style="font-size: 14px;font-weight: bold;">名称组号:</span>
+                <div>
+                    <input type="text" class="form-control form-control-md" ng-model="filterNameGroupid">
+                </div>
+            </li>
+        </ul>
+        <ul class="fm-ul fm-ul-form col-md-8">
+            <li>
+                <span style="font-size: 14px;font-weight: bold;">行政区划:</span>
+                <div>
+                    <select class="fm-control"  ng-model="filterAdminId"  style="width:200px;"
+                            placeholder_text_single="'请选择'" search_contains=true
+                            chosen ng-options="value.id as value.label for value in adminOpt" ng-change="modifyFilter($event, this)">
+                    </select>
+                </div>
+            </li>
+        </ul>
+        <ul class="fm-ul fm-ul-form row">
+            <li class="col-md-6">
+                <span style="font-size: 14px;font-weight: bold;">道路类型:</span>
+                <div ng-repeat="(key, value) in roadType" style="width:90px;">
+                    <input type="checkbox" name="roadType" value={{key}} ng-model="roadTypeVal[key]"/>
+                    <label>
+                        {{value}}
+                    </label>
+                </div>
+            </li>
+            <li class="col-md-4 pull-right">
+                <button type="button" class="btn md-btn-warning" ng-click="reset()"><img src="../../images/meta/reset.png">重置 </button>
+                <button type="button" class="btn md-btn-success btn-left" ng-click="query()"><img src="../../images/meta/query.png">查询 </button>
+                <button type="button" class="btn md-btn-blue btn-left" ng-click="advancedQuery()" disabled><img src="../../images/meta/adQuery.png">高级查询</button>
+            </li>
+        </ul>
+    </div>
+    <div ng-if="advancedModal">
+        <ul class="fm-ul fm-ul-form col-md-8" style="background-color: #F1F1F1">
+            <li class="col-md-2">
+                <select class="fm-control"  ng-model="roadNameData.adminId"  style="width:200px;"
+                        placeholder_text_single="'字段'" search_contains=true
+                        chosen ng-options="value.id as value.label for value in adminOpt">
+                </select>
+            </li>
+            <li class="col-md-2">
+                <select class="fm-control"  ng-model="roadNameData.adminId"  style="width:200px;"
+                        placeholder_text_single="'运算符'" search_contains=true
+                        chosen ng-options="value.id as value.label for value in adminOpt">
+                </select>
+            </li>
+            <li class="col-md-2">
+                <select class="fm-control"  ng-model="roadNameData.adminId"  style="width:200px;"
+                        placeholder_text_single="'值'" search_contains=true
+                        chosen ng-options="value.id as value.label for value in adminOpt">
+                </select>
+            </li>
+            <li class="col-md-2">
+                <button type="button" class="btn btn-xs md-btn-blue" ng-click="openSubModal('search')">+</button>
+                <select class="fm-control"  ng-model="roadNameData.adminId"  style="width:200px;"
+                        placeholder_text_single="'AND或OR'" search_contains=true
+                        chosen ng-options="value.id as value.label for value in adminOpt">
+                </select>
+            </li>
+            <li class="col-md-4">
+                <button type="button" class="btn md-btn-blue" ng-click="openSubModal('search')">清空 </button>
+            </li>
+            <li class="col-md-8">
+                <textarea style="width:100%;resize: none;" rows="3"></textarea>
+            </li>
+            <li class="col-md-4">
+                <button type="button" class="btn md-btn-blue" ng-click="openSubModal('search')">验证 </button>
+            </li>
+            <li class="col-md-4">
+                <button type="button" class="btn md-btn-blue" ng-click="openSubModal('search')">确定 </button>
+            </li>
+        </ul>
+    </div>
+    <!--表格panel-->
+    <div class="fm-panel" style="height: 100%;width:100%;">
+        <div class="header" style="margin-top: 10px;background-color: #1A90FE">
+            <div>
+                <button type="button" class="btn md-btn-main btn-left" ng-click="openSubModal('add')"><img src="../../images/meta/add.png">新增 </button>
+                <!--<button type="button" class="btn md-btn-main btn-left" ng-click="delete()">删除 </button>-->
+                <button type="button" ng-if="!checkDisable" class="btn md-btn-main btn-left" ng-click="openSubModal('check')"><img src="../../images/meta/check.png">检查</button>
+                <button type="button" ng-if="checkDisable" class="btn md-btn-main btn-left" ng-click="openSubModal('check')"><img src="../../images/meta/check.png">检查中...</button>
+                <button type="button" class="btn md-btn-main btn-left" ng-click="openSubModal('checkResult')"><img src="../../images/meta/checkresult.png">检查结果查看</button>
+                <button type="button" class="btn md-btn-main btn-left" ng-click="openSubModal('split')"><img src="../../images/meta/split.png">道路名拆分</button>
+            </div>
+            <div class="toolbar pull-right">
+                <button type="button" class="btn md-btn-main btn-left" ng-click="refreshData()"><img class="flat-btn" src="../../images/meta/refresh.png"></button>
+                <div class="btn-group dropdown btn-left" sytle="position:fixed;right:0px;width:100%;" uib-dropdown on-toggle="toggled(open)" auto-close="outsideClick">
+                    <button type="button" class="btn dropdown-toggle md-btn-main" uib-dropdown-toggle aria-haspopup="true" aria-expanded="true">
+                        <i class="glyphicon glyphicon-th icon-th"></i> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right scroll-styled" ng-style="tableContentHeight" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                        <li ng-repeat="col in gridOptions.columnDefs">
+                            <label class="checkbox-inline">
+                                <input type="checkbox" ng-model="col.visible" ng-click="toggleVisible()"/> {{col.displayName}}
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+            <div class="content" ng-style="rightTableHeight">
+                <div
+                        ui-grid="gridOptions"
+                        ui-grid-selection
+                        ui-grid-pagination
+                        ui-grid-auto-resize
+                        ui-grid-resize-columns
+                        ng-style="tableContentHeight" class="md-uigrid">
+                    <div ng-show="loadingFlag" class="tableLoading" ng-include="'./svgLoading.html'"></div>
+                </div>
+            </div>
+        </div>
+    <div class="fm-modal" drag ng-show="subModal">
+        <div drag-handle style="height: 40px;width: 100%;background-color: #1A90FE;cursor: pointer">
+            <div>
+                <span style="color: white;font-size: 14px;font-weight: bold;padding:0px 4px;">{{subModalTitle}}</span>
+                <button type="button"  class="close pull-right" style="padding:0px 4px;font-size:28px;color:white;opacity:1;" ng-click="closeSubModal()" title="关闭"><span>&times;</span></button>
+            </div>
+            <!--<img src="../../images/webEditor/dialog/close.png" class="img-btn" ng-click="closeDialog()" title="关 闭">-->
+        </div>
+        <div class="content" ng-include="subModalTpl">
+        </div>
+    </div>
+</div>

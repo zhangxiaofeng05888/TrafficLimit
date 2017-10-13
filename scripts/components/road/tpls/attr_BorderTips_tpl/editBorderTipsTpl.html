@@ -1,0 +1,27 @@
+<div ng-controller="editBorderCtrl" class="scroll_style">
+    <ul class="list-group detailUlCss">
+        <li>
+            <div class="blockDescLiDiv"><span>要　　素</span></div>
+            <span>接边标识</span>
+        </li>
+        <li style="height: inherit;">
+            <div class="blockDescLiDiv" style="line-height: 18px;"><span>row    key</span></div>
+            <div style="display: inline-block;width: 200px;line-height: 18px;">
+                <span style="word-wrap: break-word;word-break:break-all;" ng-bind="joinBorder.rowkey"></span>
+            </div>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>位　　置</span></div>
+            <span>经度</span><span class="text-muted" ng-bind="joinBorder.geometry.g_location.coordinates[0]" style="margin-right: 15px"></span>
+            <span>纬度</span><span class="text-muted" ng-bind="joinBorder.geometry.g_location.coordinates[1]"></span>
+        </li>
+        <li style="margin-bottom: 5px;">
+            <div class="blockDescLiDiv"><span>状　　态</span></div>
+            <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-change="upDateStatus()" ng-model="joinBorder.t_dStatus" ng-options="value.id as value.label for value in workStatus"></select>
+        </li>
+        <li style="height: auto">
+            <div class="blockDescLiDiv"><span>备　　注</span></div>
+            <textarea ng-model="joinBorder.memo" style="width: 190px;height: 70px; resize: none; border-radius: 5px;background: #fff;" ng-change="setMemo()" placeholder="备注"></textarea>
+        </li>
+    </ul>
+</div>

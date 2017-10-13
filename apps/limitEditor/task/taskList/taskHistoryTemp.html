@@ -1,0 +1,26 @@
+<div class="taskHistory_div scroll_style scrollDiy" ng-controller="taskHistoryCtrl">
+    <table class="table table_diy">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>subtaskId</th>
+            <th>子任务名称</th>
+            <th>子任务类型</th>
+            <th>开始时间</th>
+            <th>结束时间</th>
+            <th>状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="item in taskHistoryData">
+            <td>{{$index + 1}}</td>
+            <td>{{item.subtaskId}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.type}}</td>
+            <td>{{item.planStartDate}}</td>
+            <td>{{item.planEndDate}}</td>
+            <td>已关闭</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

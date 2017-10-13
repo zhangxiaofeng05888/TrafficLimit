@@ -1,0 +1,16 @@
+<div class="scroll_style" ng-controller="roadTypeCtrl">
+    <ul class="list-group  detailUlCss">
+        <li>
+            <div class="blockDescLiDiv">
+                <span>道路种别</span>
+            </div>
+            <select class="form-control poiRightPanel_select" ng-model="roadType.deep.kind" ng-options="value.id as value.label for value in roadKind"></select>
+        </li>
+        <li style="line-height:60px;height:60px">
+            <div class="blockDescLiDiv" style="vertical-align: top;">
+                <span>备注</span>
+            </div>
+            <textarea class="form-control poiRightPanel_area" type="text" rows=2 ng-model="roadType.content"></textarea>
+        </li>
+    </ul>
+</div>

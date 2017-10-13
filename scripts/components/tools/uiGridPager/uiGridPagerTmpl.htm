@@ -1,0 +1,29 @@
+<div class="ng-cloak fm-grid-pager" ng-controller="UIGridPagerCtrl" ui-grid-pager="">
+    <div class="total">
+        共 <span ng-bind="grid.options.totalItems"></span> 条
+    </div>
+    <div class="page">
+        <ul class="pagination" ng-if="pages.length">
+            <li ng-class="{'disabled': !page.active && !page.current, 'active': page.current}" ng-repeat="page in pages" ng-switch="page.type">
+                <a class="prev-page" href="javascript:void(0);" ng-click="paginationApi.seek(page.number)" ng-switch-when="prev"></a>
+                <a href="javascript:void(0);" ng-click="paginationApi.seek(page.number)" ng-switch-when="first">
+                    <span ng-bind="page.number">
+                    </span>
+                </a>
+                <a href="javascript:void(0);" ng-click="paginationApi.seek(page.number)" ng-switch-when="page">
+                    <span ng-bind="page.number">
+                    </span>
+                </a>
+                <a href="javascript:void(0);" ng-click="paginationApi.seek(page.number)" ng-switch-when="more">…</a>
+                <a href="javascript:void(0);" ng-click="paginationApi.seek(page.number)" ng-switch-when="last">
+                    <span ng-bind="page.number">
+                    </span>
+                </a>
+                <a class="next-page" href="javascript:void(0);" ng-click="paginationApi.seek(page.number)" ng-switch-when="next"></a>
+            </li>
+        </ul>
+    </div>
+    <div class="count" ng-if="grid.options.paginationPageSizes.length">
+        每页 <select class="fm-control" ng-model="grid.options.paginationPageSize" ng-options="count for count in grid.options.paginationPageSizes"></select> 条
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="popover" tabindex="-1" style="width: 300px;height: 125px;">
+    <ul class="list-group detailUlCss" ng-controller="walkstairController">
+        <li>
+            <div class="linkName_popover_Div"><span>位置关系</span></div>
+            <select class="form-control poiRightPanel_select linkName_popover_select" ng-model="currentActiveWalkStairs.stairLoc" ng-options="value.id as value.label for value in walkstairLocoptions"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>升降标识</span></div>
+            <input type="radio" name="stairFlagRadio" ng-value="{{0}}" ng-model="currentActiveWalkStairs.stairFlag" id="stairFlagRadio1" class="radio_diy_class" /><label for="stairFlagRadio1"><span> 未调查 </span></label>
+            <input type="radio" name="stairFlagRadio" ng-value="{{1}}" ng-model="currentActiveWalkStairs.stairFlag" id="stairFlagRadio2" class="radio_diy_class" /><label for="stairFlagRadio2" style="padding-left: 15px"><span> 上坡 </span></label>
+            <input type="radio" name="stairFlagRadio" ng-value="{{2}}" ng-model="currentActiveWalkStairs.stairFlag" id="stairFlagRadio3" class="radio_diy_class" /><label for="stairFlagRadio3" style="padding-left: 15px"><span> 下坡 </span></label>
+        </li>
+        <li ng-style="setStyle()">
+            <div class="blockDescLiDiv"><span>作业方向</span></div>
+            <input type="radio" name="workDirRadio" ng-value="{{0}}" ng-model="currentActiveWalkStairs.workDir" id="workDirRadio1" class="radio_diy_class"/><label for="workDirRadio1"><span> 未调查 </span></label>
+            <input type="radio" name="workDirRadio" ng-value="{{1}}" ng-model="currentActiveWalkStairs.workDir" id="workDirRadio2" class="radio_diy_class"/><label for="workDirRadio2" style="padding-left: 15px"><span> 顺 </span></label>
+            <input type="radio" name="workDirRadio" ng-value="{{2}}" ng-model="currentActiveWalkStairs.workDir" id="workDirRadio3" class="radio_diy_class"/><label for="workDirRadio3" style="padding-left: 15px"><span> 逆 </span></label>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>采集标识</span></div>
+            <input type="radio" name="captureFlagRadio" ng-value="{{0}}" ng-model="currentActiveWalkStairs.captureFlag" id="captureFlagRadio1" class="radio_diy_class"/><label for="captureFlagRadio1"><span> 未采集 </span></label>
+            <input type="radio" name="captureFlagRadio" ng-value="{{1}}" ng-model="currentActiveWalkStairs.captureFlag" id="captureFlagRadio2" class="radio_diy_class"/><label for="captureFlagRadio2" style="padding-left: 15px"><span> 外业确认 </span></label>
+        </li>
+    </ul>
+</div>

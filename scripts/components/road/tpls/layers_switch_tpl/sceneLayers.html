@@ -1,0 +1,211 @@
+<style>
+    .sceneLayerPanel ul{
+        list-style-type: none;
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+    .sceneLayerPanel ul > li {
+        list-style-type: none;
+        line-height: 30px;
+        padding-left: 10px;
+    }
+    .sceneLayerPanel ul > li label {
+        color: #182848;
+        cursor: pointer;
+    }
+    .sceneLayerPanel ul > li input {
+        cursor: pointer;
+    }
+    .sceneLayerPanel ul > li:hover > label {
+        color: #636ef5;
+    }
+    .sceneLayerPanel ul.sceneLayers {
+        height: 160px;
+        overflow-y: auto;
+    }
+    .sceneLayerPanel div.sub-header {
+        border-bottom: 1px solid #b8cdf7;
+        border-top: 1px solid #b8cdf7;
+        background-color: #eff0fe;
+        padding: 0px 10px;
+        height: 70px;
+        line-height: 34px;
+    }
+    .sceneLayerPanel div.sub-header > .glyphicon {
+        cursor: pointer;
+        font-size: 16px;
+        margin-left: 10px;
+    }
+    .sceneLayerPanel ul.two-column > li {
+        width:49%;
+        display: inline-block;
+        vertical-align: top;
+    }
+    .sceneLayerPanel ul.three-column > li {
+        width:29%;
+        display: inline-block;
+    }
+    .sceneLayers .operator {
+        display: inline-block;
+    }
+    .sceneLayers .operator > i {
+        cursor:pointer;
+        padding: 3px 5px
+    }
+    .sceneLayers .operator > i:hover {
+        background-color: #636ef5;
+    }
+</style>
+<div class="fm-panel sceneLayerPanel" ng-controller="SceneLayersController">
+    <div class="header">
+        <div class="title">
+            <span>
+                {{currentScene.name}}
+            </span>
+        </div>
+    </div>
+    <div class="content" style="padding-top: 230px;">
+        <div style="margin-top: -230px;">
+            <ul class="sceneLayers fm-scroll">
+                <li ng-repeat="item in sceneLayers.slice().reverse()">
+                    <input class="fm-control" id="curLayers_{{item.id}}" ng-change="refreshCurrentScene()" ng-model="item.options.visible" type="checkbox">
+                        <label class="fm-ellipsis" for="curLayers_{{item.id}}" style="max-width: 130px;" title="{{item.name}}">
+                            {{item.name}}
+                        </label>
+                        <div class="operator pull-right">
+                            <i class="glyphicon glyphicon-trash" ng-click="deleteLayer(item)" title="删除">
+                            </i>
+                            <i class="fa fa-angle-double-down fa-lg" ng-click="toBottom($index, item)" title="置底">
+                            </i>
+                            <i class="fa fa-angle-double-up fa-lg" ng-click="toTop($index, item)" title="置顶">
+                            </i>
+                            <i class="fa fa-angle-down fa-lg" ng-click="goDown($index, item)" title="下移一层">
+                            </i>
+                            <i class="fa fa-angle-up fa-lg" ng-click="goUp($index, item)" title="上移一层">
+                            </i>
+                        </div>
+                    </input>
+                </li>
+            </ul>
+            <div class="sub-header">
+                <select class="fm-control" ng-change="test()" ng-model="sceneType" ng-options="rec.value as rec.text for rec in typeList">
+                </select>
+                <input class="fm-control" ng-model="searchText" placeholder="搜索..." type="text"/>
+            </div>
+        </div>
+        <div class="fm-scroll" ng-if="sceneType === 'feature'" style="height: 100%;">
+            <fast-collapse expander-title="POI粗编作业场景">
+                <ul>
+                    <li ng-repeat="item in scenes | filter : {type: 'feature', label: 'POI', name: searchText}">
+                        <input class="fm-control" id="feature-scene-{{item.id}}" name="scene" ng-checked="item.id === selectedSceneId" ng-click="selectScene(item)" type="radio" value="{{item.id}}"/>
+                        <label for="feature-scene-{{item.id}}">
+                            {{item.name}}
+                        </label>
+                    </li>
+                </ul>
+            </fast-collapse>
+            <fast-collapse expander-title="常规作业场景 - 道路要素">
+                <ul>
+                    <li ng-repeat="item in scenes | filter : {type: 'feature', label: 'roadFeature', name: searchText}">
+                        <input class="fm-control" id="feature-scene-{{item.id}}" name="scene" ng-checked="item.id === selectedSceneId" ng-click="selectScene(item)" type="radio" value="{{item.id}}"/>
+                        <label for="feature-scene-{{item.id}}">
+                            {{item.name}}
+                        </label>
+                    </li>
+                </ul>
+            </fast-collapse>
+            <fast-collapse expander-title="常规作业场景 - 背景要素">
+                <ul>
+                    <li ng-repeat="item in scenes | filter : {type: 'feature', label: 'backFeature', name: searchText}">
+                        <input class="fm-control" id="feature-scene-{{item.id}}" name="scene" ng-checked="item.id === selectedSceneId" ng-click="selectScene(item)" type="radio" value="{{item.id}}"/>
+                        <label for="feature-scene-{{item.id}}">
+                            {{item.name}}
+                        </label>
+                    </li>
+                </ul>
+            </fast-collapse>
+            <fast-collapse expander-title="常规图层">
+                <ul class="two-column">
+                    <li ng-repeat="item in featureLayers | filter : {name: searchText}">
+                        <input class="fm-control" id="feature-layer-{{item.id}}" ng-click="toggleLayer(item)" ng-model="item.checked" type="checkbox"/>
+                        <label for="feature-layer-{{item.id}}">
+                            {{item.name}}
+                        </label>
+                    </li>
+                </ul>
+            </fast-collapse>
+        </div>
+        <div class="fm-scroll" ng-if="sceneType === 'thematic'" style="height: 100%;">
+            <fast-collapse expander-title="专题场景">
+                <ul>
+                    <li ng-repeat="item in scenes | filter : {type: 'thematic', name: searchText}">
+                        <input class="fm-control" id="thematic-scene-{{item.id}}" name="scene" ng-checked="item.id === selectedSceneId" ng-click="selectScene(item)" type="radio"/>
+                        <label for="thematic-scene-{{item.id}}">
+                            {{item.name}}
+                        </label>
+                    </li>
+                </ul>
+            </fast-collapse>
+            <fast-collapse expander-title="专题图层" style="display: none;">
+                <ul class="two-column">
+                    <li ng-repeat="item in thematicLayers | filter : {name: searchText}">
+                        <input class="fm-control" id="thematic-layer-{{item.id}}" ng-click="toggleLayer(item)" ng-model="item.checked" type="checkbox"/>
+                        <label for="thematic-layer-{{item.id}}">
+                            {{item.name}}
+                        </label>
+                    </li>
+                </ul>
+            </fast-collapse>
+        </div>
+        <div class="fm-scroll" ng-if="sceneType === 'tips'" style="height: 100%;">
+            <fast-collapse expander-title="Tips状态">
+                <ul class="two-column">
+                    <li ng-repeat="item in tipStatus">
+                        <input class="fm-control" id="tip-status-{{item.id}}" ng-click="toggleTipStatus(item)" ng-model="item.checked" type="checkbox"/>
+                        <label for="tip-status-{{item.id}}">
+                            {{item.label}}
+                        </label>
+                    </li>
+                </ul>
+            </fast-collapse>
+            <fast-collapse expander-title="Tips图层">
+                <div style="padding: 0px 10px;">
+                    <input class="fm-control" id="tip-layer-all" ng-click="toggleAllTips()" ng-model="allTips.flag" type="checkbox"/>
+                    <label for="tip-layer-all" style="color: red;">
+                        全部Tips图层
+                    </label>
+                </div>
+                <ul class="two-column">
+                    <li ng-repeat="item in tipLayers | filter: {name: searchText}">
+                        <input class="fm-control" id="tip-layer-{{item.id}}" ng-click="toggleLayer(item)" ng-model="item.checked" type="checkbox"/>
+                        <label for="tip-layer-{{item.id}}">
+                            {{item.name}}
+                        </label>
+                    </li>
+                </ul>
+            </fast-collapse>
+        </div>
+        <div class="fm-scroll" ng-if="sceneType === 'reference'" style="height: 100%;">
+            <fast-collapse expander-title="背景图层">
+                <ul>
+                    <li ng-repeat="item in backLayers | filter : {name: searchText}">
+                        <input class="fm-control" id="background-layer-{{item.id}}" name="backgroundLayers" ng-checked="item.id === visibleBackgroundLayerId" ng-click="toggleBackgroundLayer(item)" type="radio"/>
+                        <label for="background-layer-{{item.id}}">
+                            {{item.name}}
+                        </label>
+                    </li>
+                </ul>
+            </fast-collapse>
+            <fast-collapse expander-title="参考图层">
+                <ul>
+                    <li ng-repeat="item in overLayers | filter : {name: searchText}">
+                        <input class="fm-control" id="overlay-layer-{{item.id}}" ng-click="toggleOverlayLayer(item)" ng-model="item.checked" type="checkbox"/>
+                        <label for="overlay-layer-{{item.id}}">
+                            {{item.name}}
+                        </label>
+                    </li>
+                </ul>
+            </fast-collapse>
+        </div>
+    </div>
+</div>

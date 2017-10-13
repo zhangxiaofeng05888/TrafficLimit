@@ -1,0 +1,43 @@
+<style>
+    .inactive{
+        pointer-events: none;
+    }
+    .inactive input{
+        cursor: not-allowed;
+        background-color: #eee
+    }
+    .inactive select{
+        cursor: not-allowed;
+        background-color: #eee
+    }
+</style>
+<div ng-controller="realTimeTrafficController" style="height: 100%;" ng-class="{'rectSelect': 'inactive', 'trackSelect': 'active'}[linkData.batchType]">
+    <div class="poiRightPanel_fold" style="border: none">
+        <strong>互联网RTIC信息<span style="font-size: 12px;margin-left: 15px;">[ {{initRticLength}}个 ]</span></strong>
+        <div><img src="../../images/newRoad/rightPanelIcon/icon_add.png"  ng-click="addInternetData()"/></div>
+    </div>
+    <ul class="list-group detailUlCss">
+        <li ng-class="{'linkName_li': !(currentInternetIndex==$index),'linkName_li_checked': (currentInternetIndex==$index)}" ng-click="getCurrentInternetData($index, item)" ng-repeat="item in linkData.intRtics | filter:{'_deleted': false}" data-container="body" data-animation="am-flip-x" data-auto-close="1" bs-popover data-placement="left" data-template-url="../../scripts/components/road/tpls/attr_link_tpl/rticOfIntTpl.html">
+            <div style="width: 36px;padding-left: 10px;display: inline-block"><span>{{$index + 1}}</span></div>
+            <div style="width: 70px;display: inline-block"><span>{{rankoption[item.rank]}}</span></div>
+            <div style="width: 60px;display: inline-block"><span>{{rticDroption[item.rticDir]}}</span></div>
+            <div style="width: 48px;display: inline-block"><span>{{item.updownFlag==0?'上行':'下行'}}</span></div>
+            <div style="width: 48px;display: inline-block"><span>{{item.rangeType==0?'狭域':item.rangeType==1?'中域':'广域'}}</span></div>
+            <img src="../../images/newRoad/rightPanelIcon/icon_delete.png" ng-click="deleteInternetData($index, item, $event)">
+        </li>
+    </ul>
+    <div class="poiRightPanel_fold" style="border: none">
+        <strong>车厂RTIC信息<span style="font-size: 12px;margin-left: 15px;">[ {{rticsLength}}个 ]</span></strong>
+        <div><img src="../../images/newRoad/rightPanelIcon/icon_add.png" ng-click="addCarFactory()"/></div>
+    </div>
+    <ul class="list-group detailUlCss">
+        <li ng-class="{'linkName_li': !(currentCarFactoryIndex==$index),'linkName_li_checked': (currentCarFactoryIndex==$index)}" ng-click="getCurrentCarFactoryData($index, item)" ng-repeat="item in linkData.rtics | filter:{'_deleted': false}" data-container="body" data-animation="am-flip-x" data-auto-close="1" bs-popover data-placement="left" data-template-url="../../scripts/components/road/tpls/attr_link_tpl/rticOfCarTpl.html">
+            <div style="width: 36px;padding-left: 10px;display: inline-block"><span>{{$index + 1}}</span></div>
+            <div style="width: 70px;display: inline-block"><span>{{rankoption[item.rank]}}</span></div>
+            <div style="width: 60px;display: inline-block"><span>{{rticDroption[item.rticDir]}}</span></div>
+            <div style="width: 48px;display: inline-block"><span>{{item.updownFlag==0?'上行':'下行'}}</span></div>
+            <div style="width: 48px;display: inline-block"><span>{{item.rangeType==0?'狭域':item.rangeType==1?'中域':'广域'}}</span></div>
+            <img src="../../images/newRoad/rightPanelIcon/icon_delete.png" ng-click="deleteCarFactoryData($index, item,$event)">
+        </li>
+    </ul>
+</div>

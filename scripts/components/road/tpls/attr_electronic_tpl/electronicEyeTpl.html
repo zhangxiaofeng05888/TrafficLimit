@@ -1,0 +1,145 @@
+<div class="poiRightPanel_container" ng-controller="electronicEyeCtl">
+    <div ng-style="rightPanelHeight" class="scroll_style">
+        <form class="w5c-form" w5c-form-validate="" novalidate name="electronicEyeName">
+            <fast-collapse expander-title="基本信息">
+                <div>
+                    <ul class="list-group detailUlCss" style="margin-top: 8px;">
+                        <li>
+                            <div class="blockDescLiDiv" style="letter-spacing: 1px;"><span>关联线</span></div>
+                            {{electronicEyeData.linkPid}}
+                        </li>
+                        <li>
+                            <div class="blockDescLiDiv"><span>来源标识</span></div>
+                            <select style="width: 190px; background-position-x: 170px"
+                                    class="form-control poiRightPanel_select" ng-model="electronicEyeData.srcFlag"
+                                    ng-options="value.id as value.label for value in srcFlagOption" disabled></select>
+                        </li>
+                        <li>
+                            <div class="blockDescLiDiv" style="line-height: 18px;vertical-align: middle;">
+                                <span style="letter-spacing: 1px;">电子眼</span>
+                                <span style="display: block;">类型</span>
+                            </div>
+                            <select style="width: 190px; background-position-x: 170px" name="kind"
+                                    class="form-control poiRightPanel_select" ng-model="electronicEyeData.kind"
+                                    ng-options="value.id as value.label for value in elecEyeType"
+                                    ng-change="changeElecType(electronicEyeData.kind);"></select>
+                        </li>
+                        <li>
+                            <div class="blockDescLiDiv" style="line-height: 18px;vertical-align: middle;">
+                                <span style="display: block;letter-spacing: 1px;">电子眼</span>
+                                <span style="display: block;">方位</span>
+                            </div>
+                            <input type="checkbox" id="location0" ng-checked="electronicEyePosition.left" ng-click="locationClick(electronicEyePosition.left,1)" class="radio_diy_class"/>
+                            <label for="location0">
+                                <span>左</span>
+                            </label>
+                            <input type="checkbox" id="location1" ng-checked="electronicEyePosition.right" ng-click="locationClick(electronicEyePosition.right,2)" class="radio_diy_class"/>
+                            <label for="location1" style="padding-left: 20px">
+                                <span>右</span>
+                            </label>
+                            <input type="checkbox" id="location2" ng-checked="electronicEyePosition.up" ng-click="locationClick(electronicEyePosition.up,4)" class="radio_diy_class"/>
+                            <label for="location2" style="padding-left: 20px">
+                                <span>上</span>
+                            </label>
+                        </li>
+                        <li>
+                            <div class="blockDescLiDiv"><span>作用方向</span></div>
+                            <select style="width: 190px; background-position-x: 170px"
+                                    class="form-control poiRightPanel_select" ng-model="electronicEyeData.direct"
+                                    ng-options="value.id as value.label for value in directArray" disabled></select>
+                        </li>
+                        <li>
+                            <div class="blockDescLiDiv" style="letter-spacing: 1px;"><span>限速值</span></div>
+                            <input class="form-control poiRightPanel_Input" w5c-dynamic-element type="number"
+                                   ng-maxlength="3" ng-model="electronicEyeData.speedLimit"
+                                   ng-if="electronicEyeData.isSpeedlimit"
+                                   required set-focus name="elecEyeLimitValue" ng-pattern="/^(0|[1-9][0-9]*)$/"
+                                   placeholder="千米/小时"/>
+                        </li>
+                        <li>
+                            <div class="blockDescLiDiv" style="line-height: 18px;vertical-align: middle;">
+                                <span style="letter-spacing: 1px;">违章高</span>
+                                <span style="display: block;">发地</span>
+                            </div>
+                            <input type="radio" name="highViolation" value="0" id="highViolation0"
+                                   ng-model="electronicEyeData.highViolation" class="radio_diy_class" disabled/>
+                            <label for="highViolation0">
+                                <span>未调查</span>
+                            </label>
+                            <input type="radio" name="highViolation" value="1" id="highViolation1"
+                                   ng-model="electronicEyeData.highViolation" class="radio_diy_class" disabled/>
+                            <label for="highViolation1" style="padding-left: 20px">
+                                <span>是</span>
+                            </label>
+                            <input type="radio" name="highViolation" value="2" id="highViolation2"
+                                   ng-model="electronicEyeData.highViolation" class="radio_diy_class" disabled/>
+                            <label for="highViolation2" style="padding-left: 20px">
+                                <span>否</span>
+                            </label>
+                        </li>
+                        <li>
+                            <div class="blockDescLiDiv">
+                                <span>验证标识</span>
+                            </div>
+                            <input type="radio" name="verifiedFlag" value="0" id="verifiedFlag0"
+                                   ng-model="electronicEyeData.verifiedFlag" class="radio_diy_class"/>
+                            <label for="verifiedFlag0">
+                                <span>未验证</span>
+                            </label>
+                            <input type="radio" name="verifiedFlag" value="1" id="verifiedFlag1"
+                                   ng-model="electronicEyeData.verifiedFlag" class="radio_diy_class"/>
+                            <label for="verifiedFlag1">
+                                <span>验证正确</span>
+                            </label>
+                            <input type="radio" name="verifiedFlag" value="2" id="verifiedFlag2"
+                                   ng-model="electronicEyeData.verifiedFlag" class="radio_diy_class"/>
+                            <label for="verifiedFlag2">
+                                <span>验证错误</span>
+                            </label>
+                        </li>
+                        <li>
+                            <div class="blockDescLiDiv"><span>照射角度</span></div>
+                            {{electronicEyeData.angle}}
+                        </li>
+                        <li>
+                            <div class="blockDescLiDiv"><span>图幅号码</span></div>
+                            {{electronicEyeData.meshId}}
+                        </li>
+                        <li>
+                            <div class="blockDescLiDiv"><span>创建日期</span></div>
+                            {{electronicEyeData.creationDate}}
+                        </li>
+                        <li>
+                            <div class="blockDescLiDiv" style="line-height: 18px;vertical-align: middle;">
+                                <span style="letter-spacing: 1px;">电子眼</span>
+                                <span style="display: block;">坐标</span>
+                            </div>
+                            {{coordinates}}
+                        </li>
+                    </ul>
+                </div>
+
+            </fast-collapse>
+            <fast-collapse expander-title="配对关系" ng-if="electronicEyeData.parts[0].groupId">
+                <div>
+                    <ul class="list-group detailUlCss" style="margin-top: 8px;">
+                        <li>
+                            <div class="blockDescLiDiv"><span>配对组号</span></div>
+                            <input class="form-control poiRightPanel_Input"
+                                   ng-model="electronicEyeData.parts[0].groupId" style="width: 155px;" type="text"
+                                   disabled/>
+                            <div class="roadRightPanel_delete" ng-click="deletePairBond();" title="删除配对关系"></div>
+                        </li>
+                        <li>
+                            <div class="blockDescLiDiv"><span>电子眼号</span></div>
+                            <input class="form-control poiRightPanel_Input" ng-model="elecPartPid" type="text"
+                                   style="width: 155px;" disabled/>
+                            <div class="roadRightPanel_location" ng-click="findPartElecLocation(elecPartPid);"
+                                 title="点击查询该电子眼信息"></div>
+                        </li>
+                    </ul>
+                </div>
+            </fast-collapse>
+        </form>
+    </div>
+</div>

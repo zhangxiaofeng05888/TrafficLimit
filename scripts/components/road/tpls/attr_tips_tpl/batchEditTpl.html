@@ -1,0 +1,82 @@
+<style>
+
+    .batchlistContainer {
+        height: 100%;
+        width: 300px;
+        background-color: white;
+
+    }
+
+    .batchlist_li_num {
+        width: 50px;
+        padding-left: 10px;
+        display: inline-block
+    }
+
+    .batchlist_li_name {
+        width: 40px;
+        display: inline-block;
+        margin-left: 10px
+    }
+
+    .batchlist_li_status {
+        width: 40px;
+        display: inline-block;
+        margin-left: 10px
+    }
+
+    .batchlistContainer .footer {
+        color: #636ef5;
+        font-size: 12px;
+        position: absolute;
+        height: 100px;
+        width: 300px;
+        bottom: 0px;
+
+    }
+    .batchlistContainer .footer label{
+        margin-left: 20px;
+    }
+    .batchlistContainer .footer .btncontainer{
+        margin-top: 10px;
+        text-align: center;
+    }
+    .tipsRightPanel_content{
+        position: absolute;
+        top: 40px;
+        bottom: 100px;
+        width: 100%;
+    }
+</style>
+<div ng-controller="BatchEditController" class="batchlistContainer">
+    <div class="poiRightPanel_fold" style="border: none;background-color: #636ef5;color: white;">
+        <strong>批量修改TIPS状态</strong>
+    </div>
+    <div class="tipsRightPanel_content fm-scroll">
+        <ul class="list-group detailUlCss">
+            <li ng-class="{'batchlist_li': !(currentIndex==$index),'batchlist_li_checked': (currentIndex==$index)}"
+                ng-click="rememberNameNum($index)" ng-repeat="item in tips" data-container="body"
+                data-animation="am-flip-x" data-auto-close="1" data-placement="left">
+                <div class="batchlist_li_num" style="margin-left: 10px;"><span>{{$index + 1}}</span></div>
+                <div class="batchlist_li_name fm-ellipsis" style="width: 80px;vertical-align: bottom;">
+                    <span title="{{item.name}}">{{item.name}}</span>
+                </div>
+                <div class="batchlist_li_status" style="margin-left: 25px;"><span>{{item.status}}</span></div>
+                <div class="batchlist_li_status" style="margin-left: 25px;">
+                    <input ng-change="multiHighlight()" ng-model="item.selected" class="fm-control" style="cursor: pointer;" type="checkbox">
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="footer" style="padding-top: 10px;">
+        <div class="footer_radio">
+            <label><input class="fm-control" name="status" type="radio" ng-value={{0}} ng-model="status" ng-checked="true"/><span>待作业</span> </label>
+            <label><input class="fm-control" name="status" type="radio" ng-value={{1}} ng-model="status"/>有问题 </label>
+            <label><input class="fm-control" name="status" type="radio" ng-value={{2}} ng-model="status"/>已作业</label>
+        </div>
+        <div class="btncontainer">
+            <input type="button" ng-click="save()" value="修改"/>
+        </div>
+    </div>
+</div>

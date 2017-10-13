@@ -1,0 +1,12 @@
+<div ng-controller="lcNodeController">
+    <ul class="list-group detailUlCss" style="margin-top: 8px;">
+        <li>
+            <div class="blockDescLiDiv"><span>形　　态</span></div>
+            <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="lcNodeData.form" ng-options="value.id as value.label disable when (value.id != lcNodeData.form) for value in form"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span style="letter-spacing: 1px;">图 幅 号</span></div>
+            <input class="form-control poiRightPanel_Input" class="chosen-disabled" ng-model="lcNodeData.meshId" type="text" disabled="disabled" />
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,182 @@
+<style>
+    .leftSearchDiv{
+        /*width: 340px;*/
+        margin-top: 10px;
+        margin-left: 10px;
+        position: absolute;
+        z-index: 3;
+        display: inline-block;
+    }
+    .searchbar {
+        width: 240px;
+        padding-left: 30px;
+        padding-right: 30px;
+        background-position: 10px center;
+        background-repeat: no-repeat;
+        border:none;
+        height: 30px;
+        outline: none;
+        font-size: 12px;
+        color: #000000;
+
+    }
+    .placeholderStyle::-webkit-input-placeholder{
+        font-size: 12px;
+    }
+    .empty-input{
+        display: inline-block;
+        margin-top: 0;
+        margin-left: -16px;
+        cursor: pointer;
+    }
+    .searchbtn{
+        float: left;
+        margin-left: 280px;
+        margin-top: -60px;
+        padding-top: 4px;
+        height: 30px;
+        color: #ffffff;
+        background-color: #3385ff;
+        border-radius: 0;
+        border-color: #3385ff;
+        box-shadow: 0 3px 2px  rgba(84, 98, 137, 0.3);
+
+    }
+    .searchbtn:hover{
+        cursor: pointer;
+        background-color: #0066cc;
+    }
+    .searchbtn:active{
+        background-color: #0066cc;
+        outline: none;
+    }
+    .searchbtn:focus{
+        outline: none;
+    }
+    .searchResultList{
+        width: 280px;
+        box-shadow: 0 3px 2px  rgba(84, 98, 137, 0.3);
+    }
+    .searchResultList ul{
+        margin: 0;
+        padding: 0;
+    }
+    .searchResultList ul .searchResult{
+        display: none;
+        background-color: #ffffff;
+        height: 30px;
+        list-style-type: none;
+    }
+    .searchResultList ul .searchResult:hover{
+        background-color:#1478FF;
+    }
+    .searchResultList ul .searchResult:hover div.resultStation,
+    .searchResultList ul .searchResult:hover div.stationLocation {
+        color:#ffffff;
+    }
+    .searchResultList ul .searchResult:hover div.resultStation{
+
+    }
+    .searchResultList ul .searchResult:hover  span.logo{
+        background-image: url("../../images/transit/search_active.png");
+    }
+    .searchResult .logo{
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background-image: url("../../images/transit/search_normal.png");
+        background-repeat: no-repeat;
+        vertical-align: middle;
+        background-position: center ;
+    }
+    .noSearchResult .logo{
+        display: inline-block;
+        vertical-align:middle;
+        width: 30px;
+        height: 30px;
+        background-image: url("../../images/transit/search_normal.png");
+        background-repeat: no-repeat;
+        background-position: center ;
+    }
+    .searchResult .resultStation{
+        display: inline-block;
+        height: 30px;
+        font-size: 12px;
+        line-height: 30px;
+        max-width: 190px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        color: #333333;
+        vertical-align: middle;
+    }
+    .searchResult .stationLocation{
+        display: inline-block;
+        padding-left: 15px;
+        height: 30px;
+        font-size: 12px;
+        color: #cccccc;
+        line-height: 30px;
+        vertical-align: middle;
+
+    }
+    .noSearchResult{
+        display: none;
+        height: 30px;
+        line-height: 30px;
+        background-color: #ffffff;
+    }
+    span.noResult{
+        display: inline-block;
+        vertical-align:middle;
+        color: #1478FF;
+        font-size: 12px;
+    }
+</style>
+<div ng-controller="SelectTaskListCtrl" class="scroll_style">
+    <div class="fm-panel" style="height: auto;">
+        <div class="header">
+            <div class="title">任务列表</div>
+        </div>
+        <div class=" leftSearchDiv">
+            <div style="width: 280px;background-color: #ffffff; box-shadow: 0 3px 2px  rgba(84, 98, 137, 0.3);">
+                <div class="input-group btn-group">
+                    <input type="text"
+                           placeholder="请输入快线采集子任务名称"
+                           class="searchbar placeholderStyle "
+                           id="startStation"
+                           ng-model="subTaskName"
+                           ng-focus="searchSubTask()"
+                           ng-change="searchSubTask()"
+
+                           style="background-image:url('../../images/transit/startingpoint.png'); border-bottom:1px solid #d0e4ff;"
+                    >
+                    <img
+                            class="empty-input"
+                            id="emptyStartStation"
+                            ng-click="emptyInput('startStation')"
+                            src="../../images/transit/searchbar_close.png"
+                    >
+                </div>
+            </div>
+            <div class="searchResultList"  style="overflow: auto; height: 550px">
+                <ul>
+                    <li
+                            class="searchResult"
+                            ng-style="searchResult"
+                            ng-repeat="subTask  in subTaskList"
+                            ng-click="getSubTaskFromSearch(subTask)"
+                    >
+                        <span class="logo"></span>
+                        <div class="resultStation" ng-bind="subTask.name"></div>
+                    </li>
+                </ul>
+                <div class="noSearchResult" ng-style="noSearchResult">
+                    <span class="logo"></span>
+                    <span class="noResult" ng-bind="printNotice"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

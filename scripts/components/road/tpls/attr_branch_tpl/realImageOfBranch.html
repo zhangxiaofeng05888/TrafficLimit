@@ -1,0 +1,198 @@
+<div class="scroll_style" ng-controller="RealImageOfBranchCtrl">
+    <div class="pic-map-show" ng-if="diverObj.realimages[0].arrowCode">
+        <img class="pic-map-img" ng-src="{{arrowCodeSrc}}">
+        <img class="pic-modal-img" ng-src="{{arrowMapShow}}" alt="无此底图">
+    </div>
+    <fast-collapse expander-title="基本信息">
+        <div>
+            <form class="w5c-form" w5c-form-validate="" novalidate name="realImageBranchFrom">
+                <ul class="list-group detailUlCss" style="margin-top: 8px;">
+                    <li>
+                        <div class="blockDescLiDiv" style="letter-spacing: 1px;"><span>进 入 线</span></div>
+                        {{diverObj.inLinkPid}}
+                    </li>
+                    <li>
+                        <div class="blockDescLiDiv" style="letter-spacing: 1px;"><span>退 出 线</span></div>
+                        {{diverObj.outLinkPid}}
+                    </li>
+                    <li>
+                        <div class="blockDescLiDiv"><span>关系类型</span></div>
+                        <input type="radio" name="relationshipType" value="1" id="relationshipType1" ng-model="diverObj.relationshipType" class="radio_diy_class"/>
+                        <label for="relationshipType1">
+                            <span>路口</span>
+                        </label>
+                        <input type="radio" name="relationshipType" value="2" id="relationshipType2" ng-model="diverObj.relationshipType" class="radio_diy_class"/>
+                        <label for="relationshipType2" style="padding-left: 20px">
+                            <span>线线</span>
+                        </label>
+                    </li>
+                    <li>
+                        <div class="blockDescLiDiv" style="line-height: 18px;vertical-align: middle;">
+                            <span style="display: block;letter-spacing: 1px;">实 景 图</span>
+                            <span style="display: block;">类　　型</span>
+                        </div>
+                        <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-change="changeBranchType();" ng-model="diverObj.realimages[0].imageType"
+                                ng-options="value.id as value.label for value in branchTypeOptions">
+                        </select>
+                    </li>
+                    <!--<li>
+                        <div class="blockDescLiDiv" style="line-height: 18px;vertical-align: middle;">
+                            <span style="display: block;letter-spacing: 1px;">实 景 图</span>
+                            <span style="display: block;">类　　型</span>
+                        </div>
+                        <input type="radio" name="imageType" value="0" id="imageType1" ng-change="changeBranchType();" ng-model="diverObj.realimages[0].imageType" class="radio_diy_class"/>
+                        <label for="imageType1">
+                            <span>高速出入口实景图</span>
+                        </label>
+                        <input type="radio" name="imageType" value="1" id="imageType2" ng-change="changeBranchType();" ng-model="diverObj.realimages[0].imageType" class="radio_diy_class"/>
+                        <label for="imageType2" style="padding-left: 20px">
+                            <span>普通道路路口实景图</span>
+                        </label>
+                    </li>-->
+                    <li>
+                        <div class="blockDescLiDiv"><span>箭头图号</span></div>
+                        <input class="form-control poiRightPanel_Input" ng-model="diverObj.realimages[0].arrowCode" name="arrowCode" maxlength="8" ng-if="diverObj.realimages[0].imageType == 0" ng-change="showPicSelect()" type="text"/>
+                        <input class="form-control poiRightPanel_Input" ng-model="diverObj.realimages[0].arrowCode" name="arrowCode" maxlength="9" ng-if="diverObj.realimages[0].imageType == 1" ng-change="showPicSelect()" type="text"/>
+                        <div class="pic-show" ng-show="showImgData">
+                            <div class="option-hide">
+                                <button type="button" class="close" aria-label="Close" ng-click="hidePicSelect($event)">
+                                    <span aria-hidden="true" class="glyphicon glyphicon-remove-sign"></span>
+                                </button>
+                            </div>
+                            <div class="pic-show-well">
+                                <div class="img-well" ng-repeat="picture in pictures" ng-click="selectPicCode(picture.fileName)">
+                                    <img class="show-img" ng-src="{{picture.fileContent}}" title="{{picture.fileName}}">
+                                    <div class="img-describe">{{picture.fileName}}</div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="pull-left num-well">
+                                第 <span class="pic-num" ng-bind="picNowNum">1</span> 页 |
+                                共 <span class="pic-total" ng-bind="picTotal">1</span> 页
+                            </div>
+                            <div class="pic-show-btn pull-right">
+                                <div class="pull-right btn-group">
+                                    <button class="btn btn-default btn-xs pic-pre" ng-click="picPre()" ng-disabled="picNowNum == 1">
+                                        <i class="glyphicon glyphicon-menu-left"></i>
+                                    </button>
+                                    <button class="btn btn-default btn-xs pic-next" ng-click="picNext()" ng-disabled="picNowNum == picTotal">
+                                        <i class="glyphicon glyphicon-menu-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="pic-loading" ng-show="showPicLoading" ng-bind="loadText">loading...</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="blockDescLiDiv"><span>实景图号</span></div>
+                        {{diverObj.realimages[0].realCode}}
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </fast-collapse>
+    <fast-collapse expander-title="经过线（{{diverObj.vias.length}}）条">
+        <div>
+            <ul class="list-group detailUlCss" ng-repeat="viasItem in diverObj.vias | orderBy: 'viasItem.seqNum'" style="margin-bottom: 10px;padding-bottom: 10px;border-bottom: 1px solid #eff0fe;">
+                <li>
+                    <div class="blockDescLiDiv"><span>Link序号</span></div>
+                    {{viasItem.seqNum}}
+                </li>
+                <li>
+                    <div class="blockDescLiDiv"><span>Link号码</span></div>
+                    {{viasItem.linkPid}}
+                </li>
+            </ul>
+        </div>
+    </fast-collapse>
+
+    <!--<div class="picMapShow">
+        <img class="picMapImg" ng-src="{{arrowCodeSrc}}" alt="无此模式图">
+        <img class="picModalImg" ng-src="{{arrowMapShow}}">
+        <div class="picMapDesc" ng-bind="diverObj.realimages[0].realCode" style="margin-top: 10px;"></div>
+    </div>
+    <form name="nameBranchForm">
+    &lt;!&ndash;begin 模式图信息&ndash;&gt;
+    <div class="module-fix-box">
+        <div id="detailChart" class="panel-collapse col-sm-12 collapse in" aria-expanded="true">
+            <div class="d-group">
+                <div class="d-name">进入线：</div>
+                <div class="d-value">
+                    <input type="text" class="d-input rounded chosen-disabled" placeholder="入" ng-model="diverObj.inLinkPid" disabled>
+                </div>
+            </div>
+            <div class="d-group">
+                <div class="d-name">退出线：</div>
+                <div class="d-value">
+                    <input type="text" class="d-input rounded chosen-disabled" placeholder="出" ng-model="diverObj.outLinkPid" disabled>
+                </div>
+            </div>
+            <div class="d-group info-group">
+                <div class="d-name">关系类型：</div>
+                <div class="d-value">
+                    <div class="btn-group d-radio-btn" data-toggle="buttons" style="z-index:0">
+                      <label ng-class="{'btn-primary':item.code==diverObj.relationshipType,'btn-default':item.code!=diverObj.relationshipType,'btn btn-sm relation-type':true}" ng-repeat="item in relationType" ng-click="switchRelType(item.code)">
+                        <input type="radio" name="relationType" value="{{item.code}}" autocomplete="off" data-relation-type="{{item.code}}">{{item.label}}
+                      </label>
+                    </div>
+                </div>
+            </div>
+            <div class="d-group">
+                <div class="d-name">实景图类型：</div>
+                <div class="d-value">
+                    <select class="rounded d-input" ng-change="changeBranchType();" ng-model="diverObj.realimages[0].imageType" ng-options="value.id as value.label for value in branchTypeOptions" ></select>
+                </div>
+            </div>
+            <div class="d-group">
+                <div class="d-name">箭头图号：</div>
+                <div class="d-value">
+                    <input type="text" class="rounded d-input form-pic-input" placeholder="箭头图号" ng-model="diverObj.realimages[0].arrowCode" ng-keydown="showPicSelect()">
+                    <div class="pic-show" ng-show="showImgData">
+                        <div class="option-hide">
+                            <button type="button" class="close" aria-label="Close" ng-click="hidePicSelect($event)">
+                                <span aria-hidden="true" class="glyphicon glyphicon-remove-sign"></span>
+                            </button>
+                        </div>
+                        <div class="pic-show-well">
+                            <div class="img-well" ng-repeat="picture in pictures" ng-click="selectPicCode(picture.fileName)" style="width: 78px;">
+                                <img class="show-img" ng-src="{{picture.fileContent}}" title="{{picture.fileName}}">
+                                <div class="img-describe">{{picture.fileName}}</div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="pull-left num-well">
+                            第 <span class="pic-num" ng-bind="picNowNum">1</span> 页 |
+                            共 <span class="pic-total" ng-bind="picTotal">1</span> 页
+                        </div>
+                        <div class="pic-show-btn pull-right">
+                            <div class="pull-right btn-group">
+                                <button class="btn btn-default btn-xs pic-pre" ng-click="picPre()" ng-disabled="picNowNum == 1">
+                                    <i class="glyphicon glyphicon-menu-left"></i>
+                                </button>
+                                <button class="btn btn-default btn-xs pic-next" ng-click="picNext()" ng-disabled="picNowNum == picTotal">
+                                    <i class="glyphicon glyphicon-menu-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="pic-loading" ng-bind="loadText" ng-show="showPicLoading">loading...</div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-group">
+                <div class="d-name">实景图号：</div>
+                <div class="d-value">
+                    <div ng-bind="diverObj.realimages[0].realCode" class="show-val"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+    &lt;!&ndash;end 模式图信息&ndash;&gt;
+    &lt;!&ndash;begin 经过线&ndash;&gt;
+    <div class="module-box show-detail-title" ng-click="showDetail();">
+        <div class="box-head font-bold">
+             经过线 （共 <span ng-bind="diverObj.vias.length"></span> 条）
+        </div>
+    </div>-->
+    <!--end 经过线-->
+</div>

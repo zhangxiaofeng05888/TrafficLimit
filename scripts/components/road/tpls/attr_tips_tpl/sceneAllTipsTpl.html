@@ -1,0 +1,1459 @@
+<style>
+    .roadLeftPanel_topPhoto {
+        padding-top: 10px;
+        display: inline-block;
+        width: 50px;
+        text-align: center
+    }
+    .roadLeftPanel_topPhoto img {
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+    }
+
+    ul.roadLeftPanel_ul.roadLeftPanel_ul_wider .roadLeftPanelDiv {
+        width: 55px;
+    }
+
+    ul.roadLeftPanel_ul.roadLeftPanel_ul_wider .roadLeftPanelDiv_long {
+        width: 105px;
+    }
+
+    .roadLeftPanel_ul div.group {
+        margin-bottom: 3px;
+    }
+
+    .roadLeftPanel_ul div.group li {
+        background-color: #f2f2f2;
+    }
+
+    span.tipsRelatedFeature {
+        cursor: pointer;
+    }
+
+    ul.roadLeftPanel_ul li span {
+        word-wrap: break-word;
+        word-break:break-all;
+    }
+    div.laneConnexity {
+        display: inline-block;
+        vertical-align: top;
+        cursor: pointer;
+        height: 90px;
+        margin-top: 6px;
+        padding-bottom: 10px;
+    }
+    div.laneConnexity.active {
+        box-shadow: 0px 0px 7px 2px #c7cadb;
+    }
+</style>
+
+<div class="scroll_style" style="padding-left: 10px;padding-right: 10px" ng-controller="sceneAllTipsController">
+    <div>
+        <div ng-if="allTipsType==1301">
+            <div ng-repeat="item in dataTipsData.deep.info" ng-if="item.arwG || item.arwG==''" ng-click="highlightSymbol(item.sq, $index)"  ng-class="{true: 'active'}[$index == referPicIndex]" class="laneConnexity">
+                <div class="roadLeftPanel_topPhoto" ng-if="item.ext == 0">
+                    <img ng-src="../../images/road/1301/1301_0_{{item.arwG}}.svg" ng-if="item.arwG">
+                </div>
+                <div class="roadLeftPanel_topPhoto" ng-if="item.ext == 1">
+                    <img ng-src="../../images/road/1301/1301_2_{{item.arwG}}.svg" ng-if="item.arwG">
+                </div>
+                <div class="roadLeftPanel_topPhoto" ng-if="item.arwB" style="display: block;">
+                    <img ng-src="../../images/road/1301/1301_1_{{item.arwB}}.svg" ng-if="item.arwB">
+                </div>
+            </div>
+        </div>
+        <div class="roadLeftPanel_topPhoto" ng-if="allTipsType==1105" ng-repeat="item in dataTipsData.deep.w_array">
+            <img ng-src="../../images/road/tips/1105/1105_{{item.tp}}_0.svg" ng-click="showItem($index)">
+            <span ng-bind="item.tp"></span>
+        </div>
+        <div class="roadLeftPanel_topPhoto" ng-if="allTipsType==1302" ng-repeat="item in dataTipsData.deep.o_array">
+            <div ng-if="item.flag===1">
+                <img ng-src="../../images/road/1302/1302_1_{{item.oInfo}}.svg" ng-click="showOutLink(item)">
+            </div>
+            <div ng-if="item.flag===2">
+                <img ng-src="../../images/road/1302/1302_2_{{item.oInfo}}.svg" ng-click="showOutLink(item)">
+            </div>
+        </div>
+        <div class="roadLeftPanel_topPhoto" ng-if="allTipsType==1303" ng-repeat="item in dataTipsData.deep.o_array">
+            <img ng-src="../../images/road/tips/1303/1303_0_{{item.sq}}.svg" ng-click="showTruckLimitItem($index)">
+        </div>
+        <div class="roadLeftPanel_topPhoto" ng-if="allTipsType==1306" ng-repeat="item in dataTipsData.deep.o_array">
+            <img ng-src="../../images/road/tips/1306/1306_{{item.oInfo}}_0.svg" ng-click="showMutiInfoItem($index)">
+        </div>
+    </div>
+    <div>
+        <ul class="list-group roadLeftPanel_ul roadLeftPanel_ul_wider">
+            <li>
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        来源代码
+                    </span>
+                </div>
+                <span ng-bind="sourceCode"></span>
+            </li>
+            <li>
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        Tips状态
+                    </span>
+                </div>
+                <span ng-bind="showContent" ng-style="{'color': statusColor}"></span>
+            </li>
+            <li style="height: inherit;">
+                <div class="roadLeftPanelDiv" style="vertical-align: top;line-height: 18px;">
+                    <span>
+                        rowkey
+                    </span>
+                </div>
+                <div class="roadLeftPanel_more" style="line-height: 18px;">
+                    <span style="word-wrap: break-word;word-break:break-all;">{{rowkey}}</span>
+                </div>
+            </li>
+            <li ng-if="dataTipsData.isBusRoad">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        公交车道
+                    </span>
+                </div>
+                <span ng-bind="dataTipsData.busRoad"></span>
+            </li>
+            <li ng-if="dataTipsData.isVariableDirectionLane">
+                <div class="roadLeftPanelDiv_long">
+                    <span>
+                        可变导向车道
+                    </span>
+                </div>
+                <span ng-bind="dataTipsData.varRoad"></span>
+            </li>
+            <!-- begin 可逆车道 -->
+            <li ng-if="dataTipsData.isReversibleLine">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        可逆车道
+                    </span>
+                </div>
+                <span ng-bind="dataTipsData.revs"></span>
+            </li>
+            <!-- end 可逆车道 -->
+            <!--begin 匝道-->
+            <li ng-if="dataTipsData.hasOwnProperty('commandData')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        数据指令
+                    </span>
+                </div>
+                <span ng-bind='dataTipsData.commandData'></span>
+            </li>
+            <!--end 匝道-->
+            <li ng-if="dataTipsData.deep.hasOwnProperty('name')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        名称
+                    </span>
+                </div>
+                <span>{{dataTipsData.deep.name}}</span>
+            </li>
+            <li style="height: inherit" ng-if="dataTipsData.deep.hasOwnProperty('n_array')">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                        <span>
+                            名称
+                        </span>
+                </div>
+                <div class="roadLeftPanel_more">
+                    <div ng-repeat="item in dataTipsData.deep.n_array">
+                        <span ng-bind="item"></span>
+                    </div>
+                </div>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('in') && !dataTipsData.hasOwnProperty('linkRoad') && !dataTipsData.isTrafficLightsDir && !dataTipsData.isVariableSpeedLimit && !dataTipsData.hasOwnProperty('etc')" style="height: inherit;">
+                <div class="roadLeftPanelDiv" style="vertical-align: top;">
+                    <span>
+                        进入Link
+                    </span>
+                </div>
+                <div class="roadLeftPanel_more">
+                    <span class="tipsRelatedFeature" ng-bind="dataTipsData.deep.in.id" title="{{dataTipsData.deep.in.id}}" ng-click="getFeatDataCallback(dataTipsData.deep.in,'RDLINK')"></span>
+                </div>
+            </li>
+            <li ng-if="dataTipsData.roadDir">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        道路方向
+                    </span>
+                </div>
+                <span ng-bind="dataTipsData.deep.dir == 1 ? '单向': '双向'" title="{{dataTipsData.deep.dir == 1 ? '单向': '双向'}}"></span>
+            </li>
+            <li ng-if="dataTipsData.hasOwnProperty('linkRoad') || dataTipsData.isTrafficLightsDir || dataTipsData.isVariableSpeedLimit">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        关联道路
+                    </span>
+                </div>
+                <span class="tipsRelatedFeature" ng-bind="dataTipsData.deep.in.id" title="{{dataTipsData.deep.in.id}}" ng-click="getFeatDataCallback(dataTipsData.deep.in,'RDLINK')"></span>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('out') && dataTipsData.isSlope">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        关联道路
+                    </span>
+                </div>
+                <span class="tipsRelatedFeature" ng-bind="dataTipsData.deep.out.id" title="{{dataTipsData.deep.out.id}}" ng-click="getFeatDataCallback(dataTipsData.deep.out,'RDLINK')"></span>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('out') && !dataTipsData.isSlope && !dataTipsData.isLimitTruck && !dataTipsData.isVariableSpeedLimit && !dataTipsData.isLaneConnexity && !dataTipsData.nomalRestriction && !dataTipsData.isBranch">
+                <div class="roadLeftPanelDiv_long">
+                    <span>
+                        退出Link
+                    </span>
+                </div>
+                <span class="tipsRelatedFeature" ng-bind="dataTipsData.deep.out.id" title="{{dataTipsData.deep.out.id}}" ng-click="getFeatDataCallback(dataTipsData.deep.out,'RDLINK')"></span>
+            </li>
+            <li style="height: inherit" ng-if="dataTipsData.deep.hasOwnProperty('o_array') && !dataTipsData.isBranch && !dataTipsData.leftAndRight && !dataTipsData.isVariableDirectionLane && !dataTipsData.isLaneConnexity && !dataTipsData.nomalRestriction && !dataTipsData.isGeneralRoad && !dataTipsData.isTruckLimit && !dataTipsData.crossVoice">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        退出Link
+                    </span>
+                </div>
+                <div class="roadLeftPanel_more">
+                    <div ng-repeat="item in dataTipsData.deep.o_array">
+                        <span class="tipsRelatedFeature" ng-bind="item.out.id" title="{{item.out.id}}" ng-click="getFeatDataCallback(item.out,'RDLINK')"></span>
+                    </div>
+                </div>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('o_array') && dataTipsData.leftAndRight">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        退出
+                    </span>
+                </div>
+                <span class="tipsRelatedFeature" ng-bind="dataTipsData.deep.o_array[0].out.id" title="{{dataTipsData.deep.o_array[0].out.id}}" ng-click="getFeatDataCallback(dataTipsData.deep.o_array[0].out,'RDLINK')"></span>
+            </li>
+            <div ng-if="dataTipsData.deep.hasOwnProperty('o_array') && dataTipsData.nomalRestriction">
+                <li style="height: inherit">
+                    <div class="roadLeftPanelDiv_long" style="vertical-align: top">
+                        <span>
+                            退出Link
+                        </span>
+                    </div>
+                    <div class="roadLeftPanel_more">
+                        <div ng-repeat="outItem in restrictOutLinks.out">
+                            <span class="tipsRelatedFeature" ng-click="getFeatDataCallback(outItem,'RDLINK')" ng-bind="outItem.id" title="{{outItem.id}}"></span>
+                        </div>
+                    </div>
+                </li>
+                <li style="height: inherit">
+                    <div class="roadLeftPanelDiv">
+                        <span>
+                            时间段
+                        </span>
+                    </div>
+                    <span ng-bind="restrictOutLinks.time"></span>
+                </li>
+            </div>
+            <div ng-if="dataTipsData.deep.hasOwnProperty('o_array') && dataTipsData.isLaneConnexity">
+                <li style="height: inherit">
+                    <div class="roadLeftPanelDiv_long" style="vertical-align: top">
+                        <span>
+                            退出Link
+                        </span>
+                    </div>
+                    <div class="roadLeftPanel_more">
+                        <div ng-repeat="outItem in oarrayData.d_array">
+                            <span class="tipsRelatedFeature" ng-click="getFeatDataCallback(outItem.out,'RDLINK')" ng-bind="outItem.out.id" title="{{outItem.out.id}}"></span>
+                        </div>
+                    </div>
+                </li>
+            </div>
+            <li style="height: inherit" ng-if="dataTipsData.deep.hasOwnProperty('f_array') && !dataTipsData.isTrafficLights && !dataTipsData.GSC">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                        <span>
+                            关联要素
+                        </span>
+                </div>
+                <div class="roadLeftPanel_more">
+                    <div ng-repeat="item in dataTipsData.deep.f_array" style="height: inherit;">
+                        <span class="tipsRelatedFeature" title='{{item.id}}' ng-click="getFeatDataCallback(item,'RDLINK')" ng-bind="item.id"></span>
+                    </div>
+                </div>
+            </li>
+            <li style="height: inherit;background-color: #f2f2f2;margin-bottom: 3px" ng-if="dataTipsData.isReversibleLine && item.rev" ng-repeat="item in dataTipsData.deep.ln">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                        <span>
+                            限制时间
+                        </span>
+                </div>
+                <div class="roadLeftPanel_more">
+                    <div ng-repeat="time in dataTipsData['revTime' + $index ]">
+                        <span>{{time}}</span>
+                    </div>
+                </div>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('ptn') && !dataTipsData.hasOwnProperty('JVCSchemaNo') && !dataTipsData.hasOwnProperty('schemaNo')">
+                <div class="roadLeftPanelDiv">
+                    <span ng-if="!dataTipsData.leftAndRight">
+                        底图代码
+                    </span>
+                    <span ng-if="dataTipsData.leftAndRight">
+                        模式图号
+                    </span>
+                </div>
+                <span ng-bind="dataTipsData.deep.ptn"></span>
+            </li>
+            <li style="height: inherit" ng-if="dataTipsData.hasOwnProperty('schemaNo')">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                        <span>
+                            模式图号
+                        </span>
+                </div>
+                <div class="roadLeftPanel_more">
+                    <div ng-repeat="item in dataTipsData.schemaNo.split(',')">
+                        <span ng-bind="item"></span>
+                    </div>
+                </div>
+            </li>
+            <li style="height: inherit" ng-if="dataTipsData.deep.hasOwnProperty('f') && !dataTipsData.isCrossRoad">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        关联要素
+                    </span>
+                </div>
+                <div class="roadLeftPanel_more">
+                    <span class="tipsRelatedFeature" ng-bind="dataTipsData.deep.f.id" title="{{dataTipsData.deep.f.id}}" ng-click="getFeatDataCallback(dataTipsData.deep.f,'RDLINK')"></span>
+                </div>
+            </li>
+            <div ng-repeat="lnItem in dataTipsData.deep.ln"  ng-init="outerIndex = $index" ng-if="dataTipsData.isVariableDirectionLane && lnItem.var" class="group">
+                <div ng-repeat="oItem in lnItem.o_array">
+                    <li style="height: inherit">
+                        <div class="roadLeftPanelDiv" style="vertical-align: top">
+                            <span>
+                                退出Link
+                            </span>
+                        </div>
+                        <div class="roadLeftPanel_more">
+                            <div>
+                                <span class="tipsRelatedFeature" ng-bind="oItem.out.id" title="{{oItem.out.id}}" ng-click="getFeatDataCallback(oItem.out,'RDLINK')"></span>
+                            </div>
+                        </div>
+                    </li>
+                    <li style="height: inherit">
+                        <div class="roadLeftPanelDiv" style="vertical-align: top">
+                            <span>
+                                限制时间
+                            </span>
+                        </div>
+                        <div class="roadLeftPanel_more">
+                            <div ng-repeat="varDirTime in dataTipsData['varDirTime' + outerIndex][$index]">
+                                <span ng-bind="varDirTime"></span>
+                            </div>
+                        </div>
+                    </li>
+                </div>
+            </div>
+            <li style="height: inherit" ng-if="dataTipsData.deep.hasOwnProperty('f') && dataTipsData.isCrossRoad">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        关联要素
+                    </span>
+                </div>
+                <div class="roadLeftPanel_more">
+                    <span class="tipsRelatedFeature" ng-bind="dataTipsData.deep.f.id" title="{{dataTipsData.deep.f.id}}" ng-click="getFeatDataCallback(dataTipsData.deep.f,'RDLINK')"></span>
+                </div>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('rdDir')">
+                <div class="roadLeftPanelDiv">
+                    <span ng-if="allTipsType == 1101">
+                        限速方向
+                    </span>
+                    <span ng-if="allTipsType != 1101">
+                        道路方向
+                    </span>
+                </div>
+                <span>{{rdDir}}</span>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('value') && !dataTipsData.isDrivewayLimit">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        限速值
+                    </span>
+                </div>
+                <span>{{dataTipsData.deep.value}} Km/h</span>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('value') && dataTipsData.isDrivewayLimit">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        限速值
+                    </span>
+                </div>
+                <span>{{dataTipsData.limitValue}} Km/h</span>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('se')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        限速标志
+                    </span>
+                </div>
+                <span ng-if="dataTipsData.deep.se==0">限速开始</span>
+                <span ng-if="dataTipsData.deep.se==1">解除限速</span>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('flag')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        采集标志
+                    </span>
+                </div>
+                <span ng-if="dataTipsData.deep.flag==0">现场采集</span>
+                <span ng-if="dataTipsData.deep.flag==1">理论判断</span>
+            </li>
+            <li style="height: inherit" ng-if="dataTipsData.o_array && dataTipsData.o_array[0].hasOwnProperty('time')">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                        <span>
+                            时段
+                        </span>
+                </div>
+                <div class="roadLeftPanel_more">
+                    <div ng-repeat="item in dataTipsData.o_array[0].time.split(';')">
+                        <span ng-bind="item"></span>
+                    </div>
+                </div>
+            </li>
+            <!-- 类型 -->
+            <li ng-if="roadCameraType">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        类型
+                    </span>
+                </div>
+                <span ng-bind="roadCameraType"></span>
+            </li>
+            <!-- 方位 -->
+            <li ng-if="loc">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        方位
+                    </span>
+                </div>
+                <span ng-bind="loc"></span>
+            </li>
+            <!-- 配对信息 -->
+            <li ng-if="dataTipsData.deep.hasOwnProperty('pair')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        配对信息
+                    </span>
+                </div>
+                <span ng-bind="dataTipsData.deep.pair" ng-if="dataTipsData.pair!=0"></span>
+                <span ng-if="dataTipsData.pair == 0">无</span>
+            </li>
+            <!--第三方数据 -->
+            <li ng-if="otherData">
+                <div class="roadLeftPanelDiv_long">
+                    <span>
+                        第三方数据
+                    </span>
+                </div>
+                <span ng-bind="otherData"></span>
+            </li>
+            <li ng-if="parkingLoc">
+                <div class="roadLeftPanelDiv_long">
+                    <span>
+                        停车场位置
+                    </span>
+                </div>
+                <span ng-bind="parkingLoc"></span>
+            </li>
+            <!--begin 危险信息-->
+            <li ng-if="wArrayitem.hasOwnProperty('tp')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        标牌类型
+                    </span>
+                </div>
+                <span>{{dangerTypeObj[wArrayitem.tp]}}</span>
+            </li>
+            <li ng-if="wArrayitem.hasOwnProperty('vDis')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        有效距离
+                    </span>
+                </div>
+                <span ng-if="wArrayitem.vDis != 0">{{wArrayitem.vDis}} m</span>
+            </li>
+            <li ng-if="wArrayitem.hasOwnProperty('wDis')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        预告距离
+                    </span>
+                </div>
+                <span ng-if="wArrayitem.wDis != 0">{{wArrayitem.wDis}} m</span>
+            </li>
+            <li style="height: inherit" ng-if="wArrayitem.hasOwnProperty('time')">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                        <span>
+                            通行时间
+                        </span>
+                </div>
+                <div class="roadLeftPanel_more">
+                    <div ng-repeat="item in wArrayitem.time.split(';')">
+                        <span ng-bind="item"></span>
+                    </div>
+                </div>
+            </li>
+            <li ng-if="wArrayitem.hasOwnProperty('desc')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        文字说明
+                    </span>
+                </div>
+                <span ng-bind="wArrayitem.desc"></span>
+            </li>
+            <!--end 危险信息-->
+            <!--begin 一般道路方面-->
+            <div ng-if="dataTipsData.isGeneralRoad" ng-repeat="items in dataTipsData.deep.o_array">
+                <li style="height: inherit">
+                    <div class="roadLeftPanelDiv" style="vertical-align: top">
+                        <span>
+                            名称
+                        </span>
+                    </div>
+                    <div class="roadLeftPanel_more">
+                        <div ng-repeat="item in items.n_array">
+                            <span ng-bind="item"></span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="roadLeftPanelDiv_long">
+                        <span>
+                            退出Link
+                        </span>
+                    </div>
+                    <span class="tipsRelatedFeature" ng-bind="items.out.id" title="{{items.out.id}}" ng-click="getFeatDataCallback(items.out,'RDLINK')"></span>
+                </li>
+            </div>
+            <!--end 一般道路方面-->
+            <!--begin 收费站-->
+            <li ng-if="tollGateTp">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        类型
+                    </span>
+                </div>
+                <span>{{tollGateTp}}</span>
+            </li>
+            <li ng-if="dataTipsData.deep.pNum">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        通道总数
+                    </span>
+                </div>
+                <span>{{dataTipsData.deep.pNum}}</span>
+            </li>
+            <li ng-if="TollETC">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        ETC
+                    </span>
+                </div>
+                <span>{{TollETC}}</span>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('wgt')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        称重车道
+                    </span>
+                </div>
+                <span>{{dataTipsData.deep.wgt.join(',')}}</span>
+            </li>
+            <li ng-if="tollGateLoc">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        是否跨省
+                    </span>
+                </div>
+                <span>{{tollGateLoc}}</span>
+            </li>
+            <!--end 收费站-->
+            <!--begin 高速分歧-->
+            <div ng-if="dataTipsData.deep.hasOwnProperty('o_array') && dataTipsData.isBranch" ng-repeat="branchItem in dataTipsData.deep.o_array track by $index">
+                <li style="height: inherit">
+                    <div class="roadLeftPanelDiv" style="vertical-align: top">
+                        <span>
+                            名称
+                        </span>
+                    </div>
+                    <div class="roadLeftPanel_more">
+                        <div ng-repeat="item in branchItem.n_array">
+                            <span>{{item}}</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="roadLeftPanelDiv_long">
+                        <span>
+                            退出Link
+                        </span>
+                    </div>
+                    <span class="tipsRelatedFeature" ng-bind="branchItem.out.id" title="{{branchItem.out.id}}" ng-click="getFeatDataCallback(branchItem.out,'RDLINK')"></span>
+                </li>
+                <li>
+                    <div class="roadLeftPanelDiv">
+                        <span>
+                            出口编号
+                        </span>
+                    </div>
+                    <span ng-bind="branchItem.exit"></span>
+                </li>
+            </div>
+            <!--end 高速分歧-->
+            <!--begin 实景图-->
+            <li ng-if="dataTipsData.hasOwnProperty('JVCSchemaNo')">
+                <div class="roadLeftPanelDiv_long">
+                    <span>
+                        实景图代码
+                    </span>
+                </div>
+                <span ng-bind="dataTipsData.JVCSchemaNo"></span>
+            </li>
+            <li ng-if="schemaType">
+                <div class="roadLeftPanelDiv_long">
+                    <span>
+                        实景图类型
+                    </span>
+                </div>
+                <span ng-bind="schemaType"></span>
+            </li>
+            <!--end 实景图-->
+            <!--begin 维修-->
+            <li style="height: inherit" ng-if="dataTipsData.deep.hasOwnProperty('time') && !dataTipsData.isGate && !dataTipsData.isMeasuringLine && !dataTipsData.adasNode && !dataTipsData.adasLink">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                        <span ng-if="!dataTipsData.isNoCrossing && !dataTipsData.isReversibleLine && !dataTipsData.isNoDriveIn">
+                            时间段
+                        </span>
+                        <span ng-if="dataTipsData.isNoCrossing || dataTipsData.isReversibleLine || dataTipsData.isNoDriveIn">
+                            限制时间
+                        </span>
+                </div>
+                <div class="roadLeftPanel_more">
+                    <div ng-repeat="item in timeDomain">
+                        <span>{{item}}</span>
+                    </div>
+                </div>
+            </li>
+            <!--end 维修-->
+            <li ng-if="dataTipsData.deep.hasOwnProperty('desc')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        文字说明
+                    </span>
+                </div>
+                <span ng-bind="dataTipsData.deep.desc"></span>
+            </li>
+            <!--begin 道路方向-->
+            <li ng-if="dataTipsData.deep.hasOwnProperty('dr')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        道路方向
+                    </span>
+                </div>
+                <span ng-bind="drs"></span>
+            </li>
+            <!--end 道路方向-->
+            <!--begin 道路种别-->
+            <li ng-if="dataTipsData.deep.hasOwnProperty('kind') && !dataTipsData.isMeasuringLine">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        种别
+                    </span>
+                </div>
+                <span ng-bind="kindType"></span>
+            </li>
+            <!--end 道路种别-->
+            <!--begin 挂接-->
+            <li ng-if="dataTipsData.hasOwnProperty('pcd')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        图片
+                    </span>
+                </div>
+                <img ng-src="{{pcd}}">
+            </li>
+            <!--end 挂接-->
+            <!--begin 辅路-->
+            <li ng-if="dataTipsData.deep.hasOwnProperty('dis')">
+                <div class="roadLeftPanelDiv_long">
+                    <span>
+                        距主路距离
+                    </span>
+                </div>
+                <span>{{dataTipsData.deep.dis}} 米</span>
+            </li>
+            <!--end 辅路-->
+            <!--begin 禁止驶入-->
+            <li ng-if="dataTipsData.deep.hasOwnProperty('vt') && dataTipsData.isNoDriveIn" style="height: inherit">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        例外车辆
+                    </span>
+                </div>
+                <div class="roadLeftPanel_more">
+                    <div ng-repeat="item in dataTipsData.eliminateCarObj">
+                        <span ng-bind='item.label' ng-style="{'color': item.checked ? 'red' : ''}"></span>
+                    </div>
+                </div>
+            </li>
+            <!--end 禁止驶入-->
+            <!--begin 红绿灯-->
+            <li ng-if="dataTipsData.deep.hasOwnProperty('inCt')">
+                <div class="roadLeftPanelDiv_long">
+                    <span>
+                        是否都受控
+                    </span>
+                </div>
+                <span ng-if="dataTipsData.deep.inCt==0">存在不受控Link</span>
+                <span ng-if="dataTipsData.deep.inCt==1">全部受控</span>
+            </li>
+            <li ng-if="dataTipsData.hasOwnProperty('disableCtl') && dataTipsData.deep.inCt == 0" style="height: inherit">
+                <div class="roadLeftPanelDiv_long" style="vertical-align: top">
+                    <span>
+                        不受控link
+                    </span>
+                </div>
+                <div class="roadLeftPanel_more">
+                    <div ng-repeat="item in dataTipsData.disableCtl" style="height: inherit">
+                        <span class="tipsRelatedFeature" ng-click="getFeatDataCallback(item.f,'RDLINK')" ng-bind="item.f.id" title="{{item.f.id}}"></span>
+                    </div>
+                </div>
+            </li>
+            <!--end 红绿灯-->
+            <!--begin 红绿灯方位-->
+            <li ng-if="dataTipsData.traffDirection">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        方向
+                    </span>
+                </div>
+                <span ng-bind='dataTipsData.traffDirection'></span>
+            </li>
+            <!--end 红绿灯方位-->
+            <!--begin 大门-->
+            <li ng-if="dataTipsData.hasOwnProperty('gateType')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        大门类型
+                    </span>
+                </div>
+                <span ng-bind="dataTipsData.gateType"></span>
+            </li>
+            <li ng-if="dataTipsData.hasOwnProperty('gateDir')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        大门方向
+                    </span>
+                </div>
+                <span ng-bind="dataTipsData.gateDir"></span>
+            </li>
+            <div ng-repeat="item in dataTipsData.deep.c_array" ng-if="dataTipsData.isGate">
+                <li style="height: inherit">
+                    <div class="roadLeftPanelDiv">
+                        <span>
+                            通行对象
+                        </span>
+                    </div>
+                    <div class="roadLeftPanel_more">
+                        <div>
+                            <span ng-bind="passObj[item.obj]"></span>
+                        </div>
+                    </div>
+                </li>
+                <li style="height: inherit">
+                    <div class="roadLeftPanelDiv" style="vertical-align: top">
+                        <span>
+                            通行时间
+                        </span>
+                    </div>
+                    <div class="roadLeftPanel_more" ng-if="!item.time">
+                        <span ng-bind="item.time"></span>
+                    </div>
+                    <div class="roadLeftPanel_more" ng-if="item.time">
+                        <div ng-repeat="time in item.time.slice(0, item.time.length - 1).split(';')">
+                            <span ng-bind="time"></span>
+                        </div>
+                    </div>
+                </li>
+            </div>
+            <!--end 大门-->
+            <!--begin 坡度-->
+            <li ng-if="dataTipsData.slopeType">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        坡度类型
+                    </span>
+                </div>
+                <span ng-bind='dataTipsData.slopeType'></span>
+            </li>
+            <li ng-if="dataTipsData.endSlopeFlag">
+                <div class="roadLeftPanelDiv_long">
+                    <span>
+                        结束点标识
+                    </span>
+                </div>
+                <span ng-bind='dataTipsData.endSlopeFlag'></span>
+            </li>
+            <!--end 坡度-->
+            <!--begin 条件限速-->
+            <div ng-repeat="item in dataTipsData.deep.d_array" ng-if="dataTipsData.deep.hasOwnProperty('d_array') && dataTipsData.isConditionLimit">
+                <li style="height: inherit">
+                    <div class="roadLeftPanelDiv">
+                        <span>
+                            限速条件
+                        </span>
+                    </div>
+                    <div class="roadLeftPanel_more">
+                        <div>
+                            <span ng-bind="dataTipsData.limitConditionObj[item.dpnd]"></span>
+                        </div>
+                    </div>
+                </li>
+                <li style="height: inherit" ng-if="item.time !== 0">
+                    <div class="roadLeftPanelDiv" style="vertical-align: top">
+                        <span>
+                            时间段
+                        </span>
+                    </div>
+                    <div class="roadLeftPanel_more">
+                        <div>
+                            <span ng-bind="item.time"></span>
+                        </div>
+                    </div>
+                </li>
+            </div>
+            <!--end 条件限速-->
+            <!--begin 卡车限制-->
+            <li ng-if="dataTipsData.hasOwnProperty('out') && dataTipsData.isLimitTruck">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        关联道路
+                    </span>
+                </div>
+                <span class="tipsRelatedFeature" ng-bind="dataTipsData.out.id" ng-click="getFeatDataCallback(dataTipsData.out,'RDLINK')" title="{{dataTipsData.out.id}}"></span>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('ht')">
+                <div class="roadLeftPanelDiv" style="vertical-align: top;">
+                    <span>
+                        限高
+                    </span>
+                </div>
+                <div class="roadLeftPanel_more fm-ellipsis">
+                    <span title="{{ht}}">{{ht}}</span>
+                </div>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('wt')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        限重
+                    </span>
+                </div>
+                <span>{{dataTipsData.deep.wt}}t</span>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('ax')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        轴重限制
+                    </span>
+                </div>
+                <span>{{dataTipsData.deep.ax}}t</span>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('wd')">
+                <div class="roadLeftPanelDiv" style="vertical-align: top;">
+                    <span>
+                        限宽
+                    </span>
+                </div>
+                <div class="roadLeftPanel_more fm-ellipsis">
+                    <span title="{{wd}}">{{wd}}</span>
+                </div>
+            </li>
+            <!--end 卡车限制-->
+            <!--begin 车道数-->
+            <li ng-if="dataTipsData.deep.hasOwnProperty('num') && !dataTipsData.hasOwnProperty('mileageNum') && !dataTipsData.isMileage">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        车道数
+                    </span>
+                </div>
+                <span ng-bind='dataTipsData.deep.num'></span>
+            </li>
+            <li ng-if="dataTipsData.hasOwnProperty('sideDir')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        车道方位
+                    </span>
+                </div>
+                <span ng-bind='dataTipsData.sideDir'></span>
+            </li>
+            <!--end 车道数-->
+            <!--begin 可变限速-->
+            <li ng-if="dataTipsData.deep.hasOwnProperty('loc') && dataTipsData.isVariableSpeedLimit">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        方位
+                    </span>
+                </div>
+                <span ng-bind='dataTipsData.limitDir'></span>
+            </li>
+            <!--end 可变限速-->
+            <!--begin 测线-->
+            <li ng-if="dataTipsData.isMeasuringLine">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        种别
+                    </span>
+                </div>
+                <span ng-bind="dataTipsData.lineType"></span>
+            </li>
+            <li ng-if="dataTipsData.isMeasuringLine">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        车道数
+                    </span>
+                </div>
+                <span ng-bind="dataTipsData.carNumber"></span>
+            </li>
+            <li ng-if="dataTipsData.isMeasuringLine">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        测线来源
+                    </span>
+                </div>
+                <span ng-bind="dataTipsData.lineSrc"></span>
+            </li>
+            <li ng-if="dataTipsData.isMeasuringLine">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        测线长度
+                    </span>
+                </div>
+                <span ng-bind="dataTipsData.lineLength+'m'"></span>
+            </li>
+            <li ng-if="dataTipsData.isMeasuringLine">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        是否修形
+                    </span>
+                </div>
+                <span ng-bind="dataTipsData.deep.shp ? '是': '否'"></span>
+            </li>
+            <li ng-if="dataTipsData.isMeasuringLine">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        是否在建
+                    </span>
+                </div>
+                <span ng-bind="dataTipsData.deep.cons ? '是': '否'"></span>
+            </li>
+            <li ng-if="dataTipsData.isMeasuringLine">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        开通时间
+                    </span>
+                </div>
+                <span ng-bind="dataTipsData.deep.time"></span>
+            </li>
+            <!--end 测线-->
+            <!--begin Usage Fee Required-->
+            <li ng-if="dataTipsData.isUsageFeeRequired">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        收费类型
+                    </span>
+                </div>
+                <span ng-if="dataTipsData.deep.tp == 2">桥</span>
+                <span ng-if="dataTipsData.deep.tp == 3">隧道</span>
+            </li>
+            <li ng-if="dataTipsData.usageEliminateCarObj" style="height: inherit">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        例外车辆
+                    </span>
+                </div>
+                <div class="roadLeftPanel_more">
+                    <div ng-repeat="item in dataTipsData.usageEliminateCarObj">
+                        <span ng-bind='item.label' ng-style="{'color': item.checked ? 'red' : ''}"></span>
+                    </div>
+                </div>
+            </li>
+            <!--end Usage Fee Required-->
+            <!--begin 里程桩 -->
+            <li ng-if="dataTipsData.isMileage && dataTipsData.deep.hasOwnProperty('rdNm')">
+                <div class="roadLeftPanelDiv_long">
+                    <span>
+                        道路名称
+                    </span>
+                </div>
+                <span ng-bind="dataTipsData.deep.rdName"></span>
+            </li>
+            <li ng-if="dataTipsData.isMileage && dataTipsData.deep.hasOwnProperty('rdName')">
+                <div class="roadLeftPanelDiv_long">
+                    <span>
+                        道路编号
+                    </span>
+                </div>
+                <span ng-bind="dataTipsData.deep.rdNm"></span>
+            </li>
+            <li ng-if="dataTipsData.isMileage && dataTipsData.deep.hasOwnProperty('num')">
+                <div class="roadLeftPanelDiv_long">
+                    <span>
+                        里程桩编号
+                    </span>
+                </div>
+                <span ng-bind="dataTipsData.deep.num"></span>
+            </li>
+            <li ng-if="dataTipsData.isMileage && dataTipsData.deep.hasOwnProperty('src')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        来源
+                    </span>
+                </div>
+                <span ng-if="dataTipsData.deep.src == 1">外业采集</span>
+                <span ng-if="dataTipsData.deep.src == 2">内插制作</span>
+            </li>
+            <!-- end 里程桩 -->
+            <!-- begin 公交车道 -->
+            <div ng-repeat="item in dataTipsData.deep.ln" ng-if="dataTipsData.isBusRoad && item.bus" class="group">
+                <li style="height: inherit">
+                    <div class="roadLeftPanelDiv" style="vertical-align: top">
+                        <span>
+                            限制时间
+                        </span>
+                    </div>
+                    <div class="roadLeftPanel_more">
+                        <div ng-repeat="bTime in dataTipsData['busTime' + $index ]">
+                            <span ng-bind="bTime"></span>
+                        </div>
+                    </div>
+                </li>
+                <li style="height: inherit">
+                    <div class="roadLeftPanelDiv" style="vertical-align: top">
+                        <span>
+                            退出Link
+                        </span>
+                    </div>
+                    <div class="roadLeftPanel_more">
+                        <div ng-repeat="oItem in item.o_array">
+                            <span class="tipsRelatedFeature" ng-bind="oItem.id" title="{{oItem.id}}" ng-click="getFeatDataCallback(oItem,'RDLINK')"></span>
+                        </div>
+                    </div>
+                </li>
+            </div>
+            <!-- end 公交车道 -->
+            <!-- begin 禁止卡车驶入 -->
+            <li ng-if="dataTipsData.deep.c_array[0].hasOwnProperty('trl')">
+                <div class="roadLeftPanelDiv_long">
+                    <span>
+                        拖挂车限制
+                    </span>
+                </div>
+                <span ng-if="dataTipsData.deep.c_array[0].trl == 0" ng-bind="dataTipsData.deep.c_array[0].trl"></span>
+                <span ng-if="dataTipsData.deep.c_array[0].trl == 1" ng-bind="dataTipsData.deep.c_array[0].trl"></span>
+            </li>
+            <li ng-if="dataTipsData.deep.c_array[0].hasOwnProperty('wt')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        车辆限重
+                    </span>
+                </div>
+                <span ng-if="dataTipsData.deep.c_array[0].wt != 0">{{dataTipsData.deep.c_array[0].wt}}T</span>
+                <span ng-if="dataTipsData.deep.c_array[0].wt == 0">无</span>
+            </li>
+            <li ng-if="dataTipsData.deep.c_array[0].hasOwnProperty('ax')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        限制轴重
+                    </span>
+                </div>
+                <span ng-if="dataTipsData.deep.c_array[0].ax != 0">{{dataTipsData.deep.c_array[0].ax}}T</span>
+                <span ng-if="dataTipsData.deep.c_array[0].ax == 0">无</span>
+            </li>
+            <li ng-if="dataTipsData.deep.c_array[0].hasOwnProperty('ac')">
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        限制轴数
+                    </span>
+                </div>
+                <span ng-if="dataTipsData.deep.c_array[0].ac != 0">{{dataTipsData.deep.c_array[0].ac}}</span>
+                <span ng-if="dataTipsData.deep.c_array[0].ac == 0">无</span>
+            </li>
+            <li ng-if="dataTipsData.deep.c_array[0].hasOwnProperty('out')">
+                <div class="roadLeftPanelDiv_long">
+                    <span>
+                        本外埠限制
+                    </span>
+                </div>
+                <span ng-bind="outsideCarObj[outsideCarLimit]"></span>
+            </li>
+            <li style="height: inherit" ng-if="dataTipsData.deep.c_array[0].hasOwnProperty('out')">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                        <span>
+                            限制时间
+                        </span>
+                </div>
+                <div class="roadLeftPanel_more">
+                    <div ng-repeat="item in timeDomain">
+                        <span>{{item}}</span>
+                    </div>
+                </div>
+            </li>
+            <!-- end 禁止卡车驶入 -->
+            <!-- begin 路口语音引导 -->
+            <li style="height: inherit" ng-if="oArrayItem.hasOwnProperty('out')">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                        <span>
+                            退出Link
+                        </span>
+                </div>
+                <div class="roadLeftPanel_more">
+                    <div ng-repeat="outLink in oArrayItem.out">
+                        <span class="tipsRelatedFeature" ng-bind="outLink.id" title="{{outLink.id}}" ng-click="getFeatDataCallback(outLink,'RDLINK')"></span>
+                    </div>
+                </div>
+            </li>
+            <li style="height: inherit" ng-if="oArrayItem.hasOwnProperty('oInfo')">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                        <span>
+                            语音代码
+                        </span>
+                </div>
+                <div class="roadLeftPanel_more">
+                    <div>
+                        <span ng-bind="crossVoiceCode[oArrayItem.oInfo]"></span>
+                    </div>
+                </div>
+            </li>
+            <!-- end 路口语音引导 -->
+            <!-- begin 卡车交限 -->
+            <div ng-repeat="item in oArrayItem.c_array" ng-if="dataTipsData.isTruckLimit">
+                <li style="height: inherit" ng-if="item.hasOwnProperty('time')">
+                    <div class="roadLeftPanelDiv" style="vertical-align: top">
+                        <span>
+                            限制时间
+                        </span>
+                    </div>
+                    <div class="roadLeftPanel_more">
+                        <div ng-repeat="limitTime in dataTipsData['truckTime' + $index]">
+                            <span>{{limitTime}}</span>
+                        </div>
+                    </div>
+                </li>
+                <li ng-if="item.hasOwnProperty('trl')">
+                    <div class="roadLeftPanelDiv">
+                        <span>
+                            拖挂车
+                        </span>
+                    </div>
+                    <span ng-if="item.trl == 0">不限制</span>
+                    <span ng-if="item.trl == 1">限制</span>
+                </li>
+                <li ng-if="item.hasOwnProperty('wt')">
+                    <div class="roadLeftPanelDiv">
+                        <span>
+                            卡车限重
+                        </span>
+                    </div>
+                    <span ng-if="item.wt != 0">{{item.wt}}T</span>
+                    <span ng-if="item.wt == 0">无</span>
+                </li>
+                <li ng-if="item.hasOwnProperty('ax')">
+                    <div class="roadLeftPanelDiv">
+                        <span>
+                            限制轴重
+                        </span>
+                    </div>
+                    <span ng-if="item.ax != 0">{{item.ax}}T</span>
+                    <span ng-if="item.ax == 0">无</span>
+                </li>
+                <li ng-if="item.hasOwnProperty('ac')">
+                    <div class="roadLeftPanelDiv">
+                        <span>
+                            限制轴数
+                        </span>
+                    </div>
+                    <span ng-if="item.ac != 0">{{item.ac}}</span>
+                    <span ng-if="item.ac == 0">无</span>
+                </li>
+                <li ng-if="item.hasOwnProperty('out')">
+                    <div class="roadLeftPanelDiv">
+                        <span>
+                            本外埠车
+                        </span>
+                    </div>
+                    <span ng-bind="outsideCarObj[item.out]"></span>
+                </li>
+            </div>
+            <!-- end 卡车交限 -->
+            <!-- fcc 预处理 -->
+            <li ng-if="dataTipsData.deep.hasOwnProperty('fc')">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        功能等级
+                    </span>
+                </div>
+                <span>{{dataTipsData.deep.fc}}</span>
+            </li>
+            <li ng-if="dataTipsData.handler">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        作业人员
+                    </span>
+                </div>
+                <span>{{dataTipsData.handler}}</span>
+            </li>
+            <!-- end fc预处理 -->
+            <li ng-if="dataTipsData.deep.hasOwnProperty('inNum')">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        进入车道
+                    </span>
+                </div>
+                <span>{{dataTipsData.deep.inNum}}</span>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('outNum')">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        退出车道
+                    </span>
+                </div>
+                <span>{{dataTipsData.deep.outNum}}</span>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('inLink')">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        进入Link
+                    </span>
+                </div>
+                <span class="tipsRelatedFeature" ng-bind="dataTipsData.deep.inLink" ng-click="getFeatDataCallback({id: dataTipsData.deep.inLink, type: 1},'RDLINK')"></span>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('outLink')">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        退出Link
+                    </span>
+                </div>
+                <span class="tipsRelatedFeature" ng-bind="dataTipsData.deep.outLink" ng-click="getFeatDataCallback({id: dataTipsData.deep.outLink, type: 1},'RDLINK')"></span>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('grade')">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        方向坡度
+                    </span>
+                </div>
+                <span>{{dataTipsData.deep.grade === 1 ? '上坡' : '下坡'}}</span>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('tp') && (dataTipsData.code === '2201')">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        类型
+                    </span>
+                </div>
+                <span>{{dataTipsData.deep.tp === 1 ? '地下通道' : '过街天桥'}}</span>
+            </li>
+            <li ng-if="dataTipsData.hasOwnProperty('accessType')" style="height: inherit">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        到达方式
+                    </span>
+                </div>
+                <div class="roadLeftPanel_more">
+                    <div ng-repeat="item in dataTipsData.accessType track by $index">
+                        <span>{{item}}</span>
+                    </div>
+                </div>
+            </li>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('prj') && !dataTipsData.isMeasuringLine" style="height: inherit">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        工程名
+                    </span>
+                </div>
+                <div class="fm-ellipsis" style="max-width: 110px;display: inline-block;">
+                    <span title="{{dataTipsData.deep.prj}}">{{dataTipsData.deep.prj}}</span>
+                </div>
+            </li>
+            <li ng-if="dataTipsData.adasNode" style="height: inherit">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        打点时间
+                    </span>
+                </div>
+                <span>{{dataTipsData.deep.time}}</span>
+            </li>
+            <li ng-if="dataTipsData.adasNode" style="height: inherit">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        打点类型
+                    </span>
+                </div>
+                <span>变道点</span>
+            </li>
+            <li ng-if="dataTipsData.adasLink" style="height: inherit">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        测线号码
+                    </span>
+                </div>
+                <div class="fm-ellipsis" style="max-width: 110px;display: inline-block;">
+                    <span title="{{dataTipsData.deep.id}}">{{dataTipsData.deep.id}}</span>
+                </div>
+            </li>
+            <li ng-if="dataTipsData.adasLink" style="height: inherit">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        起始时间
+                    </span>
+                </div>
+                <span>{{dataTipsData.deep.sTime}}</span>
+            </li>
+            <li ng-if="dataTipsData.adasLink" style="height: inherit">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        结束时间
+                    </span>
+                </div>
+                <span>{{dataTipsData.deep.eTime}}</span>
+            </li>
+            <li ng-if="dataTipsData.adasLink" style="height: inherit">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        匹配link
+                    </span>
+                </div>
+                <div class="roadLeftPanel_more">
+                    <div ng-repeat="item in dataTipsData.deep.link">
+                        <span>{{item}}</span>
+                    </div>
+                </div>
+            </li>
+            <div ng-repeat="item in dataTipsData.deep.f_array" ng-if="dataTipsData.GSC" class="group">
+                <li style="height: inherit">
+                    <div class="roadLeftPanelDiv" style="vertical-align: top">
+                        <span>
+                            关联要素
+                        </span>
+                    </div>
+                    <div class="roadLeftPanel_more">
+                        <span class="tipsRelatedFeature" ng-bind="item.id" ng-click="getFeatDataCallback(item, 'RWLINK')"></span>
+                    </div>
+                </li>
+                <li style="height: inherit">
+                    <div class="roadLeftPanelDiv" style="vertical-align: top">
+                        <span>
+                            层高
+                        </span>
+                    </div>
+                    <span ng-bind="item.z"></span>
+                </li>
+            </div>
+            <li ng-if="dataTipsData.deep.hasOwnProperty('photo')">
+                <div class="roadLeftPanelDiv" style="vertical-align: top">
+                    <span>
+                        收费标牌
+                    </span>
+                </div>
+                <span>{{photoType}}</span>
+            </li>
+            <li style="height: 48px">
+                <div class="roadLeftPanelDiv" style="vertical-align: top;line-height: 27px">
+                    <span>
+                        备注
+                    </span>
+                </div>
+                <div style="display: inline-block;width: 165px;line-height: 18px;padding-top: 4px" ng-bind="remarksContent">
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!--<div class="roadLeftPanel_note">-->
+    <!--<textarea class="form-control roadLeftPanel_area" type="text" rows=2 placeholder="输入备注信息"></textarea>-->
+    <!--</div>-->
+    <div class="roadLeftPanelShowPhoto" ng-show="dataTipsData.showPhoto">
+        <img ng-src="{{bigImgSrc}}" id="roadTipsPhoto" style="cursor:move;">
+        <div class="operate-tool">
+            <div class="trans-left" title="左转" ng-click="rotateBigImg(0);"></div>
+            <div class="trans-right" title="右转" ng-click="rotateBigImg(1);"></div>
+        </div>
+        <div class="img-load" ng-show="showProgress"></div>
+    </div>
+    <div class="roadLeftPanel_Thumbnails" ng-show="dataTipsData.showPhoto">
+        <div class="roadLeftPanel_Thumbnails_div" ng-repeat="item in imgSrcList"
+             ng-style="{'margin-right':$index !== 4 ? '6px' : '0'}" ng-click="changeBigImg(item, $index)">
+            <img ng-src="{{item.src}}">
+        </div>
+        <div class="roadLeftPanel_Thumbnails_left" ng-click="lastImg()">
+
+        </div>
+        <div class="roadLeftPanel_Thumbnails_right" ng-click="nextImg()">
+
+        </div>
+    </div>
+    <div class="roadLeftPanel_audio" ng-show="dataTipsData.showAudio">
+        <div class="roadLeftPanel_audio_div" ng-repeat="item in audioSrcList"
+             ng-style="{'margin-right':$index !== 4 ? '6px' : '0'}" ng-click="changeAudio(item)">
+            <img ng-src="{{item.flag ? '../../images/newRoad/leftPanelIcon/photo_audio.png': '../../images/newRoad/leftPanelIcon/photo_no_audio.png'}}">
+        </div>
+        <div class="roadLeftPanel_Thumbnails_left" ng-click="lastAudio()" style="top: 12px">
+
+        </div>
+        <div class="roadLeftPanel_Thumbnails_right" ng-click="nextAudio()" style="top: 12px">
+
+        </div>
+        <audio controls id="myAudio" style="display: none">
+            <source src="" type="audio/mpeg">
+        </audio>
+    </div>
+    <div ng-if="wrongData" style="border-top: 1px solid #afb4c7; margin-left: -10px; margin-right: -10px;"></div>
+    <div ng-if="wrongData">
+        <button type="button"  class="close pull-right" style="font-size:28px;color: #182848;opacity:1;" ng-click="deleteQuaRecord()" title="关闭"><span>&times;</span></button>
+        <ul class="list-group roadLeftPanel_ul roadLeftPanel_ul_wider">
+            <li>
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        错误原因
+                    </span>
+                </div>
+                <span ng-bind="wrongData.reason"></span>
+            </li>
+            <li>
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        错误内容
+                    </span>
+                </div>
+                <span ng-bind="wrongData.erContent"></span>
+            </li>
+            <li>
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        错误等级
+                    </span>
+                </div>
+                <span ng-bind="wrongData.quRank"></span>
+            </li>
+            <li>
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        是否倾向
+                    </span>
+                </div>
+                <span ng-if="wrongData.isPrefer == 1">是</span>
+                <span ng-if="wrongData.isPrefer == 0">否</span>
+            </li>
+            <li>
+                <div class="roadLeftPanelDiv">
+                    <span>
+                        问题说明
+                    </span>
+                </div>
+                <div ng-bind="wrongData.quDesc"></div>
+            </li>
+        </ul>
+    </div>
+</div>

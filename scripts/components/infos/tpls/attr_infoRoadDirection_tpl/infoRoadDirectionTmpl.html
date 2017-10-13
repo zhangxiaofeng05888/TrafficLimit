@@ -1,0 +1,28 @@
+<div ng-controller="roadDirectionCtrl" class="scroll_style">
+    <ul class="list-group detailUlCss">
+        <li>
+            <div class="blockDescLiDiv">
+                <span>道路方向</span>
+            </div>
+            <select class="form-control poiRightPanel_select" ng-change='changeRoadDirection()' ng-model="roadDirection.deep.dr" ng-options="value.id as value.dr for value in direction"></select>
+        </li>
+        <li ng-if="roadDirection.deep.dr === 2">
+            <div class="blockDescLiDiv">
+                <span>角度</span>
+            </div>
+            <img ng-src="../../images/newPoi/leftPanelIcon/{{rotate}}" title="顺时针旋转180度" ng-click="changeRotate(180)" style="padding-left: 10px;padding-right: 10px;cursor: pointer">
+        </li>
+        <li style="line-height:60px;height:60px" ng-if="roadDirection.deep.dr !== 1">
+            <div class="blockDescLiDiv" style="vertical-align: top;line-height: 20px">
+                <span>单行时间域限制信息</span>
+            </div>
+            <textarea class="form-control poiRightPanel_area" type="text" rows=2 ng-model="roadDirection.deep.time"></textarea>
+        </li>
+        <li style="line-height:60px;height:60px">
+            <div class="blockDescLiDiv" style="vertical-align: top">
+                <span>备注</span>
+            </div>
+            <textarea class="form-control poiRightPanel_area" type="text" rows=2 ng-model="roadDirection.content"></textarea>
+        </li>
+    </ul>
+</div>

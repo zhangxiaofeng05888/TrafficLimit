@@ -1,0 +1,21 @@
+<div class="fm-panel" ng-controller="CheckResultCtrl" style="width:330px;">
+    <div class="content">
+        <div style="height:120px;">
+            <div class="block">
+                <div style="margin:50px 30px">
+                    <label>
+                        本次检查数据143条，不符合规则数据33条
+                    </label>
+                    <label>
+                        （假值，功能开发中，请期待...）
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="border-bottom: 1px solid #ddd;"></div>
+    <div style="text-align:right;">
+        <button type="button" class="btn md-btn-blue" ng-click="cancel()" style="margin:6px 8px"><img src="../../images/meta/cancel.png">取消</button>
+        <button type="button" class="btn md-btn-success" ng-click="getCheckResult()" style="margin:6px 8px"><img src="../../images/meta/checkrst.png">检查结果查看</button>
+    </div>
+</div>

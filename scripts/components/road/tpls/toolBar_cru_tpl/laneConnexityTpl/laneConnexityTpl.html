@@ -1,0 +1,99 @@
+<style>
+    .direct-card {
+        transition: all 0.5s;
+        cursor: pointer;
+    }
+    .direct-card > img {
+        text-align: center;
+        margin: 5px;
+        width: 34px;
+        height: 40px;
+        transition: all 0.3s;
+        /*border-radius: 50%;*/
+    }
+    .direct-card:hover, .direct-card:focus {
+        box-shadow: 0px 0px 7px 4px #868ff7;
+    }
+    .lane-card {
+        display: inline-block;
+        padding: 8px;
+        border: 1px solid #bfbfff;
+        /*background-color: #bfbfff;*/
+        position: relative;
+        height: 85px;
+        list-style-type: none;
+    }
+    .lane-card.active {
+        box-shadow: 0px 0px 7px 4px #868ff7;
+    }
+    .lane-card >  img {
+        width: 26px;
+        height: 26px;
+        margin: 5px 0px;
+        cursor: pointer;
+        /*transition: all 0.5s;*/
+        display: block;
+    }
+    .lane-card .remove {
+        font-size: 12px;
+        color: #0000ff;
+        cursor: pointer;
+        position: absolute;
+        top: 1px;
+        right: 1px;
+    }
+    .item-list .dragend{
+        border: 1px solid #2196F3;
+    }
+    .item-list .dndPlaceholder{
+        background-color: #e5e5e5;
+        display: inline-block;
+        width: 44px;
+        height: 85px;
+        /*vertical-align: top;*/
+        border: 1px solid #bfbfff;
+        transition: all .3s;
+        list-style-type: none;
+    }
+    #laneConnexityLanes .arrow-popover {
+        left: -300px !important;
+        top: 282px !important;
+        max-width: 300px;
+        background-color: #fff
+    }
+</style>
+<div class="fm-scroll" ng-controller="LaneConnexityTopoEditCtrl" oncontextmenu="return false;" style="height: 100%;">
+    <div class="fm-panel" style="height: auto;">
+        <div class="header">
+            <div class="title">
+                车道方向
+            </div>
+        </div>
+        <div class="content" style="padding: 10px;">
+            <ul class="list-group item-list">
+                <li class="direct-card" ng-click="addLane(item)" ng-repeat="item in laneDirectData" style="padding: 5px;">
+                    <img ng-src="../../images/road/1301/1301_0_{{item.flag}}.svg"/>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="fm-panel" style="height: auto;">
+        <div class="header">
+            <div class="title">
+                已制作的车道信息
+            </div>
+        </div>
+        <div class="content" id="laneConnexityLanes" style="min-height: 230px; padding: 10px;">
+            <ul class="list-group item-list" dnd-drop="onDrop(index)" dnd-list="lanes">
+                <li dnd-draggable="item" dnd-dragstart="onDragStart($index)" dnd-effect-allowed="move" ng-click="selectLane($index, $event)" ng-repeat="item in lanes track by $index" style="padding: 5px;">
+                    <div class="lane-card" ng-class="{true: 'active'}[$index == currentLaneIndex]">
+                        <img bs-popover="" data-animation="am-flip-x" data-auto-close="1" data-container="#laneConnexityLanes" data-placement="left" data-template-url="../../scripts/components/road/tpls/toolBar_cru_tpl/laneConnexityTpl/changeLaneDirectTpl.html" ng-click="onChangeDirect($index, 1)" ng-src="../../images/road/1301/1301_{{item.extend == 0 ? 0 : 2}}_{{item.direct}}.svg"/>
+                        <img bs-popover="" data-animation="am-flip-x" data-auto-close="1" data-container="#laneConnexityLanes" data-placement="left" data-template-url="../../scripts/components/road/tpls/toolBar_cru_tpl/laneConnexityTpl/changeLaneDirectTpl.html" ng-click="onChangeDirect($index, 2)" ng-if="item.busDirect" ng-src="../../images/road/1301/1301_1_{{item.busDirect}}.svg"/>
+                        <span class="glyphicon glyphicon-remove-sign remove" ng-click="deleteLane($index, $event)">
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

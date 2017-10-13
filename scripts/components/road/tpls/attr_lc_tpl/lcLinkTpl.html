@@ -1,0 +1,61 @@
+<style>
+    .btnDiy_div {
+        display: inline-block;
+        float: right;
+        padding-right: 20px;
+    }
+    .btn-diy {
+        width: 100px;
+        height: 24px;
+        border: none;
+        background-color: #636ef5;
+        color: #ffffff;
+    }
+    .btn-diy:hover {
+        border: none;
+        background-color: #454dab;
+        color: #ffffff;
+    }
+    .linkType_style_normal {
+        display: inline-block;
+        color: #fa5883;
+        cursor: pointer;
+    }
+    .linkType_style1_active {
+        display: inline-block;
+        color: #636ef5;
+        cursor: pointer;
+    }
+</style>
+<div ng-controller="lcLinkController">
+    <ul class="list-group detailUlCss" style="margin-top: 8px;">
+        <li>
+            <div class="blockDescLiDiv"><span>Link种别</span></div>
+            <div class="btnDiy_div">
+                <button class="btn-xs btn-diy" data-container="body" data-animation="am-flip-x" data-auto-close="1" bs-popover data-placement="left" data-template-url="../../scripts/components/road/tpls/attr_lc_tpl/lcLinkType.html">编辑</button>
+            </div>
+        </li>
+        <!--显示选中的node种别-->
+        <div ng-style="{'border-top':lcLinkData.kinds.length > 0 ? '1px solid #636ef5': null,'border-bottom':lcLinkData.kinds.length > 0 ? '1px solid #636ef5': null}">
+            <li ng-repeat="t in lcLinkData.kinds track by $index" style="padding-left: 10px">
+                <div style="display: inline-block;width: 168px">
+                    <span>{{kindsLabel[t.kind]}}</span>
+                </div>
+            </li>
+        </div>
+        <li>
+            <div class="blockDescLiDiv"><span>Link形态</span></div>
+            <select ng-if="confirmFormEditKind()=='island'" style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="lcLinkData.kinds[0].form" ng-options="value.id as value.label for value in form"></select>
+            <select ng-if="confirmFormEditKind()=='noIsland'" style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="lcLinkData.kinds[0].form" ng-options="value.id as value.label disable when ([1,2,3,4].indexOf(value.id)!=-1) for value in form"></select>
+            <select ng-if="confirmFormEditKind()=='onlyNoProperty'" style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="lcLinkData.kinds[0].form" ng-options="value.id as value.label disable when (value.id!=0) for value in form"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>Link长度</span></div>
+            <input class="form-control poiRightPanel_Input" ng-model="lcLinkData.length" type="text" disabled/>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span style="letter-spacing: 1px;">图幅号</span></div>
+            <input class="form-control poiRightPanel_Input" class="chosen-disabled" ng-model="lcLinkData.meshId" type="text" disabled="disabled" />
+        </li>
+    </ul>
+</div>

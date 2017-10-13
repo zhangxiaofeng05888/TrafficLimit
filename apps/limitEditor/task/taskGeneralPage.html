@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="../../scripts/libs/ng-dialog/css/ngDialog.css">
+<link rel="stylesheet" href="../../scripts/libs/ng-dialog/css/ngDialog-theme-default.css">
+<link rel="stylesheet" href="../../scripts/libs/ng-dialog/css/ngDialog-theme-plain.css">
+<link rel="stylesheet" href="../../scripts/libs/ng-dialog/css/ngDialog-custom-width.css">
+<link rel="stylesheet" type="text/css" href="../../styles/webEditor/taskList.css">
+<div class="taskList_container">
+    <div class="taskList_leftDiv">
+        <div class="left-menu-title">
+            <div class="childTaskListTitle" ng-click="openChildList()">
+                <div>
+                    <span>当前子任务</span>
+                </div>
+                <img ng-src="{{childListFlag ? '../../images/newPoi/taskList/icon_down_normal.png' : '../../images/newPoi/taskList/icon_up_normal.png'}}">
+            </div>
+            <div ng-style="{'display': childListFlag?'block':'none'}">
+                <ul class="list-group listUlCss">
+                    <li ng-repeat="item in finalResultArray track by $index" ng-click="selectTaskList('taskList',item)"
+                        ng-class="{'taskListSelect': item.select}" class="taskListLi">
+                        <div class="taskListDesc">
+                            <span>{{taskTypes[item.type]}}</span>
+                        </div>
+                        <div class="taskListNum">
+                            <span>{{item.total}}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="historyTaskList left-menu-title" ng-class="{'taskListSelect': taskHistoryHighLight}" ng-click="selectTaskList($index,'taskHistory')">
+            <span>历史子任务</span>
+        </div>
+        <div class="left-menu-title">
+            <div class="childTaskListTitle" ng-click="openChildMarch()"
+                 style="height: 50px;line-height: 50px;border-bottom: 1px solid rgba(255, 255, 255, .1)">
+                <div>
+                    <span>任务进展</span>
+                </div>
+                <img ng-src="{{childMarchFlag? '../../images/newPoi/taskList/icon_down_normal.png' : '../../images/newPoi/taskList/icon_up_normal.png'}}">
+            </div>
+            <div ng-style="{'display': childMarchFlag?'block':'none'}">
+                <ul class="list-group listUlCss">
+                    <li ng-repeat="item in taskDesc">
+                        <div class="taskListDesc">
+                            <span>{{item.name}}</span>
+                        </div>
+                        <div class="taskListNum">
+                            <span>{{item.num}}条</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div ng-click="changeTaskDisplay()" style="position: absolute;top:23px;padding-left: 25px;cursor: pointer;">
+        <img ng-src="{{cardShow ? '../../images/newPoi/taskList/icon_card.png' : '../../images/newPoi/taskList/icon_list.png'}}">
+    </div>
+    <div ng-include="taskListUrl" style="height: 100%;"></div>
+    <div style="color: #ffffff; position: absolute; right: 20px; top: 20px;font-size: 14px;cursor: pointer" ng-style="{'display': ngDialogData.showLogout?'block':'none'}">
+        <span ng-click="logout()">退出</span>
+    </div>
+</div>
+<!-- 页面加载中效果 -->
+<div ng-show="loading.flag" class="show-animation" ng-include="'./svgLoading.html'"></div>

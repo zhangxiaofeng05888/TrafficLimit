@@ -1,0 +1,80 @@
+.fm-wm-window .wmWindowBox {
+    background-color: #fff;
+    min-width: 200px;
+    min-height: 100px;
+}
+
+.fm-wm-window .wmWindowBox div.wmTitleBar {
+    background-color: #fff;
+    height: 40px;
+    line-height: 40px;
+    padding: 0px 20px;
+    flex-shrink: 0;
+    align-items: flex-end;
+}
+
+.fm-wm-window .wmWindowBox div.wmTitleBar div.wmTitle {
+    color: #fa5883;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0px;
+    cursor: move;
+}
+.fm-wm-window .wmWindowBox .wmButtonBar {
+    height: 40px;
+}
+.fm-wm-window .wmWindowBox .wmButtonBar button {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    opacity: 1;
+}
+
+.fm-wm-window .wmWindowBox .wmButtonBar button.wmMinimize {
+    background: url('../images/webEditor/dialog/mini.png') no-repeat;
+}
+
+.fm-wm-window .wmWindowBox .wmButtonBar button.wmRestore {
+    background: url('../images/webEditor/dialog/maxi.png') no-repeat;
+}
+
+.fm-wm-window .wmWindowBox .wmButtonBar button.wmMaximize {
+    background: url('../images/webEditor/dialog/maxi.png') no-repeat;
+}
+
+.fm-wm-window .wmWindowBox .wmButtonBar button.wmClose {
+    background: url('../images/webEditor/dialog/close.png') no-repeat;
+}
+
+.fm-wm-window.inactive div.wmTitleBar {
+    background-color: #fff;
+}
+
+.fm-wm-window.inactive div.wmTitleBar div.wmTitle {
+    color: #ddd;
+}
+
+.fm-wm-window.resizing .wmWindowBox div.wmTitleBar, .fm-wm-window.moving .wmWindowBox div.wmTitleBar {
+    background-color: #fff;
+}
+
+.fm-wm-window.resizing .wmWindowBox, .fm-wm-window.moving .wmWindowBox {
+    background-color: #fff;
+}
+
+.fm-wm-window.minimized {
+    min-height: auto;
+}
+
+.fm-wm-window.minimized div.wmTitleBar {
+    background-color: #636ef5;
+    align-items: center;
+}
+
+.fm-wm-window.minimized div.wmTitleBar div.wmTitle {
+    color: #fff;
+}
+
+.fm-wm-window .wmWindowBox div.wmContent {
+    min-height: 60px;
+}

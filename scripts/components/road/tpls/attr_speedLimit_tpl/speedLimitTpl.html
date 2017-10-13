@@ -1,0 +1,120 @@
+<div style="height: 100%" class="scroll_style" ng-controller="speedlimitTeplController">
+    <form class="w5c-form" w5c-form-validate="" novalidate name="roadSpeedLimitForm">
+        <ul class="list-group detailUlCss">
+            <li>
+                <div class="blockDescLiDiv"><span>限速值</span></div>
+                <input
+                        type="number"
+                        ng-model="speedLimitData.speedValue"
+                        style="width: 150px;"
+                        class="form-control poiRightPanel_Input"
+                        name="speedLimitName"
+                        ng-maxlength="3"
+                        min="0"
+                        max="999"
+                        required
+                        set-focus
+                        ng-pattern="/^(0|[1-9][0-9]*)$/"
+                />
+                <label>km/h</label>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>限速类型</span></div>
+                <select ng-model="speedLimitData.speedType"
+                        ng-options="value.id as value.label for value in speedTypeOptions"
+                        class="form-control roadLeftPanel_select" ng-change="changeSpeedType()"
+                >
+                </select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>限速标志</span></div>
+                <input type="radio" name="speedStartOrEnd" value={{0}} id="speedFlag0"
+                       ng-model="speedLimitData.speedFlag" class="radio_diy_class">
+                <label for="speedFlag0">
+                    限速开始
+                </label>
+                <input type="radio" name="speedStartOrEnd" value={{1}} id="speedFlag1"
+                       ng-model="speedLimitData.speedFlag" class="radio_diy_class">
+                <label for="speedFlag1">
+                    解除限速
+                </label>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>作用方向</span></div>
+                <select ng-model="speedLimitData.direct"
+                        ng-options="value.id as value.label for value in speedDirectTypeOptions"
+                        class="form-control roadLeftPanel_select"
+                        disabled
+                >
+                </select>
+            </li>
+            <li ng-if="speedLimitData.speedType==3">
+                <div class="blockDescLiDiv"><span>限速条件</span></div>
+                <select ng-model="speedLimitData.speedDependent"
+                        ng-options="value.id as value.label for value in speedDependentOption"
+                        class="form-control roadLeftPanel_select"
+                        ng-change="changeSpeedDependent()"
+                >
+                    <option>--</option>
+                </select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>限速来源</span></div>
+                <select ng-model="speedLimitData.limitSrc"
+                        ng-options="value.id as value.label for value in limitSrcOption"
+                        class="form-control roadLeftPanel_select"
+                >
+                    <option>--</option>
+                </select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>采集标志</span></div>
+                <select ng-model="speedLimitData.captureFlag"
+                        ng-options="value.id as value.label for value in captureFlagOption"
+                        class="form-control roadLeftPanel_select"
+                >
+                    <option>--</option>
+                </select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>收费站前</span></div>
+                <input type="radio" name="beforeOrAfter" value={{0}} id="tollgateFlag0"
+                       ng-model="speedLimitData.tollgateFlag"
+                       class="radio_diy_class"
+                >
+                <label for="tollgateFlag0">
+                    否
+                </label>
+                <input type="radio" name="beforeOrAfter" value={{1}} id="tollgateFlag1"
+                       ng-model="speedLimitData.tollgateFlag"
+                       class="radio_diy_class"
+                >
+                <label for="tollgateFlag1">
+                    是
+                </label>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>标牌坐标</span></div>
+                <span>{{speedLimitGeometryData.coordinates}}</span>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>关联Link</span></div>
+                <span>{{speedLimitData.linkPid}}</span>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>文字说明</span></div>
+                <input type="text" ng-model="speedLimitData.descript" class="form-control poiRightPanel_Input">
+            </li>
+            <li ng-if="speedLimitData.speedType==4">
+                <div class="blockDescLiDiv"><span>车道限速</span></div>
+                <input type="text" name="laneLimitSpeedValue" ng-model="speedLimitData.laneSpeedValue"
+                       style="width: 150px;" class="form-control poiRightPanel_Input" required ng-keyup="roadwayEntry($event)">
+                <label>km/h</label>
+            </li>
+            <li ng-show="speedLimitData.speedType == 3">
+                <div ng-include="dateURL" class="muti-date" data-type="1"
+                     date-str='{{speedLimitData.timeDomain}}' style="width:100%;"></div>
+            </li>
+        </ul>
+    </form>
+</div>

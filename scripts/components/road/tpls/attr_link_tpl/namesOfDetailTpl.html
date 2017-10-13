@@ -1,0 +1,61 @@
+
+<div class="popover" tabindex="-1" style="width: 300px;min-height: 275px;">
+    <ul class="list-group detailUlCss" ng-controller="namesOfLinkController">
+        <li ng-if="!nameRight">
+            <label class="control-label" style="color:#EA7070;">合法的道路名数据应该来源于道路名库</label>
+        </li>
+        <li>
+            <div class="linkName_popover_Div"><span>名称组号</span></div>
+            <span>{{currentActiveRoadName.nameGroupid}}</span>
+        </li>
+        <li style="position: relative">
+            <div class="linkName_popover_Div"><span>道路名称</span></div>
+            <input class="form-control poiRightPanel_Input"
+                   type="text"
+                   style="padding-right: 30px"
+                   ng-model="currentActiveRoadName.name"
+                   bs-typeahead
+                   data-limit=20
+                   data-animation="am-flip-x"
+                   data-watch-options="1"
+                   bs-options="roadName as roadName.name for roadName in roadNames"
+                   data-template-url= "../../scripts/components/road/tpls/attr_link_tpl/typeaHeadTpl.html"
+            />
+        </li>
+        <li>
+            <div class="linkName_popover_Div"><span>名称分类</span></div>
+            <input type="radio" name="nameType" value=1 ng-model="currentActiveRoadName.nameClass" id="nameType1" ng-change="changeNameClass(currentActiveRoadName, {{currentActiveRoadName}})" class="radio_diy_class"/>
+            <label for="nameType1"><span> 官 方 </span></label>
+            <input type="radio" name="nameType" value=2 ng-model="currentActiveRoadName.nameClass" id="nameType2" ng-change="changeNameClass(currentActiveRoadName, {{currentActiveRoadName}})" class="radio_diy_class"/>
+            <label for="nameType2" style="padding-left: 25px"><span> 别 名 </span></label>
+            <input type="radio" name="nameType" value=3 ng-model="currentActiveRoadName.nameClass" id="nameType3" ng-change="changeNameClass(currentActiveRoadName, {{currentActiveRoadName}})" class="radio_diy_class"/>
+            <label for="nameType3" style="padding-left: 25px"><span> 曾 用 </span></label>
+        </li>
+        <li>
+            <div class="linkName_popover_Div"><span>名称序号</span></div>
+            <span ng-bind="currentActiveRoadName.seqNum"></span>
+        </li>
+        <li>
+            <div class="linkName_popover_Div"><span>名称类型</span></div>
+            <select class="form-control poiRightPanel_select linkName_popover_select" ng-model="currentActiveRoadName.nameType" ng-options="value.id as value.label for value in nameTypeOptions"></select>
+        </li>
+        <li>
+            <div class="linkName_popover_Div"><span>名称来源</span></div>
+            <select class="form-control poiRightPanel_select linkName_popover_select" ng-model="currentActiveRoadName.srcFlag" ng-options="value.id as value.label for value in srcFlagOptions"></select>
+        </li>
+        <li>
+            <div class="linkName_popover_Div"><span>路线属性</span></div>
+            <select class="form-control poiRightPanel_select linkName_popover_select" ng-model="currentActiveRoadName.routeAtt" ng-options="value.id as value.label for value in routeAttOptions"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>主从code</span></div>
+            <input type="radio" name="code" ng-value={{0}} ng-model="currentActiveRoadName.code" id="work" class="radio_diy_class"/><label for="work"><span> 作品 </span></label>
+            <input type="radio" name="code" ng-value={{1}} ng-model="currentActiveRoadName.code" id="host" class="radio_diy_class"/><label style="padding-left: 25px" for="host"><span> 主 </span></label>
+            <input type="radio" name="code" ng-value={{2}} ng-model="currentActiveRoadName.code" id="follow" class="radio_diy_class"/><label style="padding-left: 25px" for="follow"><span> 从 </span></label>
+        </li>
+        <li>
+            <div class="linkName_popover_Div"><span>录入时间</span></div>
+            <input type="text" class="form-control poiRightPanel_Input" ng-model="currentActiveRoadName.inputTime" ng-disabled="currentActiveRoadName.nameClass!=3" ng-class="{'chosen-disabled':currentActiveRoadName.nameClass!=3}" />
+        </li>
+    </ul>
+</div>

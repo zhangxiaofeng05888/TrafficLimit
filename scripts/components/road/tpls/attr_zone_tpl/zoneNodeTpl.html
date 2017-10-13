@@ -1,0 +1,16 @@
+<div ng-controller="zoneNodeController">
+    <ul class="list-group detailUlCss" style="margin-top: 8px;">
+        <li>
+            <div class="blockDescLiDiv"><span>种　　别</span></div>
+            <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="zoneNodeData.kind" ng-options="value.id as value.label for value in kind"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span>形　　态</span></div>
+            <select style="width: 190px; background-position-x: 170px" class="form-control poiRightPanel_select" ng-model="zoneNodeData.form" ng-options="value.id as value.label disable when (value.id != zoneNodeData.form) for value in form"></select>
+        </li>
+        <li>
+            <div class="blockDescLiDiv"><span style="letter-spacing: 1px">图 幅 号</span></div>
+            <input class="form-control poiRightPanel_Input" class="chosen-disabled" ng-model="zoneNodeData.meshId" type="text" disabled="disabled" />
+        </li>
+    </ul>
+</div>

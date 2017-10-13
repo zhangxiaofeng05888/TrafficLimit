@@ -1,0 +1,182 @@
+<style>
+    .upload-add {
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        overflow: hidden;
+        text-decoration: none;
+        text-indent: 0;
+        cursor: pointer;
+    }
+    .upload-add input {
+        top: 0;
+        right: 0;
+        bottom: auto;
+        left: auto;
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height:35px;
+    }
+</style>
+<div class="fm-panel" ng-controller="modelMatchEditCtrl" style="height:400px;width:930px;">
+    <div class="content" style="height:360px;">
+        <div>
+            <ul class="fm-ul fm-ul-form col-md-4">
+                <li>
+                    <label style="width:28%;">文件ID<span style="color:#ff6f9f;">*</span>:</label>
+                    <div>
+                        <input type="text" class="form-control editPanel_input" ng-model="modelMatchGData.fileId" disabled>
+                    </div>
+                </li>
+                <li>
+                    <label style="width:28%;">项目名称<span style="color:#ff6f9f;">*</span>:</label>
+                    <div>
+                        <input type="text" class="form-control editPanel_input" ng-model="modelMatchGData.projectNm">
+                    </div>
+                </li>
+                <li>
+                    <label style="width:28%;">中文件类型:</label>
+                    <div>
+                        <input type="text" class="form-control editPanel_input" ng-model="modelMatchGData.mType">
+                    </div>
+                </li>
+                <li>
+                    <label style="width:28%;">文件名称<span style="color:#ff6f9f;">*</span>:</label>
+                    <div>
+                        <input type="text" class="form-control editPanel_input" ng-model="modelMatchGData.fileName">
+                    </div>
+                </li>
+                <li>
+                    <label style="width:28%;">导入人员<span style="color:#ff6f9f;">*</span>:</label>
+                    <div>
+                        <input type="text" class="form-control editPanel_input" ng-model="modelMatchGData.impWorker">
+                    </div>
+                </li>
+            </ul>
+            <ul class="fm-ul fm-ul-form col-md-4">
+                <li>
+                    <label style="width:28%;">产品线<span style="color:#ff6f9f;">*</span>:</label>
+                    <div>
+                        <select class="fm-control editPanel_input" style="width:160px;" ng-model="modelMatchGData.productLine"
+                                no_results_text="'--无--'" placeholder_text_single="'--请选择--'"
+                                ng-options="value.id as value.label for value in productLineOpt"
+                                chosen>
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <label style="width:28%;">导入日期<span style="color:#ff6f9f;">*</span>:</label>
+                    <div>
+                        <!--<input type="text" class="form-control editPanel_input" ng-model="modelMatchGData.impDate">-->
+                        <input type="text" data-date-type="string" data-autoclose="true" data-date-format="yyyy-MM-dd hh:MM:ss" class="form-control editPanel_input" ng-model="modelMatchGData.impDate"  bs-datepicker/>
+                    </div>
+                </li>
+                <li>
+                    <label style="width:28%;">小文件类型:</label>
+                    <div>
+                        <input type="text" class="form-control editPanel_input"
+                                ng-model="modelMatchGData.sType">
+                    </div>
+                </li>
+                <li>
+                    <label style="width:28%;">规格:</label>
+                    <div>
+                        <input type="text" class="form-control editPanel_input" ng-model="modelMatchGData.specification">
+                    </div>
+                </li>
+                <li>
+                    <label style="width:28%;">文件尺寸:</label>
+                    <div>
+                        <input type="text" class="form-control editPanel_input" ng-model="modelMatchGData.size">
+                    </div>
+                </li>
+            </ul>
+            <ul class="fm-ul fm-ul-form col-md-4">
+                <li>
+                    <label style="width:28%;">文件版本<span style="color:#ff6f9f;">*</span>:</label>
+                    <div>
+                        <input type="text" class="form-control editPanel_input" ng-model="modelMatchGData.version">
+                    </div>
+                </li>
+                <li>
+                    <label style="width:28%;">大文件类型<span style="color:#ff6f9f;">*</span>:</label>
+                    <div>
+                        <input type="text" class="form-control editPanel_input" ng-model="modelMatchGData.bType">
+                    </div>
+                </li>
+                <!--<li>-->
+                    <!--<label style="width:30%;">相对路径:</label>-->
+                    <!--<div>-->
+                        <!--<input type="text" class="form-control editPanel_input" ng-model="modelMatchGData.urlFile">-->
+                    <!--</div>-->
+                <!--</li>-->
+                <li>
+                    <label style="width:28%;">文件后缀<span style="color:#ff6f9f;">*</span>:</label>
+                    <div>
+                        <input type="text" class="form-control editPanel_input" ng-model="modelMatchGData.format">
+                    </div>
+                </li>
+                <li>
+                    <label style="width:28%;">备注信息:</label>
+                    <div>
+                        <input type="text" class="form-control editPanel_input" ng-model="modelMatchGData.memo">
+                    </div>
+                </li>
+            </ul>
+            <ul class="fm-ul fm-ul-form col-md-12">
+                <li>
+                    <label style="width:9%;">相对路径<span style="color:#ff6f9f;">*</span>:</label>
+                    <div>
+                        <input type="text" class="form-control" style='height: 24px;' ng-model="modelMatchGData.urlFile"/>
+                    </div>
+                </li>
+            </ul>
+            <ul class="fm-ul fm-ul-form col-md-12">
+                <li>
+                    <label style="width:9%;">路径名称<span style="color:#ff6f9f;">*</span>:</label>
+                    <div>
+                        <input type="text" class="form-control" style='height: 24px;' ng-model="modelMatchGData.urlDb"/>
+                    </div>
+                </li>
+            </ul>
+            <ul class="fm-ul fm-ul-form col-md-12" ng-show="imageUploadable">
+                <li>
+                    <label style="width:9%;">文件内容<span style="color:#ff6f9f;">*</span>:</label>
+                    <div>
+                        <input type="text" class="form-control" style='height: 24px;' ng-model="imageFile" disabled/>
+                    </div>
+                   <span class="upload-btn upload-add" >
+                        <button type="button" class="btn md-btn-blue" style="margin:6px 8px">
+                                请选择图片
+                        </button>
+                        <input type="file" nv-file-select="" uploader="uploader" multiple/>
+                   </span>
+                </li>
+            </ul>
+        </div>
+        <!--组ID和类型名称弹框modal-->
+        <div class="fm-modal" drag ng-show="searchModal">
+            <div drag-handle style="height: 40px;width: 100%;background-color: #1A90FE;cursor: pointer">
+                <div>
+                    <span style="color: white;font-size: 14px;font-weight: bold;padding:0px 4px;">{{searchModalTitle}}</span>
+                    <button type="button" class="close pull-right"
+                            style="padding:0px 4px;font-size:28px;color:white;opacity:1;" ng-click="closeSearchModal()"
+                            title="关闭"><span>&times;</span></button>
+                </div>
+            </div>
+            <div class="content" ng-include="searchModalTpl">
+            </div>
+        </div>
+    </div>
+    <div style="border-bottom: 1px solid #ddd;"></div>
+    <div style="text-align:right;">
+        <!--<button type="button" class="btn road-btn-main" ng-disabled="running" ng-click="doSave()" style="margin:6px 8px">保存</button>-->
+        <button ng-if="restBtn" type="button" class="btn md-btn-warning" ng-click="reset()" style="margin:6px 8px"><img
+                src="../../images/meta/reset.png">重置
+        </button>
+        <button type="button" class="btn md-btn-success" ng-click="doSave()" style="margin:6px 8px"><img
+                src="../../images/meta/confirm.png">确定
+        </button>
+    </div>
+</div>

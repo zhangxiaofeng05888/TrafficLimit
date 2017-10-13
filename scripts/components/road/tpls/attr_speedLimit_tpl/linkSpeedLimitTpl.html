@@ -1,0 +1,142 @@
+<div ng-controller="linkSpeedlimitController">
+    <form class="w5c-form" w5c-form-validate="" novalidate name="speedLimitType">
+        <ul class="list-group detailUlCss" ng-if="speedLimitsData.speedType === 0">
+            <li>
+                <div class="blockDescLiDiv"><span>限速类型</span></div>
+                <select ng-model="speedLimitsData.speedType"
+                        class="form-control poiRightPanel_select"
+                        ng-options="value.id as value.label for value in speedTypeOption" disabled="disabled">
+                    <option>--</option>
+                </select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>顺向速度</span></div>
+                <input type="text"
+                       name="straightSpeed"
+                       ng-maxlength="3"
+                       required
+                       set-focus
+                       w5c-dynamic-element
+                       ng-pattern="/^(0|[1-9][0-9]*)$/"
+                       id="{{speedLimitsData.rowid}}fromSpeedLimit"
+                       ng-model="speedLimitsData.fromSpeedLimit"
+                       class="form-control poiRightPanel_Input"
+                       ng-disabled="toEditable">
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>顺向来源</span></div>
+                <select ng-model="speedLimitsData.fromLimitSrc"
+                        class="form-control poiRightPanel_select"
+                        ng-options="value.id as value.label for value in fromLimitSrcOption"
+                        ng-disabled="toEditable">
+                    <option>--</option>
+                </select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>逆向速度</span></div>
+                <input type="text"
+                       name="reverseSpeed"
+                       ng-maxlength="4"
+                       required
+                       set-focus
+                       w5c-dynamic-element
+                       ng-pattern="/^(0|[1-9][0-9]*)$/"
+                       id="{{item.rowid}}toSpeedLimit"
+                       class="form-control poiRightPanel_Input"
+                       ng-model="speedLimitsData.toSpeedLimit"
+                       ng-disabled="fromEditable">
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>逆向来源</span></div>
+                <select ng-model="speedLimitsData.toLimitSrc"
+                        class="form-control poiRightPanel_select"
+                        ng-options="value.id as value.label for value in fromLimitSrcOption"
+                        ng-disabled="fromEditable">
+                    <option>--</option>
+                </select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>等级赋值</span></div>
+                <input type="radio" id="speedClassWorkRadio0" name="speedClassWorkRadio" class="radio_diy_class" value=0
+                       ng-model="speedLimitsData.speedClassWork">
+                <label for="speedClassWorkRadio0">
+                    手工
+                </label>
+                <input type="radio" id="speedClassWorkRadio1" name="speedClassWorkRadio" class="radio_diy_class" value=1
+                       ng-model="speedLimitsData.speedClassWork">
+                <label for="speedClassWorkRadio1">
+                    程序
+                </label>
+            </li>
+        </ul>
+        <ul class="list-group detailUlCss" ng-if="speedLimitsData.speedType===3">
+            <li>
+                <div class="blockDescLiDiv"><span>限速类型</span></div>
+                <select ng-model="speedLimitsData.speedType"
+                        class="form-control poiRightPanel_select"
+                        ng-options="value.id as value.label for value in speedTypeOption" disabled="disabled">
+                    <option>--</option>
+                </select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>限速条件</span></div>
+                <select ng-model="speedLimitsData.speedDependent"
+                        class="form-control poiRightPanel_select"
+                        ng-options="value.id as value.label for value in speedDependentOption" disabled="disabled">
+                    <option>--</option>
+                </select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>顺向速度</span></div>
+                <input type="text"
+                       placeholder="0530"
+                       name="straightSpeed3"
+                       ng-maxlength="3"
+                       required
+                       set-focus
+                       w5c-dynamic-element
+                       ng-pattern="/^(0|[1-9][0-9]*)$/"
+                       class="form-control poiRightPanel_Input"
+                       ng-model="speedLimitsData.fromSpeedLimit"
+                       ng-disabled="toEditable">
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>顺向来源</span></div>
+                <select ng-model="speedLimitsData.fromLimitSrc"
+                        class="form-control poiRightPanel_select"
+                        ng-options="value.id as value.label for value in fromLimitSrcOption"
+                        ng-disabled="toEditable">
+                    <option>--</option>
+                </select>
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>逆向速度</span></div>
+                <input type="text"
+                       name="reverseSpeed3"
+                       ng-maxlength="4"
+                       required
+                       set-focus
+                       w5c-dynamic-element
+                       ng-pattern="/^(0|[1-9][0-9]*)$/"
+                       placeholder="0530"
+                       class="form-control poiRightPanel_Input"
+                       ng-model="speedLimitsData.toSpeedLimit"
+                       ng-disabled="fromEditable">
+            </li>
+            <li>
+                <div class="blockDescLiDiv"><span>逆向来源</span></div>
+                <select ng-model="speedLimitsData.toLimitSrc"
+                        class="form-control poiRightPanel_select"
+                        ng-options="value.id as value.label for value in fromLimitSrcOption"
+                        ng-disabled="fromEditable">
+                    <option>--</option>
+                </select>
+            </li>
+            <li>
+                <div ng-include="dateURL" class="muti-date" date-str='{{speedLimitsData.timeDomain}}'
+                     style="width:100%;padding: 5px;"></div>
+            </li>
+        </ul>
+    </form>
+
+</div>

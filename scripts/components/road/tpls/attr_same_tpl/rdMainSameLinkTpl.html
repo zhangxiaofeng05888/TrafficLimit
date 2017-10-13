@@ -1,0 +1,56 @@
+<style>
+    .fm-sameLink {
+        width: 420px;
+    }
+    .fm-sameLink .sameLinkfooter{
+        height: 40px;
+        padding: 8px 20px;
+        text-align: right;
+    }
+    .fm-sameLink .adAdminfooter button{
+        display: inline-block;
+        width: 100px;
+        height: 25px;
+        padding: 0;
+    }
+    .fm-sameLink .titleBox{
+        height: 40px;
+        cursor: move;
+        padding: 0 20px;
+        border-bottom: 1px solid #3399ff;
+    }
+    .fm-sameLink .title{
+        color: #3399ff;
+        font-size: 16px;
+        height: 40px;
+        line-height: 40px;
+    }
+    .fm-sameLink .bulidSameLink{
+        background: #3399ff;
+        border: none;
+        color: white;
+        border-radius: 4px;
+        padding: 3px 10px;
+    }
+</style>
+<div class="fm-job-panel fm-stretch fm-sameLink" ng-controller="MainSameLinkController">
+    <div style="border-bottom: 1px solid #3399ff" class="content scroll_style">
+        <div class="scroll-styled">
+            <table class="table" style="text-indent: 15px">
+                <thead><td>类型</td><td>ID</td><td>制作</td></thead>
+                <tbody>
+                    <tr ng-repeat="node in same.sameLinkList">
+                        <td style="width: 30%;" class="tdWidthContent">{{node.featType}}</td>
+                        <td style="width: 40%;" class="tdWidthContent">{{node.id}}</td>
+                        <td style="width: 30%;" class="tdWidthInput">
+                            <input type="checkbox" ng-change="changeSame()" ng-disabled="$index==same.sameDisabledIndex" ng-model="node.checked">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="sameLinkfooter">
+        <button type="button" class="bulidSameLink" ng-click="saveSame();">制作同一线</button>
+    </div>
+</div>
