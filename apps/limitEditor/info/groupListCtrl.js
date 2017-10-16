@@ -110,22 +110,18 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
             var params = {
                 adminCode: App.Temp.infoToGroupData.cityId
             };
-            dsFcc.getDbId(params).then(function (data) {
+            dsFcc.getCityGeometry(params).then(function (data) {
                 if (data) {
-                    dsFcc.getCityGeometry(params).then(function (data1) {
-                        if (data1) {
-                            App.Temp.dbId = data;
-                            App.Temp.groupId = row.entity.groupId;
-                            App.Temp.cityGeometry = data1.geometry;
-                            var sessionData = {
-                                dbId: data,
-                                groupId: row.entity.groupId,
-                                cityGeometry: data1.geometry
-                            };
-                            window.location.href = '#/editor';
-                            App.Util.setSessionStorage('DbId', sessionData);
-                        }
-                    });
+                    App.Temp.dbId = data.dbId;
+                    App.Temp.groupId = row.entity.groupId;
+                    App.Temp.cityGeometry = data.geometry;
+                    var sessionData = {
+                        dbId: data.dbId,
+                        groupId: row.entity.groupId,
+                        cityGeometry: data.geometry
+                    };
+                    window.location.href = '#/editor';
+                    App.Util.setSessionStorage('DbId', sessionData);
                 }
             });
         };

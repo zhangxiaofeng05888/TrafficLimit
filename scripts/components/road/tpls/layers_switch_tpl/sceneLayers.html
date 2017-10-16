@@ -94,29 +94,9 @@
             </div>
         </div>
         <div class="fm-scroll" ng-if="sceneType === 'feature'" style="height: 100%;">
-            <fast-collapse expander-title="POI粗编作业场景">
-                <ul>
-                    <li ng-repeat="item in scenes | filter : {type: 'feature', label: 'POI', name: searchText}">
-                        <input class="fm-control" id="feature-scene-{{item.id}}" name="scene" ng-checked="item.id === selectedSceneId" ng-click="selectScene(item)" type="radio" value="{{item.id}}"/>
-                        <label for="feature-scene-{{item.id}}">
-                            {{item.name}}
-                        </label>
-                    </li>
-                </ul>
-            </fast-collapse>
             <fast-collapse expander-title="常规作业场景 - 道路要素">
                 <ul>
                     <li ng-repeat="item in scenes | filter : {type: 'feature', label: 'roadFeature', name: searchText}">
-                        <input class="fm-control" id="feature-scene-{{item.id}}" name="scene" ng-checked="item.id === selectedSceneId" ng-click="selectScene(item)" type="radio" value="{{item.id}}"/>
-                        <label for="feature-scene-{{item.id}}">
-                            {{item.name}}
-                        </label>
-                    </li>
-                </ul>
-            </fast-collapse>
-            <fast-collapse expander-title="常规作业场景 - 背景要素">
-                <ul>
-                    <li ng-repeat="item in scenes | filter : {type: 'feature', label: 'backFeature', name: searchText}">
                         <input class="fm-control" id="feature-scene-{{item.id}}" name="scene" ng-checked="item.id === selectedSceneId" ng-click="selectScene(item)" type="radio" value="{{item.id}}"/>
                         <label for="feature-scene-{{item.id}}">
                             {{item.name}}

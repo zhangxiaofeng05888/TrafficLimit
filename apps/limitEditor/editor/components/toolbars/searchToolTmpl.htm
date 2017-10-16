@@ -154,18 +154,18 @@
             <button class="inputButton searchIcon" ng-click="showAction($event);"><span class="glyphicon glyphicon-search"></span></button>
             <span class="inputButton senior" style="cursor: pointer" ng-click="showAdvanceSearchPanel()">高级</span>
         </div>
-        <div class="kindList fm-scroll" ng-class="{true:'hide'}[!showKindFlag]">
-            <ul class="first">
-                <li ng-repeat="item in kindList" >
-                    <span ng-click="selectFirst(item);"><img ng-src="{{item.selected ? openImg : closeImg}}">{{item.name}}</span>
-                    <ul class="second" ng-show="item.selected">
-                        <li ng-repeat="child in item.children" ng-click="selectSecond(child);">
-                            <span ng-class="{true:'selected'}[child.selected]">{{child.name}}</span>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+        <!--<div class="kindList fm-scroll" ng-class="{true:'hide'}[!showKindFlag]">-->
+            <!--<ul class="first">-->
+                <!--<li ng-repeat="item in kindList" >-->
+                    <!--<span ng-click="selectFirst(item);"><img ng-src="{{item.selected ? openImg : closeImg}}">{{item.name}}</span>-->
+                    <!--<ul class="second" ng-show="item.selected">-->
+                        <!--<li ng-repeat="child in item.children" ng-click="selectSecond(child);">-->
+                            <!--<span ng-class="{true:'selected'}[child.selected]">{{child.name}}</span>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
         <div class="resultList fm-scroll" ng-class="{true:'hide'}[!showResultFlag]">
             <div style="text-align: center; padding: 10px;" ng-if="searchLoading">正在加载....</div>
             <div style="text-align: center; padding: 10px;" ng-if="!searchDataList.length && !searchLoading">没有搜到结果</div>

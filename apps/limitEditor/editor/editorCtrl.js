@@ -1167,6 +1167,10 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
             $scope.rightUserToolTmpl = './editor/components/toolbars/userToolTmpl.htm';
             //  搜索框
             $scope.searchToolTmpl = './editor/components/toolbars/searchToolTmpl.htm';
+            $scope.rightMapToolTmpl = './editor/components/toolbars/mapToolPanelTmpl.htm';
+            $ocLazyLoad.load('./editor/components/toolbars/editToolCtrl.js').then(function () {
+                $scope.editToolTmpl = './editor/components/toolbars/editToolTmpl.htm';
+            });
         };
 
         var monthTaskInit = function () {

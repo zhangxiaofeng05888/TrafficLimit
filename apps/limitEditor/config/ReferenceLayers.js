@@ -1,16 +1,4 @@
 App.Config.map.ReferenceLayers = {
-    zisan: {
-        label: 'background',
-        name: '资三',
-        type: 'wms',
-        options: {
-            source: 'http://zs.navinfo.com:7090/rest/wms',
-            layers: 'GCJ02',
-            crs: L.CRS.EPSG4326,
-            version: '1.1.1',
-            minZoom: 1
-        }
-    },
     tencent: {
         label: 'background',
         name: '腾讯',
@@ -30,17 +18,6 @@ App.Config.map.ReferenceLayers = {
             source: 'http://{s}.google.cn/vt/lyrs=s@170&gl=cn&x={x}&y={y}&z={z}&s=Galileo',
             subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
             tms: false,
-            minZoom: 1
-        }
-    },
-    street: {
-        label: 'background',
-        name: '街景',
-        type: 'raster',
-        options: {
-            source: 'http://{s}.map.qq.com/hlrender/?z={z}&x={x}&y={y}&type=vector&style=2&v=1.0',
-            subdomains: ['sv0', 'sv1', 'sv2', 'sv3'],
-            tms: true,
             minZoom: 1
         }
     },

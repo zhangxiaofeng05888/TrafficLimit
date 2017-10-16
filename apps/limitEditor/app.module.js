@@ -107,7 +107,7 @@ angular.module('app', ['ngRoute', 'ngCookies', 'ui.layout', 'highcharts-ng', 'ui
     }
 ]).constant('appPath', {
     root: App.Util.getAppPath() + '/',
-    editor: App.Util.getAppPath() + '/apps/webEditor/editor/components/',
+    editor: App.Util.getAppPath() + '/apps/limitEditor/editor/components/',
     scripts: App.Util.getAppPath() + '/scripts/',
     meta: App.Util.getAppPath() + '/scripts/components/meta/',
     road: App.Util.getAppPath() + '/scripts/components/road/',

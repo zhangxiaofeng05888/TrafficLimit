@@ -10,12 +10,6 @@ angular.module('app').controller('SceneLayersController', function ($scope, appT
         value: 'feature',
         text: '常规渲染'
     }, {
-        value: 'thematic',
-        text: '专题渲染'
-    }, {
-        value: 'tips',
-        text: 'Tips图层'
-    }, {
         value: 'reference',
         text: '参考图层'
     }];

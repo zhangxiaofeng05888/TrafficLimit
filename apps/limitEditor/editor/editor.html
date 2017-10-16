@@ -48,6 +48,14 @@
         display: block;
         margin-left: -25px;
     }
+    .right-float-close {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
     .bottomBar {
         width: 100%;
         height: 300px;
@@ -67,6 +75,16 @@
     }
     .taskToolbar:hover > div {
         background: url("../../images/newPoi/toolIcon/taskList-active.png") no-repeat center center;
+    }
+    .sceneToolbar {
+        border-radius: 3px;
+        box-shadow: 0 0 10px #93bbff;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        background-color: #ffffff;
+        position: absolute;
+        bottom: 10px;
     }
     .sceneToolbar > div{
         width: 100%;
@@ -106,8 +124,25 @@
                 </span>
             </div>
         </div>
+        <div class="mapToolbar" ng-include="mapToolbarTmpl" ng-style="{'right':rightPanelOpened ? 310 : 10}">
+        </div>
+        <div class="fm-layout-container right" ng-show="mapToolbarPanelFlag" style="z-index: 10;">
+            <div ng-include="mapToolbarPanelTmpl">
+            </div>
+        </div>
+        <div class="tooltipclass" id="tooltip">
+        </div>
     </div>
-    <div class="userToolbar" ng-include="rightUserToolTmpl" ng-style="{'right':rightPanelOpened ? 310 : 50}">
+    <div class="userToolbar" ng-include="rightUserToolTmpl" ng-style="{'right':rightPanelOpened ? 310 : 30}">
+    </div>
+    <div class="sceneToolbar" ng-click="openScenePanel('ScenePanel')" ng-style="{'right':rightPanelOpened ? 310 : 10}">
+        <div>
+        </div>
+    </div>
+    <div class="fm-layout-container right" ng-show="rightFloatPanelFlag">
+        <div ng-include="rightFloatPanelTmpl">
+        </div>
+        <img class="right-float-close" ng-click="closeRightFloatPanel()" src="../../images/newPoi/toolIcon/button-close-normal.png"/>
     </div>
     <!--搜索框-->
     <div class="searchToolBar" ng-include="searchToolTmpl" ng-style="{'right':rightPanelOpened ? 348 : 90}">
