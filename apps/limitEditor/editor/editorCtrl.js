@@ -1165,6 +1165,8 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
         var loadComponents = function () {
             // // 右侧工具条-用户
             $scope.rightUserToolTmpl = './editor/components/toolbars/userToolTmpl.htm';
+            //  搜索框
+            $scope.searchToolTmpl = './editor/components/toolbars/searchToolTmpl.htm';
         };
 
         var monthTaskInit = function () {
