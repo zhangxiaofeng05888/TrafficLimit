@@ -168,12 +168,7 @@ angular.module('app').controller('mainMapCtrl', ['$scope', '$cookies', '$q', '$t
             promises.push($ocLazyLoad.load(appPath.root + 'scripts/components/tools/ctrls/toolbar-map/startEditCtrl.js'));
             promises.push($ocLazyLoad.load(appPath.root + 'scripts/components/tools/ctrls/toolbar-map/startBatchEditCtrl.js')); // 批量选择框
             $q.all(promises).then(function () {
-                if (App.Temp.monthTaskType) {
-                    // 深度信息----刘杨加
-                    $scope.mapToolbarTmpl = appPath.editor + '/toolbars/deepInfoToolbarTmpl.htm';
-                } else {
-                    $scope.mapToolbarTmpl = appPath.editor + '/map/mapToolbarTmpl.htm';
-                }
+                $scope.mapToolbarTmpl = appPath.editor + '/map/mapToolbarTmpl.htm';
             });
         };
 
@@ -295,7 +290,7 @@ angular.module('app').controller('mainMapCtrl', ['$scope', '$cookies', '$q', '$t
             eventCtrl.on('AllTileLayerLoaded', function (e) {
                 highlightCtrl.refresh();
             });
-
+            loadMapToolbar();
             editToolHanler = new EditToolHandler($scope);
         };
 
