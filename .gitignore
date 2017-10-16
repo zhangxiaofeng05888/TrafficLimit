@@ -1,7 +1,7 @@
 .idea/
 .setting/
 node_modules/
-dist/
+/dist/
 comments/
 *.log
 .vscode
