@@ -17,6 +17,44 @@ fastmap.uikit.topoEdit.CopyToPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEdit
      * @returns {null}
      */
     getCreateEditResult: function (options) {
+        var editResult = new fastmap.uikit.shapeEdit.PathResult();
+        editResult.finalGeometry = {
+            type: 'LineString',
+            coordinates: []
+        };
+        editResult.geoLiveType = 'COPYTOPOLYGON';
+        editResult.snapActors = [{
+            geoLiveType: 'COPYTOPOLYGON',
+            priority: 1,
+            enable: true,
+            exceptions: []
+        }];
+        return editResult;
+    },
+
+    /**
+     * 创建接口
+     * @param editResult 编辑结果
+     */
+    create: function (editResult) {
+        var params = {
+            type: 'SCPLATERESFACE',
+            command: 'CREATE',
+            dbId: App.Temp.dbId,
+            data: {
+                groupId: App.Temp.groupId,
+                geometry: editResult.finalGeometry
+            }
+        };
+        return this.dataServiceFcc.copyToLine(params);
+    },
+
+    /**
+     * 创建工具需要使用的EditResult
+     * @param options
+     * @returns {null}
+     */
+    getCopyResult: function (options) {
         var editResult = new fastmap.uikit.complexEdit.CopyResult();
         editResult.geoLiveType = 'COPYTOPOLYGON';
         editResult.types = ['RDLINK', 'ADLINK'];
@@ -27,7 +65,7 @@ fastmap.uikit.topoEdit.CopyToPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEdit
      * 创建接口
      * @param editResult 编辑结果
      */
-    create: function (editResult) {
+    copy: function (editResult) {
         var rdLinks = [];
         var adLinks = [];
         for (var i = 0; i < editResult.links.length; i++) {
@@ -42,10 +80,15 @@ fastmap.uikit.topoEdit.CopyToPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEdit
             command: 'CREATE',
             dbId: App.Temp.dbId,
             data: {
-                groupId: App.Temp.groupId,
-                links: rdLinks
+                groupId: App.Temp.groupId
             }
         };
+        if (rdLinks.length > 0) {
+            params.data.rdlinks = rdLinks;
+        }
+        if (adLinks.length > 0) {
+            params.data.adlinks = adLinks;
+        }
         return this.dataServiceFcc.copyToLine(params);
     }
 });

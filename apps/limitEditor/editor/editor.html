@@ -133,6 +133,12 @@
         top: 10px;
         z-index: 9;
     }
+    .shapeEditPanel {
+        position: absolute;
+        top: 50px;
+        width: auto;
+        height: auto;
+    }
 </style>
 <script src="config/SymbolsFile.js"></script>
 <script src="config/ReferenceLayers.js"></script>
@@ -157,9 +163,9 @@
             <div ng-include="mapToolbarPanelTmpl">
             </div>
         </div>
-        <div class="tooltipclass"7id="tooltip">
+        <div class="tooltipclass" id="tooltip">
         </div>
-        <div class="toolsToolbar" ng-include="topToolsToolTmpl" ng-style="{'right':rightPanelOpened ? 350  90}">
+        <div class="toolsToolbar" ng-include="topToolsToolTmpl" ng-style="{'right':rightPanelOpened ? 350 : 90}">
         </div>
     </div>
     <div class="userToolbar" ng-include="rightUserToolTmpl" ng-style="{'right':rightPanelOpened ? 310 : 50}">
@@ -184,6 +190,9 @@
     <div class="fm-layout-container left" ng-show="leftAdvanceSearchPanelFlag">
         <div ng-include="leftAdvanceSearchPanelTmpl">
         </div>
+    </div>
+    <!--形状编辑面板-->
+    <div class="shapeEditPanel" ng-include="shapeEditPanelTmpl" ng-style="{'right':rightPanelOpened ? 690 : 430}">
     </div>
     <!--搜索框-->
     <div class="searchToolBar" ng-include="searchToolTmpl" ng-style="{'right':rightPanelOpened ? 720 : 460}">

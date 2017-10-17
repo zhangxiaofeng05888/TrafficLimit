@@ -1173,6 +1173,10 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
             $ocLazyLoad.load('./editor/components/toolbars/editToolCtrl.js').then(function () {
                 $scope.editToolTmpl = './editor/components/toolbars/editToolTmpl.htm';
             });
+            // 形状编辑面板
+            $ocLazyLoad.load('./editor/components/toolbars/shapeEditPanelCtrl.js').then(function () {
+                $scope.shapeEditPanelTmpl = './editor/components/toolbars/shapeEditPanelTmpl.htm';
+            });
         };
 
         var monthTaskInit = function () {

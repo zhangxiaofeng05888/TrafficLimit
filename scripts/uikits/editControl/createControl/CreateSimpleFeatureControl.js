@@ -57,14 +57,16 @@ fastmap.uikit.editControl.CreateSimpleFeatureControl = fastmap.uikit.editControl
         // var features = this.getFeaturesFromLogs(res.log);
 
         // 自动选中要素
-        var eventArgs = {
-            features: [{
-                pid: res.pid,
-                geoLiveType: this.geoLiveType
-            }]
-        };
-        // 发送事件
-        this.eventController.fire(L.Mixin.EventTypes.OBJECTSELECTED, eventArgs);
+        if (geoLiveTypes[0] !== 'COPYTOPOLYGON') {
+            var eventArgs = {
+                features: [{
+                    pid: res.pid,
+                    geoLiveType: this.geoLiveType
+                }]
+            };
+            // 发送事件
+            this.eventController.fire(L.Mixin.EventTypes.OBJECTSELECTED, eventArgs);
+        }
 
         // 输出窗口输出履历,履历模块未准备好,暂时屏蔽掉
         // this.outputLogs(res.log);

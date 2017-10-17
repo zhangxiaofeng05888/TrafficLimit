@@ -1,0 +1,39 @@
+<style>
+    .shapeEditTool {
+        width: auto;
+        padding: 0;
+        text-align: center;
+        background: #fff;
+        box-shadow: 0 0 10px #93bbff;
+    }
+
+    .shapeEditToolSnapList {
+        padding-top: 10px;
+        text-align: left;
+        background: #fff;
+    }
+
+    .shapeEditToolSnapList input {
+        vertical-align: middle;
+        margin: 0;
+    }
+
+    .shapeEditToolSnapList label {
+        vertical-align: middle;
+        margin: 0;
+    }
+</style>
+<div ng-controller="shapeEditPanelCtrl" >
+    <div class="shapeEditTool" ng-if="isOpen">
+        <div class="btn-group btn-group-xs">
+            <button type="button" class="btn" ng-class="{true:'btn-primary', false: 'btn-default'}[tool.checked]" ng-repeat="tool in tools" title="{{tool.text}}" ng-bind="tool.title" ng-click="onToolBtnClick(tool)"></button>
+        </div>
+        <div class="shapeEditToolSnapList" ng-if="snapActors.length > 0">
+            <div>可捕捉要素类型:</div>
+            <div ng-repeat="actor in snapActors">
+                <input id="snapActor_{{index}}" type="checkbox" ng-model="actor.enable" checked="{{actor.enable}}" ng-click="onActorCkbClick(actor)">
+                <label for="snapActor_{{index}}" ng-bind="actor.geoLiveType"></label>
+            </div>
+        </div>
+    </div>
+</div>

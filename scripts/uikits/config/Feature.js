@@ -855,6 +855,22 @@ FM.uikit.Config.Feature = (function () {
                         // tmpl: 'components/road/tpls/attr_tmc_tpl/tmcLocationTpl.html'
                     }
                 }
+            },
+            DRAWPOLYGON: {
+                name: '渲染面',
+                serverFeatureType: 'SCPLATERESFACE', // 服务端要素类型
+                depends: ['COPYTOPOLYGON'],
+                template: { // 要素的页面片段
+                    edit: {}
+                }
+            },
+            COPYTOPOLYGON: {
+                name: '复制到面',
+                serverFeatureType: 'SCPLATERESFACE', // 服务端要素类型
+                depends: ['DRAWPOLYGON'],
+                template: { // 要素的页面片段
+                    edit: {}
+                }
             }
         };
         var linkNodeConf = {

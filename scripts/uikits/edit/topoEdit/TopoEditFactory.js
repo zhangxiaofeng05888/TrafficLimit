@@ -130,6 +130,12 @@ fastmap.uikit.topoEdit.TopoEditFactory = L.Class.extend({
             case 'RDLINKSPEEDLIMIT':
             case 'RDLINKSPEEDLIMIT_DEPENDENT':
                 return new fastmap.uikit.topoEdit.RdLinkSpeedLimitTopoEditor(map);
+            case 'COPYTOLINE':
+                return new fastmap.uikit.topoEdit.CopyToLineTopoEditor(map);
+            case 'COPYTOPOLYGON':
+                return new fastmap.uikit.topoEdit.CopyToPolygonTopoEditor(map);
+            case 'DRAWPOLYGON':
+                return new fastmap.uikit.topoEdit.DrawPolygonTopoEditor(map);
             default:
                 return null;
         }
@@ -158,19 +164,6 @@ fastmap.uikit.topoEdit.TopoEditFactory = L.Class.extend({
                 return new fastmap.uikit.topoEdit.ZoneFaceTopoEditor(map);
             case 'CMGBUILDFACE':
                 return new fastmap.uikit.topoEdit.CmgBuildFaceTopoEditor(map);
-            default:
-                return null;
-        }
-    },
-
-    copyLineTopoEditor: function (geoLiveType, map) {
-        switch (geoLiveType) {
-            case 'COPYTOLINE':
-                return new fastmap.uikit.topoEdit.CopyToLineTopoEditor(map);
-            case 'COPYTOPOLYGON':
-                return new fastmap.uikit.topoEdit.CopyToPolygonTopoEditor(map);
-            case 'DRAWPOLYGON':
-                return new fastmap.uikit.topoEdit.DrawPolygonTopoEditor(map);
             default:
                 return null;
         }

@@ -194,10 +194,13 @@ angular.module('app').controller('startEditCtrl', ['$scope',
                 return;
             }
 
-            $scope.$emit('Map-EnableTool');
+            $scope.$emit('Map-EnableTool', {
+                geoLiveType: geoLiveType,
+                operation: 'Create'
+            });
 
             var factory = fastmap.uikit.editControl.EditControlFactory.getInstance();
-            var createTipsControl = factory.createControl(map, geoLiveType);
+            var createTipsControl = factory.copyLineControl(map, geoLiveType);
 
             if (!createTipsControl) {
                 swal('提示', '编辑流程未实现', 'info');

@@ -10,7 +10,7 @@ fastmap.uikit.editControl.CopyLineControl = fastmap.uikit.editControl.EditContro
         FM.Util.bind(this);
         this.geoLiveType = options;
         this.complexEditor = fastmap.uikit.complexEdit.ComplexEditor.getInstance();
-        this.topoEditor = this.topoEditFactory.copyLineTopoEditor(this.geoLiveType, this.map);
+        this.topoEditor = this.topoEditFactory.createTopoEditor(this.geoLiveType, this.map);
     },
 
     run: function () {
@@ -18,7 +18,7 @@ fastmap.uikit.editControl.CopyLineControl = fastmap.uikit.editControl.EditContro
             return false;
         }
 
-        var editResult = this.topoEditor.getCreateEditResult();
+        var editResult = this.topoEditor.getCopyResult();
         this.complexEditor.start(editResult, this.onFinish);
 
         return true;
@@ -37,7 +37,7 @@ fastmap.uikit.editControl.CopyLineControl = fastmap.uikit.editControl.EditContro
         }
 
         this.topoEditor
-          .create(editResult)
+          .copy(editResult)
           .then(this.onUpdateSuccess)
           .catch(this.onUpdateFail);
     },
@@ -48,7 +48,11 @@ fastmap.uikit.editControl.CopyLineControl = fastmap.uikit.editControl.EditContro
         // 根据服务log获取发生变更的要素类型列表
         var geoLiveTypes = this.getChangedGeoLiveTypes(this.geoLiveType, res.log);
 
-        swal('提示', '复制成功', 'success');
+        if (geoLiveTypes[0] === 'DRAWPOLYGON') {
+            swal('提示', '构面成功', 'success');
+        } else {
+            swal('提示', '复制成功', 'success');
+        }
 
         // 刷新对应图层
         this.sceneController.redrawLayerByGeoLiveTypes(geoLiveTypes);

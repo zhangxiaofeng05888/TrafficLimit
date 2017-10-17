@@ -28,10 +28,7 @@ fastmap.uikit.editControl.EditControlFactory = L.Class.extend({
 
     createControl: function (map, geoLiveType) {
         switch (geoLiveType) {
-            case 'COPYTOLINE':
             case 'COPYTOPOLYGON':
-            case 'DRAWPOLYGON':
-                return new fastmap.uikit.editControl.CopyLineControl(map, geoLiveType);
             case 'RDNODE':
             case 'RDLINK':
             case 'IXPOI':
@@ -197,6 +194,17 @@ fastmap.uikit.editControl.EditControlFactory = L.Class.extend({
                 return new fastmap.uikit.editControl.BatchModifyTipsControl(map, options);
             case 'TMC':
                 return new fastmap.uikit.editControl.BatchModifyTmcControl(map, options);
+            default:
+                return null;
+        }
+    },
+
+    copyLineControl: function (map, geoLiveType) {
+        switch (geoLiveType) {
+            case 'COPYTOLINE':
+            case 'COPYTOPOLYGON':
+            case 'DRAWPOLYGON':
+                return new fastmap.uikit.editControl.CopyLineControl(map, geoLiveType);
             default:
                 return null;
         }

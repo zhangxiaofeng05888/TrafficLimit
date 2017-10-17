@@ -16,7 +16,7 @@ fastmap.uikit.topoEdit.CopyToLineTopoEditor = fastmap.uikit.topoEdit.TopoEditor.
      * @param options
      * @returns {null}
      */
-    getCreateEditResult: function (options) {
+    getCopyResult: function (options) {
         var editResult = new fastmap.uikit.complexEdit.CopyResult();
         editResult.geoLiveType = 'COPYTOLINE';
         editResult.types = ['RDLINK'];
@@ -27,7 +27,7 @@ fastmap.uikit.topoEdit.CopyToLineTopoEditor = fastmap.uikit.topoEdit.TopoEditor.
      * 创建接口
      * @param editResult 编辑结果
      */
-    create: function (editResult) {
+    copy: function (editResult) {
         var links = [];
         for (var i = 0; i < editResult.links.length; i++) {
             links.push(editResult.links[i].properties.id);
