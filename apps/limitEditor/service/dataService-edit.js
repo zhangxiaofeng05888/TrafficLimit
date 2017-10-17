@@ -1034,9 +1034,7 @@ angular.module('dataService').service('dsEdit', ['$http', '$q', 'ajax', 'dsOutpu
     this.normalSearch = function (param) {
         var params = {
             dbId: App.Temp.dbId,
-            pageNum: param.pageNum,
-            pageSize: param.pageSize,
-            data: param.data,
+            condition: param.condition,
             type: param.type
         };
         return this.getSearchData(params);
@@ -1044,7 +1042,8 @@ angular.module('dataService').service('dsEdit', ['$http', '$q', 'ajax', 'dsOutpu
     // 搜索
     this.getSearchData = function (params) {
         var defer = $q.defer();
-        ajax.post('edit/getByElementCondition', {
+        toggleLoading(true);
+        ajax.post('limit/searchRdLinkByName', {
             parameter: JSON.stringify(params)
         }).success(function (data) {
             if (data.errcode == 0) {
@@ -1055,6 +1054,8 @@ angular.module('dataService').service('dsEdit', ['$http', '$q', 'ajax', 'dsOutpu
             }
         }).error(function (rejection) {
             defer.reject(rejection);
+        }).finally(function () {
+            toggleLoading(false);
         });
         return defer.promise;
     };
