@@ -163,6 +163,19 @@ fastmap.uikit.topoEdit.TopoEditFactory = L.Class.extend({
         }
     },
 
+    copyLineTopoEditor: function (geoLiveType, map) {
+        switch (geoLiveType) {
+            case 'COPYTOLINE':
+                return new fastmap.uikit.topoEdit.CopyToLineTopoEditor(map);
+            case 'COPYTOPOLYGON':
+                return new fastmap.uikit.topoEdit.CopyToPolygonTopoEditor(map);
+            case 'DRAWPOLYGON':
+                return new fastmap.uikit.topoEdit.DrawPolygonTopoEditor(map);
+            default:
+                return null;
+        }
+    },
+
     createTipsTopoEditor: function (geoLiveType, map) {
         switch (geoLiveType) {
             case 'TIPBORDER':

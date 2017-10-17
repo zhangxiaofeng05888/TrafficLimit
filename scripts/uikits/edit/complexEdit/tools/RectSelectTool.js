@@ -148,7 +148,6 @@ fastmap.uikit.complexEdit.RectSelectTool = fastmap.uikit.complexEdit.ComplexTool
         var box = this.getSelectBox(this.startPoint, this.endPoint);
 
         this.selectedFeatures = this.featureSelector.selectByGeometry(box, this.selectTypes);
-        this.afterSelected();
         return true;
     },
 
@@ -162,9 +161,6 @@ fastmap.uikit.complexEdit.RectSelectTool = fastmap.uikit.complexEdit.ComplexTool
         return polygon;
     },
 
-    afterSelected: function () {
-        swal('afterSelected方法需要重写');
-    },
 
     createGivenObjectSnapActor: function (objects) {
         if (!objects) {

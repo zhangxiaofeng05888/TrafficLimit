@@ -36,5 +36,16 @@ App.Config.map.SourceConfig = {
             gap: 0,
             types: []
         }
+    },
+    limitSource: {
+        sourceUrl: App.Config.subdomainsServiceUrl + '/limit/getByTileWithGap?',
+        parsor: FM.mapApi.render.data.Limit,
+        type: 'classical',
+        subdomains: ['r1', 'r2', 'r3', 'r4', 'r5', 'r6'],
+        requestParameter: {
+            dbId: App.Temp.dbId,
+            gap: 10,
+            types: []
+        }
     }
 };

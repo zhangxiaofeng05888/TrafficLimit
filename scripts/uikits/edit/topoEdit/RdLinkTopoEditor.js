@@ -265,6 +265,29 @@ fastmap.uikit.topoEdit.RDLinkTopoEditor = fastmap.uikit.topoEdit.TopoEditor.exte
         }
 
         return this.getUpdateSnapParameterFromFeatrue(snap.feature, snap.point, nodePid);
+    },
+
+    query: function (options) {
+        var params = {
+            dbId: options.dbId,
+            type: 'RDLINK',
+            pids: [options.pid]
+        };
+        return this.dataServiceFcc.getByPids(params);
+    },
+
+    canDelete: function (geoLiveObject) {
+        return false;
+    },
+
+    /**
+     * 要素是否可以编辑
+     * 子类可以重写
+     * @param geoLiveObject
+     * @returns {boolean}
+     */
+    canEdit: function (geoLiveObject) {
+        return false;
     }
 });
 

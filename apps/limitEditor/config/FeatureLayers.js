@@ -1,4 +1,37 @@
 App.Config.map.FeatureLayers = {
+    CopyToLine: {
+        name: '临时线图层',
+        type: 'vector',
+        options: {
+            source: 'limitSource',
+            featureType: 'COPYTOLINE',
+            serverFeatureType: 'SCPLATERESLINK',
+            render: FM.mapApi.render.renderer.LimitRender,
+            minZoom: 15
+        }
+    },
+    CopyToPolygon: {
+        name: '编辑线图层',
+        type: 'vector',
+        options: {
+            source: 'limitSource',
+            featureType: 'COPYTOPOLYGON',
+            serverFeatureType: 'SCPLATERESFACE',
+            render: FM.mapApi.render.renderer.LimitRender,
+            minZoom: 15
+        }
+    },
+    DrawPolygon: {
+        name: '临时面图层',
+        type: 'vector',
+        options: {
+            source: 'limitSource',
+            featureType: 'DRAWPOLYGON',
+            serverFeatureType: 'SCPLATERESFACE',
+            render: FM.mapApi.render.renderer.LimitRender,
+            minZoom: 15
+        }
+    },
     AdAdmin: {
         name: '行政区划代表点',
         type: 'vector',

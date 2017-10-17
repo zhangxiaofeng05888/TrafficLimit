@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<style>
+    .topToolsContainer {
+        box-shadow: 0 0 10px #93bbff;
+        background-color: #FFFFFF;
+        font-size: 0;
+    }
+    .topToolsContainer > div {
+        width: 40px;
+        height: 30px;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+        display: inline-block;
+        border-left: 1px solid #d2e1ff;
+    }
+    .topToolsContainer > div:hover {
+        background-color: rgba(88, 150, 255, 0.1);
+    }
+    .topToolsContainer > div.disabled {
+        background-color: rgba(24, 40, 72, 0.2);
+        cursor: not-allowed;
+    }
+</style>
+<div ng-controller="toolsToolCtrl" class="topToolsContainer">
+    <div title="点选" ng-controller='startEditCtrl' ng-click="select($event, ['RDLINK', 'COPYTOLINE', 'COPYTOPOLYGON'] , 'point')" style="border-left: none">
+        <img src="../../images/newPoi/toolIcon/quickToolIcon/select.png"/>
+    </div>
+    <div title="框选" class="disabled">
+        <img src="../../images/newPoi/toolIcon/quickToolIcon/frame_select_all.png"/>
+    </div>
+    <div title="地图漫游" ng-controller='startEditCtrl' ng-click="pan($event, null)">
+        <img src="../../images/newPoi/toolIcon/quickToolIcon/mapPan.png"/>
+    </div>
+    <div title="追踪" class="disabled">
+        <img src="../../images/newPoi/toolIcon/quickToolIcon/truck-line.png"/>
+    </div>
+    <div title="复制到线" ng-controller='startEditCtrl' ng-click="copyLine($event, 'COPYTOLINE')">
+        <img src="../../images/newPoi/toolIcon/quickToolIcon/copyLine.png"/>
+    </div>
+    <div title="复制到面" ng-controller='startEditCtrl' ng-click="copyLine($event, 'COPYTOPOLYGON')">
+        <img src="../../images/newPoi/toolIcon/quickToolIcon/copyPolygon.png"/>
+    </div>
+    <div title="画线">
+        <img src="../../images/newPoi/toolIcon/quickToolIcon/add-link.png"/>
+    </div>
+    <div title="渲染面" ng-controller='startEditCtrl' ng-click="copyLine($event, 'DRAWPOLYGON')">
+        <img src="../../images/newPoi/toolIcon/quickToolIcon/drawPloygon.png"/>
+    </div>
+    <div title="批量删除" class="disabled">
+        <img src="../../images/newPoi/toolIcon/quickToolIcon/moreDelete.png"/>
+    </div>
+</div>

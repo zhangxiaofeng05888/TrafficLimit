@@ -33,6 +33,8 @@ fastmap.uikit.complexEdit.ComplexEditor = fastmap.uikit.Editor.extend({
         this.toolController.addTool(new fastmap.uikit.complexEdit.BatchPoiGuideAutoTool());
         this.toolController.addTool(new fastmap.uikit.complexEdit.BatchPoiGuideManualTool());
         this.toolController.addTool(new fastmap.uikit.complexEdit.AdjustImageTool());
+        this.toolController.addTool(new fastmap.uikit.complexEdit.CopyTool());
+        this.toolController.addTool(new fastmap.uikit.complexEdit.DrawPolygonTool());
     },
 
     start: function (editResult, onFinish) {
@@ -92,6 +94,12 @@ fastmap.uikit.complexEdit.ComplexEditor = fastmap.uikit.Editor.extend({
                 break;
             case 'TipLinkUpDownDepartResult':
                 toolName = 'TipLinkUpDownDepartTool';
+                break;
+            case 'CopyResult':
+                toolName = 'CopyTool';
+                break;
+            case 'DrawPolygonResult':
+                toolName = 'DrawPolygonTool';
                 break;
             default:
                 throw new Error('未知的编辑类型');

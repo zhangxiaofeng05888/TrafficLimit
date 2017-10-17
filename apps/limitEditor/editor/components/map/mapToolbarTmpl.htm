@@ -124,7 +124,7 @@
             data-placement="left"
             data-template-url="../../scripts/components/tools/tpls/toolbar-map/startBatchEditTpl.html" style="overflow: hidden">
             <img ng-src="../../images/newPoi/toolIcon/quickToolIcon/{{defaultSelectTool.img}}.png">
-            <div class="batchIcon" style="bottom: 3px;"></div>
+            <!--<div class="batchIcon" style="bottom: 3px;"></div>-->
         </li>
         <li class="tool" ng-if="defaultSelectTool.type.split('-')[0] === 'SELECT'" ng-class="{'active': selectTool.name===defaultSelectTool.type}" title="{{defaultSelectTool.title}}" ng-controller='startEditCtrl' ng-click="select($event, defaultSelectTool.geo , defaultSelectTool.event)"
             data-animation="am-flip-x"

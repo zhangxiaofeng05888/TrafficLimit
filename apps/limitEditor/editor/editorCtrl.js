@@ -427,9 +427,11 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 $scope.showLeftFloatPanel();
             });
         };
-        var showInLeftAdvanceSearchPanel = function () {
-            $ocLazyLoad.load('./editor/components/left-panels/search/leftAdvanceSearchPanelCtrl.js').then(function () {
-                $scope.leftAdvanceSearchPanelTmpl = './editor/components/left-panels/search/leftAdvanceSearchPanelTmpl.html';
+        var showInLeftAdvanceSearchPanel = function (data) {
+            var ctrl = './editor/components/left-panels/search/leftAdvanceSearchPanelCtrl.js';
+            var tmpl = './editor/components/left-panels/search/leftAdvanceSearchPanelTmpl.html';
+            dsLazyload.loadInclude($scope, 'leftAdvanceSearchPanelTmpl', ctrl, tmpl).then(function () {
+                $scope.$broadcast('AdvancedSearchPanelReload', data);
                 $scope.showLeftAdvancePanel();
             });
         };
@@ -562,7 +564,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                     showInDialog(data);
                     break;
                 case 'AdvancedSearchPanel':
-                    showInLeftAdvanceSearchPanel();
+                    showInLeftAdvanceSearchPanel(data);
                     break;
                 default:
                     break;
@@ -1165,6 +1167,12 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
         var loadComponents = function () {
             // // 右侧工具条-用户
             $scope.rightUserToolTmpl = './editor/components/toolbars/userToolTmpl.htm';
+            //  搜索框
+            $scope.searchToolTmpl = './editor/components/toolbars/searchToolTmpl.htm';
+            $scope.rightMapToolTmpl = './editor/components/toolbars/mapToolPanelTmpl.htm';
+            $ocLazyLoad.load('./editor/components/toolbars/editToolCtrl.js').then(function () {
+                $scope.editToolTmpl = './editor/components/toolbars/editToolTmpl.htm';
+            });
         };
 
         var monthTaskInit = function () {

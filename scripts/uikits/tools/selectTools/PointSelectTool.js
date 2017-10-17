@@ -64,6 +64,8 @@ fastmap.uikit.selectTool.PointSelectTool = fastmap.uikit.MapTool.extend({
         var geoLiveTypes = [];
         if (!this.options) {
             geoLiveTypes = this.getEditableGeoLiveTypes();
+        } else if (FM.Util.isArray(this.options)) {
+            geoLiveTypes = this.options;
         } else {
             geoLiveTypes = [this.options];
         }

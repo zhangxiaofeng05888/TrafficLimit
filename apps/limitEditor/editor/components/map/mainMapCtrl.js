@@ -166,9 +166,10 @@ angular.module('app').controller('mainMapCtrl', ['$scope', '$cookies', '$q', '$t
             // promises.push($ocLazyLoad.load(appPath.root + 'scripts/components/tools/ctrls/toolbar-map/complexSelectCtrl.js'));
             // promises.push($ocLazyLoad.load(appPath.root + 'scripts/components/tools/ctrls/toolbar-map/addFeatureShape/addAssociateFaceCtrl.js'));
             promises.push($ocLazyLoad.load(appPath.root + 'scripts/components/tools/ctrls/toolbar-map/startEditCtrl.js'));
-            promises.push($ocLazyLoad.load(appPath.root + 'scripts/components/tools/ctrls/toolbar-map/startBatchEditCtrl.js')); // 批量选择框
+            // promises.push($ocLazyLoad.load(appPath.root + 'scripts/components/tools/ctrls/toolbar-map/startBatchEditCtrl.js')); // 批量选择框
             $q.all(promises).then(function () {
                 $scope.mapToolbarTmpl = appPath.editor + '/map/mapToolbarTmpl.htm';
+                $scope.topToolsToolTmpl = appPath.editor + '/toolbars/toolsToolTmpl.htm';
             });
         };
 

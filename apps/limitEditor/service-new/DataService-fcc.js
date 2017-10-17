@@ -8,26 +8,18 @@ fastmap.service.DataServiceFcc = L.Class.extend({
         FM.Util.bind(this);
     },
 
-    /* 新增接边tips*/
-    addJoinBorder: function (data) {
-        var params = {
-            user: App.Temp.userId,
-            g_location: data.g_location,
-            content: data.content,
-            memo: data.memo,
-            qSubTaskId: App.Temp.subTaskId
-        };
-        var url = 'fcc/tip/createEdgeMatch/';
-        return this.createAjaxPromise('post', url, params);
+    copyToLine: function (data) {
+        var url = 'limit/run';
+        return this.createAjaxPromise('post', url, data);
+    },
+
+    getByPids: function (data) {
+        var url = 'limit/getByPids?';
+        return this.createAjaxPromise('get', url, data);
     },
 
     createAjaxPromise: function (method, url, parameter) {
-        var fullUrl;
-        if (parameter.urlType == 'spec') {
-            fullUrl = App.Util.getSpecUrl(url);
-        } else {
-            fullUrl = App.Util.getFullUrl(url);
-        }
+        var fullUrl = App.Util.getInfoUrl(url);
 
         var promise = new Promise(function (resolve, reject) {
             var options = {

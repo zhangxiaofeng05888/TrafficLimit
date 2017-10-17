@@ -28,6 +28,10 @@ fastmap.uikit.editControl.EditControlFactory = L.Class.extend({
 
     createControl: function (map, geoLiveType) {
         switch (geoLiveType) {
+            case 'COPYTOLINE':
+            case 'COPYTOPOLYGON':
+            case 'DRAWPOLYGON':
+                return new fastmap.uikit.editControl.CopyLineControl(map, geoLiveType);
             case 'RDNODE':
             case 'RDLINK':
             case 'IXPOI':

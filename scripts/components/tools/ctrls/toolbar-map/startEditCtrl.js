@@ -189,6 +189,26 @@ angular.module('app').controller('startEditCtrl', ['$scope',
             $scope.$emit('Map-ToolEnabled');
         };
 
+        $scope.copyLine = function (event, geoLiveType) {
+            if (!testEditZoom()) {
+                return;
+            }
+
+            $scope.$emit('Map-EnableTool');
+
+            var factory = fastmap.uikit.editControl.EditControlFactory.getInstance();
+            var createTipsControl = factory.createControl(map, geoLiveType);
+
+            if (!createTipsControl) {
+                swal('提示', '编辑流程未实现', 'info');
+                return;
+            }
+
+            createTipsControl.run();
+
+            $scope.$emit('Map-ToolEnabled');
+        };
+
         $scope.addTips = function (event, geoLiveType, options) {
             if (!testEditZoom()) {
                 return;
@@ -208,64 +228,6 @@ angular.module('app').controller('startEditCtrl', ['$scope',
             }
 
             createTipsControl.run();
-
-            $scope.$emit('Map-ToolEnabled');
-        };
-
-        $scope.selectTipsAndPOI = function (event, geoLiveType, taskId, options) {
-            if (!taskId) {
-                swal('提示', geoLiveType === 'DATAPLAN' ?
-                    '请先选择任务再进行范围规划' :
-                    '请选择任务进行中转快',
-                    'info');
-                return;
-            }
-
-            if (geoLiveType === 'REGIONSELECT' || geoLiveType === 'DATAPLAN') {
-                if (!testEditZoom()) {
-                    return;
-                }
-            }
-
-            $scope.$emit('Map-EnableTool', {
-                geoLiveType: geoLiveType
-            });
-
-            var factory = fastmap.uikit.editControl.EditControlFactory.getInstance();
-            var selectTipsAndTipsControl = factory.selectTipsAndPOIControl(map, geoLiveType, options);
-
-            if (!selectTipsAndTipsControl) {
-                swal('提示', '编辑流程未实现', 'info');
-                return;
-            }
-
-            selectTipsAndTipsControl.run();
-
-            $scope.$emit('Map-ToolEnabled');
-        };
-
-        $scope.drawCircle = function (event, geoLiveType, taskId, options) {
-            if (!taskId) {
-                swal('提示', '请先选择任务再进行绘制', 'info');
-                return;
-            }
-            if (geoLiveType === 'THECARSTEP') {
-                App.Temp.carFlag = !App.Temp.carFlag;
-                sceneCtrl.redrawLayerByGeoLiveTypes(sceneCtrl.getLoadedFeatureTypes());
-                return;
-            }
-            if (!testEditZoom()) {
-                return;
-            }
-
-            $scope.$emit('Map-EnableTool', {
-                geoLiveType: geoLiveType
-            });
-
-            var factory = fastmap.uikit.editControl.EditControlFactory.getInstance();
-            var drawCircleControl = factory.drawCircleControl(map, geoLiveType, options);
-
-            drawCircleControl.run();
 
             $scope.$emit('Map-ToolEnabled');
         };
@@ -302,43 +264,6 @@ angular.module('app').controller('startEditCtrl', ['$scope',
                 editCtrl: selectControl
             });
             $scope.$emit('StartEditCtrl-ChangeFirstTool', $scope.selectTool.name);
-        };
-
-        $scope.adjust = function () {
-            var zisanOpened = false;
-
-            map.eachLayer(function (l) {
-                if (l.options.id === 'zisan') {
-                    zisanOpened = true;
-                }
-            });
-
-            if (!zisanOpened) {
-                swal('提示', '请打开资三影像', 'info');
-                return;
-            }
-
-            if (map.getZoom() < 12 || map.getZoom() > 16) {
-                swal('提示', '只能在12级到16级做影像纠偏', 'info');
-                return;
-            }
-            $scope.$emit('Map-EnableTool', {
-                operation: 'AdjustImageTool'
-            });
-
-            $scope.selectTool.name = 'AdjustImageTool';
-
-            var factory = fastmap.uikit.editControl.EditControlFactory.getInstance();
-            var startupToolControl = factory.adjustImageControl(map, 'AdjustImageTool');
-
-            if (!startupToolControl) {
-                swal('提示', '编辑流程未实现', 'info');
-                return;
-            }
-
-            startupToolControl.run();
-
-            $scope.$emit('Map-ToolEnabled');
         };
 
         $scope.angle = function () {

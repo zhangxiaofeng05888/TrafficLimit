@@ -46,7 +46,7 @@ FM.uikit.Config.Feature = (function () {
                         tmpl: 'components/road/tpls/attr_link_tpl/rdLinkTabPanelTpl.html'
                     }
                 },
-                editTools: ['MODIFY', 'DIRECT', 'DELETECLOSEDVERTEX'] // 地图操作工具列表
+                editTools: [] // 地图操作工具列表
             },
             BATCHLINK: {
                 name: '道路线', // 要素描述
