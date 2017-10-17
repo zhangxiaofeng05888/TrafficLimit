@@ -144,6 +144,11 @@
         </div>
         <img class="right-float-close" ng-click="closeRightFloatPanel()" src="../../images/newPoi/toolIcon/button-close-normal.png"/>
     </div>
+    <!--左侧搜索结果面板-->
+    <div class="fm-layout-container left" ng-show="leftAdvanceSearchPanelFlag">
+        <div ng-include="leftAdvanceSearchPanelTmpl">
+        </div>
+    </div>
     <!--搜索框-->
     <div class="searchToolBar" ng-include="searchToolTmpl" ng-style="{'right':rightPanelOpened ? 348 : 90}">
     </div>
