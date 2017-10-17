@@ -16,6 +16,33 @@
         width: 100%;
         background-color: #f7f5f5;
     }
+    .btn-not-allow{
+        cursor: not-allowed !important;
+    }
+    .left-panel-hide {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        cursor: pointer;
+    }
+    .right-panel-open {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        box-shadow: 0 0 10px #c8ccd4;
+        cursor: pointer;
+    }
+    .right-panel-hide {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        cursor: pointer;
+    }
+    .toolsToolbar {
+        position: absolute;
+        top: 10px;
+        z-index: 10;
+    }
     .userToolbar {
         position: absolute;
         top: 10px;
@@ -125,13 +152,22 @@
         </div>
         <div class="tooltipclass" id="tooltip">
         </div>
+        <div class="toolsToolbar" ng-include="topToolsToolTmpl" ng-style="{'right':rightPanelOpened ? 350 : 90}">
+        </div>
     </div>
-    <div class="userToolbar" ng-include="rightUserToolTmpl" ng-style="{'right':rightPanelOpened ? 310 : 30}">
+    <div class="userToolbar" ng-include="rightUserToolTmpl" ng-style="{'right':rightPanelOpened ? 310 : 50}">
     </div>
     <div class="sceneToolbar" ng-click="openScenePanel('ScenePanel')" ng-style="{'right':rightPanelOpened ? 310 : 10}">
         <div>
         </div>
     </div>
+    <div class="fm-layout-container right" ng-show="rightPanelFlag">
+        <div ng-include="rightPanelTmpl">
+        </div>
+        <img class="right-panel-hide" ng-click="hideRightPanel()" src="../../images/newPoi/leftPanelIcon/icon-back-right.png"/>
+    </div>
+    <img class="right-panel-open" ng-click="showRightPanel()" ng-if="!rightPanelFlag && rightPanelTmpl" src="../../images/newPoi/toolIcon/button-open-right.png"/>
+    <img class="right-panel-open btn-not-allow" ng-if="!rightPanelFlag && !rightPanelTmpl" src="../../images/newPoi/toolIcon/button-right-expand.png"/>
     <div class="fm-layout-container right" ng-show="rightFloatPanelFlag">
         <div ng-include="rightFloatPanelTmpl">
         </div>
