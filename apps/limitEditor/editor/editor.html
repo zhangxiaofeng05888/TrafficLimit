@@ -197,6 +197,8 @@
     <!--搜索框-->
     <div class="searchToolBar" ng-include="searchToolTmpl" ng-style="{'right':rightPanelOpened ? 720 : 460}">
     </div>
+    <!-- 页面加载中效果 -->
+    <div class="show-animation" ng-include="'./svgLoading.html'" ng-show="loading.flag">
     <div ng-show="policyFlag" class="bottomBar">
         <div ng-include="bottomPanelTmpl">
         </div>
