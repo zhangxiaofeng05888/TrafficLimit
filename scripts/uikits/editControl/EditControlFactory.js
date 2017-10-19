@@ -112,6 +112,8 @@ fastmap.uikit.editControl.EditControlFactory = L.Class.extend({
 
     modifyControl: function (map, options) {
         switch (options.originObject.geoLiveType) {
+            case 'COPYTOPOLYGON':
+            case 'DRAWPOLYGON':
             case 'RDNODE':
             case 'RDLINK':
             case 'IXPOI':
@@ -205,6 +207,17 @@ fastmap.uikit.editControl.EditControlFactory = L.Class.extend({
             case 'COPYTOPOLYGON':
             case 'DRAWPOLYGON':
                 return new fastmap.uikit.editControl.CopyLineControl(map, geoLiveType);
+            default:
+                return null;
+        }
+    },
+
+    deleteLimitControl: function (map, options) {
+        switch (options.originObject.geoLiveType) {
+            case 'COPYTOLINE':
+            case 'COPYTOPOLYGON':
+            case 'DRAWPOLYGON':
+                return new fastmap.uikit.editControl.DeleteLimitControl(map, options);
             default:
                 return null;
         }

@@ -446,6 +446,7 @@ module.exports = [
     'editControl/complexControl/TipLinkUpDownDepartControl.js',
     'editControl/complexControl/AdjustImageControl.js',
     'editControl/complexControl/CopyLineControl.js',
+    'editControl/complexControl/DeleteLimitControl.js',
     'editControl/modifyControl/ModifySimpleFeatureControl.js',
     'editControl/modifyControl/ModifyRelationFeatureControl.js',
     'editControl/modifyControl/BatchModifyTipsControl.js',

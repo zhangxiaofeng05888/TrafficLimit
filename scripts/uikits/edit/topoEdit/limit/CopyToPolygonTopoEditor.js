@@ -32,6 +32,34 @@ fastmap.uikit.topoEdit.CopyToPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEdit
         return editResult;
     },
 
+    getModifyEditResult: function (options) {
+        var originObject = options.originObject;
+        var editResult = new fastmap.uikit.shapeEdit.PathResult();
+        editResult.originObject = originObject;
+        editResult.geoLiveType = 'COPYTOPOLYGON';
+        editResult.snapActors = [{
+            geoLiveType: 'COPYTOPOLYGON',
+            priority: 1,
+            enable: true,
+            exceptions: [originObject.pid]
+        }];
+        editResult.finalGeometry = FM.Util.clone(options.originObject.geometry);
+        return editResult;
+    },
+
+    update: function (editResult) {
+        var params = {
+            type: 'SCPLATERESFACE',
+            command: 'UPDATE',
+            geomId: editResult.originObject.pid,
+            data: {
+                objStatus: 'UPDATE',
+                geometry: editResult.finalGeometry
+            }
+        };
+        return this.dataServiceFcc.copyToLine(params);
+    },
+
     /**
      * 创建接口
      * @param editResult 编辑结果
@@ -90,6 +118,23 @@ fastmap.uikit.topoEdit.CopyToPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEdit
             params.data.adlinks = adLinks;
         }
         return this.dataServiceFcc.copyToLine(params);
+    },
+
+    deleteLimit: function (id) {
+        var params = {
+            type: 'SCPLATERESFACE',
+            command: 'DELETE',
+            objId: [id]
+        };
+        return this.dataServiceFcc.deleteLine(params);
+    },
+
+    query: function (options) {
+        return {
+            pid: options.pid,
+            geoLiveType: options.geoLiveType,
+            geometry: options.geometry
+        };
     }
 });
 

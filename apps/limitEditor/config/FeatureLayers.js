@@ -32,6 +32,28 @@ App.Config.map.FeatureLayers = {
             minZoom: 15
         }
     },
+    GeometryLine: {
+        name: '成果线图层',
+        type: 'vector',
+        options: {
+            source: 'limitSource',
+            featureType: 'GEOMETRYLINE',
+            serverFeatureType: 'SCPLATERESGEOMETRY',
+            render: FM.mapApi.render.renderer.LimitRender,
+            minZoom: 15
+        }
+    },
+    GeometryPolygon: {
+        name: '成果面图层',
+        type: 'vector',
+        options: {
+            source: 'limitSource',
+            featureType: 'GEOMETRYPOLYGON',
+            serverFeatureType: 'SCPLATERESGEOMETRY',
+            render: FM.mapApi.render.renderer.LimitRender,
+            minZoom: 15
+        }
+    },
     AdAdmin: {
         name: '行政区划代表点',
         type: 'vector',

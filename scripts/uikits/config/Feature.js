@@ -857,20 +857,31 @@ FM.uikit.Config.Feature = (function () {
                 }
             },
             DRAWPOLYGON: {
-                name: '渲染面',
+                name: '临时面',
                 serverFeatureType: 'SCPLATERESFACE', // 服务端要素类型
                 depends: ['COPYTOPOLYGON'],
                 template: { // 要素的页面片段
                     edit: {}
-                }
+                },
+                editTools: ['MODIFY', 'DELETELIMIT'] // 地图操作工具列表
             },
             COPYTOPOLYGON: {
-                name: '复制到面',
+                name: '编辑线',
                 serverFeatureType: 'SCPLATERESFACE', // 服务端要素类型
                 depends: ['DRAWPOLYGON'],
                 template: { // 要素的页面片段
                     edit: {}
-                }
+                },
+                editTools: ['MODIFY', 'DELETELIMIT'] // 地图操作工具列表
+            },
+            COPYTOLINE: {
+                name: '临时线',
+                serverFeatureType: 'SCPLATERESLINK', // 服务端要素类型
+                depends: [],
+                template: { // 要素的页面片段
+                    edit: {}
+                },
+                editTools: ['DELETELIMIT'] // 地图操作工具列表
             }
         };
         var linkNodeConf = {

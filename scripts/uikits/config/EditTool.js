@@ -35,6 +35,11 @@ FM.uikit.Config.EditTool = (function () {
                 text: '删过近',
                 icon: '<span class="float-option-bar">删除过近形状点</span>'
             },
+            DELETELIMIT: {
+                title: '删除',
+                text: '删',
+                icon: '<span class="float-option-bar">删</span>'
+            },
             ADDPAIRBOND: {
                 title: '增加配对关系',
                 text: '配',

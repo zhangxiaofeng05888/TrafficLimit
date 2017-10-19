@@ -95,7 +95,7 @@ angular.module('dataService', ['oc.lazyLoad'], function ($httpProvider) {
         });
     };
     this.post = function (url, param) {
-        return $http.post(App.Util.getFullUrl(url), param);
+        return $http.post(App.Util.getInfoUrl(url), param);
     };
     this.getLocalJson = function (url) {
         return $http.get(url, {});

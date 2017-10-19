@@ -18,6 +18,9 @@
         <li ng-class="{true:'disabled'}[menuList.indexOf('log') < 0]">
             查看批复日志
         </li>
+        <li ng-class="{true:'disabled'}[menuList.indexOf('resultList') < 0]" ng-click="showResultListPanel(menuList.indexOf('policyTable') < 0)">
+            几何成果列表
+        </li>
         <li>
             <a href="#/login">退出</a>
         </li>

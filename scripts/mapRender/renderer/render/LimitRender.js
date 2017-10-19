@@ -11,6 +11,10 @@ FM.mapApi.render.renderer.LimitRender = FM.mapApi.render.Render.extend({
                 return new FM.mapApi.render.renderer.CopyToPolygon(feature, zoom);
             case 'DRAWPOLYGON':
                 return new FM.mapApi.render.renderer.DrawPolygon(feature, zoom);
+            case 'GEOMETRYLINE':
+                return new FM.mapApi.render.renderer.GeometryLine(feature, zoom);
+            case 'GEOMETRYPOLYGON':
+                return new FM.mapApi.render.renderer.GeometryPolygon(feature, zoom);
             default:
                 return null;
         }

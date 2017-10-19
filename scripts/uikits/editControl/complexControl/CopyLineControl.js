@@ -48,7 +48,7 @@ fastmap.uikit.editControl.CopyLineControl = fastmap.uikit.editControl.EditContro
         // 根据服务log获取发生变更的要素类型列表
         var geoLiveTypes = this.getChangedGeoLiveTypes(this.geoLiveType, res.log);
 
-        if (geoLiveTypes[0] === 'DRAWPOLYGON') {
+        if (this.geoLiveType === 'DRAWPOLYGON') {
             swal('提示', '构面成功', 'success');
         } else {
             swal('提示', '复制成功', 'success');

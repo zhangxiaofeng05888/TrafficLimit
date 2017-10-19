@@ -8,7 +8,7 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
         $scope.menuList = []; // 控制菜单是否可用
 
         var initMenuList = function () {
-            $scope.menuList = ['policyTable', 'submit'];
+            $scope.menuList = ['policyTable', 'resultList', 'submit'];
         };
 
         // 打开策略表
@@ -37,6 +37,17 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
                     swal('提示', '提交成功', 'success');
                     sceneController.redrawLayerByGeoLiveTypes(['COPYTOLINE', 'COPYTOPOLYGON', 'DRAWPOLYGON', 'GEOMETRYLINE', 'GEOMETRYPOLYGON']);
                 }
+            });
+        };
+
+        // 打开几何成果列表
+        $scope.showResultListPanel = function (flag) {
+            if (flag) {
+                return;
+            }
+
+            $scope.$emit('ShowInfoPage', {
+                type: 'ResultListPanel'
             });
         };
 
