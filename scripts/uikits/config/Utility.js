@@ -271,6 +271,13 @@ FM.uikit.Config.Utility = (function () {
                     ctrl: 'components/group/ctrls/editPolicyCtl.js',
                     tmpl: 'components/group/tpls/editPolicy.html'
                 }
+            },
+            ResultListPanel: {
+                name: '几何成果列表',
+                template: {
+                    ctrl: 'components/group/ctrls/resultListCtl.js',
+                    tmpl: 'components/group/tpls/resultListTpl.html'
+                }
             }
         };
 

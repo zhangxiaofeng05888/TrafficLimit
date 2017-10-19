@@ -186,6 +186,13 @@
         </div>
         <img class="right-float-close" ng-click="closeRightFloatPanel()" src="../../images/newPoi/toolIcon/button-close-normal.png"/>
     </div>
+    <!--左侧浮动信息面板-->
+    <div class="fm-layout-container left" ng-show="leftFloatPanelFlag">
+        <div ng-include="leftFloatPanelTmpl">
+        </div>
+        <a class="fm-container-close" href="javascript:void(0);" ng-click="closeLeftFloatPanel()">
+        </a>
+    </div>
     <!--左侧搜索结果面板-->
     <div class="fm-layout-container left" ng-show="leftAdvanceSearchPanelFlag">
         <div ng-include="leftAdvanceSearchPanelTmpl">

@@ -527,6 +527,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                     showInLeftFloatPanel(data);
                     break;
                 case 'tmcTreePanel':
+                case 'ResultListPanel':
                     showInLeftFloatPanel(data);
                     break;
                 case 'RestrictionTopoPanel':
