@@ -139,6 +139,13 @@
         width: auto;
         height: auto;
     }
+    .left-panel-open {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        box-shadow: 0 0 10px #c8ccd4;
+        cursor: pointer;
+    }
 </style>
 <script src="config/SymbolsFile.js"></script>
 <script src="config/ReferenceLayers.js"></script>
@@ -185,6 +192,13 @@
         <div ng-include="rightFloatPanelTmpl">
         </div>
         <img class="right-float-close" ng-click="closeRightFloatPanel()" src="../../images/newPoi/toolIcon/button-close-normal.png"/>
+    </div>
+    <!--信息列表展示按钮-->
+    <img class="left-panel-open" ng-click="showInfoListPanel()" src="../../images/newPoi/toolIcon/button-open-left.png"/>
+    <!--信息列表面板-->
+    <div class="fm-layout-container left" ng-show="leftInfoListPanelFlag">
+        <div ng-include="leftInfoListPanelTmpl">
+        </div>
     </div>
     <!--左侧浮动信息面板-->
     <div class="fm-layout-container left" ng-show="leftFloatPanelFlag">
