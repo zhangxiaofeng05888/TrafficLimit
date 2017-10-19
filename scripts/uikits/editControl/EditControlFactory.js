@@ -114,6 +114,7 @@ fastmap.uikit.editControl.EditControlFactory = L.Class.extend({
         switch (options.originObject.geoLiveType) {
             case 'COPYTOPOLYGON':
             case 'DRAWPOLYGON':
+            case 'GEOMETRYPOLYGON':
             case 'RDNODE':
             case 'RDLINK':
             case 'IXPOI':
@@ -217,6 +218,8 @@ fastmap.uikit.editControl.EditControlFactory = L.Class.extend({
             case 'COPYTOLINE':
             case 'COPYTOPOLYGON':
             case 'DRAWPOLYGON':
+            case 'GEOMETRYLINE':
+            case 'GEOMETRYPOLYGON':
                 return new fastmap.uikit.editControl.DeleteLimitControl(map, options);
             default:
                 return null;

@@ -8,7 +8,13 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
         $scope.menuList = []; // 控制菜单是否可用
 
         var initMenuList = function () {
-            $scope.menuList = ['policyTable', 'resultList', 'submit'];
+            $scope.menuList = ['policyTable', 'resultList', 'submit', 'infoPanel'];
+        };
+        $scope.backToInfo = function (flag) {
+            if (flag) {
+                return;
+            }
+            window.location.href = '#/info';
         };
 
         // 打开策略表

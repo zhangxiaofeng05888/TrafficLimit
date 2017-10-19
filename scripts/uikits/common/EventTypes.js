@@ -79,5 +79,6 @@ L.Mixin.EventTypes = {
     POIMOVEABLEREQ: 'poiMoveableReq', // poi显示坐标是否可移动请求
     POIMOVEABLERES: 'poiMoveableRes', // poi显示坐标是否可移动回应
     TIPLANECONNEXITYSPACE: 'tipLaneConnexitySpace', // 车信tips创建时在面板按空格事件
-    TIPNORMALRESTRICTIONSPACE: 'tipNormalRestrictionSpace' // 交限tips创建时在面板按空格事件
+    TIPNORMALRESTRICTIONSPACE: 'tipNormalRestrictionSpace', // 交限tips创建时在面板按空格事件
+    CLOSERIGHTPANEL: 'closeRightPanel' // 关闭右侧面板及工具条
 };

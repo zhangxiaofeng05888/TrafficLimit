@@ -58,7 +58,7 @@ fastmap.uikit.editControl.ModifySimpleFeatureControl = fastmap.uikit.editControl
         this.sceneController.redrawLayerByGeoLiveTypes(geoLiveTypes);
 
 
-        if (geoLiveTypes[0] !== 'COPYTOPOLYGON' && geoLiveTypes[0] !== 'DRAWPOLYGON') {
+        if (this.geoLiveType !== 'COPYTOPOLYGON' && this.geoLiveType !== 'DRAWPOLYGON') {
             var eventArgs = {
                 features: [{
                     pid: res.pid,

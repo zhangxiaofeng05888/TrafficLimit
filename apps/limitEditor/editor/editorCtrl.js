@@ -761,7 +761,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 return;
             }
             $scope.showLoading();
-            if (geoLiveType === 'COPYTOLINE' || geoLiveType === 'COPYTOPOLYGON' || geoLiveType === 'DRAWPOLYGON') {
+            if (geoLiveType === 'COPYTOLINE' || geoLiveType === 'COPYTOPOLYGON' || geoLiveType === 'DRAWPOLYGON' || geoLiveType === 'GEOMETRYLINE' || geoLiveType === 'GEOMETRYPOLYGON') {
                 setTimeout(function () {
                     var topoData = topoEditor.query(data.feature);
                     _objectLoadedCallback(geoLiveType, topoData, data.originalEvent);
@@ -1671,6 +1671,14 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
             });
         });
 
+        eventCtrl.on(L.Mixin.EventTypes.CLOSERIGHTPANEL, function (data) {
+            $timeout(function () {
+                closeDataPanel();
+                clearData();
+                refreshDataList(data);
+            }, 10);
+        });
+
         // 监听关闭二级信息面板
         eventCtrl.on(eventCtrl.eventTypes.PARTSCLOSEPANEL, function (data) {
             // 解决某些情况下不能关闭的问题（应该是angular与其他程序交互时可能不执行apply导致的，原因未知）
@@ -1697,6 +1705,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
             eventCtrl.off(eventCtrl.eventTypes.SHOWOBJECT);
             eventCtrl.off(eventCtrl.eventTypes.BATCHOBJECTSELECTED);
             eventCtrl.off(eventCtrl.eventTypes.OBJECTSELECTED);
+            eventCtrl.off(eventCtrl.eventTypes.CLOSERIGHTPANEL);
         });
 
         initialize();

@@ -421,6 +421,8 @@ module.exports = [
     'edit/topoEdit/limit/CopyToLineTopoEditor.js',
     'edit/topoEdit/limit/CopyToPolygonTopoEditor.js',
     'edit/topoEdit/limit/DrawPolygonTopoEditor.js',
+    'edit/topoEdit/limit/GeometryLineTopoEditor.js',
+    'edit/topoEdit/limit/GeometryPolygonTopoEditor.js',
     'edit/topoEdit/RdNodeTopoEditor.js',
     'edit/topoEdit/TopoEditFactory.js',
     'edit/topoEdit/RdVoiceGuideTopoEditor.js',

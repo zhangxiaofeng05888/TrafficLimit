@@ -429,6 +429,8 @@ module.exports = [
     'highlight/limit/CopyToLine.js',
     'highlight/limit/CopyToPolygon.js',
     'highlight/limit/DrawPolygon.js',
+    'highlight/limit/GeometryLine.js',
+    'highlight/limit/GeometryPolygon.js',
 
     'renderer/render/DeletionRender.js',
     'renderer/render/ExceptionRender.js',

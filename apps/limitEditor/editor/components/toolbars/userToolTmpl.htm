@@ -3,7 +3,7 @@
         <!-- <div class="innerImg"></div> -->
     </div>
     <ul class="list-group fm-dropdown-menu">
-        <li ng-class="{true:'disabled'}[menuList.indexOf('infoPanel') < 0]">
+        <li ng-class="{true:'disabled'}[menuList.indexOf('infoPanel') < 0]" ng-click="backToInfo(menuList.indexOf('infoPanel') < 0)">
             返回情报列表
         </li>
         <li ng-class="{true:'disabled'}[menuList.indexOf('policyTable') < 0]" ng-click="showPolicyTool(menuList.indexOf('policyTable') < 0)">

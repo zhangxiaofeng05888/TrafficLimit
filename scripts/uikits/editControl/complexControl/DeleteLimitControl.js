@@ -36,9 +36,15 @@ fastmap.uikit.editControl.DeleteLimitControl = fastmap.uikit.editControl.EditCon
 
         // 根据服务log获取发生变更的要素类型列表
         var geoLiveTypes = this.getChangedGeoLiveTypes(this.geoLiveType, res.log);
-
+        var simpleFeature = {
+            pid: this.pid,
+            geoLiveType: this.geoLiveType
+        };
         swal('提示', '删除成功', 'success');
         this.eventController.fire(L.Mixin.EventTypes.CLOSESHAPEEDITPANEL);
+        this.eventController.fire(L.Mixin.EventTypes.CLOSERIGHTPANEL, {
+            feature: simpleFeature
+        });
         // 刷新对应图层
         this.sceneController.redrawLayerByGeoLiveTypes(geoLiveTypes);
     },

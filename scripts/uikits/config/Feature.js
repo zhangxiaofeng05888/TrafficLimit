@@ -882,6 +882,30 @@ FM.uikit.Config.Feature = (function () {
                     edit: {}
                 },
                 editTools: ['DELETELIMIT'] // 地图操作工具列表
+            },
+            GEOMETRYLINE: {
+                name: '成果线',
+                serverFeatureType: 'SCPLATERESGEOMETRY', // 服务端要素类型
+                depends: [],
+                template: { // 要素的页面片段
+                    edit: {
+                        ctrl: 'components/limit/ctrls/geometryLineCtrl.js',
+                        tmpl: 'components/limit/tpls/geometryLineTpl.html'
+                    }
+                },
+                editTools: ['DELETELIMIT'] // 地图操作工具列表
+            },
+            GEOMETRYPOLYGON: {
+                name: '成果面',
+                serverFeatureType: 'SCPLATERESGEOMETRY', // 服务端要素类型
+                depends: [],
+                template: { // 要素的页面片段
+                    edit: {
+                        ctrl: 'components/limit/ctrls/geometryPolygonCtrl.js',
+                        tmpl: 'components/limit/tpls/geometryPolygonTpl.html'
+                    }
+                },
+                editTools: ['MODIFY', 'DELETELIMIT'] // 地图操作工具列表
             }
         };
         var linkNodeConf = {
