@@ -3,9 +3,20 @@
  * 批量选择结果
  */
 angular.module('app').controller('AdvanceSearchController', function ($scope, dsFcc, NgTableParams) {
-    //  面板加载时，复选框默认全部选中
     var sceneController = fastmap.mapApi.scene.SceneController.getInstance();
-    var selectBox = function () {
+    var symbolFactory = fastmap.mapApi.symbol.GetSymbolFactory();
+    var symbol = symbolFactory.getSymbol('pt_poiCreateLoc');
+    var feedbackCtrl = fastmap.mapApi.FeedbackController.getInstance();
+
+    var feedback = new fastmap.mapApi.Feedback();
+    feedbackCtrl.add(feedback);
+
+    var clearFeedback = function () {
+        feedback.clear();
+        feedbackCtrl.refresh();
+    };
+
+    var selectBox = function () {   //  面板加载时，复选框默认全部选中
         var rows = $scope.results.rows;
 
         for (var i = 0, len = rows.length; i < len; i++) {
@@ -79,10 +90,24 @@ angular.module('app').controller('AdvanceSearchController', function ($scope, ds
         $scope.results = data.data;
         $scope.selectedNums = $scope.results.rows.length;
         selectBox();
+        $scope.highlightRoad($scope.results.rows[0]);   //  默认高亮第一条数据
     };
 
     $scope.highlightRoad = function (item) {
-        //  todo
+        var len = item.links.length;
+        if (len === 0) {
+            return;
+        }
+
+        $scope.$emit('LocateObject', { feature: item.links[0] });  //  定位到第一个点的位置
+
+        feedback.clear();
+
+        for (var i = 0; i < len; i++) {
+            feedback.add(item.links[i].geometry, symbol);
+        }
+
+        feedbackCtrl.refresh();
     };
 
     $scope.refreshSelectedNums = function (item) {
@@ -94,5 +119,11 @@ angular.module('app').controller('AdvanceSearchController', function ($scope, ds
         $scope.$emit('closeLeftFloatAdvanceSearchPanel');
     };
 
-    $scope.$on('AdvancedSearchPanelReload', initialize);
+    var unbindHandler = $scope.$on('AdvancedSearchPanelReload', initialize);
+
+    $scope.$on('$destroy', function () {
+        clearFeedback();
+        feedbackCtrl.del(feedback);
+        unbindHandler = null;
+    });
 });
