@@ -28,7 +28,7 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
             var params = {
                 type: 'SCPLATERESGROUP',
                 condition: {
-                    infoCode: App.Temp.infoToGroupData.infoId
+                    infoIntelId: App.Temp.infoToGroupData.infoId
                 }
             };
             dsFcc.getGroupList(params).then(function (data) {

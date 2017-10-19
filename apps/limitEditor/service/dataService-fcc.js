@@ -214,4 +214,24 @@ angular.module('dataService').service('dsFcc', ['$http', '$q', 'ajax', 'dsOutput
         });
         return defer.promise;
     };
+    /*
+     * 新增策略表
+     * */
+    this.copyToLine = function (params) {
+        var defer = $q.defer();
+        ajax.post('limit/run', {
+            parameter: JSON.stringify(params)
+        }).success(function (data) {
+            if (data.errcode == 0) {
+                defer.resolve(data.data);
+            } else {
+                swal('复制出错：', data.errmsg, 'error');
+                defer.resolve(-1);
+            }
+        }).error(function (rejection) {
+            swal('提示', '复制出错', 'error');
+            defer.reject(rejection);
+        });
+        return defer.promise;
+    };
 }]);
