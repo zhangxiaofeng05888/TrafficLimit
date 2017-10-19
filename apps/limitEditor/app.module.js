@@ -134,6 +134,12 @@ angular.module('app', ['ngRoute', 'ngCookies', 'ui.layout', 'highcharts-ng', 'ui
         }
 
         // 页面刷新时，从sessionStorage中读取用户信息
+        if (!App.Temp.infoToGroupData) {
+            var infoData = App.Util.getSessionStorage('infoData');
+            if (infoData) {
+                App.Temp.infoToGroupData = infoData.infoToGroupData;
+            }
+        }
         if (!App.Temp.dbId) {
             var dbData = App.Util.getSessionStorage('DbId');
             if (dbData) {

@@ -124,6 +124,10 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
                 cityName: row.entity.cityName,
                 condition: row.entity.condition
             };
+            var sessionData = {
+                infoToGroupData: App.Temp.infoToGroupData
+            };
+            App.Util.setSessionStorage('infoData', sessionData);
             $scope.showFlag = false;
         };
         $ocLazyLoad.load('./info/groupListCtrl.js').then(function () {
@@ -170,6 +174,10 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
         }
         function getStatus() {
             var html = '<div class="ui-grid-cell-contents"><select class="tl_list_select_small" ng-options="value.id as value.label for value in grid.appScope.statusData" ng-model="row.entity.complete" ng-change="grid.appScope.updateInfo(2, row)"></select></div>';
+            return html;
+        }
+        function getContent() {
+            var html = '<div class="ui-grid-cell-contents" title="{{row.entity.infoContent}}">{{row.entity.infoContent.substring(0, 19)}}</div>';
             return html;
         }
         function more() {
@@ -361,7 +369,8 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
                         displayName: '新闻内容',
                         enableSorting: false,
                         minWidth: 100,
-                        cellClass: 'center'
+                        cellClass: 'center',
+                        cellTemplate: getContent()
                     },
                     {
                         field: 'newsTime',

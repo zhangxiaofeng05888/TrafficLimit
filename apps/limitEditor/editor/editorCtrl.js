@@ -1300,6 +1300,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
         };
 
         var initialize = function () {
+            console.log(App.Temp.infoToGroupData);
             // add by chenx on 2017-4-27
             // 解决切换任务后，地图不能正常加载的问题
             $timeout(function () {
