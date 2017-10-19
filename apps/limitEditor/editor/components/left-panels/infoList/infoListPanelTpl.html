@@ -1,0 +1,129 @@
+<style>
+    .infoListPanel {
+        width: 300px;
+        height: 100%;
+        background-color: white;
+        font-size: 14px;
+        padding-top: 40px;
+    }
+    .infoListPanel .header {
+        height: 40px;
+        color: white;
+        background-color: #636ef5;
+        padding-left: 10px;
+        margin-top: -40px;
+    }
+    .infoListPanel .header h4 {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        height: 40px;
+        color: #FFFFFF;
+        line-height: 40px;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+    .infoListPanel .header a {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        background: url(../../images/newPoi/toolIcon/button-open-right.png) no-repeat center center transparent;
+    }
+    .infoListPanel .content {
+        height: 100%;
+        overflow-y: scroll;
+    }
+    .infoListPanel .content ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .infoListPanel .content ul li {
+        height: 30px;
+        line-height: 30px;
+    }
+    .infoListPanel .content ul textarea {
+        margin-left: 10px;
+        margin-bottom: 10px;
+        width: 275px;
+        min-height: 80px;
+        resize: vertical;
+    }
+    .infoListPanel .content .sub-header {
+        background-color: #eff0fe;
+        height: 40px;
+        padding-left: 10px;
+        line-height: 40px;
+        color: #636ef5;
+        border-top: 1px #d2e1ff solid;
+    }
+    .infoListPanel .content span.left {
+        display: inline-block;
+        width: 90px;
+        margin: 0 10px;
+        vertical-align: top;
+        text-align: right;
+    }
+</style>
+<div ng-controller="infoListPanelCtl" class="infoListPanel">
+    <div class="header">
+        <h4>信息列表</h4>
+        <a href="javascript:void(0);" ng-click="closePanel()"></a>
+    </div>
+    <div class="content">
+        <div style="height: 30px;line-height: 30px;">
+            <span class="left">行政区划：</span>
+            <span>{{cityName}}</span>
+        </div>
+        <div class="group">
+            <div class="sub-header">
+                <span>作业组信息</span>
+            </div>
+            <ul>
+                <li>
+                    <span class="left">组号：</span>
+                    <span>{{groupId}}</span>
+                </li>
+                <li>
+                    <span class="left">类型：</span>
+                    <span>{{groupType}}</span>
+                </li>
+                <li style="height: inherit">
+                    <span class="left">限制规定：</span>
+                    <textarea class="form-control" disabled>{{principle}}</textarea>
+                </li>
+            </ul>
+        </div>
+        <div class="info">
+            <div class="sub-header">
+                <span>情报信息</span>
+            </div>
+            <ul>
+                <li>
+                    <span class="left">情报编码：</span>
+                    <span>{{infoCode}}</span>
+                </li>
+                <li>
+                    <span class="left">来源网址：</span>
+                    <span>{{url}}</span>
+                </li>
+                <li>
+                    <span class="left">发布日期：</span>
+                    <span>{{newsTime}}</span>
+                </li>
+                <li>
+                    <span class="left">限行长短期：</span>
+                    <span>{{condition}}</span>
+                </li>
+                <li>
+                    <span class="left">新闻内容：</span>
+                    <textarea class="form-control">{{infoContent}}</textarea>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
