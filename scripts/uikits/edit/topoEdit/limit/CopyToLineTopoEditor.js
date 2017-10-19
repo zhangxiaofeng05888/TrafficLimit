@@ -42,6 +42,23 @@ fastmap.uikit.topoEdit.CopyToLineTopoEditor = fastmap.uikit.topoEdit.TopoEditor.
             }
         };
         return this.dataServiceFcc.copyToLine(params);
+    },
+
+    deleteLimit: function (id) {
+        var params = {
+            type: 'SCPLATERESLINK',
+            command: 'DELETE',
+            objId: [id]
+        };
+        return this.dataServiceFcc.deleteLine(params);
+    },
+
+    query: function (options) {
+        return {
+            pid: options.pid,
+            geoLiveType: options.geoLiveType,
+            geometry: options.geometry
+        };
     }
 });
 

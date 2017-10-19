@@ -136,6 +136,10 @@ fastmap.uikit.topoEdit.TopoEditFactory = L.Class.extend({
                 return new fastmap.uikit.topoEdit.CopyToPolygonTopoEditor(map);
             case 'DRAWPOLYGON':
                 return new fastmap.uikit.topoEdit.DrawPolygonTopoEditor(map);
+            case 'GEOMETRYLINE':
+                return new fastmap.uikit.topoEdit.GeometryLineTopoEditor(map);
+            case 'GEOMETRYPOLYGON':
+                return new fastmap.uikit.topoEdit.GeometryPolygonTopoEditor(map);
             default:
                 return null;
         }

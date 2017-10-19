@@ -1,0 +1,22 @@
+<div ng-controller="geometryPolygonCtl" class="scroll_style">
+    <ul class="list-group detailUlCss">
+        <li>
+            <div class="blockDescLiDiv">
+                <span>几何编号</span>
+            </div>
+            <span>{{geometryLineDate.pid}}</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>组号</span>
+            </div>
+            <span>{{groupId}}</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>边界限行</span>
+            </div>
+            <select class="form-control poiRightPanel_select" ng-model="geometryLineDate.boundaryLink" ng-options="value.id as value.label for value in limit"></select>
+        </li>
+    </ul>
+</div>

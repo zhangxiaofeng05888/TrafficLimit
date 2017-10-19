@@ -60,7 +60,9 @@ angular.module('app').controller('RoadRightEditPanelCtrl', ['$scope', '$rootScop
 
             var simpleFeature = new FM.dataApi.Feature({
                 pid: objectEditCtrl.data.pid,
-                geoLiveType: objectEditCtrl.data.geoLiveType
+                geoLiveType: objectEditCtrl.data.geoLiveType,
+                boundaryLink: objectEditCtrl.data.boundaryLink,
+                geometry: objectEditCtrl.data.geometry
             });
             topoEditor.updateChanges(objectEditCtrl.data)
                 .then(function (res) {
@@ -68,11 +70,6 @@ angular.module('app').controller('RoadRightEditPanelCtrl', ['$scope', '$rootScop
                     if (res === '属性无变化') {
                         swal('无任何修改，不需要保存！', null, 'info');
                         return;
-                    }
-
-                    //  线限速、 条件线限速制作工具会用到relatedLinks
-                    if (res.relatedLinks) {
-                        simpleFeature.relatedLinks = res.relatedLinks;
                     }
 
                     $scope.$emit('ObjectUpdated', {

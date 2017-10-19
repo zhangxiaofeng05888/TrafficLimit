@@ -1,14 +1,15 @@
 /**
- * Created by zhaohang on 2017/10/16.
+ * Created by zhaohang on 2017/10/18.
  */
 
-fastmap.uikit.editControl.CopyLineControl = fastmap.uikit.editControl.EditControl.extend({
+fastmap.uikit.editControl.DeleteLimitControl = fastmap.uikit.editControl.EditControl.extend({
     initialize: function (map, options) {
         fastmap.uikit.editControl.EditControl.prototype.initialize.apply(this, map);
 
         // 绑定函数作用域
         FM.Util.bind(this);
-        this.geoLiveType = options;
+        this.geoLiveType = options.originObject.geoLiveType;
+        this.pid = options.originObject.pid;
         this.complexEditor = fastmap.uikit.complexEdit.ComplexEditor.getInstance();
         this.topoEditor = this.topoEditFactory.createTopoEditor(this.geoLiveType, this.map);
     },
@@ -18,9 +19,10 @@ fastmap.uikit.editControl.CopyLineControl = fastmap.uikit.editControl.EditContro
             return false;
         }
 
-        var editResult = this.topoEditor.getCopyResult();
-        this.complexEditor.start(editResult, this.onFinish);
-
+        this.topoEditor
+          .deleteLimit(this.pid)
+          .then(this.onUpdateSuccess)
+          .catch(this.onUpdateFail);
         return true;
     },
 
@@ -29,31 +31,20 @@ fastmap.uikit.editControl.CopyLineControl = fastmap.uikit.editControl.EditContro
         this.complexEditor.abort();
     },
 
-    onFinish: function (editResult) {
-        this.complexEditor.stop();
-
-        if (!this.precheck(editResult)) {
-            return;
-        }
-
-        this.topoEditor
-          .copy(editResult)
-          .then(this.onUpdateSuccess)
-          .catch(this.onUpdateFail);
-    },
-
     onUpdateSuccess: function (res) {
         this.toolController.resetCurrentTool('PanTool');
 
         // 根据服务log获取发生变更的要素类型列表
         var geoLiveTypes = this.getChangedGeoLiveTypes(this.geoLiveType, res.log);
-
-        if (this.geoLiveType === 'DRAWPOLYGON') {
-            swal('提示', '构面成功', 'success');
-        } else {
-            swal('提示', '复制成功', 'success');
-        }
-
+        var simpleFeature = {
+            pid: this.pid,
+            geoLiveType: this.geoLiveType
+        };
+        swal('提示', '删除成功', 'success');
+        this.eventController.fire(L.Mixin.EventTypes.CLOSESHAPEEDITPANEL);
+        this.eventController.fire(L.Mixin.EventTypes.CLOSERIGHTPANEL, {
+            feature: simpleFeature
+        });
         // 刷新对应图层
         this.sceneController.redrawLayerByGeoLiveTypes(geoLiveTypes);
     },

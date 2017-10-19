@@ -1,8 +1,8 @@
 /**
- * Created by zhaohang on 2017/10/17.
+ * Created by zhaohang on 2017/10/19.
  */
 
-fastmap.uikit.topoEdit.DrawPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEditor.extend({
+fastmap.uikit.topoEdit.GeometryPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEditor.extend({
     initialize: function (map) {
         fastmap.uikit.topoEdit.TopoEditor.prototype.initialize.call(this, map);
 
@@ -11,22 +11,24 @@ fastmap.uikit.topoEdit.DrawPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEditor
         this.eventController = fastmap.uikit.EventController();
     },
 
-    /**
-     * 创建工具需要使用的EditResult
-     * @param options
-     * @returns {null}
-     */
-    getCopyResult: function (options) {
-        var editResult = new fastmap.uikit.complexEdit.DrawPolygonResult();
-        editResult.geoLiveType = 'DRAWPOLYGON';
-        return editResult;
+    updateChanges: function (geoLiveObject) {
+        var params = {
+            type: 'SCPLATERESGEOMETRY',
+            command: 'UPDATE',
+            objId: geoLiveObject.pid,
+            data: {
+                boundaryLink: geoLiveObject.boundaryLink,
+                objStatus: 'UPDATE'
+            }
+        };
+        return this.dataServiceFcc.deleteLine(params);
     },
 
     getModifyEditResult: function (options) {
         var originObject = options.originObject;
         var editResult = new fastmap.uikit.shapeEdit.PolygonResult();
         editResult.originObject = originObject;
-        editResult.geoLiveType = 'DRAWPOLYGON';
+        editResult.geoLiveType = 'GEOMETRYPOLYGON';
         var geometry = {
             type: 'LineString',
             coordinates: []
@@ -43,9 +45,9 @@ fastmap.uikit.topoEdit.DrawPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEditor
             coordinates: [editResult.finalGeometry.coordinates]
         };
         var params = {
-            type: 'SCPLATERESFACE',
+            type: 'SCPLATERESGEOMETRY',
             command: 'UPDATE',
-            geomId: editResult.originObject.pid,
+            objId: editResult.originObject.pid,
             data: {
                 objStatus: 'UPDATE',
                 geometry: geometry
@@ -54,41 +56,25 @@ fastmap.uikit.topoEdit.DrawPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEditor
         return this.dataServiceFcc.copyToLine(params);
     },
 
-    /**
-     * 创建接口
-     * @param editResult 编辑结果
-     */
-    copy: function (editResult) {
-        var links = [];
-        for (var i = 0; i < editResult.links.length; i++) {
-            links.push(editResult.links[i].properties.id);
-        }
-        var params = {
-            type: 'SCPLATERESFACE',
-            command: 'CREATE',
-            dbId: App.Temp.dbId,
-            data: {
-                groupId: App.Temp.groupId,
-                geometryIds: links
-            }
-        };
-        return this.dataServiceFcc.copyToLine(params);
-    },
-
     deleteLimit: function (id) {
         var params = {
-            type: 'SCPLATERESFACE',
+            type: 'SCPLATERESGEOMETRY',
             command: 'DELETE',
-            objId: [id]
+            objIds: [id]
         };
         return this.dataServiceFcc.deleteLine(params);
+    },
+
+    canDelete: function (geoLiveObject) {
+        return false;
     },
 
     query: function (options) {
         return {
             pid: options.pid,
             geoLiveType: options.geoLiveType,
-            geometry: options.geometry
+            geometry: options.geometry,
+            boundaryLink: options.boundaryLink
         };
     }
 });

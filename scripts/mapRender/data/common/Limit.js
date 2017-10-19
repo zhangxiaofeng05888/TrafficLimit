@@ -67,6 +67,12 @@ FM.mapApi.render.data.Limit = FM.mapApi.render.data.DataModel.extend({
                 case 1003: // 临时面
                     ret = new FM.mapApi.render.data.DrawPolygon(data, zoom);
                     break;
+                case 1004: // 成果线
+                    ret = new FM.mapApi.render.data.GeometryLine(data, zoom);
+                    break;
+                case 1005: // 成果面
+                    ret = new FM.mapApi.render.data.GeometryPolygon(data, zoom);
+                    break;
                 default:
                     ret = null;
                     break;

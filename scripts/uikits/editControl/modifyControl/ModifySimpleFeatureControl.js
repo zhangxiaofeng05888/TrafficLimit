@@ -57,14 +57,17 @@ fastmap.uikit.editControl.ModifySimpleFeatureControl = fastmap.uikit.editControl
         // 刷新对应图层
         this.sceneController.redrawLayerByGeoLiveTypes(geoLiveTypes);
 
-        // 自动选中要素
-        var eventArgs = {
-            features: [{
-                pid: res.pid,
-                geoLiveType: this.geoLiveType
-            }]
-        };
-        this.eventController.fire(L.Mixin.EventTypes.OBJECTSELECTED, eventArgs);
+
+        if (this.geoLiveType !== 'COPYTOPOLYGON' && this.geoLiveType !== 'DRAWPOLYGON') {
+            var eventArgs = {
+                features: [{
+                    pid: res.pid,
+                    geoLiveType: this.geoLiveType
+                }]
+            };
+            // 发送事件
+            this.eventController.fire(L.Mixin.EventTypes.OBJECTSELECTED, eventArgs);
+        }
 
         // 输出窗口输出履历,履历模块未准备好,暂时屏蔽掉
         // fastmap.uikit.editControl.EditControl.prototype.outputLogs.call(this, res.log);

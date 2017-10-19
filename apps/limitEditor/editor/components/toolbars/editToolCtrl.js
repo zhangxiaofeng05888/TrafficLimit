@@ -53,9 +53,6 @@ angular.module('app').controller('editToolCtrl', ['$scope', '$timeout', 'hotkeys
                 $scope.featureTools = FM.uikit.Config.getObjectEditTools(data.geoLiveType);
                 var topoEditor = topoEditFactory.createTopoEditor(data.geoLiveType, map);
                 var editResult = {};
-                if (topoEditor) {
-                    editResult = topoEditor.getCreateEditResult();
-                }
                 var conf = new FM.uikit.Config.EditTool();
                 var tool;
                 if ($scope.featureTools) {
@@ -68,8 +65,7 @@ angular.module('app').controller('editToolCtrl', ['$scope', '$timeout', 'hotkeys
                             $scope.tools.unshift({
                                 text: tool.text,
                                 title: tool.title,
-                                type: $scope.featureTools[i],
-                                editResult: editResult.type
+                                type: $scope.featureTools[i]
                             });
                         }
                     }
@@ -84,8 +80,8 @@ angular.module('app').controller('editToolCtrl', ['$scope', '$timeout', 'hotkeys
                 $scope.featureTools = [];
                 $scope.tools = [];
             }
-            $scope.isOpen = true;
 
+            $scope.isOpen = true;
             if (factory.currentControl instanceof FM.uikit.editControl.SelectControl) {
                 lastSelectCtrl = factory.currentControl;
             } else {
@@ -144,6 +140,11 @@ angular.module('app').controller('editToolCtrl', ['$scope', '$timeout', 'hotkeys
                             originObject: objectEditCtrl.data
                         });
                         break;
+                    case 'DELETELIMIT':
+                        ctrl = factory.deleteLimitControl(map, {
+                            originObject: objectEditCtrl.data
+                        });
+                        break;
                     default:
                         swal('按钮功能未实现');
                         return;
@@ -160,7 +161,7 @@ angular.module('app').controller('editToolCtrl', ['$scope', '$timeout', 'hotkeys
         };
 
         var showSubTool = function () {
-            $scope.subToolFlag = true;
+            $scope.subToolFlag = false;
         };
 
         var hideSubTool = function () {
