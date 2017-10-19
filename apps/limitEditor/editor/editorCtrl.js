@@ -88,6 +88,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
         $scope.leftPanelFlag = false;
         $scope.leftFloatPanelFlag = false;
         $scope.leftAdvanceSearchPanelFlag = false;
+        $scope.leftInfoListPanelFlag = false;
         $scope.policyFlag = false;
         /* 右侧面板总控标识, 右侧面板对于页面的布局很重要，
         加一个总控有可能在子页面种打开/关闭右侧面板 */
@@ -256,6 +257,14 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
             $scope.closeLeftFloatPanel();
             $scope.closeLeftListPanel();
         };
+        var showLeftInfoListPanel = function () {
+            if (!$scope.leftInfoListPanelFlag && $scope.leftInfoListPanelTmpl) {
+                $scope.leftInfoListPanelFlag = true;
+            }
+            closeLeftPanel(true);
+            $scope.closeLeftFloatPanel();
+            $scope.closeLeftListPanel();
+        };
         $scope.showLeftPanelSwitch = function () {
             if ($scope.leftPanelTmpl) {
                 showLeftPanel();
@@ -281,6 +290,10 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
         $scope.closeLeftAdvanceSearchPanel = function () {
             $scope.leftAdvanceSearchPanelFlag = false;
             $scope.leftAdvanceSearchPanelTmpl = null;
+        };
+        var closeLeftInfoListPanel = function () {
+            $scope.leftInfoListPanelFlag = false;
+            $scope.leftInfoListPanelTmpl = null;
         };
         $scope.showRightPanel = function () {
             if (!$scope.rightPanelFlag && $scope.rightPanelTmpl) {
@@ -433,6 +446,15 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
             dsLazyload.loadInclude($scope, 'leftAdvanceSearchPanelTmpl', ctrl, tmpl).then(function () {
                 $scope.$broadcast('AdvancedSearchPanelReload', data);
                 $scope.showLeftAdvancePanel();
+            });
+        };
+
+        $scope.showInfoListPanel = function (data) {
+            var ctrl = './editor/components/left-panels/infoList/infoListPanelCtl.js';
+            var tmpl = './editor/components/left-panels/infoList/infoListPanelTpl.html';
+            dsLazyload.loadInclude($scope, 'leftInfoListPanelTmpl', ctrl, tmpl).then(function () {
+                $scope.$broadcast('infoListPanelReload', data);
+                showLeftInfoListPanel();
             });
         };
 
@@ -1354,6 +1376,11 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
         // 关闭高级搜索面板;
         $scope.$on('closeLeftFloatAdvanceSearchPanel', function () {
             $scope.closeLeftAdvanceSearchPanel();
+        });
+
+        // 关闭信息列表面板;
+        $scope.$on('closeLeftInfoListPanel', function () {
+            closeLeftInfoListPanel();
         });
 
         // 隐藏高级搜索结果面板;
