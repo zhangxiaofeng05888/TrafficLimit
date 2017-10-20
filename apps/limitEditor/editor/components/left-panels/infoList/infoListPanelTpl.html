@@ -46,6 +46,11 @@
         height: 30px;
         line-height: 30px;
     }
+    .infoListPanel .content ul li.multi-line {
+        height: inherit;
+        line-height: 18px;
+        padding: 6px 0;
+    }
     .infoListPanel .content ul textarea {
         margin-left: 10px;
         margin-bottom: 10px;
@@ -67,6 +72,13 @@
         margin: 0 10px;
         vertical-align: top;
         text-align: right;
+    }
+    .infoListPanel .content a.long-text {
+        display: inline-block;
+        width: 170px;
+        word-break: break-all;
+        word-wrap: break-word;
+        cursor: pointer;
     }
 </style>
 <div ng-controller="infoListPanelCtl" class="infoListPanel">
@@ -107,9 +119,9 @@
                     <span class="left">情报编码：</span>
                     <span>{{infoCode}}</span>
                 </li>
-                <li>
+                <li class="multi-line">
                     <span class="left">来源网址：</span>
-                    <span>{{url}}</span>
+                    <a class="long-text" href="{{url}}" target="_blank">{{url}}</a>
                 </li>
                 <li>
                     <span class="left">发布日期：</span>
