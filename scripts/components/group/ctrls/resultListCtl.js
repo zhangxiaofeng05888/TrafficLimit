@@ -52,7 +52,7 @@ angular.module('app').controller('resultListCtl', ['$window', '$scope', '$timeou
 
         // 边界是否限行
         function getBoundaryLike() {
-            var html = '<div class="ui-grid-cell-contents">{{row.entity.boundaryLike === "1" ? "限行" : "不限行"}}</div>';
+            var html = '<div class="ui-grid-cell-contents">{{row.entity.boundaryLink === "1" ? "限行" : "不限行"}}</div>';
             return html;
         }
 

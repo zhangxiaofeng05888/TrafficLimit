@@ -491,6 +491,9 @@ angular.module('app').controller('mainMapCtrl', ['$scope', '$cookies', '$q', '$t
                 $scope.map.remove();
             }
             destoryBodyEvent();
+            $cookies.putObject(mapCookieKey, null, {
+                path: '/'
+            });
         });
     }
 ]);
