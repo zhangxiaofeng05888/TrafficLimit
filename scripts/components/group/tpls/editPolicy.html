@@ -60,7 +60,7 @@
                     </div>
                     <div style="display: inline-block">
                         <input class="form-control poiRightPanel_Input" set-focus ng-pattern="/^-?\d+$/"
-                               name="seatnum" required ng-model="policyData.seatnum" type="number" ng-disabled="policyData.vehicle.length!==1 || policyData.vehicle.indexOf(1) === -1"/>
+                               name="seatnum" required ng-model="policyData.seatnum" type="number" ng-disabled="policyData.vehicle.indexOf(1) < 0"/>
                     </div>
                 </div>
                 <div class="policy_container">
@@ -207,7 +207,7 @@
                     </div>
                     <div style="display: inline-block">
                         <input class="form-control poiRightPanel_Input" set-focus ng-pattern="/^(\d|[0-9]\d+)(\.\d+)?$/"
-                               name="resWeigh" required ng-model="policyData.resWeigh" type="number" ng-blur="formateNumbers('resWeigh',2)" ng-disabled="policyData.vehicle.length!==1 || policyData.vehicle.indexOf(1) === -1"/>
+                               name="resWeigh" required ng-model="policyData.resWeigh" type="number" ng-blur="formateNumbers('resWeigh',2)" ng-disabled="policyData.vehicle.length===1 && policyData.vehicle[0] === 1"/>
                     </div>
                 </div>
                 <div class="policy_container">
@@ -216,7 +216,7 @@
                     </div>
                     <div style="display: inline-block">
                         <input class="form-control poiRightPanel_Input" set-focus ng-pattern="/^(\d|[0-9]\d+)(\.\d+)?$/"
-                               name="resAxleLoad" required ng-model="policyData.resAxleLoad" type="number" ng-blur="formateNumbers('resAxleLoad',2)" ng-disabled="policyData.vehicle.length!==1 || policyData.vehicle.indexOf(1) === -1"/>
+                               name="resAxleLoad" required ng-model="policyData.resAxleLoad" type="number" ng-blur="formateNumbers('resAxleLoad',2)" ng-disabled="policyData.vehicle.length===1 && policyData.vehicle[0] === 1"/>
                     </div>
                 </div>
                 <div class="policy_container">
@@ -225,7 +225,7 @@
                     </div>
                     <div style="display: inline-block">
                         <input class="form-control poiRightPanel_Input" set-focus ng-pattern="/^-?\d+$/"
-                               name="resAxleCount" required ng-model="policyData.resAxleCount" type="number" ng-disabled="policyData.vehicle.length!==1 || policyData.vehicle.indexOf(1) === -1"/>
+                               name="resAxleCount" required ng-model="policyData.resAxleCount" type="number" ng-disabled="policyData.vehicle.length===1 && policyData.vehicle[0] === 1"/>
                     </div>
                 </div>
                 <div class="policy_container">

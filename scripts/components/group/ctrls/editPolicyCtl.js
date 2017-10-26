@@ -281,8 +281,10 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 name: '特定日期'
             }];
         $scope.changeVehicle = function () {
-            if ($scope.policyData.vehicle.length !== 1 || $scope.policyData.vehicle[0] !== 1) {
+            if ($scope.policyData.vehicle.indexOf(1) < 0) {
                 $scope.policyData.seatnum = 0;
+            }
+            if ($scope.policyData.vehicle.length === 1 && $scope.policyData.vehicle[0] === 1) {
                 $scope.policyData.resWeigh = 0;
                 $scope.policyData.resAxleLoad = 0;
                 $scope.policyData.resAxleCount = 0;
