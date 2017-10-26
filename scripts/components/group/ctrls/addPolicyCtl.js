@@ -12,18 +12,18 @@ angular.module('app').controller('addPolicyCtrl', ['$window', '$scope', '$timeou
             restrict: '', // 受限本地车
             charSwitch: -1, // 字母转换原则
             charToNum: 0, // 字母对应数字
-            tailNumber: [], // 尾号
+            tailNumber: [], // 限行尾号
             energyType: [], // 能源类型
-            gasEmisstand: -1, // 油气排放标准
+            gasEmisstand: [], // 油气排放标准
             platecolor: [], // 车牌颜色
             vehicleLength: 0, // 车长限制
-            resWeigh: 0, // 车辆限重
+            resWeigh: 0, // 限制载重
             resAxleLoad: 0, // 限制轴重
             resAxleCount: 0, // 限制轴数
-            startDate: '', // 开始时间
-            endDate: '', // 结束时间
+            startDate: '', // 开始日期
+            endDate: '', // 结束日期
             resDatetype: [], // 限行时间类型
-            time: '', // 时间
+            time: '', // 限行时间
             specFlag: [] // 排除日期
         };
         $scope.carType = [
@@ -148,8 +148,8 @@ angular.module('app').controller('addPolicyCtrl', ['$window', '$scope', '$timeou
                 id: 9,
                 name: 9
             }, {
-                id: 26,
-                name: '26个字母'
+                id: '26个字母',
+                name: '26个英文字母'
             }];
         $scope.energyType = [
             {
@@ -163,10 +163,6 @@ angular.module('app').controller('addPolicyCtrl', ['$window', '$scope', '$timeou
                 name: '纯电'
             }];
         $scope.gasEmisstand = [
-            {
-                id: -1,
-                name: '请选择'
-            },
             {
                 id: 0,
                 name: '未限制'
@@ -283,8 +279,11 @@ angular.module('app').controller('addPolicyCtrl', ['$window', '$scope', '$timeou
                 name: '特定日期'
             }];
         $scope.changeVehicle = function () {
-            if ($scope.policyData.vehicle.indexOf !== -1) {
+            if ($scope.policyData.vehicle.length !== 1 || $scope.policyData.vehicle[0] !== 1) {
                 $scope.policyData.seatnum = 0;
+                $scope.policyData.resWeigh = 0;
+                $scope.policyData.resAxleLoad = 0;
+                $scope.policyData.resAxleCount = 0;
             }
         };
         $scope.formateNumbers = function (field, len) {
@@ -305,6 +304,12 @@ angular.module('app').controller('addPolicyCtrl', ['$window', '$scope', '$timeou
                     validateForm(form[k]);
                 }
             }
+        };
+        $scope.changeTemp = function () {
+            $scope.policyData.tempPlateNum = 0;
+        };
+        $scope.changeChar = function () {
+            $scope.policyData.charToNum = 0;
         };
         $scope.savePolicy = function () {
             validateForm($scope.policyForm);
@@ -336,14 +341,14 @@ angular.module('app').controller('addPolicyCtrl', ['$window', '$scope', '$timeou
                 return;
             }
             if ($scope.policyData.tailNumber.length === 0) {
-                swal('提示', '请选择尾号', 'warning');
+                swal('提示', '请选择限行尾号', 'warning');
                 return;
             }
             if ($scope.policyData.energyType.length === 0) {
                 swal('提示', '请选择能源类型', 'warning');
                 return;
             }
-            if ($scope.policyData.gasEmisstand === -1) {
+            if ($scope.policyData.gasEmisstand.length === 0) {
                 swal('提示', '请选择油气排放标准', 'warning');
                 return;
             }
@@ -371,7 +376,7 @@ angular.module('app').controller('addPolicyCtrl', ['$window', '$scope', '$timeou
             }
             params.data.tailNumber = $scope.policyData.tailNumber.join('|');
             params.data.energyType = $scope.policyData.energyType.join('|');
-            params.data.gasEmisstand = $scope.policyData.gasEmisstand;
+            params.data.gasEmisstand = $scope.policyData.gasEmisstand.join('|');
             params.data.platecolor = $scope.policyData.platecolor.join('|');
             params.data.vehicleLength = $scope.policyData.vehicleLength;
             params.data.resWeigh = $scope.policyData.resWeigh;

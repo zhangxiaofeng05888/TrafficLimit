@@ -64,7 +64,15 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             7: '7',
             8: '8',
             9: '9',
-            26: '26个字母'
+            '26个字母': '26个英文字母'
+        };
+        $scope.gasEmisstand = {
+            0: '未限制',
+            1: '国Ⅰ',
+            2: '国Ⅱ',
+            3: '国Ⅲ',
+            4: '国Ⅳ',
+            5: '国Ⅴ'
         };
         $scope.platecolor = {
             1: '蓝牌',
@@ -144,7 +152,7 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             }
             return attributionName.join('|');
         }
-        // 转换尾号
+        // 转换限行尾号
         function changeTailNumber(tailNumber) {
             var tailNumberIds = tailNumber.split('|');
             var tailNumberName = [];
@@ -152,6 +160,15 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
                 tailNumberName.push($scope.tailNumber[tailNumberIds[i]]);
             }
             return tailNumberName.join('|');
+        }
+        // 转换油气排放标准
+        function changeGasEmisstand(gasEmisstand) {
+            var gasEmisstandIds = gasEmisstand.split('|');
+            var gasEmisstandName = [];
+            for (var i = 0; i < gasEmisstandIds.length; i++) {
+                gasEmisstandName.push($scope.gasEmisstand[gasEmisstandIds[i]]);
+            }
+            return gasEmisstandName.join('|');
         }
         // 转换车牌颜色
         function changePlatecolor(platecolor) {
@@ -162,7 +179,7 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             }
             return platecolorName.join('|');
         }
-        // 转换车牌颜色
+        // 转换能源类型
         function changeEnergyType(energyType) {
             var energyTypeIds = energyType.split('|');
             var energyTypeName = [];
@@ -199,11 +216,6 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             var html = '<div class="ui-grid-cell-contents">{{row.entity.charSwitch === 1 ? "转换为固定数字" : row.entity.charSwitch === 2 ? "以字母前一位阿拉伯数字为准" : "原值转出"}}</div>';
             return html;
         }
-        // 油气排放标准
-        function getGasEmisstand() {
-            var html = '<div class="ui-grid-cell-contents">{{row.entity.gasEmisstand === 0 ? "未限制" : row.entity.gasEmisstand === 1 ? "国Ⅰ" : row.entity.gasEmisstand === 2 ? "国Ⅱ" : row.entity.gasEmisstand === 3 ? "国Ⅲ" : row.entity.gasEmisstand === 4 ? "国Ⅳ" : "国Ⅴ"}}</div>';
-            return html;
-        }
         // 获取表格数据;
         function getData() {
             var params = {
@@ -223,6 +235,7 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
                         temp.vehicleName = changeVehicle(temp.vehicle);
                         temp.attributionName = changeAttribution(temp.attribution);
                         temp.tailNumberName = changeTailNumber(temp.tailNumber);
+                        temp.gasEmisstand = changeGasEmisstand(temp.gasEmisstand);
                         temp.platecolorName = changePlatecolor(temp.platecolor);
                         temp.energyTypeName = changeEnergyType(temp.energyType);
                         temp.resDatetypeName = changeResDatetype(temp.resDatetype);
@@ -359,9 +372,9 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
                     },
                     {
                         field: 'tailNumberName',
-                        displayName: '尾号',
+                        displayName: '限行尾号',
                         enableSorting: false,
-                        minWidth: 50,
+                        minWidth: 100,
                         cellClass: 'center'
                     },
                     {
@@ -383,8 +396,7 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
                         displayName: '油气排放标准',
                         enableSorting: false,
                         minWidth: 100,
-                        cellClass: 'center',
-                        cellTemplate: getGasEmisstand()
+                        cellClass: 'center'
                     },
                     {
                         field: 'vehicleLength',
@@ -395,7 +407,7 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
                     },
                     {
                         field: 'resWeigh',
-                        displayName: '车辆限重',
+                        displayName: '限制载重',
                         enableSorting: false,
                         minWidth: 100,
                         cellClass: 'center'
@@ -416,14 +428,14 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
                     },
                     {
                         field: 'startDate',
-                        displayName: '开始时间',
+                        displayName: '开始日期',
                         enableSorting: false,
                         minWidth: 100,
                         cellClass: 'center'
                     },
                     {
                         field: 'endDate',
-                        displayName: '结束时间',
+                        displayName: '结束日期',
                         enableSorting: false,
                         minWidth: 100,
                         cellClass: 'center'
@@ -437,7 +449,7 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
                     },
                     {
                         field: 'time',
-                        displayName: '时间',
+                        displayName: '限行时间',
                         enableSorting: false,
                         minWidth: 100,
                         cellClass: 'center'
@@ -451,7 +463,10 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
                     }
                 ]
             };
-            getData();
+            setTimeout(function () {
+                getData();
+                $scope.$apply();
+            });
         };
 
         $scope.$on('BottomPolicyPanelReload', initialize);

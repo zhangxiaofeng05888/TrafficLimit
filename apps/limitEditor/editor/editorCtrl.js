@@ -43,15 +43,9 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
             singletons.push(fastmap.uikit.check.CheckController.getInstance());
             // add by chenx on 2017-8-1
             // 要素编辑器增加图幅列表的限制
-            // singletons.push(fastmap.uikit.complexEdit.ComplexEditor.getInstance({
-            //    meshList: App.Temp.SubTask.meshList
-            // }));
-            // singletons.push(fastmap.uikit.relationEdit.RelationEditor.getInstance({
-            //    meshList: App.Temp.SubTask.meshList
-            // }));
-            // singletons.push(fastmap.uikit.shapeEdit.ShapeEditor.getInstance({
-            //    meshList: App.Temp.SubTask.meshList
-            // }));
+            singletons.push(fastmap.uikit.complexEdit.ComplexEditor.getInstance());
+            singletons.push(fastmap.uikit.relationEdit.RelationEditor.getInstance());
+            singletons.push(fastmap.uikit.shapeEdit.ShapeEditor.getInstance());
             singletons.push(fastmap.uikit.topoEdit.TopoEditFactory.getInstance());
             singletons.push(fastmap.uikit.editControl.EditControlFactory.getInstance());
             singletons.push(fastmap.uikit.operation.OperationController.getInstance());

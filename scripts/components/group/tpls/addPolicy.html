@@ -56,7 +56,7 @@
                     </div>
                     <div style="display: inline-block">
                         <input class="form-control poiRightPanel_Input" set-focus ng-pattern="/^-?\d+$/"
-                               name="seatnum" required ng-model="policyData.seatnum" type="number" ng-disabled="policyData.vehicle.indexOf(1) === -1"/>
+                               name="seatnum" required ng-model="policyData.seatnum" type="number" ng-disabled="policyData.vehicle.length!==1 || policyData.vehicle.indexOf(1) === -1"/>
                     </div>
                 </div>
                 <div class="policy_container">
@@ -82,17 +82,16 @@
                     </div>
                     <div style="display: inline-block">
                         <select class="form-control poiRightPanel_select" ng-model="policyData.tempPlate"
-                                ng-options="value.id as value.name for value in tempPlate"></select>
+                                ng-options="value.id as value.name for value in tempPlate" ng-change="changeTemp()"></select>
                     </div>
                 </div>
-                <div class="policy_container">
+                <div class="policy_container" ng-show="policyData.tempPlate === 1">
                     <div class="policy_container_title">
                         <span>临牌对应数字：</span>
                     </div>
                     <div style="display: inline-block">
                         <select class="form-control poiRightPanel_select" ng-model="policyData.tempPlateNum"
-                                ng-options="value for value in tempPlateNum"
-                                ng-disabled="policyData.tempPlate !== 1"></select>
+                                ng-options="value for value in tempPlateNum"></select>
                     </div>
                 </div>
                 <div class="policy_container">
@@ -109,28 +108,27 @@
                     </div>
                     <div style="display: inline-block">
                         <select class="form-control poiRightPanel_select" ng-model="policyData.charSwitch"
-                                ng-options="value.id as value.name for value in charSwitch"></select>
+                                ng-options="value.id as value.name for value in charSwitch" ng-change="changeChar()"></select>
                     </div>
                 </div>
-                <div class="policy_container">
+                <div class="policy_container" ng-show="policyData.charSwitch === 1">
                     <div class="policy_container_title">
                         <span>字母对应数字：</span>
                     </div>
                     <div style="display: inline-block">
                         <select class="form-control poiRightPanel_select" ng-model="policyData.charToNum"
-                                ng-options="value for value in charToNum"
-                                ng-disabled="policyData.charSwitch !== 1"></select>
+                                ng-options="value for value in charToNum"></select>
                     </div>
                 </div>
                 <div class="policy_container">
                     <div class="policy_container_title">
-                        <span>尾号：</span>
+                        <span>限行尾号：</span>
                     </div>
                     <div style="display: inline-block">
                         <select
                                 chosen
                                 multiple
-                                placeholder-text-multiple="'请选择尾号'"
+                                placeholder-text-multiple="'请选择限行尾号'"
                                 width="'190px'"
                                 ng-model="policyData.tailNumber"
                                 ng-options="value.id as value.name for value in tailNumber"
@@ -161,8 +159,16 @@
                         <span>油气排放标准：</span>
                     </div>
                     <div style="display: inline-block">
-                        <select class="form-control poiRightPanel_select" ng-model="policyData.gasEmisstand"
-                                ng-options="value.id as value.name for value in gasEmisstand"></select>
+                        <select
+                                chosen
+                                multiple
+                                placeholder-text-multiple="'请选择油气排放标准'"
+                                width="'190px'"
+                                ng-model="policyData.gasEmisstand"
+                                ng-options="value.id as value.name for value in gasEmisstand"
+                        >
+                            <option value=""></option>
+                        </select>
                     </div>
                 </div>
                 <div class="policy_container">
@@ -193,11 +199,11 @@
                 </div>
                 <div class="policy_container">
                     <div class="policy_container_title">
-                        <span>车辆限重：</span>
+                        <span>限制载重：</span>
                     </div>
                     <div style="display: inline-block">
                         <input class="form-control poiRightPanel_Input" set-focus ng-pattern="/^(\d|[0-9]\d+)(\.\d+)?$/"
-                               name="resWeigh" required ng-model="policyData.resWeigh" type="number" ng-blur="formateNumbers('resWeigh',2)"/>
+                               name="resWeigh" required ng-model="policyData.resWeigh" type="number" ng-blur="formateNumbers('resWeigh',2)" ng-disabled="policyData.vehicle.length!==1 || policyData.vehicle.indexOf(1) === -1"/>
                     </div>
                 </div>
                 <div class="policy_container">
@@ -206,7 +212,7 @@
                     </div>
                     <div style="display: inline-block">
                         <input class="form-control poiRightPanel_Input" set-focus ng-pattern="/^(\d|[0-9]\d+)(\.\d+)?$/"
-                               name="resAxleLoad" required ng-model="policyData.resAxleLoad" type="number" ng-blur="formateNumbers('resAxleLoad',2)"/>
+                               name="resAxleLoad" required ng-model="policyData.resAxleLoad" type="number" ng-blur="formateNumbers('resAxleLoad',2)" ng-disabled="policyData.vehicle.length!==1 || policyData.vehicle.indexOf(1) === -1"/>
                     </div>
                 </div>
                 <div class="policy_container">
@@ -215,27 +221,27 @@
                     </div>
                     <div style="display: inline-block">
                         <input class="form-control poiRightPanel_Input" set-focus ng-pattern="/^-?\d+$/"
-                               name="resAxleCount" required ng-model="policyData.resAxleCount" type="number"/>
+                               name="resAxleCount" required ng-model="policyData.resAxleCount" type="number" ng-disabled="policyData.vehicle.length!==1 || policyData.vehicle.indexOf(1) === -1"/>
                     </div>
                 </div>
                 <div class="policy_container">
                     <div class="policy_container_title">
-                        <span>开始时间：</span>
+                        <span>开始日期：</span>
                     </div>
                     <div style="display: inline-block">
                         <input type="text" class="form-control poiRightPanel_Input" ng-model="policyData.startDate"
                                data-max-date="{{policyData.endDate}}" bs-datepicker
-                               data-date-format="yyyy-MM-dd" data-date-type="string" placement="left">
+                               data-date-format="yyyy-MM-dd" data-date-type="string" placement="top">
                     </div>
                 </div>
                 <div class="policy_container">
                     <div class="policy_container_title">
-                        <span>结束时间：</span>
+                        <span>结束日期：</span>
                     </div>
                     <div style="display: inline-block">
                         <input type="text" class="form-control poiRightPanel_Input" ng-model="policyData.endDate"
                                data-min-date="{{policyData.startDate}}" bs-datepicker
-                               data-date-format="yyyy-MM-dd" data-date-type="string" placement="left">
+                               data-date-format="yyyy-MM-dd" data-date-type="string" placement="top">
                     </div>
                 </div>
                 <div class="policy_container">
@@ -257,7 +263,7 @@
                 </div>
                 <div class="policy_container">
                     <div class="policy_container_title">
-                        <span>时间：</span>
+                        <span>限行时间：</span>
                     </div>
                     <div style="display: inline-block">
                         <input class="form-control poiRightPanel_Input" ng-model="policyData.time" disabled>
