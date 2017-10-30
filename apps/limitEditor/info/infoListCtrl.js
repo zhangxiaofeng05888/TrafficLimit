@@ -343,7 +343,7 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
                         cellTemplate: getIndex()
                     },
                     {
-                        field: 'infoIntelId',
+                        field: 'infoCode',
                         displayName: '情报编码',
                         enableSorting: false,
                         minWidth: 100,
