@@ -406,6 +406,16 @@ angular.module('app').controller('addPolicyCtrl', ['$window', '$scope', '$timeou
                 }
             });
         };
+        $scope.fmdateTimer = function (str) {
+            $scope.$on('get-date', function (event, data) {
+                $scope.policyData.time = data;
+            });
+            $timeout(function () {
+                $scope.$broadcast('set-code', str);
+                $scope.policyData.time = str;
+                $scope.$apply();
+            }, 100);
+        };
         var initialize = function () {
             $scope.groupId = App.Temp.groupId;
             var ctrl = '../../scripts/components/tools/fmTimeComponent/fmdateTimer.js';
@@ -413,7 +423,7 @@ angular.module('app').controller('addPolicyCtrl', ['$window', '$scope', '$timeou
             $ocLazyLoad.load([ctrl, tmpl]).then(function () {
                 $scope.dateURL = tmpl;
                 $timeout(function () {
-
+                    $scope.fmdateTimer($scope.policyData.time);
                 });
             });
         };

@@ -266,7 +266,8 @@
                         <span>限行时间：</span>
                     </div>
                     <div style="display: inline-block">
-                        <input class="form-control poiRightPanel_Input" ng-model="policyData.time" disabled>
+                        <!--<input class="form-control poiRightPanel_Input" ng-model="policyData.time" disabled>-->
+                        <div ng-include="dateURL" class="muti-date" data-type="1" date-str='{{policyData.time}}'></div>
                     </div>
                 </div>
                 <div class="policy_container">

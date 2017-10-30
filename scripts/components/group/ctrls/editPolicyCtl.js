@@ -422,6 +422,16 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 }
             });
         };
+        $scope.fmdateTimer = function (str) {
+            $scope.$on('get-date', function (event, data) {
+                $scope.policyData.time = data;
+            });
+            $timeout(function () {
+                $scope.$broadcast('set-code', str);
+                $scope.policyData.time = str;
+                $scope.$apply();
+            }, 100);
+        };
         function changeStrArr(strArray) {
             var strArr = strArray;
             var intArr = [];
@@ -475,6 +485,15 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
             $scope.policyData.resDatetype = changeStrArr(policyData.resDatetype.split('|'));
             $scope.policyData.time = policyData.time;
             $scope.policyData.specFlag = changeStrArr(policyData.specFlag.split('|'));
+
+            var ctrl = '../../scripts/components/tools/fmTimeComponent/fmdateTimer.js';
+            var tmpl = '../../scripts/components/tools/fmTimeComponent/fmdateTimer.html';
+            $ocLazyLoad.load([ctrl, tmpl]).then(function () {
+                $scope.dateURL = tmpl;
+                $timeout(function () {
+                    $scope.fmdateTimer($scope.policyData.time);
+                });
+            });
         };
 
         var unbindHandler = $scope.$on('ReloadData-editPolicy', initialize);
