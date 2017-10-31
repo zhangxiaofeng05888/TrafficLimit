@@ -69,12 +69,11 @@
     }
 
     .date-well {
-        width: 275px;
+        width: 190px;
         border: 1px solid #dddddd;
         border-radius: 4px;
         color: #000000 !important;
         font-size: 12px;
-        margin: 0 5px 0 5px;
         display: inline-block;
     }
 
@@ -525,12 +524,12 @@
     <!--<input class="form-control poiRightPanel_Input" date-code="{{item.code}}" ng-click="dateEdit(item.code, $index, $event);" ng-bind="item.describe" readonly>-->
     <div class="date-head">
         <div class="date-title pull-left">时间段</div>
-        <div class="date-title pull-left">
-            <input type="checkbox" id="vagueTime" ng-click="checkVague();" ng-disabled="isFuzzy" ng-model="vagueTime" ng-checked="vagueTime" value=true class="radio_diy_class"/>
-            <label for="vagueTime">
-                <span>模糊时间</span>
-            </label>
-        </div>
+        <!--<div class="date-title pull-left">-->
+            <!--<input type="checkbox" id="vagueTime" ng-click="checkVague();" ng-disabled="isFuzzy" ng-model="vagueTime" ng-checked="vagueTime" value=true class="radio_diy_class"/>-->
+            <!--<label for="vagueTime">-->
+                <!--<span>模糊时间</span>-->
+            <!--</label>-->
+        <!--</div>-->
 
         <div class="pull-right">
             <a href="javascript:;" class="data-empty pull-right"
@@ -544,7 +543,7 @@
         <div class="date-list" ng-repeat="item in dateList">
             <div class="col-xs-10 col-md-10 col-lg-10 date-code-list" date-code="{{item.code}}" ng-click="dateEdit(item.code, $index, $event);" ng-bind="item.describe">
             </div>
-            <div class="col-xs-2 col-md-2 col-lg-2" style="padding-top: 8px;">
+            <div class="col-xs-2 col-md-2 col-lg-2">
                 <span class="glyphicon glyphicon-minus-sign remove-date-list pull-right"
                       ng-click="removeList($event,$index)"></span>
             </div>
@@ -603,6 +602,6 @@
         </div>
         <!-- <div class="arrow"></div> -->
     </div>
-    <div class='arrow_right' ng-style="arrowStyle"></div>
+    <!--<div class='arrow_right' ng-style="arrowStyle"></div>-->
     <div class="date-model" ng-if="showDatePicker" ng-click="close();"></div>
 </div>

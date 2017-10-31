@@ -197,7 +197,7 @@
                         <span>车长限制：</span>
                     </div>
                     <div style="display: inline-block">
-                        <input class="form-control poiRightPanel_Input" set-focus ng-pattern="/^(\d|[0-9]\d+)(\.\d+)?$/"
+                        <input class="form-control poiRightPanel_Input" set-focus
                                name="vehicleLength" required ng-model="policyData.vehicleLength" type="number" ng-blur="formateNumbers('vehicleLength',1)"/>
                     </div>
                 </div>
@@ -206,7 +206,7 @@
                         <span>限制载重：</span>
                     </div>
                     <div style="display: inline-block">
-                        <input class="form-control poiRightPanel_Input" set-focus ng-pattern="/^(\d|[0-9]\d+)(\.\d+)?$/"
+                        <input class="form-control poiRightPanel_Input" set-focus
                                name="resWeigh" required ng-model="policyData.resWeigh" type="number" ng-blur="formateNumbers('resWeigh',2)" ng-disabled="policyData.vehicle.length===1 && policyData.vehicle[0] === 1"/>
                     </div>
                 </div>
@@ -215,7 +215,7 @@
                         <span>限制轴重：</span>
                     </div>
                     <div style="display: inline-block">
-                        <input class="form-control poiRightPanel_Input" set-focus ng-pattern="/^(\d|[0-9]\d+)(\.\d+)?$/"
+                        <input class="form-control poiRightPanel_Input" set-focus
                                name="resAxleLoad" required ng-model="policyData.resAxleLoad" type="number" ng-blur="formateNumbers('resAxleLoad',2)" ng-disabled="policyData.vehicle.length===1 && policyData.vehicle[0] === 1"/>
                     </div>
                 </div>

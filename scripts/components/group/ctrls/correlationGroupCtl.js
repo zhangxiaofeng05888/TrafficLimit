@@ -54,6 +54,7 @@ angular.module('app').controller('correlationGroupCtrl', ['$window', '$scope', '
                         temp.pageIndex = i + 1;
                         temp.checked = false;
                         temp.cityName = App.Temp.infoToGroupData.cityName;
+                        temp.disable = ($scope.groupData.existGroupIds.indexOf(temp.groupId) !== -1);
                         ret.push(temp);
                     }
                     total = data.total;
@@ -122,7 +123,7 @@ angular.module('app').controller('correlationGroupCtrl', ['$window', '$scope', '
                         displayName: '选择',
                         width: 50,
                         visible: true,
-                        cellTemplate: '<div class="fm-stretch fm-center" style="height: 30px"><input type="checkbox" ng-model="row.entity.checked" class="tableList blue"/></div>'
+                        cellTemplate: '<div class="fm-stretch fm-center" style="height: 30px"><input type="checkbox" ng-model="row.entity.checked" class="tableList blue" ng-disabled="row.entity.disable"/></div>'
                     },
                     {
                         field: 'id',

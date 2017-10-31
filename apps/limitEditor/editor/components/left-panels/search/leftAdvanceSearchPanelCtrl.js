@@ -51,6 +51,7 @@ angular.module('app').controller('AdvanceSearchController', function ($scope, ds
             if (data !== -1) {
                 swal('提示', '复制成功', 'success');
                 sceneController.redrawLayerByGeoLiveTypes(['COPYTOLINE']);
+                $scope.closeAdvanceSearchPanel();
             }
         });
     };
@@ -82,6 +83,7 @@ angular.module('app').controller('AdvanceSearchController', function ($scope, ds
             if (data !== -1) {
                 swal('提示', '复制成功', 'success');
                 sceneController.redrawLayerByGeoLiveTypes(['COPYTOPOLYGON']);
+                $scope.closeAdvanceSearchPanel();
             }
         });
     };
