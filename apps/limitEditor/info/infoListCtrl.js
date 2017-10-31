@@ -288,21 +288,37 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
         // 初始化表格;
         var initialize = function () {
             var date = new Date();
+            var preDate = new Date();
+            preDate.setDate(new Date().getDate() - 30);
             var year = date.getFullYear();
+            var preYear = preDate.getFullYear();
             var month = date.getMonth() + 1;
+            var preMonth = preDate.getMonth() + 1;
             if (month < 10) {
                 month = '0' + month.toString();
             } else {
                 month = month.toString();
             }
+            if (preMonth < 10) {
+                preMonth = '0' + preMonth.toString();
+            } else {
+                preMonth = preMonth.toString();
+            }
             var day = date.getDate();
+            var preDay = preDate.getDate();
             if (day < 10) {
                 day = '0' + day.toString();
             } else {
                 day = day.toString();
             }
+            if (preDay < 10) {
+                preDay = '0' + preDay.toString();
+            } else {
+                preDay = preDay.toString();
+            }
             var time = year.toString() + '-' + month + '-' + day.toString();
-            $scope.searchModel.beginTime = time;
+            var preTime = preYear.toString() + '-' + preMonth + '-' + preDay.toString();
+            $scope.searchModel.beginTime = preTime;
             $scope.searchModel.endTime = time;
             $scope.gridOptions = {
                 useExternalSorting: true,
@@ -414,6 +430,7 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
                     }
                 ]
             };
+            getData();
         };
         initialize();
         $scope.$on('backInfoList', function (event, data) {
