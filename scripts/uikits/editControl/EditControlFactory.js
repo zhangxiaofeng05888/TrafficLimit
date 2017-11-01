@@ -14,6 +14,10 @@ fastmap.uikit.editControl.EditControlFactory = L.Class.extend({
         return new fastmap.uikit.editControl.SelectControl(map, geoLiveType, options);
     },
 
+    batchEditLimitControl: function (map, geoLiveType, options) {
+        return new fastmap.uikit.editControl.BatchEditLimitControl(map, geoLiveType, options);
+    },
+
     batchSelectControl: function (map, geoLiveType, options) {
         return new fastmap.uikit.editControl.BatchSelectControl(map, geoLiveType, options);
     },

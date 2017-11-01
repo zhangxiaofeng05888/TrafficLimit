@@ -35,6 +35,7 @@ fastmap.uikit.complexEdit.ComplexEditor = fastmap.uikit.Editor.extend({
         this.toolController.addTool(new fastmap.uikit.complexEdit.AdjustImageTool());
         this.toolController.addTool(new fastmap.uikit.complexEdit.CopyTool());
         this.toolController.addTool(new fastmap.uikit.complexEdit.DrawPolygonTool());
+        this.toolController.addTool(new fastmap.uikit.complexEdit.BatchEditLimitTool());
     },
 
     start: function (editResult, onFinish) {
@@ -100,6 +101,9 @@ fastmap.uikit.complexEdit.ComplexEditor = fastmap.uikit.Editor.extend({
                 break;
             case 'DrawPolygonResult':
                 toolName = 'DrawPolygonTool';
+                break;
+            case 'BatchEditLimitResult':
+                toolName = 'BatchEditLimitTool';
                 break;
             default:
                 throw new Error('未知的编辑类型');

@@ -278,6 +278,13 @@ FM.uikit.Config.Utility = (function () {
                     ctrl: 'components/group/ctrls/resultListCtl.js',
                     tmpl: 'components/group/tpls/resultListTpl.html'
                 }
+            },
+            batchEditLimit: {
+                name: '批量编辑列表',
+                template: {
+                    ctrl: 'components/group/ctrls/batchEditLimitCtl.js',
+                    tmpl: 'components/group/tpls/batchEditLimitTpl.html'
+                }
             }
         };
 

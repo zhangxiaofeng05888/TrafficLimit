@@ -72,6 +72,13 @@ angular.module('app').controller('correlationGroupCtrl', ['$window', '$scope', '
             var html = '<div class="ui-grid-cell-contents">{{row.entity.groupType === 1 ? "新增" : row.entity.groupType === 2 ? "删除" : row.entity.groupType === 3 ? "修改" : "已制作"}}</div>';
             return html;
         }
+        function formatRow() {
+            var html = '<div>' +
+              '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" ' +
+              'class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell"></div>' +
+              '</div>';
+            return html;
+        }
         $scope.searchList = function () {
             getData();
         };
@@ -112,6 +119,7 @@ angular.module('app').controller('correlationGroupCtrl', ['$window', '$scope', '
                 multiSelect: false,
                 modifierKeysToMultiSelect: false,
                 noUnselect: false,
+                rowTemplate: formatRow(),
                 onRegisterApi: function (gridApi) {
                     $scope.gridApi = gridApi;
                     // 处理改变列表高度后，滚动条跳动的问题

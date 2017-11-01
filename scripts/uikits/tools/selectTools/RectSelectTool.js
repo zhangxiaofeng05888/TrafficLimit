@@ -84,6 +84,8 @@ fastmap.uikit.selectTool.RectSelectTool = fastmap.uikit.MapTool.extend({
 
         if (!this.options) {
             geoLiveTypes = this.getEditableGeoLiveTypes();
+        } else if (FM.Util.isArray(this.options)) {
+            geoLiveTypes = this.options;
         } else if (this.options === 'TIPS') {
             var tipLayers = this.sceneController.getLayersByLabel('tip');
             tipLayers.forEach(function (item) {
