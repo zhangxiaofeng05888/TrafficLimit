@@ -88,7 +88,7 @@ fastmap.uikit.complexEdit.BatchEditLimitTool = fastmap.uikit.complexEdit.Complex
     },
 
     resetMouseInfo: function () {
-        this.setMouseInfo('请框选需要编辑的要素,按住ctrl支持反选和追加');
+        this.setMouseInfo('请框选需要编辑的要素,按住ctrl支持反选和追加,按空格结束选择！');
     },
 
     drawLinks: function () {

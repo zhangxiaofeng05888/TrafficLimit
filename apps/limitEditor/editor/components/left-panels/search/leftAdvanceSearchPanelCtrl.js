@@ -48,6 +48,10 @@ angular.module('app').controller('AdvanceSearchController', function ($scope, ds
             }
         };
         dsFcc.copyToLine(params).then(function (data) {
+            if (data === '属性值未发生变化') {
+                swal('提示', '重复复制，请重新选择', 'warning');
+                return;
+            }
             if (data !== -1) {
                 swal('提示', '复制成功', 'success');
                 sceneController.redrawLayerByGeoLiveTypes(['COPYTOLINE']);
@@ -80,6 +84,10 @@ angular.module('app').controller('AdvanceSearchController', function ($scope, ds
             }
         };
         dsFcc.copyToLine(params).then(function (data) {
+            if (data === '属性值未发生变化') {
+                swal('提示', '重复复制，请重新选择', 'warning');
+                return;
+            }
             if (data !== -1) {
                 swal('提示', '复制成功', 'success');
                 sceneController.redrawLayerByGeoLiveTypes(['COPYTOPOLYGON']);
