@@ -75,12 +75,18 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
             });
         };
         $scope.correlationGroup = function () {
+            var data = $scope.gridOptions.data;
+            var groupIds = [];
+            for (var i = 0; i < data.length; i++) {
+                groupIds.push(data[i].groupId);
+            }
             $scope.$emit('openDialog', {
                 panelName: 'correlationGroup',
                 data: {
                     adminCode: App.Temp.infoToGroupData.cityId,
                     cityName: App.Temp.infoToGroupData.cityName,
-                    infoIntelId: App.Temp.infoToGroupData.infoId
+                    infoIntelId: App.Temp.infoToGroupData.infoId,
+                    existGroupIds: groupIds
                 }
             });
         };

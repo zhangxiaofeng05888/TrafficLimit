@@ -163,6 +163,9 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 case 'editPolicy':
                     getDlgOption(dlgOption, 930, 550, false);
                     break;
+                case 'batchEditLimit':
+                    getDlgOption(dlgOption, 500, 300, false);
+                    break;
                 default:
                     break;
             }
@@ -568,6 +571,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 case 'tipListPanel':
                 case 'addPolicy':
                 case 'editPolicy':
+                case 'batchEditLimit':
                     showInDialog(data);
                     break;
                 case 'LaneConnexityPanel':
@@ -1645,6 +1649,11 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
         // 关闭策略表
         $scope.$on('CloseBottomPolicyPanel', function (event, data) {
             closePolicy();
+        });
+
+        // 关闭右侧面板
+        $scope.$on('CloseRightPanel', function (event, data) {
+            closeRightPanel();
         });
         /* start 事件监听*******************************************************************/
         eventCtrl.on(eventCtrl.eventTypes.OBJECTSELECTED, function (data) {

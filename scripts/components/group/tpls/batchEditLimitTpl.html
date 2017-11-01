@@ -1,0 +1,21 @@
+<div ng-controller="batchEditLimitCtrl">
+    <div class="scroll_style" style="height: 200px">
+        <div ng-repeat="item in limitData" style="padding-left: 10px;">
+            <span>{{item.properties.id}}: {{item.properties.boundaryLink === '1' ? '限行' : '不限行'}}</span>
+        </div>
+    </div>
+    <div>
+        <div style="display: inline-block;padding-left: 10px;padding-top: 20px">
+            <span>
+                边界限行：
+            </span>
+            <select class="form-control poiRightPanel_select" ng-model="boundaryLink"
+                    ng-options="value.id as value.label for value in limit">
+            </select>
+        </div>
+        <div class="list-title-btn"
+             style="background-color: #5693ff;height: 24px;line-height: 24px;float: right;margin-right: 20px;margin-top: 20px">
+            <span style="color: #FFFFFF;font-size: 12px">保存</span>
+        </div>
+    </div>
+</div>

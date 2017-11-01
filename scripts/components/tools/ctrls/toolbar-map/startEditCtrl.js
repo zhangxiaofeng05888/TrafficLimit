@@ -147,6 +147,30 @@ angular.module('app').controller('startEditCtrl', ['$scope',
             $scope.$emit('StartEditCtrl-ChangeFirstTool', $scope.selectTool.name);
         };
 
+        $scope.batchEditLimit = function (event, geoLiveType) {
+            if (!testEditZoom()) {
+                return;
+            }
+
+            $scope.$emit('Map-EnableTool', {
+                geoLiveType: geoLiveType,
+                operation: 'Select'
+            });
+
+            var factory = fastmap.uikit.editControl.EditControlFactory.getInstance();
+            var selectControl = factory.batchEditLimitControl(map, geoLiveType);
+
+            if (!selectControl) {
+                swal('提示', '编辑流程未实现', 'info');
+                return;
+            }
+
+            selectControl.run();
+
+            $scope.$emit('Map-ToolEnabled');
+            $scope.$emit('CloseRightPanel');
+        };
+
         $scope.modify = function (event, geoLiveType) {
             if (!testEditZoom()) {
                 return;

@@ -54,6 +54,7 @@ angular.module('app').controller('correlationGroupCtrl', ['$window', '$scope', '
                         temp.pageIndex = i + 1;
                         temp.checked = false;
                         temp.cityName = App.Temp.infoToGroupData.cityName;
+                        temp.disable = ($scope.groupData.existGroupIds.indexOf(temp.groupId) !== -1);
                         ret.push(temp);
                     }
                     total = data.total;
@@ -69,6 +70,13 @@ angular.module('app').controller('correlationGroupCtrl', ['$window', '$scope', '
         }
         function groupType() {
             var html = '<div class="ui-grid-cell-contents">{{row.entity.groupType === 1 ? "新增" : row.entity.groupType === 2 ? "删除" : row.entity.groupType === 3 ? "修改" : "已制作"}}</div>';
+            return html;
+        }
+        function formatRow() {
+            var html = '<div>' +
+              '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" ' +
+              'class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell"></div>' +
+              '</div>';
             return html;
         }
         $scope.searchList = function () {
@@ -111,6 +119,7 @@ angular.module('app').controller('correlationGroupCtrl', ['$window', '$scope', '
                 multiSelect: false,
                 modifierKeysToMultiSelect: false,
                 noUnselect: false,
+                rowTemplate: formatRow(),
                 onRegisterApi: function (gridApi) {
                     $scope.gridApi = gridApi;
                     // 处理改变列表高度后，滚动条跳动的问题
@@ -122,7 +131,7 @@ angular.module('app').controller('correlationGroupCtrl', ['$window', '$scope', '
                         displayName: '选择',
                         width: 50,
                         visible: true,
-                        cellTemplate: '<div class="fm-stretch fm-center" style="height: 30px"><input type="checkbox" ng-model="row.entity.checked" class="tableList blue"/></div>'
+                        cellTemplate: '<div class="fm-stretch fm-center" style="height: 30px"><input type="checkbox" ng-model="row.entity.checked" class="tableList blue" ng-disabled="row.entity.disable"/></div>'
                     },
                     {
                         field: 'id',

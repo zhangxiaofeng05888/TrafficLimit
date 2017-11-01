@@ -4,6 +4,7 @@
         background-color: #FFFFFF;
         font-size: 0;
     }
+
     .topToolsContainer > div {
         width: 40px;
         height: 30px;
@@ -13,20 +14,67 @@
         display: inline-block;
         border-left: 1px solid #d2e1ff;
     }
+
     .topToolsContainer > div:hover {
         background-color: rgba(88, 150, 255, 0.1);
     }
+
     .topToolsContainer > div.disabled {
+        background-color: rgba(24, 40, 72, 0.2);
+        cursor: not-allowed;
+    }
+    .batchEdit:hover ul.typeList {
+        display: block;
+    }
+    .batchEdit ul.typeList {
+        list-style: none;
+        padding: 0;
+        position: absolute;
+        top: 30px;
+        background: #fff;
+        border-radius: 3px;
+        cursor: pointer;
+        box-shadow: 0 2px 6px 0 #93bbff;
+        width: 80px;
+        text-align: center;
+        display: none;
+    }
+
+    .batchEdit ul.typeList li {
+        height: 24px;
+        line-height: 24px;
+        border: 1px solid transparent;
+        font-size: 12px;
+    }
+
+    .batchEdit ul.typeList li:hover {
+        border: 1px solid #5896ff;
+        background-color: rgba(88, 150, 255, 0.1);
+    }
+    .batchEdit ul.typeList li.disabled {
         background-color: rgba(24, 40, 72, 0.2);
         cursor: not-allowed;
     }
 </style>
 <div ng-controller="toolsToolCtrl" class="topToolsContainer">
-    <div title="点选" ng-controller='startEditCtrl' ng-click="select($event, ['RDLINK', 'COPYTOLINE', 'COPYTOPOLYGON', 'DRAWPOLYGON', 'GEOMETRYLINE', 'GEOMETRYPOLYGON'] , 'point')" style="border-left: none">
+    <div title="点选" ng-controller='startEditCtrl'
+         ng-click="select($event, ['RDLINK', 'COPYTOLINE', 'COPYTOPOLYGON', 'DRAWPOLYGON', 'GEOMETRYLINE', 'GEOMETRYPOLYGON'] , 'point')"
+         style="border-left: none">
         <img src="../../images/newPoi/toolIcon/quickToolIcon/select.png"/>
     </div>
-    <div title="框选" class="disabled">
+    <div class="batchEdit">
         <img src="../../images/newPoi/toolIcon/quickToolIcon/frame_select_all.png"/>
+        <ul class="typeList">
+            <li ng-controller='startEditCtrl' ng-click="batchEditLimit($event, 'GEOMETRYLINE')">
+                <span>编辑成果线</span>
+            </li>
+            <li ng-controller='startEditCtrl' ng-click="batchEditLimit($event, 'GEOMETRYPOLYGON')">
+                <span>编辑成果面</span>
+            </li>
+            <li class="disabled">
+                <span>编辑限行线</span>
+            </li>
+        </ul>
     </div>
     <div title="地图漫游" ng-controller='startEditCtrl' ng-click="pan($event, null)">
         <img src="../../images/newPoi/toolIcon/quickToolIcon/mapPan.png"/>
