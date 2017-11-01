@@ -16,6 +16,13 @@ fastmap.uikit.topoEdit.CopyToPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEdit
      * @param options
      * @returns {null}
      */
+
+    getBatchDeleteResult: function (options) {
+        var editResult = new fastmap.uikit.complexEdit.BatchEditLimitResult();
+        editResult.geoLiveType = 'COPYTOPOLYGON';
+        return editResult;
+    },
+
     getCreateEditResult: function (options) {
         var editResult = new fastmap.uikit.shapeEdit.PathResult();
         editResult.finalGeometry = {

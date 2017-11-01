@@ -285,6 +285,13 @@ FM.uikit.Config.Utility = (function () {
                     ctrl: 'components/group/ctrls/batchEditLimitCtl.js',
                     tmpl: 'components/group/tpls/batchEditLimitTpl.html'
                 }
+            },
+            batchDeleteLimit: {
+                name: '批量删除列表',
+                template: {
+                    ctrl: 'components/group/ctrls/batchDeleteLimitCtl.js',
+                    tmpl: 'components/group/tpls/batchDeleteLimitTpl.html'
+                }
             }
         };
 

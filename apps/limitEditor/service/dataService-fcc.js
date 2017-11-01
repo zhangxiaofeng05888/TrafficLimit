@@ -234,4 +234,24 @@ angular.module('dataService').service('dsFcc', ['$http', '$q', 'ajax', 'dsOutput
         });
         return defer.promise;
     };
+    /*
+     * 批量删除
+     * */
+    this.batchDelete = function (params) {
+        var defer = $q.defer();
+        ajax.get('limit/run', {
+            parameter: JSON.stringify(params)
+        }).success(function (data) {
+            if (data.errcode == 0) {
+                defer.resolve(data.data);
+            } else {
+                swal('删除出错：', data.errmsg, 'error');
+                defer.resolve(-1);
+            }
+        }).error(function (rejection) {
+            swal('提示', '删除出错', 'error');
+            defer.reject(rejection);
+        });
+        return defer.promise;
+    };
 }]);

@@ -126,7 +126,7 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
                         groupId: row.entity.groupId,
                         cityGeometry: data.geometry
                     };
-                    window.location.href = '#/editor';
+                    window.location.href = '#/editor?access_token=' + App.Temp.accessToken + '&random=' + Math.floor(Math.random() * 100);
                     App.Util.setSessionStorage('DbId', sessionData);
                 }
             });

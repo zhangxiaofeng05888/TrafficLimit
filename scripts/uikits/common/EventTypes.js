@@ -80,5 +80,7 @@ L.Mixin.EventTypes = {
     POIMOVEABLERES: 'poiMoveableRes', // poi显示坐标是否可移动回应
     TIPLANECONNEXITYSPACE: 'tipLaneConnexitySpace', // 车信tips创建时在面板按空格事件
     TIPNORMALRESTRICTIONSPACE: 'tipNormalRestrictionSpace', // 交限tips创建时在面板按空格事件
-    CLOSERIGHTPANEL: 'closeRightPanel' // 关闭右侧面板及工具条
+    CLOSERIGHTPANEL: 'closeRightPanel', // 关闭右侧面板及工具条
+    BATCHDELETELIMIT: 'batchDeleteLimit', // 批量删除成功之后control需要处理的逻辑
+    BATCHEDITLIMIT: 'batchEditLimit' // 批量编辑成功之后control需要处理的逻辑
 };

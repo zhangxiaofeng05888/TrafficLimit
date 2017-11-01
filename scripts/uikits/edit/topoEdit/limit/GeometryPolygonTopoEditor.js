@@ -17,6 +17,12 @@ fastmap.uikit.topoEdit.GeometryPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEd
         return editResult;
     },
 
+    getBatchDeleteResult: function (options) {
+        var editResult = new fastmap.uikit.complexEdit.BatchEditLimitResult();
+        editResult.geoLiveType = 'GEOMETRYPOLYGON';
+        return editResult;
+    },
+
     updateChanges: function (geoLiveObject) {
         var params = {
             type: 'SCPLATERESGEOMETRY',

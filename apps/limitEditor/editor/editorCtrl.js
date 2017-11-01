@@ -12,9 +12,9 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
     'appPath', 'dsMeta', 'dsFcc', 'dsEdit', 'dsManage', 'dsColumn', 'dsLazyload',
     function ($scope, $rootScope, $cookies, $timeout, $q, $ocLazyLoad, ngDialog,
         appPath, dsMeta, dsFcc, dsEdit, dsManage, dsColumn, dsLazyload) {
-        // if (!$scope.testLogin()) {
-        //    return;
-        // }
+        if (!$scope.testLogin()) {
+            return;
+        }
         //
         // if (!$scope.testTask()) {
         //    return;
@@ -164,6 +164,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                     getDlgOption(dlgOption, 930, 550, false);
                     break;
                 case 'batchEditLimit':
+                case 'batchDeleteLimit':
                     getDlgOption(dlgOption, 500, 300, false);
                     break;
                 default:
@@ -572,6 +573,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 case 'addPolicy':
                 case 'editPolicy':
                 case 'batchEditLimit':
+                case 'batchDeleteLimit':
                     showInDialog(data);
                     break;
                 case 'LaneConnexityPanel':

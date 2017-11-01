@@ -16,6 +16,13 @@ fastmap.uikit.topoEdit.CopyToLineTopoEditor = fastmap.uikit.topoEdit.TopoEditor.
      * @param options
      * @returns {null}
      */
+
+    getBatchDeleteResult: function (options) {
+        var editResult = new fastmap.uikit.complexEdit.BatchEditLimitResult();
+        editResult.geoLiveType = 'COPYTOLINE';
+        return editResult;
+    },
+
     getCopyResult: function (options) {
         var editResult = new fastmap.uikit.complexEdit.CopyResult();
         editResult.geoLiveType = 'COPYTOLINE';

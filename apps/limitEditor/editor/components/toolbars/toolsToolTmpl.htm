@@ -55,6 +55,38 @@
         background-color: rgba(24, 40, 72, 0.2);
         cursor: not-allowed;
     }
+    .batchDelete:hover ul.typeList {
+        display: block;
+    }
+    .batchDelete ul.typeList {
+        list-style: none;
+        padding: 0;
+        position: absolute;
+        top: 30px;
+        background: #fff;
+        border-radius: 3px;
+        cursor: pointer;
+        box-shadow: 0 2px 6px 0 #93bbff;
+        width: 80px;
+        text-align: center;
+        display: none;
+    }
+
+    .batchDelete ul.typeList li {
+        height: 24px;
+        line-height: 24px;
+        border: 1px solid transparent;
+        font-size: 12px;
+    }
+
+    .batchDelete ul.typeList li:hover {
+        border: 1px solid #5896ff;
+        background-color: rgba(88, 150, 255, 0.1);
+    }
+    .batchDelete ul.typeList li.disabled {
+        background-color: rgba(24, 40, 72, 0.2);
+        cursor: not-allowed;
+    }
 </style>
 <div ng-controller="toolsToolCtrl" class="topToolsContainer">
     <div title="点选" ng-controller='startEditCtrl'
@@ -94,7 +126,27 @@
     <div title="渲染面" ng-controller='startEditCtrl' ng-click="copyLine($event, 'DRAWPOLYGON')">
         <img src="../../images/newPoi/toolIcon/quickToolIcon/drawPloygon.png"/>
     </div>
-    <div title="批量删除" class="disabled">
+    <div title="批量删除" class="batchDelete">
         <img src="../../images/newPoi/toolIcon/quickToolIcon/moreDelete.png"/>
+        <ul class="typeList">
+            <li ng-controller='startEditCtrl' ng-click="batchDeleteLimit($event, 'COPYTOLINE')">
+                <span>删除临时线</span>
+            </li>
+            <li ng-controller='startEditCtrl' ng-click="batchDeleteLimit($event, 'DRAWPOLYGON')">
+                <span>删除临时面</span>
+            </li>
+            <li ng-controller='startEditCtrl' ng-click="batchDeleteLimit($event, 'COPYTOPOLYGON')">
+                <span>删除编辑线</span>
+            </li>
+            <li ng-controller='startEditCtrl' ng-click="batchDeleteLimit($event, 'GEOMETRYLINE')">
+                <span>删除成果线</span>
+            </li>
+            <li ng-controller='startEditCtrl' ng-click="batchDeleteLimit($event, 'GEOMETRYPOLYGON')">
+                <span>删除成果面</span>
+            </li>
+            <li class="disabled">
+                <span>删除限行线</span>
+            </li>
+        </ul>
     </div>
 </div>

@@ -22,6 +22,12 @@ fastmap.uikit.topoEdit.DrawPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEditor
         return editResult;
     },
 
+    getBatchDeleteResult: function (options) {
+        var editResult = new fastmap.uikit.complexEdit.BatchEditLimitResult();
+        editResult.geoLiveType = 'DRAWPOLYGON';
+        return editResult;
+    },
+
     getModifyEditResult: function (options) {
         var originObject = options.originObject;
         var editResult = new fastmap.uikit.shapeEdit.PolygonResult();

@@ -98,7 +98,7 @@ fastmap.uikit.complexEdit.BatchEditLimitTool = fastmap.uikit.complexEdit.Complex
             return;
         }
 
-        var lineSymbol = this.symbolFactory.getSymbol('complexEdit_poi_guide_link');
+        var lineSymbol = this.symbolFactory.getSymbol('ls_link');
         var polygonSymbol = this.symbolFactory.getSymbol('py_face');
         for (var i = 0; i < links.length; ++i) {
             var link = links[i];

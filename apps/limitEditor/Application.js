@@ -101,7 +101,7 @@ App.Util = {
      * @return  {String}   url地址
      */
     getInfoUrl: function (url) {
-        return App.Config.serviceUrl + '/' + url;
+        return App.Config.serviceUrl + '/' + url + '?access_token=' + (App.Temp.accessToken || '');
     },
     /**
      * 生成限行限号url地址

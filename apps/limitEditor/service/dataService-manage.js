@@ -14,7 +14,7 @@ angular.module('dataService').service('dsManage', ['$http', '$q', 'ajax', functi
     // 根据用户名查找子任务列表;
     this.login = function (userName, passwd) {
         var defer = $q.defer();
-        ajax.get('man/userInfo/login/', {
+        ajax.get('limit/userInfo/login/', {
             parameter: {
                 userNickName: userName,
                 userPassword: passwd

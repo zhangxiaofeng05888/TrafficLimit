@@ -452,6 +452,7 @@ module.exports = [
     'editControl/complexControl/CopyLineControl.js',
     'editControl/complexControl/DeleteLimitControl.js',
     'editControl/complexControl/BatchEditLimitControl.js',
+    'editControl/complexControl/BatchDeleteLimitControl.js',
     'editControl/modifyControl/ModifySimpleFeatureControl.js',
     'editControl/modifyControl/ModifyRelationFeatureControl.js',
     'editControl/modifyControl/BatchModifyTipsControl.js',

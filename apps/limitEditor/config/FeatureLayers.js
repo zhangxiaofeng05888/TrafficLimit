@@ -7,7 +7,7 @@ App.Config.map.FeatureLayers = {
             featureType: 'COPYTOLINE',
             serverFeatureType: 'SCPLATERESLINK',
             render: FM.mapApi.render.renderer.LimitRender,
-            minZoom: 15
+            minZoom: 11
         }
     },
     CopyToPolygon: {
@@ -18,7 +18,7 @@ App.Config.map.FeatureLayers = {
             featureType: 'COPYTOPOLYGON',
             serverFeatureType: 'SCPLATERESFACE',
             render: FM.mapApi.render.renderer.LimitRender,
-            minZoom: 15
+            minZoom: 11
         }
     },
     DrawPolygon: {
@@ -29,7 +29,7 @@ App.Config.map.FeatureLayers = {
             featureType: 'DRAWPOLYGON',
             serverFeatureType: 'SCPLATERESFACE',
             render: FM.mapApi.render.renderer.LimitRender,
-            minZoom: 15
+            minZoom: 11
         }
     },
     GeometryLine: {
@@ -40,7 +40,7 @@ App.Config.map.FeatureLayers = {
             featureType: 'GEOMETRYLINE',
             serverFeatureType: 'SCPLATERESGEOMETRY',
             render: FM.mapApi.render.renderer.LimitRender,
-            minZoom: 15
+            minZoom: 11
         }
     },
     GeometryPolygon: {
@@ -51,7 +51,7 @@ App.Config.map.FeatureLayers = {
             featureType: 'GEOMETRYPOLYGON',
             serverFeatureType: 'SCPLATERESGEOMETRY',
             render: FM.mapApi.render.renderer.LimitRender,
-            minZoom: 15
+            minZoom: 11
         }
     },
     AdAdmin: {

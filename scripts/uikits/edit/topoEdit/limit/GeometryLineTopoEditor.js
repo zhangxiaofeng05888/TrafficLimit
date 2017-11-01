@@ -17,6 +17,12 @@ fastmap.uikit.topoEdit.GeometryLineTopoEditor = fastmap.uikit.topoEdit.TopoEdito
         return editResult;
     },
 
+    getBatchDeleteResult: function (options) {
+        var editResult = new fastmap.uikit.complexEdit.BatchEditLimitResult();
+        editResult.geoLiveType = 'GEOMETRYLINE';
+        return editResult;
+    },
+
     updateChanges: function (geoLiveObject) {
         var params = {
             type: 'SCPLATERESGEOMETRY',

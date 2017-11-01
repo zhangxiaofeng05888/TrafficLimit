@@ -1,8 +1,8 @@
 /**
- * Created by zhaohang on 2017/10/31.
+ * Created by zhaohang on 2017/11/1.
  */
 
-fastmap.uikit.editControl.BatchEditLimitControl = fastmap.uikit.editControl.EditControl.extend({
+fastmap.uikit.editControl.BatchDeleteLimitControl = fastmap.uikit.editControl.EditControl.extend({
     initialize: function (map, geoLiveType) {
         fastmap.uikit.editControl.EditControl.prototype.initialize.apply(this, map);
 
@@ -18,7 +18,7 @@ fastmap.uikit.editControl.BatchEditLimitControl = fastmap.uikit.editControl.Edit
         this.highlightController.clear();
         this.setCurrentControl(this);
 
-        var editResult = this.topoEditor.getBatchEditResult();
+        var editResult = this.topoEditor.getBatchDeleteResult();
         this.complexEditor.start(editResult, this.onSelectFinish);
 
         return true;
@@ -32,9 +32,12 @@ fastmap.uikit.editControl.BatchEditLimitControl = fastmap.uikit.editControl.Edit
     onSelectFinish: function (editResult) {
         var self = this;
         if (editResult.links.length > 0) {
-            this.eventController.fire(L.Mixin.EventTypes.PARTSOPENPANEL, { panelName: 'batchEditLimit', data: editResult.links });
+            this.eventController.fire(L.Mixin.EventTypes.PARTSOPENPANEL, {
+                panelName: 'batchDeleteLimit',
+                data: editResult.links
+            });
         }
-        this.eventController.on(L.Mixin.EventTypes.BATCHEDITLIMIT, function (data) {
+        this.eventController.on(L.Mixin.EventTypes.BATCHDELETELIMIT, function (data) {
             self.onDeleteFinish();
         });
     },
@@ -43,4 +46,5 @@ fastmap.uikit.editControl.BatchEditLimitControl = fastmap.uikit.editControl.Edit
         this.complexEditor.stop();
         this.sceneController.redrawLayerByGeoLiveTypes([this.geoLiveType]);
     }
+
 });

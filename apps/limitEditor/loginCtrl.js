@@ -183,13 +183,42 @@ angular.module('app').controller('loginCtrl', ['$scope', 'dsManage',
          * @return {Undefined} 无返回值
          */
         $scope.handleEvent = function () {
-            if ($scope.userName === 'admin' && $scope.password === 'admin') {
-                window.location.href = '#/info';
-            } else {
-                errorMessage({
-                    error: '用户名或密码错误！'
-                });
+            if ($scope.showLoadImg) {
+                return;
             }
+            $scope.showLoadImg = true;
+            dsManage.login($scope.userName, $scope.password).then(function (rest) {
+                $scope.showLoadImg = false;
+                if (rest && rest.access_token) {
+                    App.Temp.accessToken = rest.access_token;
+                    App.Temp.userId = rest.userId;
+                    App.Temp.userName = rest.userRealName;
+
+                    var userCookie = {
+                        userId: rest.userId,
+                        userName: rest.userName,
+                        userRealName: rest.userRealName
+                    };
+                    App.Temp.User = userCookie;
+
+                    // 登录用户信息属于临时信息，记录在sessionStorage中
+                    App.Util.setSessionStorage('User', userCookie);
+
+                    App.Temp.Settings = App.Util.getLocalStorage('Settings') || {};
+                    if ($scope.rememberMe && !App.Temp.Settings.RememberUser) {
+                        // 是否记住用户属于配置信息，记录在localStorage中
+                        App.Util.setLocalStorage('RememberUser', {
+                            userName: $scope.userName,
+                            // todo: 此处很不安全，要进行加密
+                            userPwd: $scope.password
+                        });
+                    }
+
+                    window.location.href = '#/info?access_token=' + rest.access_token;
+                } else {
+                    errorMessage(rest);
+                }
+            });
         };
 
         clearCookies();

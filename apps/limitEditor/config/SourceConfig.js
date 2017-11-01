@@ -3,7 +3,7 @@
  */
 App.Config.map.SourceConfig = {
     objSource: {
-        sourceUrl: App.Config.subdomainsServiceUrl + '/render/limit/obj/getByTileWithGap?',
+        sourceUrl: App.Config.subdomainsServiceUrl + '/render/limit/obj/getByTileWithGap?access_token=' + App.Temp.accessToken,
         parsor: FM.mapApi.render.data.Feature,
         type: 'classical',
         subdomains: ['r1', 'r2', 'r3', 'r4', 'r5', 'r6'],
@@ -38,7 +38,7 @@ App.Config.map.SourceConfig = {
         }
     },
     limitSource: {
-        sourceUrl: App.Config.subdomainsServiceUrl + '/limit/getByTileWithGap?',
+        sourceUrl: App.Config.subdomainsServiceUrl + '/limit/getByTileWithGap?access_token=' + App.Temp.accessToken,
         parsor: FM.mapApi.render.data.Limit,
         type: 'classical',
         subdomains: ['r1', 'r2', 'r3', 'r4', 'r5', 'r6'],

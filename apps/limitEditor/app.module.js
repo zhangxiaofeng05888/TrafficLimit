@@ -197,22 +197,22 @@ angular.module('app', ['ngRoute', 'ngCookies', 'ui.layout', 'highcharts-ng', 'ui
          * @date   2017-09-13
          * @return {Boolean} 是否失效
          */
-        // $scope.testLogin = function () {
-        //    if (!App.Temp.User) {
-        //        swal({
-        //            title: '登陆已失效，请重新登陆！',
-        //            type: 'error',
-        //            animation: 'slide-from-top',
-        //            closeOnConfirm: true,
-        //            confirmButtonText: '重新登陆'
-        //        }, function () {
-        //            App.Util.logout();
-        //        });
-        //        return false;
-        //    }
-        //
-        //    return true;
-        // };
+         $scope.testLogin = function () {
+            if (!App.Temp.User) {
+                swal({
+                    title: '登陆已失效，请重新登陆！',
+                    type: 'error',
+                    animation: 'slide-from-top',
+                    closeOnConfirm: true,
+                    confirmButtonText: '重新登陆'
+                }, function () {
+                    App.Util.logout();
+                });
+                return false;
+            }
+
+            return true;
+         };
 
         /**
          * 通过检测全局临时变量中的SubTask信息，判断用户任务信息是否失效，如果失效则给出提示信息

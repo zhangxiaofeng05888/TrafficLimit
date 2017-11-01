@@ -3,6 +3,9 @@
  */
 angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout', 'NgTableParams', 'dsFcc', 'appPath', '$ocLazyLoad', 'dsLazyload',
     function ($window, $scope, $timeout, NgTableParams, dsFcc, appPath, $ocLazyLoad, dsLazyload) {
+        if (!$scope.testLogin()) {
+            return;
+        }
         $scope.childListFlag = true; // 当前作业项折叠flag;
         $scope.showFlag = true;
         $scope.selectId = true;
