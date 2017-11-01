@@ -13,6 +13,15 @@
         padding-left: 10px;
         margin-top: -40px;
     }
+    .infoListPanel .footer {
+        height: 35px;
+        margin-left: 25px;
+        margin-top: 90px;
+    }
+    .infoListPanel .footer_textarea {
+        height: 50px;
+        margin-left: 25px;
+    }
     .infoListPanel .header h4 {
         display: inline-block;
         margin: 0;
@@ -56,6 +65,32 @@
         margin-bottom: 10px;
         width: 275px;
         min-height: 80px;
+        resize: vertical;
+    }
+    .infoListPanel .footer_textarea textarea {
+        width: 188px;
+        margin-right: 2px;
+        margin-left: 1px;
+        min-height: 80px;
+        display: inline-block;
+        vertical-align: top;
+    }
+    .infoListPanel .footer_textarea span{
+        margin-left:27px;
+        text-align: right;
+    }
+    .infoListPanel .footer_end div {
+        width: 75px;
+        height: 30px;
+        margin-top: 40px;
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+        padding-top:4px;
+        float: right;
+        border:1px solid #000000;
+        border-radius: 5px;
+        text-align: center;
         resize: vertical;
     }
     .infoListPanel .content .sub-header {
@@ -135,7 +170,18 @@
                     <span class="left">新闻内容：</span>
                     <textarea class="form-control">{{infoContent}}</textarea>
                 </li>
+                <!--<select class="tl_list_select_small" ng-options="value.id as value.label for value in grid.appScope.statusData" ng-model="row.entity.complete" ng-change="grid.appScope.updateInfo(2, row)"></select>-->
             </ul>
+                <div class="footer">
+                    <span >完成状态：</span>
+                    <select class="form-control poiRightPanel_select" ng-options="value.id as value.label for value in statusData" ng-model="complete" ></select>
+                </div>
+                <div class="footer_textarea">
+                    <span >备注：</span>
+                    <textarea ng-model="memo"></textarea>
+                </div>
+                <div class="footer_end" >
+                    <div type="submit" ng-click="saveInfo()">保存</div>
+                </div>
         </div>
     </div>
-</div>
