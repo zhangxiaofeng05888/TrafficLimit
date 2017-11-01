@@ -12,7 +12,7 @@ angular.module('app').controller('editToolCtrl', ['$scope', '$timeout', 'hotkeys
         $scope.isOpen = false;
         $scope.isFirstLevel = false;
         $scope.subToolFlag = false;
-        $scope.tools = new Array(9);
+        $scope.tools = [];
         $scope.featureTools = [];
         $scope.subTools = [];
         $scope.snapActors = [];
@@ -35,7 +35,7 @@ angular.module('app').controller('editToolCtrl', ['$scope', '$timeout', 'hotkeys
          */
         var clear = function () {
             abortCurrentEditControl();
-            $scope.tools = new Array(9);
+            $scope.tools = [];
             $scope.featureTools = [];
             $scope.snapActors = [];
         };
@@ -56,32 +56,35 @@ angular.module('app').controller('editToolCtrl', ['$scope', '$timeout', 'hotkeys
                 var conf = new FM.uikit.Config.EditTool();
                 var tool;
                 if ($scope.featureTools) {
-                    $scope.tools[0] = { text: '撤销', title: '撤销本次操作', type: 'toolFunc' };
-                    $scope.tools[1] = { text: '重做', title: '重做工具', type: 'toolFunc' };
+                    $scope.tools.push({ text: '撤销', title: '撤销本次操作', type: 'toolFunc' });
+                    $scope.tools.push({ text: '重做', title: '重做工具', type: 'toolFunc' });
                     for (var i = $scope.featureTools.length - 1; i >= 0; i--) {
                         tool = conf.getEditTool($scope.featureTools[i]);
                         if (tool) {
-                            $scope.tools.pop();
-                            $scope.tools.unshift({
+                            $scope.tools.push({
                                 text: tool.text,
                                 title: tool.title,
                                 type: $scope.featureTools[i]
                             });
                         }
                     }
-                    $scope.tools[8] = {
+                    $scope.tools.push({
                         text: '重置',
                         title: '重置工具',
                         type: 'toolFunc'
-                    };
+                    });
+                }
+                if (data.geoLiveType === 'RDLINK') {
+                    $scope.isOpen = false;
+                } else {
+                    $scope.isOpen = true;
                 }
             } else {
+                $scope.isOpen = true;
                 $scope.isFirstLevel = false;
                 $scope.featureTools = [];
                 $scope.tools = [];
             }
-
-            $scope.isOpen = true;
             if (factory.currentControl instanceof FM.uikit.editControl.SelectControl) {
                 lastSelectCtrl = factory.currentControl;
             } else {
