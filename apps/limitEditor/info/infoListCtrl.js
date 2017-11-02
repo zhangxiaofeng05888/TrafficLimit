@@ -39,10 +39,6 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
             {
                 id: 3,
                 label: '无法处理'
-            },
-            {
-                id: 4,
-                label: '已失效'
             }
         ];
         // 根据实际的行高设置每行的height属性，主要处理grid高度改变后，canvas的高度没有自动变化的问题
@@ -180,7 +176,7 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
             return html;
         }
         function getStatus() {
-            var html = '<div class="ui-grid-cell-contents">{{row.entity.complete === 1 ? "未处理" : row.entity.complete === 2 ? "已处理" : row.entity.complete === 3 ? "无法处理" : " "}}</div>';
+            var html = '<div class="ui-grid-cell-contents">{{row.entity.complete === 1 ? "未处理" : row.entity.complete === 2 ? "已处理" : " "}}</div>';
             return html;
         }
         function getContent() {
