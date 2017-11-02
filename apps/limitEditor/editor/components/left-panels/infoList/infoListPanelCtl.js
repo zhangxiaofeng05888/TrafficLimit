@@ -17,10 +17,6 @@ angular.module('app').controller('infoListPanelCtl', ['$window', '$scope', '$tim
             {
                 id: 3,
                 label: '无法处理'
-            },
-            {
-                id: 4,
-                label: '已失效'
             }
         ];
         $scope.groupId = groupId;
