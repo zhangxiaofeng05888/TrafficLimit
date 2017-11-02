@@ -19,7 +19,7 @@ fastmap.service.DataServiceFcc = L.Class.extend({
     },
 
     deleteLine: function (data) {
-        var url = 'limit/run?';
+        var url = 'limit/run';
         return this.createAjaxPromise('get', url, data);
     },
 
