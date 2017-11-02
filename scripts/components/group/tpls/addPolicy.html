@@ -96,10 +96,19 @@
                 </div>
                 <div class="policy_container">
                     <div class="policy_container_title">
-                        <span>受限本地车：</span>
+                        <span>限行时间类型：</span>
                     </div>
                     <div style="display: inline-block">
-                        <input class="form-control poiRightPanel_Input" ng-model="policyData.restrict">
+                        <select
+                                chosen
+                                multiple
+                                placeholder-text-multiple="'请选择限行时间类型'"
+                                width="'190px'"
+                                ng-model="policyData.resDatetype"
+                                ng-options="value.id as value.name for value in resDatetype"
+                        >
+                            <option value=""></option>
+                        </select>
                     </div>
                 </div>
                 <div class="policy_container">
@@ -208,11 +217,19 @@
                 </div>
                 <div class="policy_container">
                     <div class="policy_container_title">
-                        <span>限制轴重：</span>
+                        <span>排除日期：</span>
                     </div>
                     <div style="display: inline-block">
-                        <input class="form-control poiRightPanel_Input" set-focus
-                               name="resAxleLoad" required ng-model="policyData.resAxleLoad" type="number" ng-blur="formateNumbers('resAxleLoad',2)" ng-disabled="policyData.vehicle.length===1 && policyData.vehicle[0] === 1"/>
+                        <select
+                                chosen
+                                multiple
+                                placeholder-text-multiple="'请选择排除日期'"
+                                width="'190px'"
+                                ng-model="policyData.specFlag"
+                                ng-options="value.id as value.name for value in specFlag"
+                        >
+                            <option value=""></option>
+                        </select>
                     </div>
                 </div>
                 <div class="policy_container">
@@ -246,19 +263,10 @@
                 </div>
                 <div class="policy_container">
                     <div class="policy_container_title">
-                        <span>限行时间类型：</span>
+                        <span>受限本地车：</span>
                     </div>
                     <div style="display: inline-block">
-                        <select
-                                chosen
-                                multiple
-                                placeholder-text-multiple="'请选择限行时间类型'"
-                                width="'190px'"
-                                ng-model="policyData.resDatetype"
-                                ng-options="value.id as value.name for value in resDatetype"
-                        >
-                            <option value=""></option>
-                        </select>
+                        <input class="form-control poiRightPanel_Input" ng-model="policyData.restrict">
                     </div>
                 </div>
                 <div class="policy_container">
@@ -272,19 +280,11 @@
                 </div>
                 <div class="policy_container">
                     <div class="policy_container_title">
-                        <span>排除日期：</span>
+                        <span>限制轴重：</span>
                     </div>
                     <div style="display: inline-block">
-                        <select
-                                chosen
-                                multiple
-                                placeholder-text-multiple="'请选择排除日期'"
-                                width="'190px'"
-                                ng-model="policyData.specFlag"
-                                ng-options="value.id as value.name for value in specFlag"
-                        >
-                            <option value=""></option>
-                        </select>
+                        <input class="form-control poiRightPanel_Input" set-focus
+                               name="resAxleLoad" required ng-model="policyData.resAxleLoad" type="number" ng-blur="formateNumbers('resAxleLoad',2)" ng-disabled="policyData.vehicle.length===1 && policyData.vehicle[0] === 1"/>
                     </div>
                 </div>
             </div>
