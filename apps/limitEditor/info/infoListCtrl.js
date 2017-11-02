@@ -316,16 +316,6 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
             getData();
         };
         initialize();
-        $scope.$on('closeGroupDialog', function (event, data) {
-            $scope.closeDialog(data);
-            $scope.$broadcast('refreshGroupList');
-        });
-        $scope.$on('openDialog', function (event, data) {
-            showInDialog({
-                type: data.panelName,
-                data: data.data
-            });
-        });
         $scope.$on('$destroy', function () {
 
         });
