@@ -40,6 +40,11 @@ FM.uikit.Config.EditTool = (function () {
                 text: '删',
                 icon: '<span class="float-option-bar">删</span>'
             },
+            BREAKEDITLINE: {
+                title: '打断',
+                text: '断',
+                icon: '<span class="float-option-bar">断</span>'
+            },
             ADDPAIRBOND: {
                 title: '增加配对关系',
                 text: '配',

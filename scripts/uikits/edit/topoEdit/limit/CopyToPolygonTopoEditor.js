@@ -23,6 +23,19 @@ fastmap.uikit.topoEdit.CopyToPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEdit
         return editResult;
     },
 
+    getBreakResult: function (options) {
+        var editResult = new fastmap.uikit.complexEdit.BreakEditLineResult();
+        editResult.geoLiveType = 'COPYTOPOLYGON';
+        editResult.id = options.originObject.pid;
+        editResult.snapActors = [
+            {
+                id: options.originObject.pid,
+                geoLiveType: 'COPYTOPOLYGON'
+            }
+        ];
+        return editResult;
+    },
+
     getCreateEditResult: function (options) {
         var editResult = new fastmap.uikit.shapeEdit.PathResult();
         editResult.finalGeometry = {
@@ -52,6 +65,19 @@ fastmap.uikit.topoEdit.CopyToPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEdit
         }];
         editResult.finalGeometry = FM.Util.clone(options.originObject.geometry);
         return editResult;
+    },
+
+    break: function (editResult) {
+        var params = {
+            type: 'SCPLATERESFACE',
+            command: 'BREAK',
+            objId: editResult.id,
+            data: {
+                longitude: editResult.breakPoint.coordinates[0],
+                latitude: editResult.breakPoint.coordinates[1]
+            }
+        };
+        return this.dataServiceFcc.copyToLine(params);
     },
 
     update: function (editResult) {

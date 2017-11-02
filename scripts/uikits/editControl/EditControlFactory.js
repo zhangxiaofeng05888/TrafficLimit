@@ -234,6 +234,15 @@ fastmap.uikit.editControl.EditControlFactory = L.Class.extend({
         }
     },
 
+    breakEditLineControl: function (map, options) {
+        switch (options.originObject.geoLiveType) {
+            case 'COPYTOPOLYGON':
+                return new fastmap.uikit.editControl.BreakEditLineControl(map, options);
+            default:
+                return null;
+        }
+    },
+
     createTipsControl: function (map, geoLiveType) {
         switch (geoLiveType) {
             case 'TIPTOLLGATE':

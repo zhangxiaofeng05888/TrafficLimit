@@ -145,6 +145,11 @@ angular.module('app').controller('editToolCtrl', ['$scope', '$timeout', 'hotkeys
                             originObject: objectEditCtrl.data
                         });
                         break;
+                    case 'BREAKEDITLINE':
+                        ctrl = factory.breakEditLineControl(map, {
+                            originObject: objectEditCtrl.data
+                        });
+                        break;
                     default:
                         swal('按钮功能未实现');
                         return;

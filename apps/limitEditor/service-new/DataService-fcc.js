@@ -14,7 +14,7 @@ fastmap.service.DataServiceFcc = L.Class.extend({
     },
 
     getByPids: function (data) {
-        var url = 'limit/getByPids?';
+        var url = 'limit/getByPids';
         return this.createAjaxPromise('get', url, data);
     },
 

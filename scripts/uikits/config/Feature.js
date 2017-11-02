@@ -872,7 +872,7 @@ FM.uikit.Config.Feature = (function () {
                 template: { // 要素的页面片段
                     edit: {}
                 },
-                editTools: ['MODIFY', 'DELETELIMIT'] // 地图操作工具列表
+                editTools: ['MODIFY', 'DELETELIMIT', 'BREAKEDITLINE'] // 地图操作工具列表
             },
             COPYTOLINE: {
                 name: '临时线',
