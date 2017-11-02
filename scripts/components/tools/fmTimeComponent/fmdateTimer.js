@@ -274,6 +274,8 @@ angular.module('lazymodule', []).controller('DateCtrl', ['$scope', '$timeout', '
         var dateArrow = dateTimeWell.find('.arrow_right');
         var popHeight;
         var dateHeight = dateTip.height() + 20;
+        var modelHeight = 450;
+        var modelWidth = 920;
         // $scope.timeType = '0';
         if (dateTimeWell.attr('data-type') === '1') {
             popHeight = $(e.target).offset().top - 95;
@@ -292,16 +294,16 @@ angular.module('lazymodule', []).controller('DateCtrl', ['$scope', '$timeout', '
             dateTip.attr('id', eId);
             dateArrow.attr('id', aId);
             dateTip.css({
-                top: popHeight + 'px',
-                right: '300px'
+                top: (modelHeight/2 - dateHeight/2) + 'px',
+                left: (modelWidth/2 - 275/2) + 'px'
             });
             dateTip.appendTo(dateTimeWell);
             dateTip.show();
             dateArrow.show();
         } else {
             $('#' + eId).css({
-                top: popHeight + 'px',
-                right: '300px'
+                top: (modelHeight/2 - dateHeight/2) + 'px',
+                left: (modelWidth/2 - 275/2) + 'px'
             });
             $('#' + eId).show();
             $('#' + aId).show();

@@ -12,10 +12,6 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
         $scope.openChildList = function () {
             $scope.childListFlag = !$scope.childListFlag;
         };
-        $scope.PageViewPoint = {
-            x: document.documentElement.clientWidth / 2,
-            y: document.documentElement.clientHeight / 2
-        };
         $scope.searchModel = {
             pageNum: 1,
             pageSize: 20,
@@ -135,36 +131,7 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
                 infoToGroupData: App.Temp.infoToGroupData
             };
             App.Util.setSessionStorage('infoData', sessionData);
-            $scope.showFlag = false;
-        };
-        $ocLazyLoad.load('./info/groupListCtrl.js').then(function () {
-            $scope.groupUrl = './info/groupListTpl.html';
-        });
-        $scope.updateInfo = function (index, row) {
-            var params = {
-                command: 'UPDATE',
-                type: 'SCPLATERESINFO',
-                infoIntelId: row.entity.infoIntelId,
-                data: {
-                    objStatus: 'UPDATE'
-                }
-            };
-            var params1 = [{
-                infoIntelId: row.entity.infoIntelId,
-                condition: row.entity.condition,
-                complete: row.entity.complete,
-                memo: row.entity.memo
-            }];
-            if (index === 1) {
-                params.data.condition = row.entity.condition;
-            } else {
-                params.data.complete = row.entity.complete;
-            }
-            dsFcc.updateToInfoDepartments(params1).then(function (data) {
-                dsFcc.updateInfoList(params).then(function (data1) {
-                    getData();
-                });
-            });
+            window.location.href = '#/group?access_token=' + App.Temp.accessToken + '&random=' + Math.floor(Math.random() * 100);
         };
         // 显示序号;
         function getIndex() {
@@ -202,93 +169,6 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
         $scope.hideLoading = function () {
             if ($scope.loading.flag) {
                 $scope.loading.flag = false;
-            }
-        };
-
-        $scope.dialogManager = {};
-        var defaultDialogOptions = {
-            position: {
-                x: $scope.PageViewPoint.x - 300,
-                y: $scope.PageViewPoint.y - 150
-            },
-            size: {
-                width: 600,
-                height: 300
-            },
-            container: 'infoListContainer',
-            viewport: 'infoListContainer',
-            minimizable: false,
-            closable: true,
-            modal: false
-        };
-
-        // 弹出框大小设置
-        var getDlgOption = function (dlgOption, width, height, model) {
-            dlgOption.modal = model;
-            dlgOption.size.width = width;
-            dlgOption.size.height = height;
-            dlgOption.position.x = $scope.PageViewPoint.x - width / 2;
-            dlgOption.position.y = $scope.PageViewPoint.y - height / 2;
-        };
-
-        // 对于不同种类弹框大小区分
-        var getDlgOptions = function (type, dlgOption) {
-            switch (type) {
-                case 'addGroup':
-                    getDlgOption(dlgOption, 400, 220, true);
-                    break;
-                case 'editGroup':
-                    getDlgOption(dlgOption, 400, 250, true);
-                    break;
-                case 'correlationGroup':
-                    getDlgOption(dlgOption, 900, 500, true);
-                    break;
-                default:
-                    break;
-            }
-        };
-
-        /**
-         * 根据的窗口的选项，创建弹出窗口对象
-         * @method createDialog
-         * @author ChenXiao
-         * @date   2017-09-11
-         * @param  {object} data 窗口选项，主要为要显示的信息类型
-         * @return {object} 包含窗口标题、页面片段的信息的窗口对象
-         */
-        var createDialog = function (data) {
-            var item = {};
-            var tmplFile = FM.uikit.Config.getUtilityTemplate(data.type);
-            item.title = FM.uikit.Config.getUtilityName(data.type);
-            item.ctrl = appPath.scripts + tmplFile.ctrl;
-            item.tmpl = appPath.scripts + tmplFile.tmpl;
-            item.options = FM.Util.clone(defaultDialogOptions);
-            getDlgOptions(data.type, item.options);
-
-            return item;
-        };
-
-        $scope.openDialog = function (dlg, dlgKey) {
-            $scope.dialogManager[dlgKey].handler = dlg;
-        };
-
-        $scope.closeDialog = function (dlgKey) {
-            delete $scope.dialogManager[dlgKey];
-        };
-
-        var showInDialog = function (data) {
-            var dlgKey = data.type;
-            if ($scope.dialogManager[dlgKey]) {
-                $scope.$broadcast('ReloadData-' + dlgKey, data);
-                $scope.dialogManager[dlgKey].handler.selectWindow();
-            } else {
-                var item = createDialog(data);
-                $ocLazyLoad.load([item.ctrl, item.tmpl]).then(function () {
-                    $scope.dialogManager[dlgKey] = item;
-                    dsLazyload.testHtmlLoad($scope, item.tmpl).then(function () {
-                        $scope.$broadcast('ReloadData-' + dlgKey, data);
-                    });
-                });
             }
         };
 
@@ -440,9 +320,6 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
             getData();
         };
         initialize();
-        $scope.$on('backInfoList', function (event, data) {
-            $scope.showFlag = true;
-        });
         $scope.$on('closeGroupDialog', function (event, data) {
             $scope.closeDialog(data);
             $scope.$broadcast('refreshGroupList');

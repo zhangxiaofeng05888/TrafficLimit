@@ -14,7 +14,7 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
             if (flag) {
                 return;
             }
-            window.location.href = '#/info';
+            window.location.href = '#/group?access_token=' + App.Temp.accessToken + '&random=' + Math.floor(Math.random() * 100);
         };
 
         // 打开策略表

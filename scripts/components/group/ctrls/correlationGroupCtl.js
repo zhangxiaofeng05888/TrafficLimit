@@ -119,7 +119,7 @@ angular.module('app').controller('correlationGroupCtrl', ['$window', '$scope', '
                 multiSelect: false,
                 modifierKeysToMultiSelect: false,
                 noUnselect: false,
-                rowTemplate: formatRow(),
+                // rowTemplate: formatRow(),
                 onRegisterApi: function (gridApi) {
                     $scope.gridApi = gridApi;
                     // 处理改变列表高度后，滚动条跳动的问题

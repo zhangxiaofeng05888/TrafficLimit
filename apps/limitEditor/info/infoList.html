@@ -94,9 +94,4 @@
             </div>
         </div>
     </div>
-    <div style="width: 100%;height: 100%" ng-if="!showFlag"  ng-include="groupUrl"></div>
-    <wmwindow ng-repeat="(key, item) in dialogManager" class="fm-wm-window" on-open="openDialog($dlg, key)" on-closed="closeDialog(key)" options="{{item.options}}" maximizable="false" title="{{item.title}}">
-        <div class="fm-stretch" ng-include="item.tmpl">
-        </div>
-    </wmwindow>
 </div>

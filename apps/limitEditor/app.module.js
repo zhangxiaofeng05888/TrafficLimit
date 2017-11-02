@@ -24,6 +24,10 @@ angular.module('app', ['ngRoute', 'ngCookies', 'ui.layout', 'highcharts-ng', 'ui
                 templateUrl: 'info/infoList.html',
                 controller: 'infoListCtrl'
             })
+            .when('/group', {
+                templateUrl: 'info/groupListTpl.html',
+                controller: 'groupListCtrl'
+            })
             .when('/editor', {
                 templateUrl: 'editor/editor.html',
                 controller: 'editorCtrl'
@@ -134,30 +138,6 @@ angular.module('app', ['ngRoute', 'ngCookies', 'ui.layout', 'highcharts-ng', 'ui
         }
 
         // 页面刷新时，从sessionStorage中读取用户信息
-        if (!App.Temp.infoToGroupData) {
-            var infoData = App.Util.getSessionStorage('infoData');
-            if (infoData) {
-                App.Temp.infoToGroupData = infoData.infoToGroupData;
-            }
-        }
-        if (!App.Temp.dbId) {
-            var dbData = App.Util.getSessionStorage('DbId');
-            if (dbData) {
-                App.Temp.dbId = dbData.dbId;
-            }
-        }
-        if (!App.Temp.groupId) {
-            var groupData = App.Util.getSessionStorage('DbId');
-            if (groupData) {
-                App.Temp.groupId = groupData.groupId;
-            }
-        }
-        if (!App.Temp.cityGeometry) {
-            var cityGeometryData = App.Util.getSessionStorage('DbId');
-            if (groupData) {
-                App.Temp.cityGeometry = cityGeometryData.cityGeometry;
-            }
-        }
         var accessToken = App.Util.getUrlParam('access_token');
         if (accessToken) {
             App.Temp.accessToken = accessToken;
@@ -184,6 +164,31 @@ angular.module('app', ['ngRoute', 'ngCookies', 'ui.layout', 'highcharts-ng', 'ui
                     App.Temp.qcTaskFlag = taskCookie.qcTaskFlag;
 
                     App.Temp.SubTask = taskCookie;
+                }
+            }
+
+            if (!App.Temp.infoToGroupData) {
+                var infoData = App.Util.getSessionStorage('infoData');
+                if (infoData) {
+                    App.Temp.infoToGroupData = infoData.infoToGroupData;
+                }
+            }
+            if (!App.Temp.dbId) {
+                var dbData = App.Util.getSessionStorage('DbId');
+                if (dbData) {
+                    App.Temp.dbId = dbData.dbId;
+                }
+            }
+            if (!App.Temp.groupId) {
+                var groupData = App.Util.getSessionStorage('DbId');
+                if (groupData) {
+                    App.Temp.groupId = groupData.groupId;
+                }
+            }
+            if (!App.Temp.cityGeometry) {
+                var cityGeometryData = App.Util.getSessionStorage('DbId');
+                if (groupData) {
+                    App.Temp.cityGeometry = cityGeometryData.cityGeometry;
                 }
             }
 
