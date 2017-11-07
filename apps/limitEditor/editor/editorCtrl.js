@@ -1657,6 +1657,11 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
         $scope.$on('CloseRightPanel', function (event, data) {
             closeRightPanel();
         });
+
+        // 刷新几何成果列表
+        $scope.$on('RefreshResultList', function (event, data) {
+            $scope.$broadcast('Refresh-Result-List');
+        });
         /* start 事件监听*******************************************************************/
         eventCtrl.on(eventCtrl.eventTypes.OBJECTSELECTED, function (data) {
             $scope.$broadcast('Map-ClearMap');

@@ -41,6 +41,7 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
             dsFcc.submitGeo(params).then(function (data) {
                 if (data !== -1) {
                     swal('提示', '提交成功', 'success');
+                    $scope.$emit('RefreshResultList');
                     sceneController.redrawLayerByGeoLiveTypes(['COPYTOLINE', 'COPYTOPOLYGON', 'DRAWPOLYGON', 'GEOMETRYLINE', 'GEOMETRYPOLYGON']);
                 }
             });

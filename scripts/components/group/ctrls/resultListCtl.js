@@ -132,6 +132,13 @@ angular.module('app').controller('resultListCtl', ['$window', '$scope', '$timeou
             // 初始化表格;
             getData($scope.searchModel);
         };
+        $scope.$on('Refresh-Result-List', function (event, data) {
+            var param = {
+                pageSize: 15,
+                pageNum: 1
+            };
+            getData(param);
+        });
 
         var unbindHandler = $scope.$on('ReloadData', initialize);
 
