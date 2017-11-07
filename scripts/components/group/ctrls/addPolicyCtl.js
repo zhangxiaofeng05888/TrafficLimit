@@ -278,6 +278,11 @@ angular.module('app').controller('addPolicyCtrl', ['$window', '$scope', '$timeou
                 id: 4,
                 name: '特定日期'
             }];
+        $scope.changeAttribution = function () {
+            if ($scope.policyData.attribution.indexOf(5) < 0) {
+                $scope.policyData.restrict = '';
+            }
+        };
         $scope.changeVehicle = function () {
             if ($scope.policyData.vehicle.indexOf(1) < 0) {
                 $scope.policyData.seatnum = 0;

@@ -71,6 +71,117 @@
                                 width="'190px'"
                                 ng-model="policyData.attribution"
                                 ng-options="value.id as value.name for value in location"
+                                ng-change="changeAttribution()"
+                        >
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="policy_container">
+                    <div class="policy_container_title">
+                        <span>受限本地车：</span>
+                    </div>
+                    <div style="display: inline-block">
+                        <input class="form-control poiRightPanel_Input" ng-model="policyData.restrict" ng-disabled="policyData.attribution.indexOf(5) < 0 ">
+                    </div>
+                </div>
+                <div class="policy_container">
+                    <div class="policy_container_title">
+                        <span>限行尾号：</span>
+                    </div>
+                    <div style="display: inline-block">
+                        <select
+                                chosen
+                                multiple
+                                placeholder-text-multiple="'请选择限行尾号'"
+                                width="'190px'"
+                                ng-model="policyData.tailNumber"
+                                ng-options="value.id as value.name for value in tailNumber"
+                        >
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="policy_container">
+                    <div class="policy_container_title">
+                        <span>限行时间类型：</span>
+                    </div>
+                    <div style="display: inline-block">
+                        <select
+                                chosen
+                                multiple
+                                placeholder-text-multiple="'请选择限行时间类型'"
+                                width="'190px'"
+                                ng-model="policyData.resDatetype"
+                                ng-options="value.id as value.name for value in resDatetype"
+                        >
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="policy_container">
+                    <div class="policy_container_title">
+                        <span>能源类型：</span>
+                    </div>
+                    <div style="display: inline-block">
+                        <select
+                                chosen
+                                multiple
+                                placeholder-text-multiple="'请选择能源类型'"
+                                width="'190px'"
+                                ng-model="policyData.energyType"
+                                ng-options="value.id as value.name for value in energyType"
+                        >
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="policy_container">
+                    <div class="policy_container_title">
+                        <span>车牌颜色：</span>
+                    </div>
+                    <div style="display: inline-block">
+                        <select
+                                chosen
+                                multiple
+                                placeholder-text-multiple="'请选择车牌颜色'"
+                                width="'190px'"
+                                ng-model="policyData.platecolor"
+                                ng-options="value.id as value.name for value in platecolor"
+                        >
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="policy_container">
+                    <div class="policy_container_title">
+                        <span>排除日期：</span>
+                    </div>
+                    <div style="display: inline-block">
+                        <select
+                                chosen
+                                multiple
+                                placeholder-text-multiple="'请选择排除日期'"
+                                width="'190px'"
+                                ng-model="policyData.specFlag"
+                                ng-options="value.id as value.name for value in specFlag"
+                        >
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="policy_container">
+                    <div class="policy_container_title">
+                        <span>油气排放标准：</span>
+                    </div>
+                    <div style="display: inline-block">
+                        <select
+                                chosen
+                                multiple
+                                placeholder-text-multiple="'请选择油气排放标准'"
+                                width="'190px'"
+                                ng-model="policyData.gasEmisstand"
+                                ng-options="value.id as value.name for value in gasEmisstand"
                         >
                             <option value=""></option>
                         </select>
@@ -96,14 +207,6 @@
                 </div>
                 <div class="policy_container">
                     <div class="policy_container_title">
-                        <span>受限本地车：</span>
-                    </div>
-                    <div style="display: inline-block">
-                        <input class="form-control poiRightPanel_Input" ng-model="policyData.restrict">
-                    </div>
-                </div>
-                <div class="policy_container">
-                    <div class="policy_container_title">
                         <span>字母转换原则：</span>
                     </div>
                     <div style="display: inline-block">
@@ -118,74 +221,6 @@
                     <div style="display: inline-block">
                         <select class="form-control poiRightPanel_select" ng-model="policyData.charToNum"
                                 ng-options="value for value in charToNum"></select>
-                    </div>
-                </div>
-                <div class="policy_container">
-                    <div class="policy_container_title">
-                        <span>限行尾号：</span>
-                    </div>
-                    <div style="display: inline-block">
-                        <select
-                                chosen
-                                multiple
-                                placeholder-text-multiple="'请选择限行尾号'"
-                                width="'190px'"
-                                ng-model="policyData.tailNumber"
-                                ng-options="value.id as value.name for value in tailNumber"
-                        >
-                            <option value=""></option>
-                        </select>
-                    </div>
-                </div>
-                <div class="policy_container">
-                    <div class="policy_container_title">
-                        <span>能源类型：</span>
-                    </div>
-                    <div style="display: inline-block">
-                        <select
-                                chosen
-                                multiple
-                                placeholder-text-multiple="'请选择能源类型'"
-                                width="'190px'"
-                                ng-model="policyData.energyType"
-                                ng-options="value.id as value.name for value in energyType"
-                        >
-                            <option value=""></option>
-                        </select>
-                    </div>
-                </div>
-                <div class="policy_container">
-                    <div class="policy_container_title">
-                        <span>油气排放标准：</span>
-                    </div>
-                    <div style="display: inline-block">
-                        <select
-                                chosen
-                                multiple
-                                placeholder-text-multiple="'请选择油气排放标准'"
-                                width="'190px'"
-                                ng-model="policyData.gasEmisstand"
-                                ng-options="value.id as value.name for value in gasEmisstand"
-                        >
-                            <option value=""></option>
-                        </select>
-                    </div>
-                </div>
-                <div class="policy_container">
-                    <div class="policy_container_title">
-                        <span>车牌颜色：</span>
-                    </div>
-                    <div style="display: inline-block">
-                        <select
-                                chosen
-                                multiple
-                                placeholder-text-multiple="'请选择车牌颜色'"
-                                width="'190px'"
-                                ng-model="policyData.platecolor"
-                                ng-options="value.id as value.name for value in platecolor"
-                        >
-                            <option value=""></option>
-                        </select>
                     </div>
                 </div>
                 <div class="policy_container">
@@ -208,20 +243,20 @@
                 </div>
                 <div class="policy_container">
                     <div class="policy_container_title">
-                        <span>限制轴重：</span>
-                    </div>
-                    <div style="display: inline-block">
-                        <input class="form-control poiRightPanel_Input" set-focus
-                               name="resAxleLoad" required ng-model="policyData.resAxleLoad" type="number" ng-blur="formateNumbers('resAxleLoad',2)" ng-disabled="policyData.vehicle.length===1 && policyData.vehicle[0] === 1"/>
-                    </div>
-                </div>
-                <div class="policy_container">
-                    <div class="policy_container_title">
                         <span>限制轴数：</span>
                     </div>
                     <div style="display: inline-block">
                         <input class="form-control poiRightPanel_Input" set-focus ng-pattern="/^-?\d+$/"
                                name="resAxleCount" required ng-model="policyData.resAxleCount" type="number" ng-disabled="policyData.vehicle.length===1 && policyData.vehicle[0] === 1"/>
+                    </div>
+                </div>
+                <div class="policy_container">
+                    <div class="policy_container_title">
+                        <span>限制轴重：</span>
+                    </div>
+                    <div style="display: inline-block">
+                        <input class="form-control poiRightPanel_Input" set-focus
+                               name="resAxleLoad" required ng-model="policyData.resAxleLoad" type="number" ng-blur="formateNumbers('resAxleLoad',2)" ng-disabled="policyData.vehicle.length===1 && policyData.vehicle[0] === 1"/>
                     </div>
                 </div>
                 <div class="policy_container">
@@ -246,45 +281,11 @@
                 </div>
                 <div class="policy_container">
                     <div class="policy_container_title">
-                        <span>限行时间类型：</span>
-                    </div>
-                    <div style="display: inline-block">
-                        <select
-                                chosen
-                                multiple
-                                placeholder-text-multiple="'请选择限行时间类型'"
-                                width="'190px'"
-                                ng-model="policyData.resDatetype"
-                                ng-options="value.id as value.name for value in resDatetype"
-                        >
-                            <option value=""></option>
-                        </select>
-                    </div>
-                </div>
-                <div class="policy_container">
-                    <div class="policy_container_title">
                         <span>限行时间：</span>
                     </div>
                     <div style="display: inline-block">
                         <!--<input class="form-control poiRightPanel_Input" ng-model="policyData.time" disabled>-->
                         <div ng-include="dateURL" class="muti-date" data-type="1" date-str='{{policyData.time}}'></div>
-                    </div>
-                </div>
-                <div class="policy_container">
-                    <div class="policy_container_title">
-                        <span>排除日期：</span>
-                    </div>
-                    <div style="display: inline-block">
-                        <select
-                                chosen
-                                multiple
-                                placeholder-text-multiple="'请选择排除日期'"
-                                width="'190px'"
-                                ng-model="policyData.specFlag"
-                                ng-options="value.id as value.name for value in specFlag"
-                        >
-                            <option value=""></option>
-                        </select>
                     </div>
                 </div>
             </div>

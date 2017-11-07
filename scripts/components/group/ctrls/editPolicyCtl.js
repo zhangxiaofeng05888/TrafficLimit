@@ -280,6 +280,11 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 id: 4,
                 name: '特定日期'
             }];
+        $scope.changeAttribution = function () {
+            if ($scope.policyData.attribution.indexOf(5) < 0) {
+                $scope.policyData.restrict = '';
+            }
+        };
         $scope.changeVehicle = function () {
             if ($scope.policyData.vehicle.indexOf(1) < 0) {
                 $scope.policyData.seatnum = 0;
@@ -375,9 +380,7 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
             } else {
                 params.data.tempPlateNum = '';
             }
-            if ($scope.policyData.restrict) {
-                params.data.restrict = $scope.policyData.restrict;
-            }
+            params.data.restrict = $scope.policyData.restrict;
             params.data.charSwitch = $scope.policyData.charSwitch;
             if ($scope.policyData.charSwitch === 1) {
                 params.data.charToNum = $scope.policyData.charToNum;
