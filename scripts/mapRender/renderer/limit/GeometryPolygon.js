@@ -13,7 +13,7 @@ FM.mapApi.render.renderer.GeometryPolygon = FM.mapApi.render.Renderer.extend({
         var symbolData = {
             type: 'SimpleFillSymbol',
             color: 'pink',
-            opacity: 1
+            opacity: 0.5
         };
         var symbol = this._symbolFactory.createSymbol(symbolData);
         symbol.geometry = this._geometryFactory.fromGeojson(this._feature.geometry);
@@ -24,7 +24,7 @@ FM.mapApi.render.renderer.GeometryPolygon = FM.mapApi.render.Renderer.extend({
         var symbolData = {
             type: 'SimpleFillSymbol',
             color: '#00ffff',
-            opacity: 1
+            opacity: 0.5
         };
         var symbol = this._symbolFactory.createSymbol(symbolData);
         symbol.geometry = this._geometryFactory.fromGeojson(this._feature.geometry);
