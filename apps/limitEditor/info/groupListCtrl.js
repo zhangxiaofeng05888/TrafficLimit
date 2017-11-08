@@ -234,7 +234,7 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
             return html;
         }
         function getRule() {
-            var html = '<div class="ui-grid-cell-contents" title="{{row.entity.principle}}">{{row.entity.principle.substring(0, 4)}}</div>';
+            var html = '<div class="ui-grid-cell-contents" title="{{row.entity.principle}}">{{row.entity.principle.substring(0, 24)}}</div>';
             return html;
         }
         // 初始化表格;

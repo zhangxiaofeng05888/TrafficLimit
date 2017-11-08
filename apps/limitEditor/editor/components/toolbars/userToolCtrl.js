@@ -8,7 +8,7 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
         $scope.menuList = []; // 控制菜单是否可用
 
         var initMenuList = function () {
-            $scope.menuList = ['policyTable', 'resultList', 'submit', 'infoPanel'];
+            $scope.menuList = ['policyTable', 'resultList', 'submit', 'infoPanel', 'limit'];
         };
         $scope.backToInfo = function (flag) {
             if (flag) {
@@ -24,6 +24,15 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
             }
             $scope.$emit('ShowInfoPage', {
                 type: 'showPolicyPanel'
+            });
+        };
+        // 编辑线列表
+        $scope.spareLineList = function (flag) {
+            if (flag) {
+                return;
+            }
+            $scope.$emit('ShowInfoPage', {
+                type: 'spareLine'
             });
         };
         // 提交几何

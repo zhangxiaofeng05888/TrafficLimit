@@ -861,7 +861,10 @@ FM.uikit.Config.Feature = (function () {
                 serverFeatureType: 'SCPLATERESFACE', // 服务端要素类型
                 depends: ['COPYTOPOLYGON'],
                 template: { // 要素的页面片段
-                    edit: {}
+                    edit: {
+                        ctrl: 'components/limit/ctrls/copyToPolygonCtrl.js',
+                        tmpl: 'components/limit/tpls/copyToPolygonTpl.html'
+                    }
                 },
                 editTools: ['MODIFY', 'DELETELIMIT'] // 地图操作工具列表
             },
@@ -879,7 +882,10 @@ FM.uikit.Config.Feature = (function () {
                 serverFeatureType: 'SCPLATERESLINK', // 服务端要素类型
                 depends: [],
                 template: { // 要素的页面片段
-                    edit: {}
+                    edit: {
+                        ctrl: 'components/limit/ctrls/copyToLineCtrl.js',
+                        tmpl: 'components/limit/tpls/copyToLineTpl.html'
+                    }
                 },
                 editTools: ['DELETELIMIT'] // 地图操作工具列表
             },

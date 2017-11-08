@@ -1,9 +1,6 @@
 /**
  * Created by zhaohang on 2017/10/31.
  */
-/**
- * Created by zhaohang on 2017/10/11.
- */
 angular.module('app').controller('batchEditLimitCtrl', ['$window', '$scope', '$timeout', 'NgTableParams', 'dsFcc', 'appPath', '$ocLazyLoad',
     function ($window, $scope, $timeout, NgTableParams, dsFcc, appPath, $ocLazyLoad) {
         var eventCtrl = new fastmap.uikit.EventController();
@@ -17,12 +14,27 @@ angular.module('app').controller('batchEditLimitCtrl', ['$window', '$scope', '$t
         }];
         $scope.saveBatchEdit = function () {
             var ids = [];
+            var type = '';
             var limitData = $scope.limitData;
             for (var i = 0; i < limitData.length; i++) {
                 ids.push(limitData[i].properties.id);
             }
+            switch (limitData[0].properties.geoLiveType) {
+                case 'COPYTOLINE':
+                    type = 'SCPLATERESLINK';
+                    break;
+                case 'DRAWPOLYGON':
+                    type = 'SCPLATERESFACE';
+                    break;
+                case 'GEOMETRYLINE':
+                case 'GEOMETRYPOLYGON':
+                    type = 'SCPLATERESGEOMETRY';
+                    break;
+                default:
+                    type = '';
+            }
             var param = {
-                type: 'SCPLATERESGEOMETRY',
+                type: type,
                 command: 'UPDATE',
                 objIds: ids,
                 data: {

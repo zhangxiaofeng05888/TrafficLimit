@@ -12,8 +12,8 @@
         <li ng-class="{true:'disabled'}[menuList.indexOf('submit') < 0]" ng-click="submitGeometry(menuList.indexOf('submit') < 0)">
             提交几何
         </li>
-        <li ng-class="{true:'disabled'}[menuList.indexOf('limit') < 0]">
-            批复限行信息
+        <li ng-class="{true:'disabled'}[menuList.indexOf('limit') < 0]" ng-click="spareLineList(menuList.indexOf('limit') < 0)">
+            编辑线列表
         </li>
         <li ng-class="{true:'disabled'}[menuList.indexOf('log') < 0]">
             查看批复日志

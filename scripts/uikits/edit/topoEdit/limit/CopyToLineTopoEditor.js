@@ -17,6 +17,12 @@ fastmap.uikit.topoEdit.CopyToLineTopoEditor = fastmap.uikit.topoEdit.TopoEditor.
      * @returns {null}
      */
 
+    getBatchEditResult: function (options) {
+        var editResult = new fastmap.uikit.complexEdit.BatchEditLimitResult();
+        editResult.geoLiveType = 'COPYTOLINE';
+        return editResult;
+    },
+
     getBatchDeleteResult: function (options) {
         var editResult = new fastmap.uikit.complexEdit.BatchEditLimitResult();
         editResult.geoLiveType = 'COPYTOLINE';
@@ -51,6 +57,19 @@ fastmap.uikit.topoEdit.CopyToLineTopoEditor = fastmap.uikit.topoEdit.TopoEditor.
         return this.dataServiceFcc.copyToLine(params);
     },
 
+    updateChanges: function (geoLiveObject) {
+        var params = {
+            type: 'SCPLATERESLINK',
+            command: 'UPDATE',
+            objIds: [geoLiveObject.pid],
+            data: {
+                boundaryLink: geoLiveObject.boundaryLink,
+                objStatus: 'UPDATE'
+            }
+        };
+        return this.dataServiceFcc.deleteLine(params);
+    },
+
     deleteLimit: function (id) {
         var params = {
             type: 'SCPLATERESLINK',
@@ -60,11 +79,16 @@ fastmap.uikit.topoEdit.CopyToLineTopoEditor = fastmap.uikit.topoEdit.TopoEditor.
         return this.dataServiceFcc.deleteLine(params);
     },
 
+    canDelete: function (geoLiveObject) {
+        return false;
+    },
+
     query: function (options) {
         return {
             pid: options.pid,
             geoLiveType: options.geoLiveType,
-            geometry: options.geometry
+            geometry: options.geometry,
+            boundaryLink: options.boundaryLink
         };
     }
 });

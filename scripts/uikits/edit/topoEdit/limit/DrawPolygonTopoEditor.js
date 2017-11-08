@@ -22,6 +22,12 @@ fastmap.uikit.topoEdit.DrawPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEditor
         return editResult;
     },
 
+    getBatchEditResult: function (options) {
+        var editResult = new fastmap.uikit.complexEdit.BatchEditLimitResult();
+        editResult.geoLiveType = 'DRAWPOLYGON';
+        return editResult;
+    },
+
     getBatchDeleteResult: function (options) {
         var editResult = new fastmap.uikit.complexEdit.BatchEditLimitResult();
         editResult.geoLiveType = 'DRAWPOLYGON';
@@ -81,6 +87,19 @@ fastmap.uikit.topoEdit.DrawPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEditor
         return this.dataServiceFcc.copyToLine(params);
     },
 
+    updateChanges: function (geoLiveObject) {
+        var params = {
+            type: 'SCPLATERESFACE',
+            command: 'UPDATE',
+            objIds: [geoLiveObject.pid],
+            data: {
+                boundaryLink: geoLiveObject.boundaryLink,
+                objStatus: 'UPDATE'
+            }
+        };
+        return this.dataServiceFcc.deleteLine(params);
+    },
+
     deleteLimit: function (id) {
         var params = {
             type: 'SCPLATERESFACE',
@@ -94,7 +113,8 @@ fastmap.uikit.topoEdit.DrawPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEditor
         return {
             pid: options.pid,
             geoLiveType: options.geoLiveType,
-            geometry: options.geometry
+            geometry: options.geometry,
+            boundaryLink: options.boundaryLink
         };
     }
 });

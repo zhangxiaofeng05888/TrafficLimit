@@ -544,6 +544,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                     break;
                 case 'tmcTreePanel':
                 case 'ResultListPanel':
+                case 'spareLine':
                     showInLeftFloatPanel(data);
                     break;
                 case 'RestrictionTopoPanel':
@@ -726,7 +727,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 delete $scope.dialogManager.DeepInfoQuality;
                 showInPoiLeftViewPanel();
                 showInPoiRightEditPanel();
-            } else if (geoLiveType === 'COPYTOLINE' || geoLiveType === 'COPYTOPOLYGON' || geoLiveType === 'DRAWPOLYGON') {
+            } else if (geoLiveType === 'COPYTOPOLYGON') {
                 closeLeftPanel();
                 $scope.closeLeftFloatPanel();
             } else {

@@ -292,6 +292,13 @@ FM.uikit.Config.Utility = (function () {
                     ctrl: 'components/group/ctrls/batchDeleteLimitCtl.js',
                     tmpl: 'components/group/tpls/batchDeleteLimitTpl.html'
                 }
+            },
+            spareLine: {
+                name: '未成面的线列表',
+                template: {
+                    ctrl: 'components/group/ctrls/spareLineCtl.js',
+                    tmpl: 'components/group/tpls/spareLineTpl.html'
+                }
             }
         };
 

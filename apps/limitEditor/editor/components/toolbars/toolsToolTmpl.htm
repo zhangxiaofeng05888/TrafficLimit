@@ -97,6 +97,12 @@
     <div class="batchEdit">
         <img src="../../images/newPoi/toolIcon/quickToolIcon/frame_select_all.png"/>
         <ul class="typeList">
+            <li ng-controller='startEditCtrl' ng-click="batchEditLimit($event, 'COPYTOLINE')">
+                <span>编辑临时线</span>
+            </li>
+            <li ng-controller='startEditCtrl' ng-click="batchEditLimit($event, 'DRAWPOLYGON')">
+                <span>编辑临时面</span>
+            </li>
             <li ng-controller='startEditCtrl' ng-click="batchEditLimit($event, 'GEOMETRYLINE')">
                 <span>编辑成果线</span>
             </li>

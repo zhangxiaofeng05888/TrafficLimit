@@ -30,8 +30,6 @@ fastmap.uikit.editControl.CopyLineControl = fastmap.uikit.editControl.EditContro
     },
 
     onFinish: function (editResult) {
-        this.complexEditor.stop();
-
         if (!this.precheck(editResult)) {
             return;
         }
@@ -43,7 +41,7 @@ fastmap.uikit.editControl.CopyLineControl = fastmap.uikit.editControl.EditContro
     },
 
     onUpdateSuccess: function (res) {
-        this.toolController.resetCurrentTool('PanTool');
+        this.complexEditor.stop();
 
         if (res === '属性值未发生变化') {
             swal('提示', '重复复制，请重新选择', 'warning');
