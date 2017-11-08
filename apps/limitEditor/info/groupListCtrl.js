@@ -61,10 +61,10 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
         var getDlgOptions = function (type, dlgOption) {
             switch (type) {
                 case 'addGroup':
-                    getDlgOption(dlgOption, 400, 220, true);
+                    getDlgOption(dlgOption, 400, 300, true);
                     break;
                 case 'editGroup':
-                    getDlgOption(dlgOption, 400, 250, true);
+                    getDlgOption(dlgOption, 400, 300, true);
                     break;
                 case 'correlationGroup':
                     getDlgOption(dlgOption, 900, 500, true);
@@ -233,7 +233,10 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
             var html = '<div class="ui-grid-cell-contents">{{row.entity.groupType === 1 ? "新增" : row.entity.groupType === 2 ? "删除" : row.entity.groupType === 3 ? "修改" : "已制作"}}</div>';
             return html;
         }
-
+        function getRule() {
+            var html = '<div class="ui-grid-cell-contents" title="{{row.entity.principle}}">{{row.entity.principle.substring(0, 4)}}</div>';
+            return html;
+        }
         // 初始化表格;
         var initialize = function () {
             $scope.gridOptions = {
@@ -293,7 +296,8 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
                         displayName: '限制规定',
                         enableSorting: false,
                         minWidth: 100,
-                        cellClass: 'center'
+                        cellClass: 'center',
+                        cellTemplate: getRule()
                     },
                     {
                         field: 'uDate',
