@@ -325,20 +325,21 @@ body {
 }
 .groupEdit_container {
     width:100%;
-    height: 100%;
-    font-size: 12px;
+    height: 210px;
+    overflow: auto;
+    font-size: 14px;
     padding-left: 20px;
-    color: #182848
+    color: #182848;
 }
-.groupEdit_container > div {
-    height: 30px;
+.groupEdit_row {
+   height: 30px;
 }
 .groupEdit_title {
     width: 100px;
-    display: inline-block
+    display: inline-block;
 }
 .groupEdit_content {
-     display: inline-block
+     display: inline-block;
  }
 .groupCorrelation_desc {
     display: inline-block;

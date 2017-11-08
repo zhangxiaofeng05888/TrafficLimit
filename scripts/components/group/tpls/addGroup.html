@@ -1,29 +1,62 @@
-<div class="groupEdit_container" ng-controller="addGroupCtrl">
-    <div>
-        <div class="groupEdit_title">
-            <span>行政区划：</span>
-        </div>
-        <div class="groupEdit_content">
-            <span>{{cityName}}</span>
-        </div>
-    </div>
-    <div>
-        <div class="groupEdit_title">
-            <span>类型：</span>
-        </div>
-        <div class="groupEdit_content">
-            <span>新增</span>
-        </div>
-    </div>
-    <div style="height: 48px">
-        <div class="groupEdit_title" style="vertical-align: top">
-            <span>限制规定：</span>
-        </div>
-        <div class="groupEdit_content">
-            <textarea class="tl_list_area" type="text" rows=2 ng-model="principle"></textarea>
-        </div>
-    </div>
-    <div class="list-title-btn" ng-click="saveGroup()" style="background-color: #5693ff;height: 24px;line-height: 24px;float: right;margin-right: 20px;margin-top: 20px">
+<div ng-controller="addGroupCtrl">
+   <div class="groupEdit_container" >
+       <div class="groupEdit_row">
+           <div class="groupEdit_title">
+               <span>行政区划：</span>
+           </div>
+           <div class="groupEdit_content">
+               <span>{{cityName}}</span>
+           </div>
+       </div>
+       <div class="groupEdit_row">
+           <div class="groupEdit_title">
+               <span>类型：</span>
+           </div>
+           <div class="groupEdit_content">
+               <span>新增</span>
+           </div>
+           <img class="add" src="../../images/newPoi/rightPanelIcon/button-add.png " ng-if="$index===0" ng-style="{'margin-left': $index===0 ? '174px' : '20px' , 'width': '20px','height': '20px'}" ng-click="addItem()" >
+       </div>
+       <div>
+           <div ng-repeat="item in row track by $index" style="margin-top: 8px">
+               <div class="groupEdit_row">
+                   <div class="groupEdit_title">
+                       <span>限行时间：</span>
+                   </div>
+                   <div class="groupEdit_content">
+                       <input type="text" class="tl_list_Input" ng-model="item.time" ng-keyup="limit($event, $index, 'time')">
+                       <img class="delete" src="../../images/newPoi/rightPanelIcon/button-delete.png " ng-click="deleteItem($index)" ng-style="{'margin-left': $index===0 ? '12px' : '12px' , 'width': '20px','height': '20px'}">
+                   </div>
+               </div>
+               <div class="groupEdit_row">
+                   <div class="groupEdit_title">
+                       <span>限行对象：</span>
+                   </div>
+                   <div class="groupEdit_content">
+                       <input type="text" class="tl_list_Input" ng-model="item.target" ng-keyup="limit($event, $index, 'target')">
+                   </div>
+               </div>
+               <div class="groupEdit_row">
+                   <div class="groupEdit_title">
+                       <span>限行范围：</span>
+                   </div>
+                   <div class="groupEdit_content">
+                       <input type="text" class="tl_list_Input" ng-model="item.range" ng-keyup="limit($event, $index, 'range')">
+                   </div>
+               </div>
+               <div class="groupEdit_row">
+                   <div class="groupEdit_title">
+                       <span>限行策略：</span>
+                   </div>
+                   <div class="groupEdit_content">
+                       <input type="text" class="tl_list_Input" ng-model="item.strategy" ng-keyup="limit($event, $index, 'strategy')">
+                   </div>
+               </div>
+               <div style="border : 1px dashed #fa5883; margin-top : 5px;" ng-show="$index !== (row.length - 1)"></div>
+           </div>
+       </div>
+   </div>
+    <div class="list-title-btn" ng-click="saveGroup()" style="background-color: #5693ff;height: 24px;line-height: 24px;float: right;margin-right: 20px;margin-top: 10px">
         <span style="color: #FFFFFF;font-size: 12px">保存</span>
     </div>
 </div>
