@@ -74,11 +74,15 @@ angular.module('app').controller('searchToolCtrl', ['$scope', 'dsEdit',
             if (isNaN(text)) {
                 data.type = type;
                 data.condition = {
+                    adminCode: App.Temp.infoToGroupData.cityId,
                     names: [text]
                 };
             } else {
                 data.type = 3;
-                data.condition = { linkPid: text };
+                data.condition = {
+                    adminCode: App.Temp.infoToGroupData.cityId,
+                    linkPid: text
+                };
             }
 
             startSearch(data);
