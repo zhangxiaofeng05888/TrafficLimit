@@ -54,6 +54,7 @@ angular.module('app').controller('spareLineListCtl', ['$window', '$scope', '$tim
 
         // 获取表格数据;
         function getData() {
+            clearFeedback();
             var params = {
                 type: 'SCPLATERESFACE',
                 condition: {
@@ -110,6 +111,9 @@ angular.module('app').controller('spareLineListCtl', ['$window', '$scope', '$tim
 
         var unbindHandler = $scope.$on('ReloadData', initialize);
 
+        $scope.$on('refresh-spareLine', function () {
+            getData();
+        });
         $scope.$on('$destroy', function () {
             clearFeedback();
             feedbackCtrl.del(feedback);

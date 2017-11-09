@@ -631,7 +631,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
         var clearPage = function () {
             closeLeftPanel();
             closeRightPanel();
-            $scope.closeLeftFloatPanel();
+            // $scope.closeLeftFloatPanel();
             $scope.closeRightFloatPanel();
             closeDataList();
             closeEditTool();
@@ -642,7 +642,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
         // 主要用于数据删除后的页面清理
         var closeDataPanel = function () {
             closeRightPanel();
-            $scope.closeLeftFloatPanel();
+            // $scope.closeLeftFloatPanel();
             if ($rootScope.GeoLiveType === 'IXPOI') {
                 closeLeftPanel();
             }
@@ -729,7 +729,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 showInPoiRightEditPanel();
             } else if (geoLiveType === 'COPYTOPOLYGON') {
                 closeLeftPanel();
-                $scope.closeLeftFloatPanel();
+                // $scope.closeLeftFloatPanel();
             } else {
                 // 道路要素编辑模式
                 // 1.如果有tips正在查看，则不关闭左侧tips查看面板；否则关闭左侧面板
@@ -1663,6 +1663,11 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
         $scope.$on('RefreshResultList', function (event, data) {
             $scope.$broadcast('Refresh-Result-List');
         });
+
+        // 刷新编辑线列表
+        eventCtrl.on(eventCtrl.eventTypes.REFRESHSPARELINE, function (data) {
+            $scope.$broadcast('refresh-spareLine');
+        })
         /* start 事件监听*******************************************************************/
         eventCtrl.on(eventCtrl.eventTypes.OBJECTSELECTED, function (data) {
             $scope.$broadcast('Map-ClearMap');
