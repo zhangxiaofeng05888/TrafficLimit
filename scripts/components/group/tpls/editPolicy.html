@@ -101,6 +101,7 @@
                                 width="'190px'"
                                 ng-model="policyData.tailNumber"
                                 ng-options="value.id as value.name for value in tailNumber"
+                                ng-change="changeTailNumber()"
                         >
                             <option value=""></option>
                         </select>
@@ -135,6 +136,7 @@
                                 width="'190px'"
                                 ng-model="policyData.energyType"
                                 ng-options="value.id as value.name for value in energyType"
+                                ng-change="changeenergyType()"
                         >
                             <option value=""></option>
                         </select>

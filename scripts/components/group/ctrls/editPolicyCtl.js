@@ -30,6 +30,10 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
         };
         $scope.carType = [
             {
+                id: 0,
+                name: '全选'
+            },
+            {
                 id: 1,
                 name: '客车'
             }, {
@@ -120,6 +124,10 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
         $scope.charToNum = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
         $scope.tailNumber = [
             {
+                id: -1,
+                name: '全选'
+            },
+            {
                 id: 0,
                 name: 0
             }, {
@@ -154,6 +162,10 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 name: '26个英文字母'
             }];
         $scope.energyType = [
+            {
+                id: 0,
+                name: '全选'
+            },
             {
                 id: 1,
                 name: '燃油'
@@ -285,7 +297,41 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 $scope.policyData.restrict = '';
             }
         };
+        $scope.changeenergyType = function () {
+            if ($scope.policyData.energyType.indexOf(0) > -1) {
+                if ($scope.policyData.energyType.length === 4) {
+                    $scope.policyData.energyType = [];
+                } else {
+                    $scope.policyData.energyType = [];
+                    for (var i = 1; i < $scope.energyType.length; i++) {
+                        $scope.policyData.energyType.push($scope.energyType[i].id);
+                    }
+                }
+            }
+        };
+        $scope.changeTailNumber = function () {
+            if ($scope.policyData.tailNumber.indexOf(-1) > -1) {
+                if ($scope.policyData.tailNumber.length === 12) {
+                    $scope.policyData.tailNumber = [];
+                } else {
+                    $scope.policyData.tailNumber = [];
+                    for (var i = 1; i < $scope.tailNumber.length; i++) {
+                        $scope.policyData.tailNumber.push($scope.tailNumber[i].id);
+                    }
+                }
+            }
+        };
         $scope.changeVehicle = function () {
+            if ($scope.policyData.vehicle.indexOf(0) > -1) {
+                if ($scope.policyData.vehicle.length === 12) {
+                    $scope.policyData.vehicle = [];
+                } else {
+                    $scope.policyData.vehicle = [];
+                    for (var i = 1; i < $scope.carType.length; i++) {
+                        $scope.policyData.vehicle.push($scope.carType[i].id);
+                    }
+                }
+            }
             if ($scope.policyData.vehicle.indexOf(1) < 0) {
                 $scope.policyData.seatnum = 0;
             }
