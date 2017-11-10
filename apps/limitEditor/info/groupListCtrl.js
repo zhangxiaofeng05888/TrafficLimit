@@ -158,8 +158,12 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
                     selectData = data[i];
                 }
             }
-            if (selectNum !== 1) {
-                swal('提示', '请选择一个作业组进行编辑操作', 'warning');
+            if (selectNum > 1) {
+                swal('提示', '只能对一条作业组进行编辑', 'warning');
+                return;
+            }
+            if (selectNum === 0) {
+                swal('提示', '请选择一条作业组进行编辑', 'warning');
                 return;
             }
             showInDialog({ type: 'editGroup', data: selectData });
@@ -170,12 +174,13 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
             for (var i = 0; i < data.length; i++) {
                 groupIds.push(data[i].groupId);
             }
-            showInDialog({ type: 'correlationGroup', data: {
-                adminCode: App.Temp.infoToGroupData.cityId,
-                cityName: App.Temp.infoToGroupData.cityName,
-                infoIntelId: App.Temp.infoToGroupData.infoId,
-                existGroupIds: groupIds
-            } });
+            showInDialog({ type: 'correlationGroup',
+                data: {
+                    adminCode: App.Temp.infoToGroupData.cityId,
+                    cityName: App.Temp.infoToGroupData.cityName,
+                    infoIntelId: App.Temp.infoToGroupData.infoId,
+                    existGroupIds: groupIds
+                } });
         };
         $scope.deleteGroup = function () {
             var groupIds = [];
