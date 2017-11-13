@@ -79,6 +79,7 @@ angular.module('app').controller('infoListPanelCtl', ['$window', '$scope', '$tim
                             $scope.infoCode = item1.infoCode;
                             $scope.url = item1.url;
                             $scope.newsTime = item1.newsTime;
+                            $scope.publicTime = item1.publicTime;
                             $scope.infoContent = item1.infoContent;
                             $scope.condition = item1.condition === 'S' ? '长期' : '短期';
                             $scope.complete = item1.complete;

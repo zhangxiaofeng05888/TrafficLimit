@@ -16,7 +16,7 @@
     .infoListPanel .footer {
         height: 35px;
         margin-left: 25px;
-        margin-top: 90px;
+        margin-top: 75px;
     }
     .infoListPanel .footer_textarea {
         height: 50px;
@@ -167,6 +167,10 @@
                     <span>{{newsTime}}</span>
                 </li>
                 <li>
+                    <span class="left">下发日期：</span>
+                    <span>{{publicTime}}</span>
+                </li>
+                <li>
                     <span class="left">限行长短期：</span>
                     <span>{{condition}}</span>
                 </li>
@@ -181,7 +185,7 @@
                     <select class="form-control poiRightPanel_select" ng-options="value.id as value.label for value in statusData" ng-model="complete" ></select>
                 </div>
                 <div class="footer_textarea">
-                    <span >备注：</span>
+                    <span>备注：</span>
                     <textarea class="poiRightPanel_area" ng-model="memo"></textarea>
                 </div>
                 <div class="list-title-btn"
