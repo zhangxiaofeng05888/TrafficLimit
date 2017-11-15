@@ -306,7 +306,7 @@ angular.module('app').controller('addPolicyCtrl', ['$window', '$scope', '$timeou
                     }
                 }
             }
-        }
+        };
         $scope.changeTailNumber = function () {
             if ($scope.policyData.tailNumber.indexOf(-1) > -1) {
                 if ($scope.policyData.tailNumber.length === 12) {
@@ -318,7 +318,7 @@ angular.module('app').controller('addPolicyCtrl', ['$window', '$scope', '$timeou
                     }
                 }
             }
-        }
+        };
         $scope.changeVehicle = function () {
             if ($scope.policyData.vehicle.indexOf(0) > -1) {
                 if ($scope.policyData.vehicle.length === 12) {

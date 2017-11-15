@@ -91,7 +91,7 @@ angular.module('app').controller('correlationGroupCtrl', ['$window', '$scope', '
                 }
             }
             if (groupIds.length === 0) {
-                swal('提示', '请选择一个作业组进行关联操作', 'warning');
+                swal('提示', '请至少选择一条需要关联的组号！', 'warning');
                 return;
             }
             var params = {

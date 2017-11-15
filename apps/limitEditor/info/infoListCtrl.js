@@ -18,6 +18,8 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
             infoId: '',
             beginTime: '',
             endTime: '',
+            sPublicTime: '',
+            ePublicTime: '',
             status: [false, false, false],
             period: [false, false]
         };
@@ -56,11 +58,19 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
             var period = [];
             var startTime = $scope.searchModel.beginTime;
             var endTime = $scope.searchModel.endTime;
+            var sPublicTime = $scope.searchModel.sPublicTime;
+            var ePublicTime = $scope.searchModel.ePublicTime;
             if (startTime) {
                 startTime = startTime.replace(new RegExp(/(-)/g), '');
             }
             if (endTime) {
                 endTime = endTime.replace(new RegExp(/(-)/g), '');
+            }
+            if (sPublicTime) {
+                sPublicTime = sPublicTime.replace(new RegExp(/(-)/g), '');
+            }
+            if (ePublicTime) {
+                ePublicTime = ePublicTime.replace(new RegExp(/(-)/g), '');
             }
             if ($scope.searchModel.status[0]) {
                 status.push(1);
@@ -84,6 +94,8 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
                     infoCode: $scope.searchModel.infoId,
                     startTime: startTime,
                     endTime: endTime,
+                    ePublicTime: ePublicTime,
+                    sPublicTime: sPublicTime,
                     complete: status,
                     condition: period,
                     pageSize: $scope.searchModel.pageSize,
@@ -203,6 +215,8 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
             var preTime = preYear.toString() + '-' + preMonth + '-' + preDay.toString();
             $scope.searchModel.beginTime = preTime;
             $scope.searchModel.endTime = time;
+            $scope.searchModel.sPublicTime = preTime;
+            $scope.searchModel.ePublicTime = time;
             $scope.gridOptions = {
                 useExternalSorting: true,
                 enableColumnMenus: false,
@@ -274,6 +288,13 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
                     {
                         field: 'newsTime',
                         displayName: '发布日期',
+                        enableSorting: false,
+                        minWidth: 50,
+                        cellClass: 'center'
+                    },
+                    {
+                        field: 'publicTime',
+                        displayName: '下发日期',
                         enableSorting: false,
                         minWidth: 50,
                         cellClass: 'center'

@@ -16,7 +16,7 @@
     .infoListPanel .footer {
         height: 35px;
         margin-left: 25px;
-        margin-top: 90px;
+        margin-top: 75px;
     }
     .infoListPanel .footer_textarea {
         height: 50px;
@@ -61,16 +61,17 @@
         padding: 6px 0;
     }
     .infoListPanel .content ul textarea {
-        margin-left: 10px;
+        margin-left: 0px;
         margin-bottom: 10px;
-        width: 275px;
+        width: 170px;
         min-height: 80px;
         resize: vertical;
     }
     .infoListPanel .footer_textarea textarea {
-        width: 188px;
+        width: 170px;
+        padding-top: 10px;
         margin-right: 2px;
-        margin-left: 1px;
+        margin-left: 16px;
         min-height: 80px;
         display: inline-block;
         vertical-align: top;
@@ -78,20 +79,6 @@
     .infoListPanel .footer_textarea span{
         margin-left:27px;
         text-align: right;
-    }
-    .infoListPanel .footer_end div {
-        width: 75px;
-        height: 30px;
-        margin-top: 40px;
-        margin-right: 10px;
-        margin-left: 10px;
-        margin-bottom: 10px;
-        padding-top:4px;
-        float: right;
-        border:1px solid #000000;
-        border-radius: 5px;
-        text-align: center;
-        resize: vertical;
     }
     .infoListPanel .content .sub-header {
         background-color: #eff0fe;
@@ -114,6 +101,23 @@
         word-break: break-all;
         word-wrap: break-word;
         cursor: pointer;
+    }
+    .poiRightPanel_select {
+        font-size: 12px;
+        color: #182848;
+        display: inline-block;
+        width: 170px;
+        margin-left: 15px;
+        height: 24px;
+        border-color: rgba(24, 40, 72, 0.2);
+        border-radius: 3px;
+        padding: 0 0 0 10px;
+        box-shadow: none;
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        background: url('../../images/newPoi/rightPanelIcon/icon-select-open-normal.png') no-repeat right center transparent;
+        background-position-x: 155px;
     }
 </style>
 <div ng-controller="infoListPanelCtl" class="infoListPanel">
@@ -141,7 +145,7 @@
                 </li>
                 <li style="height: inherit">
                     <span class="left">限制规定：</span>
-                    <textarea class="form-control" disabled>{{principle}}</textarea>
+                    <textarea class="poiRightPanel_area" disabled>{{principle}}</textarea>
                 </li>
             </ul>
         </div>
@@ -163,12 +167,16 @@
                     <span>{{newsTime}}</span>
                 </li>
                 <li>
+                    <span class="left">下发日期：</span>
+                    <span>{{publicTime}}</span>
+                </li>
+                <li>
                     <span class="left">限行长短期：</span>
                     <span>{{condition}}</span>
                 </li>
                 <li>
                     <span class="left">新闻内容：</span>
-                    <textarea class="form-control">{{infoContent}}</textarea>
+                    <textarea class="poiRightPanel_area">{{infoContent}}</textarea>
                 </li>
                 <!--<select class="tl_list_select_small" ng-options="value.id as value.label for value in grid.appScope.statusData" ng-model="row.entity.complete" ng-change="grid.appScope.updateInfo(2, row)"></select>-->
             </ul>
@@ -177,11 +185,14 @@
                     <select class="form-control poiRightPanel_select" ng-options="value.id as value.label for value in statusData" ng-model="complete" ></select>
                 </div>
                 <div class="footer_textarea">
-                    <span >备注：</span>
-                    <textarea ng-model="memo"></textarea>
+                    <span>备注：</span>
+                    <textarea class="poiRightPanel_area" ng-model="memo"></textarea>
                 </div>
-                <div class="footer_end" >
-                    <div type="submit" ng-click="saveInfo()">保存</div>
+                <div class="list-title-btn"
+                     style="background-color: #5693ff;height: 24px;line-height: 24px;float: right;margin-right: 13px;margin-top: 53px"
+                     ng-click="saveInfo()">
+                    <span style="color: #FFFFFF;font-size: 12px">保存</span>
                 </div>
         </div>
     </div>
+</div>
