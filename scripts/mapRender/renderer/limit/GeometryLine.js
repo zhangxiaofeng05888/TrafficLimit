@@ -15,6 +15,10 @@ FM.mapApi.render.renderer.GeometryLine = FM.mapApi.render.Renderer.extend({
             color: 'pink',
             width: 3
         };
+        if (this._feature.properties.boundaryLink === '2') {
+            symbolData.type = 'CartoLineSymbol';
+            symbolData.pattern = [10, 10];
+        }
         var symbol = this._symbolFactory.createSymbol(symbolData);
         symbol.geometry = this._geometryFactory.fromGeojson(this._feature.geometry);
         return symbol;
