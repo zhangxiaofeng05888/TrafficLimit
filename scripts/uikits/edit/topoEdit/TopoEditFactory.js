@@ -140,6 +140,10 @@ fastmap.uikit.topoEdit.TopoEditFactory = L.Class.extend({
                 return new fastmap.uikit.topoEdit.GeometryLineTopoEditor(map);
             case 'GEOMETRYPOLYGON':
                 return new fastmap.uikit.topoEdit.GeometryPolygonTopoEditor(map);
+            case 'TRACKLINE':
+                return new fastmap.uikit.topoEdit.TrackLineTopoEditor(map);
+            case 'LIMITLINE':
+                return new fastmap.uikit.topoEdit.LimitLineTopoEditor(map);
             default:
                 return null;
         }

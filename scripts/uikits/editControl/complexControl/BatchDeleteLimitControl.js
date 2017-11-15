@@ -32,10 +32,17 @@ fastmap.uikit.editControl.BatchDeleteLimitControl = fastmap.uikit.editControl.Ed
     onSelectFinish: function (editResult) {
         var self = this;
         if (editResult.links.length > 0) {
-            this.eventController.fire(L.Mixin.EventTypes.PARTSOPENPANEL, {
-                panelName: 'batchDeleteLimit',
-                data: editResult.links
-            });
+            if (this.geoLiveType === 'LIMITLINE') {
+                this.eventController.fire(L.Mixin.EventTypes.PARTSOPENPANEL, {
+                    panelName: 'batchDeleteLimitLine',
+                    data: editResult.links
+                });
+            } else {
+                this.eventController.fire(L.Mixin.EventTypes.PARTSOPENPANEL, {
+                    panelName: 'batchDeleteLimit',
+                    data: editResult.links
+                });
+            }
         }
         this.eventController.on(L.Mixin.EventTypes.BATCHDELETELIMIT, function (data) {
             self.onDeleteFinish();

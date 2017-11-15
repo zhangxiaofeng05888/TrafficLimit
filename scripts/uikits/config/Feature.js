@@ -912,6 +912,18 @@ FM.uikit.Config.Feature = (function () {
                     }
                 },
                 editTools: ['MODIFY', 'DELETELIMIT'] // 地图操作工具列表
+            },
+            LIMITLINE: {
+                name: '限行线',
+                serverFeatureType: 'SCPLATERESRDLINK', // 服务端要素类型
+                depends: [],
+                template: { // 要素的页面片段
+                    edit: {
+                        ctrl: 'components/limit/ctrls/limitLineCtrl.js',
+                        tmpl: 'components/limit/tpls/batchEditLimitLineTpl.html'
+                    }
+                },
+                editTools: ['DELETELIMIT'] // 地图操作工具列表
             }
         };
         var linkNodeConf = {

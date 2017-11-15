@@ -10,6 +10,9 @@ fastmap.uikit.editControl.DeleteLimitControl = fastmap.uikit.editControl.EditCon
         FM.Util.bind(this);
         this.geoLiveType = options.originObject.geoLiveType;
         this.pid = options.originObject.pid;
+        if (this.geoLiveType === 'LIMITLINE') {
+            this.geometryId = options.originObject.geometryId;
+        }
         this.complexEditor = fastmap.uikit.complexEdit.ComplexEditor.getInstance();
         this.topoEditor = this.topoEditFactory.createTopoEditor(this.geoLiveType, this.map);
     },
@@ -19,10 +22,18 @@ fastmap.uikit.editControl.DeleteLimitControl = fastmap.uikit.editControl.EditCon
             return false;
         }
 
-        this.topoEditor
-          .deleteLimit(this.pid)
-          .then(this.onUpdateSuccess)
-          .catch(this.onUpdateFail);
+        if (this.geoLiveType === 'LIMITLINE') {
+            this.topoEditor
+              .deleteLimit(this.pid, this.geometryId)
+              .then(this.onUpdateSuccess)
+              .catch(this.onUpdateFail);
+        } else {
+            this.topoEditor
+              .deleteLimit(this.pid)
+              .then(this.onUpdateSuccess)
+              .catch(this.onUpdateFail);
+        }
+
         return true;
     },
 

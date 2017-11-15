@@ -90,7 +90,7 @@
 </style>
 <div ng-controller="toolsToolCtrl" class="topToolsContainer">
     <div title="点选" ng-controller='startEditCtrl'
-         ng-click="select($event, ['RDLINK', 'COPYTOLINE', 'COPYTOPOLYGON', 'DRAWPOLYGON', 'GEOMETRYLINE', 'GEOMETRYPOLYGON'] , 'point')"
+         ng-click="select($event, ['RDLINK', 'COPYTOLINE', 'COPYTOPOLYGON', 'DRAWPOLYGON', 'GEOMETRYLINE', 'GEOMETRYPOLYGON', 'LIMITLINE'] , 'point')"
          style="border-left: none">
         <img src="../../images/newPoi/toolIcon/quickToolIcon/select.png"/>
     </div>
@@ -109,7 +109,7 @@
             <li ng-controller='startEditCtrl' ng-click="batchEditLimit($event, 'GEOMETRYPOLYGON')">
                 <span>编辑成果面</span>
             </li>
-            <li class="disabled">
+            <li ng-controller='startEditCtrl' ng-click="batchEditLimit($event, 'LIMITLINE')">
                 <span>编辑限行线</span>
             </li>
         </ul>
@@ -117,7 +117,7 @@
     <div title="地图漫游" ng-controller='startEditCtrl' ng-click="pan($event, null)">
         <img src="../../images/newPoi/toolIcon/quickToolIcon/mapPan.png"/>
     </div>
-    <div title="追踪" class="disabled">
+    <div title="追踪" ng-controller='startEditCtrl' ng-click="trackLine($event, 'TRACKLINE', null)">
         <img src="../../images/newPoi/toolIcon/quickToolIcon/truck-line.png"/>
     </div>
     <div title="复制到线" ng-controller='startEditCtrl' ng-click="copyLine($event, 'COPYTOLINE')">
@@ -150,7 +150,7 @@
             <li ng-controller='startEditCtrl' ng-click="batchDeleteLimit($event, 'GEOMETRYPOLYGON')">
                 <span>删除成果面</span>
             </li>
-            <li class="disabled">
+            <li ng-controller='startEditCtrl' ng-click="batchDeleteLimit($event, 'LIMITLINE')">
                 <span>删除限行线</span>
             </li>
         </ul>

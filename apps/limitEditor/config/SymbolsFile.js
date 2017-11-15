@@ -740,5 +740,17 @@ App.Config.symbols = [
             width: 1,
             pattern: [4, 2]
         }
+    }, { // 高亮追踪要素编号
+        name: 'track_num',
+        type: 'CompositeMarkerSymbol',
+        symbols: [{
+            type: 'ImageMarkerSymbol',
+            url: '../../images/newPoi/toolIcon/tips-background.png',
+            width: 30,
+            height: 20
+        }, {
+            type: 'TextMarkerSymbol',
+            color: '#ffffff'
+        }]
     }
 ];

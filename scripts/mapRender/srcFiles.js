@@ -22,6 +22,7 @@ module.exports = [
     'data/limit/DrawPolygon.js',
     'data/limit/GeometryLine.js',
     'data/limit/GeometryPolygon.js',
+    'data/limit/LimitLine.js',
     'data/deletion/LinkDeletion.js',
     'data/deletion/MissRoadDidi.js',
     'data/deletion/MissRoadTengxun.js',
@@ -431,6 +432,7 @@ module.exports = [
     'highlight/limit/DrawPolygon.js',
     'highlight/limit/GeometryLine.js',
     'highlight/limit/GeometryPolygon.js',
+    'highlight/limit/LimitLine.js',
 
     'renderer/render/DeletionRender.js',
     'renderer/render/ExceptionRender.js',
@@ -451,6 +453,7 @@ module.exports = [
     'renderer/limit/DrawPolygon.js',
     'renderer/limit/GeometryLine.js',
     'renderer/limit/GeometryPolygon.js',
+    'renderer/limit/LimitLine.js',
     'renderer/deletion/DeletionLink.js',
     'renderer/deletion/MissRoadDidi.js',
     'renderer/deletion/MissRoadTengxun.js',

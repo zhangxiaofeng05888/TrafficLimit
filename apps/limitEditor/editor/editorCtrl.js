@@ -164,7 +164,9 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                     getDlgOption(dlgOption, 930, 550, false);
                     break;
                 case 'batchEditLimit':
+                case 'batchEditLimitLine':
                 case 'batchDeleteLimit':
+                case 'batchDeleteLimitLine':
                     getDlgOption(dlgOption, 500, 300, false);
                     break;
                 default:
@@ -545,6 +547,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 case 'tmcTreePanel':
                 case 'ResultListPanel':
                 case 'spareLine':
+                case 'trackLinePanel':
                     showInLeftFloatPanel(data);
                     break;
                 case 'RestrictionTopoPanel':
@@ -575,6 +578,8 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 case 'editPolicy':
                 case 'batchEditLimit':
                 case 'batchDeleteLimit':
+                case 'batchEditLimitLine':
+                case 'batchDeleteLimitLine':
                     showInDialog(data);
                     break;
                 case 'LaneConnexityPanel':
@@ -597,6 +602,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                     $scope.closeRightFloatPanel();
                     break;
                 case 'adminOfLevel':
+                case 'trackLinePanel':
                     $scope.closeLeftFloatPanel();
                     break;
                 case 'RestrictionTopoPanel':
@@ -784,7 +790,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 return;
             }
             $scope.showLoading();
-            if (geoLiveType === 'COPYTOLINE' || geoLiveType === 'COPYTOPOLYGON' || geoLiveType === 'DRAWPOLYGON' || geoLiveType === 'GEOMETRYLINE' || geoLiveType === 'GEOMETRYPOLYGON') {
+            if (geoLiveType === 'COPYTOLINE' || geoLiveType === 'COPYTOPOLYGON' || geoLiveType === 'DRAWPOLYGON' || geoLiveType === 'GEOMETRYLINE' || geoLiveType === 'GEOMETRYPOLYGON' || geoLiveType === 'LIMITLINE') {
                 setTimeout(function () {
                     var topoData = topoEditor.query(data.feature);
                     _objectLoadedCallback(geoLiveType, topoData, data.originalEvent);

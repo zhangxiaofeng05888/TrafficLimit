@@ -1,0 +1,16 @@
+<div ng-controller="limitLineCtl" class="scroll_style">
+    <ul class="list-group detailUlCss">
+        <li>
+            <div class="blockDescLiDiv">
+                <span>linkPid</span>
+            </div>
+            <span>{{limitLineDate.pid}}</span>
+        </li>
+        <li>
+            <div class="blockDescLiDiv">
+                <span>限行方向</span>
+            </div>
+            <select class="form-control poiRightPanel_select" ng-model="limitLineDate.linkDir" ng-options="value.id as value.label for value in linkDir"></select>
+        </li>
+    </ul>
+</div>

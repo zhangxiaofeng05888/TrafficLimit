@@ -113,6 +113,7 @@ angular.module('app').controller('searchToolCtrl', ['$scope', 'dsEdit',
             var data = {
                 type: type,
                 condition: {
+                    adminCode: App.Temp.infoToGroupData.cityId,
                     names: names
                 }
             };

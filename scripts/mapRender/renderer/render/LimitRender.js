@@ -15,6 +15,8 @@ FM.mapApi.render.renderer.LimitRender = FM.mapApi.render.Render.extend({
                 return new FM.mapApi.render.renderer.GeometryLine(feature, zoom);
             case 'GEOMETRYPOLYGON':
                 return new FM.mapApi.render.renderer.GeometryPolygon(feature, zoom);
+            case 'LIMITLINE':
+                return new FM.mapApi.render.renderer.LimitLine(feature, zoom);
             default:
                 return null;
         }

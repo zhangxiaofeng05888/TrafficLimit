@@ -73,6 +73,9 @@ FM.mapApi.render.data.Limit = FM.mapApi.render.data.DataModel.extend({
                 case 1005: // 成果面
                     ret = new FM.mapApi.render.data.GeometryPolygon(data, zoom);
                     break;
+                case 1006: // 限行线
+                    ret = new FM.mapApi.render.data.LimitLine(data, zoom);
+                    break;
                 default:
                     ret = null;
                     break;

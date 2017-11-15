@@ -237,6 +237,27 @@ angular.module('app').controller('startEditCtrl', ['$scope',
             $scope.$emit('Map-ToolEnabled');
         };
 
+        $scope.trackLine = function (event, geoLiveType, options) {
+            if (!testEditZoom()) {
+                return;
+            }
+            $scope.$emit('Map-EnableTool', {
+                operation: 'Create'
+            });
+
+            var factory = fastmap.uikit.editControl.EditControlFactory.getInstance();
+            var startupToolControl = factory.trackToolControl(map, geoLiveType, options);
+
+            if (!startupToolControl) {
+                swal('提示', '编辑流程未实现', 'info');
+                return;
+            }
+
+            startupToolControl.run();
+
+            $scope.$emit('Map-ToolEnabled');
+        };
+
         $scope.copyLine = function (event, geoLiveType) {
             if (!testEditZoom()) {
                 return;

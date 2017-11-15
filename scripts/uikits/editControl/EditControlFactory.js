@@ -221,6 +221,10 @@ fastmap.uikit.editControl.EditControlFactory = L.Class.extend({
         }
     },
 
+    trackToolControl: function (map, geoLiveType, options) {
+        return new fastmap.uikit.editControl.TrackControl(map, geoLiveType, options);
+    },
+
     deleteLimitControl: function (map, options) {
         switch (options.originObject.geoLiveType) {
             case 'COPYTOLINE':
@@ -228,6 +232,7 @@ fastmap.uikit.editControl.EditControlFactory = L.Class.extend({
             case 'DRAWPOLYGON':
             case 'GEOMETRYLINE':
             case 'GEOMETRYPOLYGON':
+            case 'LIMITLINE':
                 return new fastmap.uikit.editControl.DeleteLimitControl(map, options);
             default:
                 return null;

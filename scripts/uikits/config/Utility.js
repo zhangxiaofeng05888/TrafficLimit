@@ -299,6 +299,27 @@ FM.uikit.Config.Utility = (function () {
                     ctrl: 'components/group/ctrls/spareLineCtl.js',
                     tmpl: 'components/group/tpls/spareLineTpl.html'
                 }
+            },
+            trackLinePanel: {
+                name: '追踪线列表',
+                template: {
+                    ctrl: 'components/group/ctrls/trackLineCtl.js',
+                    tmpl: 'components/group/tpls/trackLineTpl.html'
+                }
+            },
+            batchEditLimitLine: {
+                name: '批量编辑限行线列表',
+                template: {
+                    ctrl: 'components/group/ctrls/batchEditLimitLineCtl.js',
+                    tmpl: 'components/group/tpls/batchEditLimitLineTpl.html'
+                }
+            },
+            batchDeleteLimitLine: {
+                name: '批量删除限行线列表',
+                template: {
+                    ctrl: 'components/group/ctrls/batchDeleteLimitLineCtl.js',
+                    tmpl: 'components/group/tpls/batchDeleteLimitLineTpl.html'
+                }
             }
         };
 

@@ -13,6 +13,11 @@ fastmap.service.DataServiceFcc = L.Class.extend({
         return this.createAjaxPromise('post', url, data);
     },
 
+    trackLine: function (data) {
+        var url = 'limit/searchPassLink';
+        return this.createAjaxPromise('post', url, data);
+    },
+
     getByPids: function (data) {
         var url = 'limit/getByPids';
         return this.createAjaxPromise('get', url, data);

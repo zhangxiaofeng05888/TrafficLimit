@@ -2,19 +2,10 @@
  * Created by lingLong on 2017/1/12.
  * 批量选择结果
  */
-angular.module('app').controller('AdvanceSearchController', function ($scope, dsFcc, NgTableParams) {
-    var minEditZoom = App.Config.map.layerZoom.minEditZoom || 17;
-    var map = window.map;
-    var testEditZoom = function () {
-        if (map.getZoom() < minEditZoom) {
-            swal('提示', '地图缩放等级在' + minEditZoom + '级以上才可操作', 'info');
-            return false;
-        }
-        return true;
-    };
+angular.module('app').controller('trackLineCtrl', function ($scope, dsFcc, NgTableParams) {
     var sceneController = fastmap.mapApi.scene.SceneController.getInstance();
     var symbolFactory = fastmap.mapApi.symbol.GetSymbolFactory();
-    var symbol = symbolFactory.getSymbol('pt_poiCreateLoc');
+    var symbol = symbolFactory.getSymbol('track_num');
     var feedbackCtrl = fastmap.mapApi.FeedbackController.getInstance();
 
     var feedback = new fastmap.mapApi.Feedback();
@@ -25,26 +16,14 @@ angular.module('app').controller('AdvanceSearchController', function ($scope, ds
         feedbackCtrl.refresh();
     };
 
-    var selectBox = function () {   //  面板加载时，复选框默认全部选中
-        var rows = $scope.results.rows;
-
-        for (var i = 0, len = rows.length; i < len; i++) {
-            rows[i].checked = true;
-        }
-    };
-
     $scope.copyToLine = function () {
         var linkData = $scope.results;
         var links = [];
         for (var i = 0; i < linkData.rows.length; i++) {
-            if (linkData.rows[i].checked) {
-                for (var j = 0; j < linkData.rows[i].links.length; j++) {
-                    links.push(linkData.rows[i].links[j].pid);
-                }
-            }
+            links.push(linkData.rows[i].pid);
         }
         if (links.length === 0) {
-            swal('提示', '请先选择一个道路名进行复制', 'warning');
+            swal('提示', '没有可以复制的link', 'warning');
             return;
         }
         var params = {
@@ -73,14 +52,10 @@ angular.module('app').controller('AdvanceSearchController', function ($scope, ds
         var linkData = $scope.results;
         var links = [];
         for (var i = 0; i < linkData.rows.length; i++) {
-            if (linkData.rows[i].checked) {
-                for (var j = 0; j < linkData.rows[i].links.length; j++) {
-                    links.push(linkData.rows[i].links[j].pid);
-                }
-            }
+            links.push(linkData.rows[i].pid);
         }
         if (links.length === 0) {
-            swal('提示', '请先选择一个道路名进行复制', 'warning');
+            swal('提示', '没有可以复制的link', 'warning');
             return;
         }
         var params = {
@@ -106,70 +81,46 @@ angular.module('app').controller('AdvanceSearchController', function ($scope, ds
     };
 
     var initialize = function (event, data) {
-        $scope.results = data.data;
+        $scope.results = data;
         $scope.selectedNums = $scope.results.rows.length;
-        selectBox();
-        $scope.highlightRoad($scope.results.rows[0]);   //  默认高亮第一条数据
+        $scope.highlightRoad($scope.results.rows);   //  默认高亮第一条数据
     };
 
     $scope.highlightRoad = function (item) {
-        var len = item.links.length;
+        var len = item.length;
         if (len === 0) {
             return;
         }
 
-        $scope.$emit('LocateObject', { feature: item.links[0] });  //  定位到第一个点的位置
+        $scope.$emit('LocateObject', { feature: {
+            geometry: item[0].geometry
+        } });  //  定位到第一个点的位置
 
         feedback.clear();
 
         for (var i = 0; i < len; i++) {
-            feedback.add(item.links[i].geometry, symbol);
+            var cloneSymbol = FM.Util.clone(symbol);
+            cloneSymbol.symbols[1].text = i + 1;
+            feedback.add(item[i].geometry, cloneSymbol);
         }
 
         feedbackCtrl.refresh();
     };
 
-    $scope.refreshSelectedNums = function (item) {
-        item.checked ? $scope.selectedNums++ : $scope.selectedNums--;
-    };
+    $scope.positionLine = function (item) {
 
-    $scope.trackLine = function () {
-        if (!testEditZoom()) {
-            return;
-        }
-        $scope.$emit('Map-EnableTool', {
-            operation: 'Create'
-        });
+        $scope.$emit('LocateObject', { feature: {
+            geometry: item.geometry
+        } });  //  定位到第一个点的位置
 
-        var linkData = $scope.results;
-        var links = [];
-        for (var i = 0; i < linkData.rows.length; i++) {
-            if (linkData.rows[i].checked) {
-                for (var j = 0; j < linkData.rows[i].links.length; j++) {
-                    links.push(linkData.rows[i].links[j].pid);
-                }
-            }
-        }
-
-        var factory = fastmap.uikit.editControl.EditControlFactory.getInstance();
-        var startupToolControl = factory.trackToolControl(map, 'TRACKLINE', links);
-
-        if (!startupToolControl) {
-            swal('提示', '编辑流程未实现', 'info');
-            return;
-        }
-
-        startupToolControl.run();
-
-        $scope.$emit('Map-ToolEnabled');
     };
 
     // 关闭搜索面板;
     $scope.closeAdvanceSearchPanel = function () {
-        $scope.$emit('closeLeftFloatAdvanceSearchPanel');
+        $scope.$emit('CloseInfoPage', { type: 'trackLinePanel' });
     };
 
-    var unbindHandler = $scope.$on('AdvancedSearchPanelReload', initialize);
+    var unbindHandler = $scope.$on('ReloadData', initialize);
 
     $scope.$on('$destroy', function () {
         clearFeedback();

@@ -37,6 +37,7 @@ fastmap.uikit.complexEdit.ComplexEditor = fastmap.uikit.Editor.extend({
         this.toolController.addTool(new fastmap.uikit.complexEdit.DrawPolygonTool());
         this.toolController.addTool(new fastmap.uikit.complexEdit.BatchEditLimitTool());
         this.toolController.addTool(new fastmap.uikit.complexEdit.BreakEditLineTool());
+        this.toolController.addTool(new fastmap.uikit.complexEdit.TrackTool());
     },
 
     start: function (editResult, onFinish) {
@@ -108,6 +109,9 @@ fastmap.uikit.complexEdit.ComplexEditor = fastmap.uikit.Editor.extend({
                 break;
             case 'BreakEditLineResult':
                 toolName = 'BreakEditLineTool';
+                break;
+            case 'TrackResult':
+                toolName = 'TrackTool';
                 break;
             default:
                 throw new Error('未知的编辑类型');

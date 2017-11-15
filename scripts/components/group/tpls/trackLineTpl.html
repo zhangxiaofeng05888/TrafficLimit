@@ -83,9 +83,9 @@
         width: 60px;
     }
 </style>
-<div ng-controller="AdvanceSearchController" id="advanceSearchLeftContainer" >
+<div ng-controller="trackLineCtrl" id="advanceSearchLeftContainer" >
     <div class="searchHeader">
-        <h4>查询结果</h4>
+        <h4>追踪结果</h4>
         <a href="javascript:void(0);" class="advanceSearchClose" ng-click="closeAdvanceSearchPanel()"></a>
     </div>
     <div style="height: 100%;overflow-y: auto;">
@@ -95,34 +95,26 @@
                     <span>序号</span>
                 </div>
                 <div class="roadNames">
-                    <span>道路名</span>
-                </div>
-                <div class="ckBox">
-                    <span>是否已确认</span>
+                    <span>linkPid</span>
                 </div>
             </li>
             <li ng-repeat="item in results.rows track by $index">
                 <div class="sequence">
                     <span>{{$index+1}}</span>
                 </div>
-                <div class="roadNames content" ng-click="highlightRoad(item)">
-                    <span>{{item.name}}</span>
-                </div>
-                <div class="ckBox">
-                    <input type="checkbox" class="fm-control" style="cursor: pointer;" ng-model="item.checked"
-                    ng-click="refreshSelectedNums(item)">
+                <div class="roadNames content" ng-click="positionLine(item)">
+                    <span>{{item.pid}}</span>
                 </div>
             </li>
         </ul>
     </div>
     <div class="searchFooter">
         <div style="display: inline-block;width: 80px;margin-top: 10px;">
-            <span>选中 {{selectedNums}} 条, 共 {{results.total}} 条</span>
+            <span>共 {{results.rows.length}} 条</span>
         </div>
         <div style="display: inline-block;float: right;margin: 20px 0;">
             <button ng-click="copyToLine()">复制到线</button>
             <button ng-click="copyToPolygon()">复制到面</button>
-            <button ng-click="trackLine()">追踪</button>
         </div>
     </div>
 </div>

@@ -54,6 +54,17 @@ App.Config.map.FeatureLayers = {
             minZoom: 10
         }
     },
+    LimitLine: {
+        name: '限行图层',
+        type: 'vector',
+        options: {
+            source: 'limitSource',
+            featureType: 'LIMITLINE',
+            serverFeatureType: 'SCPLATERESRDLINK',
+            render: FM.mapApi.render.renderer.LimitRender,
+            minZoom: 10
+        }
+    },
     AdAdmin: {
         name: '行政区划代表点',
         type: 'vector',

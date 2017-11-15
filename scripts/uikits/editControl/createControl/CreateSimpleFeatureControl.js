@@ -57,7 +57,7 @@ fastmap.uikit.editControl.CreateSimpleFeatureControl = fastmap.uikit.editControl
         // var features = this.getFeaturesFromLogs(res.log);
 
         // 自动选中要素
-        if (geoLiveTypes[0] !== 'COPYTOPOLYGON') {
+        if (this.geoLiveType !== 'COPYTOPOLYGON') {
             var eventArgs = {
                 features: [{
                     pid: res.pid,

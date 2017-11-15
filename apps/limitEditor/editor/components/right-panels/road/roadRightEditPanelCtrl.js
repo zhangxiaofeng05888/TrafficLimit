@@ -58,12 +58,23 @@ angular.module('app').controller('RoadRightEditPanelCtrl', ['$scope', '$rootScop
 
             $scope.showLoading();
 
-            var simpleFeature = new FM.dataApi.Feature({
-                pid: objectEditCtrl.data.pid,
-                geoLiveType: objectEditCtrl.data.geoLiveType,
-                boundaryLink: objectEditCtrl.data.boundaryLink,
-                geometry: objectEditCtrl.data.geometry
-            });
+            var simpleFeature = {};
+            if (geoLiveType === 'LIMITLINE') {
+                simpleFeature = new FM.dataApi.Feature({
+                    pid: objectEditCtrl.data.pid,
+                    geoLiveType: objectEditCtrl.data.geoLiveType,
+                    linkDir: objectEditCtrl.data.linkDir,
+                    geometryId: objectEditCtrl.data.geometryId,
+                    geometry: objectEditCtrl.data.geometry
+                });
+            } else {
+                simpleFeature = new FM.dataApi.Feature({
+                    pid: objectEditCtrl.data.pid,
+                    geoLiveType: objectEditCtrl.data.geoLiveType,
+                    boundaryLink: objectEditCtrl.data.boundaryLink,
+                    geometry: objectEditCtrl.data.geometry
+                });
+            }
             topoEditor.updateChanges(objectEditCtrl.data)
                 .then(function (res) {
                     $scope.hideLoading();

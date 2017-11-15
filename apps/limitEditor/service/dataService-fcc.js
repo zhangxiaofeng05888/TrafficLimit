@@ -52,6 +52,26 @@ angular.module('dataService').service('dsFcc', ['$http', '$q', 'ajax', 'dsOutput
         return defer.promise;
     };
     /*
+     * 再次批复
+     * */
+    this.submitAgain = function (params) {
+        var defer = $q.defer();
+        ajax.get('limit/run', {
+            parameter: JSON.stringify(params)
+        }).success(function (data) {
+            if (data.errcode == 0) {
+                defer.resolve(data.data);
+            } else {
+                swal('批赋出错：', data.errmsg, 'error');
+                defer.resolve(-1);
+            }
+        }).error(function (rejection) {
+            swal('提示', '批赋出错', 'error');
+            defer.reject(rejection);
+        });
+        return defer.promise;
+    };
+    /*
      * 提交几何
      * */
     this.submitGeo = function (params) {
