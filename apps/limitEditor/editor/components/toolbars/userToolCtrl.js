@@ -8,7 +8,7 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
         $scope.menuList = []; // 控制菜单是否可用
 
         var initMenuList = function () {
-            $scope.menuList = ['policyTable', 'resultList', 'submit', 'infoPanel', 'limit', 'log'];
+            $scope.menuList = ['policyTable', 'resultList', 'submit', 'infoPanel', 'limit', 'log', 'intersectList'];
         };
         $scope.backToInfo = function (flag) {
             if (flag) {
@@ -35,6 +35,15 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
                 type: 'spareLine'
             });
         };
+        // 相交线列表
+        $scope.intersectList = function (flag) {
+            if (flag) {
+                return;
+            }
+            $scope.$emit('ShowInfoPage', {
+                type: 'intersectLineList'
+            });
+        };
         // 重新批复
         $scope.submitAgain = function (flag) {
             if (flag) {
@@ -51,6 +60,7 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
             dsFcc.submitAgain(params).then(function (data) {
                 if (data !== -1) {
                     swal('提示', '批赋成功', 'success');
+                    $scope.$emit('RefreshIntersectLineList');
                     sceneController.redrawLayerByGeoLiveTypes(['COPYTOLINE', 'COPYTOPOLYGON', 'DRAWPOLYGON', 'GEOMETRYLINE', 'GEOMETRYPOLYGON', 'LIMITLINE']);
                 }
             });
@@ -72,6 +82,7 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
                 if (data !== -1) {
                     swal('提示', '提交成功', 'success');
                     $scope.$emit('RefreshResultList');
+                    $scope.$emit('RefreshIntersectLineList');
                     sceneController.redrawLayerByGeoLiveTypes(['COPYTOLINE', 'COPYTOPOLYGON', 'DRAWPOLYGON', 'GEOMETRYLINE', 'GEOMETRYPOLYGON', 'LIMITLINE']);
                 }
             });

@@ -294,4 +294,24 @@ angular.module('dataService').service('dsFcc', ['$http', '$q', 'ajax', 'dsOutput
         });
         return defer.promise;
     };
+    /** *
+     * 获取相交线列表
+     */
+    this.getIntersectLineListData = function (params) {
+        var defer = $q.defer();
+        ajax.get('limit/getMetaDataByCondition', {
+            parameter: JSON.stringify(params)
+        }).success(function (data) {
+            if (data.errcode == 0) {
+                defer.resolve(data.data);
+            } else {
+                swal('查找相交线信息出错：', data.errmsg, 'error');
+                defer.resolve(-1);
+            }
+        }).error(function (rejection) {
+            swal('提示', '查找相交线信息出错', 'error');
+            defer.reject(rejection);
+        });
+        return defer.promise;
+    };
 }]);

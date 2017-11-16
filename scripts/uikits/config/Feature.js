@@ -920,7 +920,7 @@ FM.uikit.Config.Feature = (function () {
                 template: { // 要素的页面片段
                     edit: {
                         ctrl: 'components/limit/ctrls/limitLineCtrl.js',
-                        tmpl: 'components/limit/tpls/batchEditLimitLineTpl.html'
+                        tmpl: 'components/limit/tpls/limitLineTpl.html'
                     }
                 },
                 editTools: ['DELETELIMIT'] // 地图操作工具列表
