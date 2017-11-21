@@ -134,7 +134,7 @@ angular.module('app').controller('resultListCtl', ['$window', '$scope', '$timeou
         };
         $scope.$on('Refresh-Result-List', function (event, data) {
             var param = {
-                pageSize: 15,
+                pageSize: $scope.searchModel.pageSize,
                 pageNum: 1
             };
             getData(param);

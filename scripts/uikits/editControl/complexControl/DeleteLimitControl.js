@@ -55,6 +55,9 @@ fastmap.uikit.editControl.DeleteLimitControl = fastmap.uikit.editControl.EditCon
         if (this.geoLiveType === 'COPYTOPOLYGON') {
             this.eventController.fire(L.Mixin.EventTypes.REFRESHSPARELINE);
         }
+        if (this.geoLiveType === 'GEOMETRYLINE' || this.geoLiveType === 'GEOMETRYPOLYGON') {
+            this.eventController.fire(L.Mixin.EventTypes.REFRESHRESULTLIST);
+        }
         this.eventController.fire(L.Mixin.EventTypes.CLOSESHAPEEDITPANEL);
         this.eventController.fire(L.Mixin.EventTypes.CLOSERIGHTPANEL, {
             feature: simpleFeature

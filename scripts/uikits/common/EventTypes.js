@@ -83,5 +83,7 @@ L.Mixin.EventTypes = {
     CLOSERIGHTPANEL: 'closeRightPanel', // 关闭右侧面板及工具条
     BATCHDELETELIMIT: 'batchDeleteLimit', // 批量删除成功之后control需要处理的逻辑
     BATCHEDITLIMIT: 'batchEditLimit', // 批量编辑成功之后control需要处理的逻辑
-    REFRESHSPARELINE: 'refreshSpareLine' // 批量编辑成功之后control需要处理的逻辑
+    REFRESHSPARELINE: 'refreshSpareLine', // 批量编辑成功之后control需要处理的逻辑
+    REFRESHRESULTLIST: 'refreshResultList' // 删除成功之后刷新几何成果列表
+
 };

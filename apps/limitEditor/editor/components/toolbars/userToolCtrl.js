@@ -79,6 +79,10 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
                 }
             };
             dsFcc.submitGeo(params).then(function (data) {
+                if (data === '属性值未发生变化') {
+                    swal('提示', '无提交内容！', 'warning');
+                    return;
+                }
                 if (data !== -1) {
                     swal('提示', '提交成功', 'success');
                     $scope.$emit('RefreshResultList');

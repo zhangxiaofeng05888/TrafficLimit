@@ -51,6 +51,9 @@ fastmap.uikit.editControl.BatchDeleteLimitControl = fastmap.uikit.editControl.Ed
 
     onDeleteFinish: function () {
         this.complexEditor.stop();
+        if (this.geoLiveType === 'GEOMETRYLINE' || this.geoLiveType === 'GEOMETRYPOLYGON') {
+            this.eventController.fire(L.Mixin.EventTypes.REFRESHRESULTLIST);
+        }
         this.sceneController.redrawLayerByGeoLiveTypes([this.geoLiveType]);
     }
 
