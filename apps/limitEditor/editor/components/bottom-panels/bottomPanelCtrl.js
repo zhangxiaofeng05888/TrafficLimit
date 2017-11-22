@@ -340,13 +340,21 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
                         var temp = data.data[i];
                         temp.pageIndex = i + 1;
                         temp.checked = false;
+                        temp.originVehicleName = FM.Util.clone(temp.vehicle);
                         temp.vehicleName = changeVehicle(temp.vehicle);
+                        temp.originAttributionName = FM.Util.clone(temp.attribution);
                         temp.attributionName = changeAttribution(temp.attribution);
+                        temp.originTailNumberName = FM.Util.clone(temp.tailNumber);
                         temp.tailNumberName = changeTailNumber(temp.tailNumber);
+                        temp.originGasEmisstand = FM.Util.clone(temp.gasEmisstand);
                         temp.gasEmisstand = changeGasEmisstand(temp.gasEmisstand);
+                        temp.originPlatecolorName = FM.Util.clone(temp.platecolor);
                         temp.platecolorName = changePlatecolor(temp.platecolor);
+                        temp.originEnergyTypeName = FM.Util.clone(temp.energyType);
                         temp.energyTypeName = changeEnergyType(temp.energyType);
+                        temp.originResDatetypeName = FM.Util.clone(temp.resDatetype);
                         temp.resDatetypeName = changeResDatetype(temp.resDatetype);
+                        temp.originSpecFlagName = FM.Util.clone(temp.specFlag);
                         temp.specFlagName = changeSpecFlag(temp.specFlag);
                         ret.push(temp);
                     }
@@ -394,6 +402,78 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             dsFcc.addGroup(params).then(function () {
                 getData();
                 swal('提示', '删除成功', 'success');
+            });
+        };
+        /**
+         * 策略表复制
+         * @method editPolicy
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {undefined}
+         */
+        $scope.copyPolicy = function () {
+            var data = $scope.gridOptions.data;
+            var selectNum = 0;
+            var selectData = null;
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].checked) {
+                    selectNum += 1;
+                    selectData = data[i];
+                }
+            }
+            if (selectNum !== 1) {
+                swal('提示', '请选择一个策略信息进行复制操作', 'warning');
+                return;
+            }
+            console.log(selectData);
+            var params = {
+                command: 'CREATE',
+                type: 'SCPLATERESMANOEUVRE',
+                data: {
+                    groupId: App.Temp.groupId
+                }
+            };
+            console.log(selectData.gasEmisstand);
+            params.data.vehicle = selectData.originVehicleName;
+            params.data.seatnum = selectData.seatnum;
+            params.data.attribution = selectData.originAttributionName;
+            params.data.tempPlate = selectData.tempPlate;
+            if (selectData.tempPlate === 1) {
+                params.data.tempPlateNum = selectData.tempPlateNum;
+            }
+            if (selectData.restrict) {
+                params.data.restrict = selectData.restrict;
+            }
+            params.data.charSwitch = selectData.charSwitch;
+            if (selectData.charSwitch === 1) {
+                params.data.charToNum = selectData.charToNum;
+            }
+            params.data.tailNumber = selectData.originTailNumberName;
+            params.data.energyType = selectData.originEnergyTypeName;
+            params.data.gasEmisstand = selectData.originGasEmisstand;
+            params.data.platecolor = selectData.originPlatecolorName;
+            params.data.vehicleLength = selectData.vehicleLength;
+            params.data.resWeigh = selectData.resWeigh;
+            params.data.resAxleLoad = selectData.resAxleLoad;
+            params.data.resAxleCount = selectData.resAxleCount;
+            var startDate = selectData.startDate;
+            var endDate = selectData.endDate;
+            if (startDate) {
+                params.data.startDate = startDate.replace(new RegExp(/(-)/g), '');
+            }
+            if (endDate) {
+                params.data.endDate = endDate.replace(new RegExp(/(-)/g), '');
+            }
+            params.data.resDatetype = selectData.originResDatetypeName;
+            if (selectData.time) {
+                params.data.time = selectData.time;
+            }
+            if (selectData.originSpecFlagName.length !== 0) {
+                params.data.specFlag = selectData.originSpecFlagName;
+            }
+            dsFcc.addGroup(params).then(function () {
+                getData();
+                swal('提示', '复制成功', 'success');
             });
         };
         /**
