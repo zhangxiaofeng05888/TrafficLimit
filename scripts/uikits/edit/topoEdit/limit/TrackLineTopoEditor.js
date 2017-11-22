@@ -1,7 +1,10 @@
 /**
- * Created by zhaohang on 2017/11/15.
+ * 道路线TopoEditor
+ * @author zhaohang
+ * @date   2017/11/15
+ * @class  fastmap.uikit.topoEdit.TrackLineTopoEditor
+ * @return {undefined}
  */
-
 fastmap.uikit.topoEdit.TrackLineTopoEditor = fastmap.uikit.topoEdit.TopoEditor.extend({
     initialize: function (map) {
         fastmap.uikit.topoEdit.TopoEditor.prototype.initialize.call(this, map);
@@ -12,9 +15,9 @@ fastmap.uikit.topoEdit.TrackLineTopoEditor = fastmap.uikit.topoEdit.TopoEditor.e
     },
 
     /**
-     * 创建工具需要使用的EditResult
-     * @param options
-     * @returns {null}
+     * 创建工具需要使用的TrackResult
+     * @param {object} options 包括选项
+     * @returns {object} editResult 编辑结果
      */
 
     getTrackResult: function (options) {
@@ -23,6 +26,11 @@ fastmap.uikit.topoEdit.TrackLineTopoEditor = fastmap.uikit.topoEdit.TopoEditor.e
         editResult.linkPids = options;
         return editResult;
     },
+
+    /**
+     * 创建接口
+     * @param editResult 编辑结果
+     */
 
     track: function (editResult) {
         var params = {

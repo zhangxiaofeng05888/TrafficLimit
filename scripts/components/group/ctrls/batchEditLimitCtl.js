@@ -1,9 +1,24 @@
 /**
- * Created by zhaohang on 2017/10/31.
+ * 批量编辑
+ * @author zhaohang
+ * @date   2017/10/31
+ * @param  {object} $window 窗口
+ * @param  {object} $scope 作用域
+ * @param  {object} $timeout 定时
+ * @param  {object} NgTableParams 构造函数
+ * @param  {object} dsFcc 接口服务
+ * @param  {object} appPath app路径
+ * @param  {object} $ocLazyLoad 延时加载
+ * @return {undefined}
  */
 angular.module('app').controller('batchEditLimitCtrl', ['$window', '$scope', '$timeout', 'NgTableParams', 'dsFcc', 'appPath', '$ocLazyLoad',
     function ($window, $scope, $timeout, NgTableParams, dsFcc, appPath, $ocLazyLoad) {
         var eventCtrl = new fastmap.uikit.EventController();
+        /**
+         * 默认页面显示ID为1的值
+         * @author Niuxinyi
+         * @date   2017-11-20
+         */
         $scope.boundaryLink = '1';
         $scope.limit = [{
             id: '1',
@@ -12,6 +27,12 @@ angular.module('app').controller('batchEditLimitCtrl', ['$window', '$scope', '$t
             id: '2',
             label: '不限行'
         }];
+        /**
+         * 保存编辑操作
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {undefined}
+         */
         $scope.saveBatchEdit = function () {
             var ids = [];
             var type = '';

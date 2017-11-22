@@ -1,5 +1,17 @@
 /**
- * Created by zhaohang on 2017/9/21.
+ * 返回情报列表界面
+ * @author zhaohang
+ * @date   2017/9/21
+ * @param  {object} $window 窗口
+ * @param  {object} $scope 作用域
+ * @param  {object} $timeout 定时
+ * @param  {object} NgTableParams 构造函数
+ * @param  {object} dsFcc 接口服务
+ * @param  {object} appPath app路径
+ * @param  {object} $ocLazyLoad 延迟加载
+ * @param  {object} dsManage 管理
+ * @param  {object} dsLazyload 延迟加载
+ * @return {undefined}
  */
 angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeout', 'NgTableParams', 'dsFcc', 'appPath', '$ocLazyLoad', 'dsManage', 'dsLazyload',
     function ($window, $scope, $timeout, NgTableParams, dsFcc, appPath, $ocLazyLoad, dsManage, dsLazyload) {
@@ -14,11 +26,24 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
             x: document.documentElement.clientWidth / 2,
             y: document.documentElement.clientHeight / 2
         };
+        /**
+         * 调用地址返回情报列表
+         * @method backInfoList
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {undefined}
+         */
         $scope.backInfoList = function () {
             window.location.href = '#/info?access_token=' + App.Temp.accessToken + '&random=' + Math.floor(Math.random() * 100);
         };
-        // 根据实际的行高设置每行的height属性，主要处理grid高度改变后，canvas的高度没有自动变化的问题
-        var myRowProc = function (rows, columns) {
+        /**
+         * 根据实际的行高设置每行的height属性，主要处理grid高度改变后，canvas的高度没有自动变化的问题
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @param  {object} rows 主要为要显示的信息行列
+         * @return {object} rows 包含行高
+         */
+        var myRowProc = function (rows) {
             if (rows.length > 0) {
                 $timeout(function () {
                     var rowElems = rows[0].grid.element.find('.ui-grid-canvas').children();
@@ -30,7 +55,12 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
             }
             return rows;
         };
-
+        /**
+         * 对弹出框进行位置、大小、视口、最小化、关闭、模态框等进行基本的管理设置
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {undefined}
+         */
         $scope.dialogManager = {};
         var defaultDialogOptions = {
             position: {
@@ -47,8 +77,16 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
             closable: true,
             modal: false
         };
-
-        // 弹出框大小设置
+        /**
+         * 对弹出框大小、位置进行设置
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @param  {object} dlgOption 包含弹出框选项
+         * @param  {object} width 包含宽度
+         * @param  {object} height 包含高度
+         * @param  {object} model 包含模型
+         * @return {undefined}
+         */
         var getDlgOption = function (dlgOption, width, height, model) {
             dlgOption.modal = model;
             dlgOption.size.width = width;
@@ -56,8 +94,14 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
             dlgOption.position.x = $scope.PageViewPoint.x - width / 2;
             dlgOption.position.y = $scope.PageViewPoint.y - height / 2;
         };
-
-        // 对于不同种类弹框大小区分
+        /**
+         * 对于不同种类弹框大小区分
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @param  {object} type 包含弹出框类型
+         * @param  {object} dlgOption 包含弹出框选项
+         * @return {undefined}
+         */
         var getDlgOptions = function (type, dlgOption) {
             switch (type) {
                 case 'addGroup':
@@ -80,7 +124,7 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
          * @author ChenXiao
          * @date   2017-09-11
          * @param  {object} data 窗口选项，主要为要显示的信息类型
-         * @return {object} 包含窗口标题、页面片段的信息的窗口对象
+         * @return {item} 包含窗口标题、页面片段的信息的窗口对象
          */
         var createDialog = function (data) {
             var item = {};
@@ -93,15 +137,37 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
 
             return item;
         };
-
+        /**
+         * 打开弹出窗口对象
+         * @method openDialog
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @param  {object} dlg 弹出框消息,主要为要显示的弹出框信息
+         * @param  {object} dlgKey 对应的键值，主要为要显示的弹出框信息
+         * @return {undefined}
+         */
         $scope.openDialog = function (dlg, dlgKey) {
             $scope.dialogManager[dlgKey].handler = dlg;
         };
-
+        /**
+         * 关闭弹出窗口对象
+         * @method closeDialog
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @param  {object} dlgKey 弹出框对应的键值，主要为要关闭弹出框
+         * @return {undefined}
+         */
         $scope.closeDialog = function (dlgKey) {
             delete $scope.dialogManager[dlgKey];
         };
-
+        /**
+         * 显示弹出窗口对象
+         * @method showInDialog
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @param  {object} data 窗口数据
+         * @return {undefined}
+         */
         var showInDialog = function (data) {
             var dlgKey = data.type;
             if ($scope.dialogManager[dlgKey]) {
@@ -117,8 +183,14 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
                 });
             }
         };
-
-        // 获取表格数据;
+        /**
+         * 获取表格数据
+         * @method getData
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @param  {object} data 表格数据
+         * @return {undefined}
+         */
         function getData() {
             var params = {
                 type: 'SCPLATERESGROUP',
@@ -144,10 +216,23 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
                 $scope.gridOptions.data = ret;
             });
         }
-
+        /**
+         * 新增弹出框显示新增记录
+         * @method addGroupList
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {undefined}
+         */
         $scope.addGroupList = function () {
             showInDialog({ type: 'addGroup' });
         };
+        /**
+         * 对数据进行编辑及编辑弹出框显示编辑记录
+         * @method editGroupList
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {undefined}
+         */
         $scope.editGroupList = function () {
             var data = $scope.gridOptions.data;
             var selectNum = 0;
@@ -168,6 +253,13 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
             }
             showInDialog({ type: 'editGroup', data: selectData });
         };
+        /**
+         * 对数据进行关联操作
+         * @method correlationGroup
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {undefined}
+         */
         $scope.correlationGroup = function () {
             var data = $scope.gridOptions.data;
             var groupIds = [];
@@ -182,6 +274,13 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
                     existGroupIds: groupIds
                 } });
         };
+        /**
+         * 对数据进行删除操作判断，提示删除成功
+         * @method deleteGroup
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {undefined}
+         */
         $scope.deleteGroup = function () {
             var groupIds = [];
             var data = $scope.gridOptions.data;
@@ -204,6 +303,14 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
                 swal('提示', '删除成功', 'success');
             });
         };
+        /**
+         * 数据的详细地图界面的打开操作，进入单条数据的地图界面
+         * @method openMap
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @param  {object} row 每条数据的行 data 包括数据的id、数据的几何
+         * @return {undefined}
+         */
         $scope.openMap = function (row) {
             var params = {
                 adminCode: App.Temp.infoToGroupData.cityId
@@ -223,26 +330,57 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
                 }
             });
         };
-        // 显示序号;
+        /**
+         * 获取序号
+         * @method getIndex
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {object} html 包含序号，显示在页面
+         */
         function getIndex() {
             var html = '<div class="ui-grid-cell-contents">{{(grid.appScope.searchModel.pageNum - 1) * grid.appScope.searchModel.pageSize + row.entity.pageIndex}}</div>';
             return html;
         }
-
+        /**
+         * 获取组号，点击组号，进入对应的地图界面
+         * @method formatRow
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {object} html 包含组号，显示在页面
+         */
         function formatRow() {
             var html = '<div class="ui-grid-cell-contents" ng-click="grid.appScope.openMap(row)">{{row.entity.groupId}}</div>';
             return html;
         }
-
+        /**
+         * 获取类型，根据row.entity.groupType的值进行判断
+         * @method groupType
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {object} html 包含类型，显示在页面
+         */
         function groupType() {
             var html = '<div class="ui-grid-cell-contents">{{row.entity.groupType === 1 ? "新增" : row.entity.groupType === 2 ? "删除" : row.entity.groupType === 3 ? "修改" : "已制作"}}</div>';
             return html;
         }
+        /**
+         * 获取限制规定，内容截取0至24显示
+         * @method getRule
+         * @author Niuxinyi
+         * @date   2017-11-16
+         *@return {object} html 包含限制规定，显示在页面
+         */
         function getRule() {
             var html = '<div class="ui-grid-cell-contents" title="{{row.entity.principle}}">{{row.entity.principle.substring(0, 24)}}</div>';
             return html;
         }
-        // 初始化表格;
+        /**
+         * 初始化表格;
+         * @method initialize
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {undefined}
+         */
         var initialize = function () {
             $scope.gridOptions = {
                 useExternalSorting: true,
@@ -256,7 +394,7 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
                 onRegisterApi: function (gridApi) {
                     $scope.gridApi = gridApi;
                     // 处理改变列表高度后，滚动条跳动的问题
-                    gridApi.grid.registerRowsProcessor(myRowProc, 200);
+                    gridApi.grid.registerRowsProcessor(myRowProc);
                 },
                 columnDefs: [
                     {

@@ -1,5 +1,9 @@
 /**
- * Created by zhaohang on 2017/10/17.
+ * 复制到线
+ * @author zhaohang
+ * @date   2017/10/17
+ * @class  FM.mapApi.render.renderer.CopyToLine
+ * @return {undefined}
  */
 FM.mapApi.render.renderer.CopyToLine = FM.mapApi.render.Renderer.extend({
     initialize: function (feature, zoom) {
@@ -8,7 +12,13 @@ FM.mapApi.render.renderer.CopyToLine = FM.mapApi.render.Renderer.extend({
         // 绑定函数作用域
         FM.Util.bind(this);
     },
-
+    /**
+     * 渲染几何
+     * @method getSymbol
+     * @author Niuxinyi
+     * @date   2017-11-20
+     * @return {object} symbol 几何
+     */
     getSymbol: function () {
         var symbolData = {
             type: 'SimpleLineSymbol',
@@ -19,7 +29,13 @@ FM.mapApi.render.renderer.CopyToLine = FM.mapApi.render.Renderer.extend({
         symbol.geometry = this._geometryFactory.fromGeojson(this._feature.geometry);
         return symbol;
     },
-
+    /**
+     * 高亮几何
+     * @method getHighlightSymbol
+     * @author Niuxinyi
+     * @date   2017-11-20
+     * @return {object} symbol 几何
+     */
     getHighlightSymbol: function () {
         var symbolData = {
             type: 'SimpleLineSymbol',

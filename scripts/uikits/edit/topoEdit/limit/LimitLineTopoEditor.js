@@ -1,7 +1,10 @@
 /**
- * Created by zhaohang on 2017/11/15.
+ * 限行线TopoEditor
+ * @author zhaohang
+ * @date   2017/11/15
+ * @class  fastmap.uikit.topoEdit.LimitLineTopoEditor
+ * @return {undefined}
  */
-
 fastmap.uikit.topoEdit.LimitLineTopoEditor = fastmap.uikit.topoEdit.TopoEditor.extend({
     initialize: function (map) {
         fastmap.uikit.topoEdit.TopoEditor.prototype.initialize.call(this, map);
@@ -10,18 +13,32 @@ fastmap.uikit.topoEdit.LimitLineTopoEditor = fastmap.uikit.topoEdit.TopoEditor.e
         FM.Util.bind(this);
         this.eventController = fastmap.uikit.EventController();
     },
-
+    /**
+     * 创建工具需要使用的EditResult
+     * @param {object} options 包括选项
+     * @returns {object} editResult 编辑结果
+     */
     getBatchEditResult: function (options) {
         var editResult = new fastmap.uikit.complexEdit.BatchEditLimitResult();
         editResult.geoLiveType = 'LIMITLINE';
         return editResult;
     },
-
+    /**
+     * 创建工具需要使用的DeleteResult
+     * @param {object} options 包括选项
+     * @returns {object} editResult 编辑结果
+     */
     getBatchDeleteResult: function (options) {
         var editResult = new fastmap.uikit.complexEdit.BatchEditLimitResult();
         editResult.geoLiveType = 'LIMITLINE';
         return editResult;
     },
+
+    /**
+     * 更新
+     * @param {object} geoLiveObject 几何对象
+     * @returns {object} params
+     */
 
     updateChanges: function (geoLiveObject) {
         var params = {
@@ -36,6 +53,13 @@ fastmap.uikit.topoEdit.LimitLineTopoEditor = fastmap.uikit.topoEdit.TopoEditor.e
         };
         return this.dataServiceFcc.deleteLine(params);
     },
+
+    /**
+     * 删除
+     * @param {object} id id号
+     * @param {object} geoLiveObject 几何对象
+     * @returns {object} params
+     */
 
     deleteLimit: function (id, geometryId) {
         var params = {
@@ -53,6 +77,12 @@ fastmap.uikit.topoEdit.LimitLineTopoEditor = fastmap.uikit.topoEdit.TopoEditor.e
     canDelete: function (geoLiveObject) {
         return false;
     },
+
+    /**
+     * 查询
+     * @param {object} options 选项
+     * @returns {object} 包括pid、geoLiveType、geometry、 linkDir、geometryId
+     */
 
     query: function (options) {
         return {
