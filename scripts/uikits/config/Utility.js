@@ -320,6 +320,13 @@ FM.uikit.Config.Utility = (function () {
                     ctrl: 'components/group/ctrls/batchDeleteLimitLineCtl.js',
                     tmpl: 'components/group/tpls/batchDeleteLimitLineTpl.html'
                 }
+            },
+            intersectLineList: {
+                name: '相交线列表',
+                template: {
+                    ctrl: 'components/group/ctrls/intersectLineListCtl.js',
+                    tmpl: 'components/group/tpls/intersectLineListTpl.html'
+                }
             }
         };
 

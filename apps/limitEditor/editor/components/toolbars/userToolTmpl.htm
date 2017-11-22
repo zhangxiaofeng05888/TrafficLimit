@@ -18,6 +18,9 @@
         <li ng-class="{true:'disabled'}[menuList.indexOf('log') < 0]" ng-click="submitAgain(menuList.indexOf('log') < 0)">
             重新批复
         </li>
+        <li ng-class="{true:'disabled'}[menuList.indexOf('intersectList') < 0]" ng-click="intersectList(menuList.indexOf('intersectList') < 0)">
+            相交线列表
+        </li>
         <li ng-class="{true:'disabled'}[menuList.indexOf('resultList') < 0]" ng-click="showResultListPanel(menuList.indexOf('policyTable') < 0)">
             几何成果列表
         </li>

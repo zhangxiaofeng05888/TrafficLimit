@@ -34,7 +34,6 @@ fastmap.uikit.complexEdit.ComplexEditor = fastmap.uikit.Editor.extend({
         this.toolController.addTool(new fastmap.uikit.complexEdit.BatchPoiGuideManualTool());
         this.toolController.addTool(new fastmap.uikit.complexEdit.AdjustImageTool());
         this.toolController.addTool(new fastmap.uikit.complexEdit.CopyTool());
-        this.toolController.addTool(new fastmap.uikit.complexEdit.DrawPolygonTool());
         this.toolController.addTool(new fastmap.uikit.complexEdit.BatchEditLimitTool());
         this.toolController.addTool(new fastmap.uikit.complexEdit.BreakEditLineTool());
         this.toolController.addTool(new fastmap.uikit.complexEdit.TrackTool());
@@ -100,9 +99,6 @@ fastmap.uikit.complexEdit.ComplexEditor = fastmap.uikit.Editor.extend({
                 break;
             case 'CopyResult':
                 toolName = 'CopyTool';
-                break;
-            case 'DrawPolygonResult':
-                toolName = 'DrawPolygonTool';
                 break;
             case 'BatchEditLimitResult':
                 toolName = 'BatchEditLimitTool';

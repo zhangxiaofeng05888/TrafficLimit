@@ -21,8 +21,9 @@ fastmap.uikit.topoEdit.DrawPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEditor
      */
 
     getCopyResult: function (options) {
-        var editResult = new fastmap.uikit.complexEdit.DrawPolygonResult();
+        var editResult = new fastmap.uikit.complexEdit.CopyResult();
         editResult.geoLiveType = 'DRAWPOLYGON';
+        editResult.types = ['COPYTOPOLYGON'];
         return editResult;
     },
     /**

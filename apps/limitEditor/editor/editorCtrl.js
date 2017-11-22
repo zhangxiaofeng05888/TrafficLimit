@@ -548,6 +548,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 case 'ResultListPanel':
                 case 'spareLine':
                 case 'trackLinePanel':
+                case 'intersectLineList':
                     showInLeftFloatPanel(data);
                     break;
                 case 'RestrictionTopoPanel':
@@ -1670,10 +1671,19 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
             $scope.$broadcast('Refresh-Result-List');
         });
 
+        eventCtrl.on(eventCtrl.eventTypes.REFRESHRESULTLIST, function (data) {
+            $scope.$broadcast('Refresh-Result-List');
+        });
+
         // 刷新编辑线列表
         eventCtrl.on(eventCtrl.eventTypes.REFRESHSPARELINE, function (data) {
             $scope.$broadcast('refresh-spareLine');
-        })
+        });
+
+        // 刷新相交线列表
+        $scope.$on('RefreshIntersectLineList', function (event, data) {
+            $scope.$broadcast('refresh-intersectLine');
+        });
         /* start 事件监听*******************************************************************/
         eventCtrl.on(eventCtrl.eventTypes.OBJECTSELECTED, function (data) {
             $scope.$broadcast('Map-ClearMap');
