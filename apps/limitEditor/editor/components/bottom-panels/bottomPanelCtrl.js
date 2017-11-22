@@ -425,7 +425,6 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
                 swal('提示', '请选择一个策略信息进行复制操作', 'warning');
                 return;
             }
-            console.log(selectData);
             var params = {
                 command: 'CREATE',
                 type: 'SCPLATERESMANOEUVRE',
@@ -433,7 +432,6 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
                     groupId: App.Temp.groupId
                 }
             };
-            console.log(selectData.gasEmisstand);
             params.data.vehicle = selectData.originVehicleName;
             params.data.seatnum = selectData.seatnum;
             params.data.attribution = selectData.originAttributionName;
