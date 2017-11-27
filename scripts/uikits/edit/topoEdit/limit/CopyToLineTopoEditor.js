@@ -1,7 +1,11 @@
-/**
- * Created by zhaohang on 2017/10/16.
- */
 
+/**
+ * 复制到线TopoEditor
+ * @author zhaohang
+ * @date   2017/10/16
+ * @class  fastmap.uikit.topoEdit.CopyToLineTopoEditor
+ * @return {undefined}
+ */
 fastmap.uikit.topoEdit.CopyToLineTopoEditor = fastmap.uikit.topoEdit.TopoEditor.extend({
     initialize: function (map) {
         fastmap.uikit.topoEdit.TopoEditor.prototype.initialize.call(this, map);
@@ -13,8 +17,8 @@ fastmap.uikit.topoEdit.CopyToLineTopoEditor = fastmap.uikit.topoEdit.TopoEditor.
 
     /**
      * 创建工具需要使用的EditResult
-     * @param options
-     * @returns {null}
+     * @param {object} options 包括选项
+     * @returns {object} editResult 编辑结果
      */
 
     getBatchEditResult: function (options) {
@@ -23,11 +27,23 @@ fastmap.uikit.topoEdit.CopyToLineTopoEditor = fastmap.uikit.topoEdit.TopoEditor.
         return editResult;
     },
 
+    /**
+     * 创建工具需要使用的DeleteResult
+     * @param {object} options 包括选项
+     * @returns {object} editResult 编辑结果
+     */
+
     getBatchDeleteResult: function (options) {
         var editResult = new fastmap.uikit.complexEdit.BatchEditLimitResult();
         editResult.geoLiveType = 'COPYTOLINE';
         return editResult;
     },
+
+    /**
+     * 创建工具需要使用的CopyResult
+     * @param {object} options 包括选项
+     * @returns {object} editResult 编辑结果
+     */
 
     getCopyResult: function (options) {
         var editResult = new fastmap.uikit.complexEdit.CopyResult();
@@ -38,8 +54,9 @@ fastmap.uikit.topoEdit.CopyToLineTopoEditor = fastmap.uikit.topoEdit.TopoEditor.
 
     /**
      * 创建接口
-     * @param editResult 编辑结果
+     * @param  {object} editResult 编辑结果
      */
+
     copy: function (editResult) {
         var links = [];
         for (var i = 0; i < editResult.links.length; i++) {
@@ -57,6 +74,11 @@ fastmap.uikit.topoEdit.CopyToLineTopoEditor = fastmap.uikit.topoEdit.TopoEditor.
         return this.dataServiceFcc.copyToLine(params);
     },
 
+    /**
+     * 更新
+     * @param {object} geoLiveObject 几何对象
+     */
+
     updateChanges: function (geoLiveObject) {
         var params = {
             type: 'SCPLATERESLINK',
@@ -69,6 +91,11 @@ fastmap.uikit.topoEdit.CopyToLineTopoEditor = fastmap.uikit.topoEdit.TopoEditor.
         };
         return this.dataServiceFcc.deleteLine(params);
     },
+
+    /**
+     * 删除
+     * @param {object} id  id号
+     */
 
     deleteLimit: function (id) {
         var params = {

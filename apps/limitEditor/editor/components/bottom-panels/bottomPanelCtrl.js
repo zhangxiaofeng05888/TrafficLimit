@@ -1,5 +1,14 @@
 /**
- * Created by zhaohang on 2017/10/11.
+ * 编辑策略表底面
+ * @author zhaohang
+ * @date   2017/10/11
+ * @param  {object} $scope 作用域
+ * @param  {object} $rootScope 底部作用域
+ * @param  {object} dsLazyload 延时加载
+ * @param  {object} appPath app路径
+ * @param  {object} dsFcc 接口服务
+ * @param  {object} $timeout 定时
+ * @return {undefined}
  */
 angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootScope', 'dsLazyload', 'appPath', 'dsFcc', '$timeout',
     function ($scope, $rootScope, dsLazyload, appPath, dsFcc, $timeout) {
@@ -7,11 +16,25 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             pageNum: 1,
             pageSize: 20
         };
+        /**
+         * 策略表新增
+         * @method addPolicy
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {undefined}
+         */
         $scope.addPolicy = function () {
             $scope.$emit('ShowInfoPage', {
                 type: 'addPolicy'
             });
         };
+        /**
+         * 策略表编辑
+         * @method editPolicy
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {undefined}
+         */
         $scope.editPolicy = function () {
             var data = $scope.gridOptions.data;
             var selectNum = 0;
@@ -115,7 +138,14 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             3: '节假日',
             4: '特定日期'
         };
-        var myRowProc = function (rows, columns) {
+        /**
+         * 根据实际的行高设置每行的height属性，主要处理grid高度改变后，canvas的高度没有自动变化的问题
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @param  {object} rows 主要为要显示的信息行列
+         * @return {object} rows 包含行高
+         */
+        var myRowProc = function (rows) {
             if (rows.length > 0) {
                 $timeout(function () {
                     var rowElems = rows[0].grid.element.find('.ui-grid-canvas').children();
@@ -127,13 +157,25 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             }
             return rows;
         };
-        // 显示序号;
+        /**
+         * 显示序号
+         * @method getIndex
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {object} html 包括序号，显示在页面
+         */
         function getIndex() {
             var html = '<div class="ui-grid-cell-contents">{{(grid.appScope.searchModel.pageNum - 1) * grid.appScope.searchModel.pageSize + row.entity.pageIndex}}</div>';
             return html;
         }
-
-        // 转换车辆类型
+        /**
+         * 转换车辆类型
+         * @method changeVehicle
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @param {object} vehicle 车辆
+         * @return {object} vehicleName 包括车辆数组
+         */
         function changeVehicle(vehicle) {
             var vehicleIds = vehicle.split('|');
             var vehicleName = [];
@@ -142,8 +184,14 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             }
             return vehicleName.join('|');
         }
-
-        // 转换本外地
+        /**
+         * 转换本外地
+         * @method changeAttribution
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @param {object} attribution 本外地
+         * @return {object} attributionName 本外地数组
+         */
         function changeAttribution(attribution) {
             var attributionIds = attribution.split('|');
             var attributionName = [];
@@ -152,7 +200,14 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             }
             return attributionName.join('|');
         }
-        // 转换限行尾号
+        /**
+         * 转换限行尾号
+         * @method changeTailNumber
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @param {object} tailNumber 限行尾号
+         * @return {object} tailNumberName 限行尾号数组
+         */
         function changeTailNumber(tailNumber) {
             var tailNumberIds = tailNumber.split('|');
             var tailNumberName = [];
@@ -161,7 +216,14 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             }
             return tailNumberName.join('|');
         }
-        // 转换油气排放标准
+        /**
+         * 转换油气排放标准
+         * @method changeGasEmisstand
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @param {object} gasEmisstand 油气排放标准
+         * @return {object} gasEmisstandName 油气排放标准数组
+         */
         function changeGasEmisstand(gasEmisstand) {
             var gasEmisstandIds = gasEmisstand.split('|');
             var gasEmisstandName = [];
@@ -170,7 +232,14 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             }
             return gasEmisstandName.join('|');
         }
-        // 转换车牌颜色
+        /**
+         * 转换车牌颜色
+         * @method changePlatecolor
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @param {object} platecolor 车牌颜色
+         * @return {object} platecolorName 车牌颜色数组
+         */
         function changePlatecolor(platecolor) {
             var platecolorIds = platecolor.split('|');
             var platecolorName = [];
@@ -179,7 +248,14 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             }
             return platecolorName.join('|');
         }
-        // 转换能源类型
+        /**
+         * 转换能源类型
+         * @method changeEnergyType
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @param {object} energyType 能源类型
+         * @return {object} energyTypeName 能源类型数组
+         */
         function changeEnergyType(energyType) {
             var energyTypeIds = energyType.split('|');
             var energyTypeName = [];
@@ -188,7 +264,14 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             }
             return energyTypeName.join('|');
         }
-        // 转换限行时间类型
+        /**
+         * 转换限行时间类型
+         * @method changeResDatetype
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @param {object} resDatetype 限行时间类型
+         * @return {object} resDatetypeName 限行时间类型数组
+         */
         function changeResDatetype(resDatetype) {
             var resDatetypeIds = resDatetype.split('|');
             var resDatetypeName = [];
@@ -197,7 +280,14 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             }
             return resDatetypeName.join('|');
         }
-        // 转换限行时间类型
+        /**
+         * 转换排除日期
+         * @method changeSpecFlag
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @param {object} specFlag 排除日期
+         * @return {object} specFlagName 排除日期数组
+         */
         function changeSpecFlag(specFlag) {
             var specFlagIds = specFlag.split('|');
             var specFlagName = [];
@@ -206,17 +296,35 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             }
             return specFlagName.join('|');
         }
-        // 临牌转换原则
+        /**
+         * 临牌转换原则
+         * @method getTempPlate
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {object} html 返回页面
+         */
         function getTempPlate() {
             var html = '<div class="ui-grid-cell-contents">{{row.entity.tempPlate === 1 ? "转换为固定数字" : row.entity.tempPlate === 2 ? "视为常规车牌" : "不转换"}}</div>';
             return html;
         }
-        // 字母转换原则
+        /**
+         * 字母转换原则
+         * @method getCharSwitch
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {object} html 返回页面
+         */
         function getCharSwitch() {
             var html = '<div class="ui-grid-cell-contents">{{row.entity.charSwitch === 1 ? "转换为固定数字" : row.entity.charSwitch === 2 ? "以字母前一位阿拉伯数字为准" : "原值转出"}}</div>';
             return html;
         }
-        // 获取表格数据;
+        /**
+         * 获取表格数据
+         * @method getData
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {undefined}
+         */
         function getData() {
             var params = {
                 type: 'SCPLATERESMANOEUVRE',
@@ -232,13 +340,21 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
                         var temp = data.data[i];
                         temp.pageIndex = i + 1;
                         temp.checked = false;
+                        temp.originVehicleName = FM.Util.clone(temp.vehicle);
                         temp.vehicleName = changeVehicle(temp.vehicle);
+                        temp.originAttributionName = FM.Util.clone(temp.attribution);
                         temp.attributionName = changeAttribution(temp.attribution);
+                        temp.originTailNumberName = FM.Util.clone(temp.tailNumber);
                         temp.tailNumberName = changeTailNumber(temp.tailNumber);
+                        temp.originGasEmisstand = FM.Util.clone(temp.gasEmisstand);
                         temp.gasEmisstand = changeGasEmisstand(temp.gasEmisstand);
+                        temp.originPlatecolorName = FM.Util.clone(temp.platecolor);
                         temp.platecolorName = changePlatecolor(temp.platecolor);
+                        temp.originEnergyTypeName = FM.Util.clone(temp.energyType);
                         temp.energyTypeName = changeEnergyType(temp.energyType);
+                        temp.originResDatetypeName = FM.Util.clone(temp.resDatetype);
                         temp.resDatetypeName = changeResDatetype(temp.resDatetype);
+                        temp.originSpecFlagName = FM.Util.clone(temp.specFlag);
                         temp.specFlagName = changeSpecFlag(temp.specFlag);
                         ret.push(temp);
                     }
@@ -248,10 +364,23 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
                 $scope.gridOptions.data = ret;
             });
         }
-
+        /**
+         * 关闭策略表
+         * @method closePolicy
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {undefined}
+         */
         $scope.closePolicy = function () {
             $scope.$emit('CloseBottomPolicyPanel');
         };
+        /**
+         * 策略表中删除操作
+         * @method deletePolicy
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {undefined}
+         */
         $scope.deletePolicy = function () {
             var groupIds = [];
             var data = $scope.gridOptions.data;
@@ -275,6 +404,84 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
                 swal('提示', '删除成功', 'success');
             });
         };
+        /**
+         * 策略表复制
+         * @method editPolicy
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {undefined}
+         */
+        $scope.copyPolicy = function () {
+            var data = $scope.gridOptions.data;
+            var selectNum = 0;
+            var selectData = null;
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].checked) {
+                    selectNum += 1;
+                    selectData = data[i];
+                }
+            }
+            if (selectNum !== 1) {
+                swal('提示', '请选择一个策略信息进行复制操作', 'warning');
+                return;
+            }
+            var params = {
+                command: 'CREATE',
+                type: 'SCPLATERESMANOEUVRE',
+                data: {
+                    groupId: App.Temp.groupId
+                }
+            };
+            params.data.vehicle = selectData.originVehicleName;
+            params.data.seatnum = selectData.seatnum;
+            params.data.attribution = selectData.originAttributionName;
+            params.data.tempPlate = selectData.tempPlate;
+            if (selectData.tempPlate === 1) {
+                params.data.tempPlateNum = selectData.tempPlateNum;
+            }
+            if (selectData.restrict) {
+                params.data.restrict = selectData.restrict;
+            }
+            params.data.charSwitch = selectData.charSwitch;
+            if (selectData.charSwitch === 1) {
+                params.data.charToNum = selectData.charToNum;
+            }
+            params.data.tailNumber = selectData.originTailNumberName;
+            params.data.energyType = selectData.originEnergyTypeName;
+            params.data.gasEmisstand = selectData.originGasEmisstand;
+            params.data.platecolor = selectData.originPlatecolorName;
+            params.data.vehicleLength = selectData.vehicleLength;
+            params.data.resWeigh = selectData.resWeigh;
+            params.data.resAxleLoad = selectData.resAxleLoad;
+            params.data.resAxleCount = selectData.resAxleCount;
+            var startDate = selectData.startDate;
+            var endDate = selectData.endDate;
+            if (startDate) {
+                params.data.startDate = startDate.replace(new RegExp(/(-)/g), '');
+            }
+            if (endDate) {
+                params.data.endDate = endDate.replace(new RegExp(/(-)/g), '');
+            }
+            params.data.resDatetype = selectData.originResDatetypeName;
+            if (selectData.time) {
+                params.data.time = selectData.time;
+            }
+            if (selectData.originSpecFlagName.length !== 0) {
+                params.data.specFlag = selectData.originSpecFlagName;
+            }
+            dsFcc.addGroup(params).then(function () {
+                getData();
+                swal('提示', '复制成功', 'success');
+            });
+        };
+        /**
+         * 初始化数据
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @param {object} event 包括事件
+         * @param {object} data 包括数据
+         * @return {undefined}
+         */
         var initialize = function (event, data) {
             $scope.gridOptions = {
                 useExternalSorting: true,
@@ -288,7 +495,7 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
                 onRegisterApi: function (gridApi) {
                     $scope.gridApi = gridApi;
                     // 处理改变列表高度后，滚动条跳动的问题
-                    gridApi.grid.registerRowsProcessor(myRowProc, 200);
+                    gridApi.grid.registerRowsProcessor(myRowProc);
                 },
                 columnDefs: [
                     {

@@ -2,8 +2,8 @@
  * Created by zhaohang on 2017/11/15.
  */
 /**
- * 定义‘道路线’要素选中时的高亮规则
- * @file      RdLink.js
+ * 定义‘限行线’要素选中时的高亮规则
+ * @file      LimitLine.js
  * @author    LiuZhe
  * @date      2017-09-12
  *

@@ -3,8 +3,8 @@ angular.module('dataService', ['oc.lazyLoad'], function ($httpProvider) {
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
     /**
      * The workhorse; converts an object to x-www-form-urlencoded serialization.
-     * @param {Object} obj
-     * @return {String}
+     * @param {object} obj 对象
+     * @return {object} string 字符串
      */
     var param = function (obj) {
         var query = '';

@@ -15,7 +15,12 @@ angular.module('app').controller('trackLineCtrl', function ($scope, dsFcc, NgTab
         feedback.clear();
         feedbackCtrl.refresh();
     };
-
+    /**
+     * 复制到线
+     * @author Niuxinyi
+     * @date   2017-11-20
+     * @return {undefined}
+     */
     $scope.copyToLine = function () {
         var linkData = $scope.results;
         var links = [];
@@ -47,7 +52,12 @@ angular.module('app').controller('trackLineCtrl', function ($scope, dsFcc, NgTab
             }
         });
     };
-
+    /**
+     * 复制到面
+     * @author Niuxinyi
+     * @date   2017-11-20
+     * @return {undefined}
+     */
     $scope.copyToPolygon = function () {
         var linkData = $scope.results;
         var links = [];
@@ -79,7 +89,14 @@ angular.module('app').controller('trackLineCtrl', function ($scope, dsFcc, NgTab
             }
         });
     };
-
+    /**
+     * 初始化数据
+     * @author Niuxinyi
+     * @date   2017-11-20
+     * @param  {object} event 包括事件
+     * @param  {object} data 包括数据
+     * @return {undefined}
+     */
     var initialize = function (event, data) {
         $scope.results = data;
         $scope.selectedNums = $scope.results.rows.length;
@@ -108,14 +125,16 @@ angular.module('app').controller('trackLineCtrl', function ($scope, dsFcc, NgTab
     };
 
     $scope.positionLine = function (item) {
-
         $scope.$emit('LocateObject', { feature: {
             geometry: item.geometry
         } });  //  定位到第一个点的位置
-
     };
-
-    // 关闭搜索面板;
+    /**
+     * 关闭搜索面板;
+     * @author Niuxinyi
+     * @date   2017-11-20
+     * @return {undefined}
+     */
     $scope.closeAdvanceSearchPanel = function () {
         $scope.$emit('CloseInfoPage', { type: 'trackLinePanel' });
     };

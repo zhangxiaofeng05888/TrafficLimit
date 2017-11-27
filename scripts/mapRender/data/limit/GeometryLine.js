@@ -2,8 +2,8 @@
  * Created by zhaohang on 2017/10/18.
  */
 /**
- * 道路线的前端数据模型
- * @class FM.mapApi.render.data.RdLink
+ * 几何成果线
+ * @class FM.mapApi.render.data.GeometryLine
  * @author LiuZhe
  * @date   2017-09-12
  *

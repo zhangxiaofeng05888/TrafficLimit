@@ -1,8 +1,15 @@
 /**
- * Created by zhaohang on 2017/11/8.
- */
-/**
- * Created by zhaohang on 2017/10/12.
+ * 编辑线列表
+ * @author zhaohang
+ * @date   2017/11/8
+ * @param  {object} $window 窗口
+ * @param  {object} $scope 作用域
+ * @param  {object} $timeout 定时
+ * @param  {object} NgTableParams 构造函数
+ * @param  {object} dsFcc 接口服务
+ * @param  {object} appPath app路径
+ * @param  {object} dsEdit 编辑
+ * @return {undefined}
  */
 angular.module('app').controller('spareLineListCtl', ['$window', '$scope', '$timeout', 'NgTableParams', 'dsFcc', 'appPath', 'dsEdit',
     function ($window, $scope, $timeout, NgTableParams, dsFcc, appPath, dsEdit) {
@@ -17,8 +24,13 @@ angular.module('app').controller('spareLineListCtl', ['$window', '$scope', '$tim
             feedback.clear();
             feedbackCtrl.refresh();
         };
-
-        // 定位并高亮显示要素
+        /**
+         * 定位并高亮显示要素
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @param  {object} row 包括获取数据的行
+         * @return {undefined}
+         */
         $scope.showOnMap = function (row) {
             if (!row.isSelected) {
                 return;
@@ -31,7 +43,12 @@ angular.module('app').controller('spareLineListCtl', ['$window', '$scope', '$tim
             feedback.add(row.entity.geometry, symbol);
             feedbackCtrl.refresh();
         };
-        // 格式化row(为了给row绑定事件)
+        /**
+         * 格式化row(为了给row绑定事件)
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {object} html 返回页面
+         */
         function formatRow() {
             var html = '<div ng-click="grid.appScope.showOnMap(row)">' +
               '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" ' +
@@ -39,20 +56,32 @@ angular.module('app').controller('spareLineListCtl', ['$window', '$scope', '$tim
               '</div>';
             return html;
         }
-
-        // 显示序号
+        /**
+         * 显示序号
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {object} html 返回页面
+         */
         function getIndex() {
             var html = '<div class="ui-grid-cell-contents">{{row.entity.pageIndex}}</div>';
             return html;
         }
-
-        // 边界是否限行
+        /**
+         * 边界是否限行
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {object} html 返回页面
+         */
         function getBoundaryLike() {
             var html = '<div class="ui-grid-cell-contents">{{row.entity.boundaryLink === "1" ? "限行" : "不限行"}}</div>';
             return html;
         }
-
-        // 获取表格数据;
+        /**
+         * 获取表格数据;
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {undefined}
+         */
         function getData() {
             clearFeedback();
             var params = {
@@ -81,7 +110,12 @@ angular.module('app').controller('spareLineListCtl', ['$window', '$scope', '$tim
                 $scope.loadingFlag = false;
             });
         }
-
+        /**
+         * 初始化数据
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {undefined}
+         */
         var initialize = function () {
             clearFeedback();
             $scope.groupID = App.Temp.groupId;

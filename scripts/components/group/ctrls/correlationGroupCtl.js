@@ -1,5 +1,14 @@
 /**
- * Created by zhaohang on 2017/9/27.
+ * 关联
+ * @author zhaohang
+ * @date   2017/9/27
+ * @param  {object} $window 窗口
+ * @param  {object} $scope 作用域
+ * @param  {object} $timeout 定时
+ * @param  {object} NgTableParams 构造函数
+ * @param  {object} dsFcc 接口服务
+ * @param  {object} appPath app路径
+ * @return {undefined}
  */
 angular.module('app').controller('correlationGroupCtrl', ['$window', '$scope', '$timeout', 'NgTableParams', 'dsFcc', 'appPath',
     function ($window, $scope, $timeout, NgTableParams, dsFcc, appPath) {
@@ -19,7 +28,12 @@ angular.module('app').controller('correlationGroupCtrl', ['$window', '$scope', '
             }
             return rows;
         };
-        // 获取表格数据;
+        /**
+         * 获取表格数据;
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {undefined}
+         */
         function getData() {
             var groupTypeData = [];
             for (var j = 0; j < $scope.groupData.groupType.length; j++) {
@@ -63,15 +77,32 @@ angular.module('app').controller('correlationGroupCtrl', ['$window', '$scope', '
                 $scope.gridOptions.data = ret;
             });
         }
-        // 显示序号;
+        /**
+         * 显示序号
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {object} html 包含序号，显示在页面
+         */
         function getIndex() {
             var html = '<div class="ui-grid-cell-contents">{{(grid.appScope.searchModel.pageNum - 1) * grid.appScope.searchModel.pageSize + row.entity.pageIndex}}</div>';
             return html;
         }
+        /**
+         * 显示类型
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {object} html 包含类型，显示在页面
+         */
         function groupType() {
             var html = '<div class="ui-grid-cell-contents">{{row.entity.groupType === 1 ? "新增" : row.entity.groupType === 2 ? "删除" : row.entity.groupType === 3 ? "修改" : "已制作"}}</div>';
             return html;
         }
+        /**
+         * 格式化row(为了给row绑定事件)
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {object} html 显示在页面
+         */
         function formatRow() {
             var html = '<div>' +
               '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" ' +
@@ -79,9 +110,21 @@ angular.module('app').controller('correlationGroupCtrl', ['$window', '$scope', '
               '</div>';
             return html;
         }
+        /**
+         * 查询操作
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {undefined}
+         */
         $scope.searchList = function () {
             getData();
         };
+        /**
+         * 关联操作
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {undefined}
+         */
         $scope.connectGroup = function () {
             var groupIds = [];
             var data = $scope.gridOptions.data;
@@ -105,6 +148,14 @@ angular.module('app').controller('correlationGroupCtrl', ['$window', '$scope', '
                 swal('提示', '关联成功', 'success');
             });
         };
+        /**
+         * 初始化数据
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @param  {object} event 包含事件
+         * @param  {object} data 包含数据
+         * @return {undefined}
+         */
         var initialize = function (event, data) {
             $scope.groupData = Object.assign({}, data.data);
             $scope.groupData.infoCode = '';

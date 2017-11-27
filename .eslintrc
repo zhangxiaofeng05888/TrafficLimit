@@ -93,12 +93,12 @@
     "func-names": 0,
     // 关闭 === 替代 ==
     "eqeqeq": 0,
-    "valid-jsdoc": 1,
+    "valid-jsdoc": 2,
     // 强制一行的最大长度
     "max-len":[1,130],
 
     "no-unneeded-ternary": ["error", { "defaultAssignment": true }],
-    "require-jsdoc": ["warn", {
+    "require-jsdoc": ["error", {
       "require": {
         "FunctionDeclaration": true,
         "MethodDefinition": true,
