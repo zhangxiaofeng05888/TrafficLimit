@@ -1,5 +1,10 @@
 /**
- * Created by zhaohang on 2017/11/15.
+ * 限行线
+ * @class FM.mapApi.render.data.LimitLine
+ * @author zhaohang
+ * @date   2017/11/15
+ *
+ * @copyright @Navinfo, all rights reserved.
  */
 FM.mapApi.render.data.LimitLine = FM.mapApi.render.data.Limit.extend({
     /**

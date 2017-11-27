@@ -1,7 +1,10 @@
 /**
- * Created by zhaohang on 2017/10/16.
+ * 复制到面TopoEditor
+ * @author zhaohang
+ * @date   2017/10/16
+ * @class  fastmap.uikit.topoEdit.CopyToPolygonTopoEditor
+ * @return {undefined}
  */
-
 fastmap.uikit.topoEdit.CopyToPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEditor.extend({
     initialize: function (map) {
         fastmap.uikit.topoEdit.TopoEditor.prototype.initialize.call(this, map);
@@ -12,9 +15,9 @@ fastmap.uikit.topoEdit.CopyToPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEdit
     },
 
     /**
-     * 创建工具需要使用的EditResult
-     * @param options
-     * @returns {null}
+     * 创建工具需要使用的DeleteResult
+     * @param {object} options 包括选项
+     * @returns {object} editResult 编辑结果
      */
 
     getBatchDeleteResult: function (options) {
@@ -22,7 +25,11 @@ fastmap.uikit.topoEdit.CopyToPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEdit
         editResult.geoLiveType = 'COPYTOPOLYGON';
         return editResult;
     },
-
+    /**
+     * 创建工具需要使用的BreakResult
+     * @param {object} options 包括选项
+     * @returns {object} editResult 编辑结果
+     */
     getBreakResult: function (options) {
         var editResult = new fastmap.uikit.complexEdit.BreakEditLineResult();
         editResult.geoLiveType = 'COPYTOPOLYGON';
@@ -35,7 +42,11 @@ fastmap.uikit.topoEdit.CopyToPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEdit
         ];
         return editResult;
     },
-
+    /**
+     * 创建工具需要使用的EditResult
+     * @param {object} options 包括选项
+     * @returns {object} editResult 编辑结果
+     */
     getCreateEditResult: function (options) {
         var editResult = new fastmap.uikit.shapeEdit.PathResult();
         editResult.finalGeometry = {
@@ -51,7 +62,11 @@ fastmap.uikit.topoEdit.CopyToPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEdit
         }];
         return editResult;
     },
-
+    /**
+     * 创建工具需要使用的ModifyEditResult
+     * @param {object} options 包括选项
+     * @returns {object} editResult 编辑结果
+     */
     getModifyEditResult: function (options) {
         var originObject = options.originObject;
         var editResult = new fastmap.uikit.shapeEdit.PathResult();
@@ -95,8 +110,9 @@ fastmap.uikit.topoEdit.CopyToPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEdit
 
     /**
      * 创建接口
-     * @param editResult 编辑结果
+     * @param {object} editResult 编辑结果
      */
+
     create: function (editResult) {
         var params = {
             type: 'SCPLATERESFACE',
@@ -112,9 +128,10 @@ fastmap.uikit.topoEdit.CopyToPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEdit
 
     /**
      * 创建工具需要使用的EditResult
-     * @param options
-     * @returns {null}
+     * @param {object} options 包括选项
+     * @returns {object} editResult 编辑结果
      */
+
     getCopyResult: function (options) {
         var editResult = new fastmap.uikit.complexEdit.CopyResult();
         editResult.geoLiveType = 'COPYTOPOLYGON';
@@ -124,8 +141,9 @@ fastmap.uikit.topoEdit.CopyToPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEdit
 
     /**
      * 创建接口
-     * @param editResult 编辑结果
+     * @param {object} editResult 编辑结果
      */
+
     copy: function (editResult) {
         var rdLinks = [];
         var adLinks = [];
@@ -153,6 +171,12 @@ fastmap.uikit.topoEdit.CopyToPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEdit
         return this.dataServiceFcc.copyToLine(params);
     },
 
+    /**
+     * 删除
+     * @param {object} id id号
+     * @returns {object} params
+     */
+
     deleteLimit: function (id) {
         var params = {
             type: 'SCPLATERESFACE',
@@ -161,6 +185,12 @@ fastmap.uikit.topoEdit.CopyToPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEdit
         };
         return this.dataServiceFcc.deleteLine(params);
     },
+
+    /**
+     * 查询
+     * @param {object} options 包括选项
+     * @returns {object} 包括pid、geoLiveType、geometry
+     */
 
     query: function (options) {
         return {

@@ -1,5 +1,15 @@
 /**
- * Created by zhaohang on 2017/10/12.
+ * 编辑策略表中编辑记录
+ * @author zhaohang
+ * @date   2017/10/12
+ * @param  {object} $window 窗口
+ * @param  {object} $scope 作用域
+ * @param  {object} $timeout 定时
+ * @param  {object} NgTableParams 构造函数
+ * @param  {object} dsFcc 接口服务
+ * @param  {object} appPath app路径
+ * @param  {object} $ocLazyLoad 延时加载
+ * @return {undefined}
  */
 angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeout', 'NgTableParams', 'dsFcc', 'appPath', '$ocLazyLoad',
     function ($window, $scope, $timeout, NgTableParams, dsFcc, appPath, $ocLazyLoad) {
@@ -28,6 +38,11 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
             time: '', // 限行时间
             specFlag: [] // 排除日期
         };
+        /**
+         * 初始化数据，包括（车辆类型、本外地、临牌转换原则、字母转换原则、限行尾号、能源类型、车牌颜色、油气排放标准、限行时间类型、排除日期）
+         * @author Niuxinyi
+         * @date   2017-11-16
+         */
         $scope.carType = [
             {
                 id: 0,
@@ -292,11 +307,25 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 id: 4,
                 name: '特定日期'
             }];
+        /**
+         * 本外地中选择受限本地车，受限本地车内容可编辑
+         * @method changeAttribution
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {undefined}
+         */
         $scope.changeAttribution = function () {
             if ($scope.policyData.attribution.indexOf(5) < 0) {
                 $scope.policyData.restrict = '';
             }
         };
+        /**
+         * 能源类型内容全选操作
+         * @method changeEnergyType
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {undefined}
+         */
         $scope.changeenergyType = function () {
             if ($scope.policyData.energyType.indexOf(0) > -1) {
                 if ($scope.policyData.energyType.length === 4) {
@@ -309,6 +338,13 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 }
             }
         };
+        /**
+         * 限行尾号内容全选操作
+         * @method changeTailNumber
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {undefined}
+         */
         $scope.changeTailNumber = function () {
             if ($scope.policyData.tailNumber.indexOf(-1) > -1) {
                 if ($scope.policyData.tailNumber.length === 12) {
@@ -321,6 +357,13 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 }
             }
         };
+        /**
+         * 车辆类型内容改变触发操作
+         * @method changeVehicle
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {undefined}
+         */
         $scope.changeVehicle = function () {
             if ($scope.policyData.vehicle.indexOf(0) > -1) {
                 if ($scope.policyData.vehicle.length === 12) {
@@ -341,6 +384,15 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 $scope.policyData.resAxleCount = 0;
             }
         };
+        /**
+         * 车长限制触发操作
+         * @method formateNumbers
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @param  {object} field 包括传入值
+         * @param  {object} len 包括四舍五入小数位数
+         * @return {undefined}
+         */
         $scope.formateNumbers = function (field, len) {
             var val = $scope.policyData[field];
             if (!val) {
@@ -360,12 +412,33 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 }
             }
         };
+        /**
+         * 临牌转换原则触发事件
+         * @method changeTemp
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {undefined}
+         */
         $scope.changeTemp = function () {
             $scope.policyData.tempPlateNum = 0;
         };
+        /**
+         * 字母转换原则触发事件
+         * @method changeChar
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {undefined}
+         */
         $scope.changeChar = function () {
             $scope.policyData.charToNum = 0;
         };
+        /**
+         * 保存并验证
+         * @method savePolicy
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {undefined}
+         */
         $scope.savePolicy = function () {
             validateForm($scope.policyForm);
             if ($scope.policyForm.$invalid) {
@@ -471,6 +544,14 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 }
             });
         };
+        /**
+         * 限行时间添加触发事件
+         * @method fmdateTimer
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @param  {object} str 为 $scope.policyData.time
+         * @return {undefined}
+         */
         $scope.fmdateTimer = function (str) {
             $scope.$on('get-date', function (event, data) {
                 $scope.policyData.time = data;
@@ -481,6 +562,14 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 $scope.$apply();
             }, 100);
         };
+        /**
+         * 数组中字符触发事件
+         * @method changeStrArr
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @param  {object} strArray 为传入的字符串数组
+         * @return {undefined}
+         */
         function changeStrArr(strArray) {
             var strArr = strArray;
             var intArr = [];
@@ -493,6 +582,14 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
             }
             return intArr;
         }
+        /**
+         * 初始化数据
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @param  {object} event 包括事件
+         * @param  {object} data 包括数据值
+         * @return {undefined}
+         */
         var initialize = function (event, data) {
             var policyData = Object.assign({}, data.data);
             $scope.policyData.groupId = policyData.groupId;

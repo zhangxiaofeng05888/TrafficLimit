@@ -2,8 +2,8 @@
  * Created by zhaohang on 2017/10/18.
  */
 /**
- * 定义‘道路线’要素选中时的高亮规则
- * @file      RdLink.js
+ * 定义‘复制到面’要素选中时的高亮规则
+ * @file      CopyToPolygon.js
  * @author    LiuZhe
  * @date      2017-09-12
  *

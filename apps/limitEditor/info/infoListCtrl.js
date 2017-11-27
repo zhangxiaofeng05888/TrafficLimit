@@ -1,5 +1,16 @@
 /**
- * Created by zhaohang on 2017/9/15.
+ * 作业项界面
+ * @author zhaohang
+ * @date   2017/9/15
+ * @param  {object} $window 窗口
+ * @param  {object} $scope 作用域
+ * @param  {object} $timeout 定时
+ * @param  {object} NgTableParams 构造函数
+ * @param  {object} dsFcc 接口服务
+ * @param  {object} appPath app路径
+ * @param  {object} $ocLazyLoad 延迟加载
+ * @param  {object} dsLazyload 延迟加载
+ * @return {undefined}
  */
 angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout', 'NgTableParams', 'dsFcc', 'appPath', '$ocLazyLoad', 'dsLazyload',
     function ($window, $scope, $timeout, NgTableParams, dsFcc, appPath, $ocLazyLoad, dsLazyload) {
@@ -9,6 +20,13 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
         $scope.childListFlag = true; // 当前作业项折叠flag;
         $scope.showFlag = true;
         $scope.selectId = true;
+        /**
+         * 显示作业项子内容
+         * @method openChildList
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {undefined}
+         */
         $scope.openChildList = function () {
             $scope.childListFlag = !$scope.childListFlag;
         };
@@ -41,7 +59,14 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
                 label: '无法处理'
             }
         ];
-        // 根据实际的行高设置每行的height属性，主要处理grid高度改变后，canvas的高度没有自动变化的问题
+        /**
+         * 根据实际的行高设置每行的height属性，主要处理grid高度改变后，canvas的高度没有自动变化的问题
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @param  {object} rows 主要为要显示的信息行列
+         * @param  {object} columns 主要为要显示的信息行列
+         * @return {object} rows 包含行高
+         */
         var myRowProc = function (rows, columns) {
             if (rows.length > 0) {
                 $timeout(function () {
@@ -54,7 +79,12 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
             }
             return rows;
         };
-        // 获取表格数据;
+        /**
+         * 获取数据，对开始、结束、下发时间用正则表达式进行转换
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {undefined}
+         */
         function getData() {
             var status = [];
             var period = [];
@@ -126,12 +156,35 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
                 $scope.gridOptions.data = ret;
             });
         }
+        /**
+         * 行政区划选择数据
+         * @method changeCityId
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @param  {object} value 行政区划里选择的值
+         * @return {undefined}
+         */
         $scope.changeCityId = function (value) {
             $scope.cityId = value;
         };
+        /**
+         * 查询数据
+         * @method searchList
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {undefined}
+         */
         $scope.searchList = function () {
             getData();
         };
+        /**
+         * 获取数据行内信息
+         * @method searchGroupList
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @param  {object} row 每行数据
+         * @return {undefined}
+         */
         $scope.searchGroupList = function (row) {
             App.Temp.infoToGroupData = {
                 infoId: row.entity.infoIntelId,
@@ -145,46 +198,104 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
             App.Util.setSessionStorage('infoData', sessionData);
             window.location.href = '#/group?access_token=' + App.Temp.accessToken + '&random=' + Math.floor(Math.random() * 100);
         };
-        // 显示序号;
+        /**
+         * 显示序号;
+         * @method getIndex
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {object} html 包括序号，显示在页面
+         */
         function getIndex() {
             var html = '<div class="ui-grid-cell-contents">{{(grid.appScope.searchModel.pageNum - 1) * grid.appScope.searchModel.pageSize + row.entity.pageIndex}}</div>';
             return html;
         }
+        /**
+         * 获取来源网址
+         * @method getUrl
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {object} html 包含来源网址，显示在页面
+         */
         function getUrl() {
             var html = '<div class="ui-grid-cell-contents"><a href="{{row.entity.url}}" target="_blank">{{row.entity.url}}</a></div>';
             return html;
         }
+        /**
+         * 获取限行长短期
+         * @method getPeriod
+         * @author Niuxinyi
+         * @date   2017-11-16
+         *@return {object} html 包含限行长短期的值，显示在页面
+         */
         function getPeriod() {
             var html = '<div class="ui-grid-cell-contents">{{row.entity.condition === "S" ? "长期" : "短期"}}</div>';
             return html;
         }
+        /**
+         * 获取完成状态
+         * @method getStatus
+         * @author Niuxinyi
+         * @date   2017-11-16
+         *@return {object} html 包含完成状态的内容，显示在页面
+         */
         function getStatus() {
             var html = '<div class="ui-grid-cell-contents">{{row.entity.complete === 1 ? "未处理" : row.entity.complete === 2 ? "已处理" : " "}}</div>';
             return html;
         }
+        /**
+         * 获取新闻内容
+         * @method getContent
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {object} html 包含内容截取0至19，显示在页面
+         */
         function getContent() {
             var html = '<div class="ui-grid-cell-contents" title="{{row.entity.infoContent}}">{{row.entity.infoContent.substring(0, 19)}}</div>';
             return html;
         }
+        /**
+         * 获取更多，进行数据查看
+         * @method more
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {object} html 包含内容查看图片，显示在页面
+         */
         function more() {
             var html = '<div class="ui-grid-cell-contents">' +
                 '<div class="search-icon" title="查看" ng-click="grid.appScope.searchGroupList(row)"></div></div>';
             return html;
         }
-
+        /**
+         * 显示加载
+         * @method showLoading
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {undefined}
+         */
         $scope.showLoading = function () {
             if (!$scope.loading.flag) {
                 $scope.loading.flag = true;
             }
         };
-
+        /**
+         * 隐藏加载
+         * @method showLoading
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {undefined}
+         */
         $scope.hideLoading = function () {
             if ($scope.loading.flag) {
                 $scope.loading.flag = false;
             }
         };
-
-        // 初始化表格;
+        /**
+         * 初始化数据
+         * @method showLoading
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @return {undefined}
+         */
         var initialize = function () {
             var date = new Date();
             var preDate = new Date();
