@@ -166,6 +166,7 @@ fastmap.uikit.topoEdit.CopyToPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEdit
         return {
             pid: options.pid,
             geoLiveType: options.geoLiveType,
+            groupId: options.groupId,
             geometry: options.geometry
         };
     }

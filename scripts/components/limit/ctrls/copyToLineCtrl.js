@@ -16,7 +16,6 @@ angular.module('app').controller('copyToLineCtl', ['$scope', '$timeout', 'dsEdit
         label: '不限行'
     }];
     $scope.initializeData = function () {
-        $scope.groupId = App.Temp.groupId;
         $scope.copyToLineDate = objCtrl.data;
     };
 

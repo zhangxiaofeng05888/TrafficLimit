@@ -21,7 +21,9 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
             sPublicTime: '',
             ePublicTime: '',
             status: [false, false, false],
-            period: [false, false]
+            period: [false, false],
+            sortype: '',
+            sortord: ''
         };
         $scope.cityId = 110099;
         $scope.cityList = CityList;
@@ -99,7 +101,9 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
                     complete: status,
                     condition: period,
                     pageSize: $scope.searchModel.pageSize,
-                    pageNum: $scope.searchModel.pageNum
+                    pageNum: $scope.searchModel.pageNum,
+                    sortype: $scope.searchModel.sortype,
+                    sortord: $scope.searchModel.sortord
                 }
             };
             dsFcc.getInfoListData(params).then(function (data) {
@@ -246,6 +250,15 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
                             });
                         });
                     });
+                    $scope.gridApi.core.on.sortChanged($scope, function (grid, sortColumns) {
+                        if (sortColumns.length) {
+                            var sortord = sortColumns[0].sort.direction;
+                            var sortype = sortColumns[0].field;
+                            $scope.searchModel.sortord = sortord;
+                            $scope.searchModel.sortype = sortype;
+                            getData();
+                        }
+                    });
                 },
                 columnDefs: [
                     {
@@ -288,21 +301,21 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
                     {
                         field: 'newsTime',
                         displayName: '发布日期',
-                        enableSorting: false,
+                        enableSorting: true,
                         minWidth: 50,
                         cellClass: 'center'
                     },
                     {
                         field: 'publicTime',
                         displayName: '下发日期',
-                        enableSorting: false,
+                        enableSorting: true,
                         minWidth: 50,
                         cellClass: 'center'
                     },
                     {
                         field: 'condition',
                         displayName: '限行长短期',
-                        enableSorting: false,
+                        enableSorting: true,
                         minWidth: 50,
                         maxWidth: 100,
                         cellClass: 'center',
@@ -311,7 +324,7 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
                     {
                         field: 'complete',
                         displayName: '完成状态',
-                        enableSorting: false,
+                        enableSorting: true,
                         minWidth: 50,
                         cellClass: 'center',
                         maxWidth: 100,

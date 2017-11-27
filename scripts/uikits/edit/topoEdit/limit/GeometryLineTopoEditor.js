@@ -54,6 +54,7 @@ fastmap.uikit.topoEdit.GeometryLineTopoEditor = fastmap.uikit.topoEdit.TopoEdito
             pid: options.pid,
             geoLiveType: options.geoLiveType,
             geometry: options.geometry,
+            groupId: options.groupId,
             boundaryLink: options.boundaryLink
         };
     }

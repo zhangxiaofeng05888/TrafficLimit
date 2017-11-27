@@ -133,6 +133,8 @@ angular.module('app').controller('resultListCtl', ['$window', '$scope', '$timeou
             getData($scope.searchModel);
         };
         $scope.$on('Refresh-Result-List', function (event, data) {
+            $scope.searchModel.pageNum = 1;
+            $scope.gridOptions.paginationCurrentPage = 1;
             var param = {
                 pageSize: $scope.searchModel.pageSize,
                 pageNum: 1

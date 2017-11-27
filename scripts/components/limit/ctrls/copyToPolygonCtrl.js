@@ -16,7 +16,6 @@ angular.module('app').controller('copyToPolygonCtl', ['$scope', '$timeout', 'dsE
         label: '不限行'
     }];
     $scope.initializeData = function () {
-        $scope.groupId = App.Temp.groupId;
         $scope.copyToPolygonDate = objCtrl.data;
     };
 
