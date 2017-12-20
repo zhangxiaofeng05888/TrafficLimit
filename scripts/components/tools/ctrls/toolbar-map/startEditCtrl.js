@@ -7,10 +7,19 @@ angular.module('app').controller('startEditCtrl', ['$scope',
         var dataServiceFcc = fastmap.service.DataServiceFcc.getInstance();
         var map = $scope.map;
         var minEditZoom = App.Config.map.layerZoom.minEditZoom || 17;
+        var minDeleteZoom = App.Config.map.layerZoom.minZoom || 17;
 
         var testEditZoom = function () {
             if (map.getZoom() < minEditZoom) {
                 swal('提示', '地图缩放等级在' + minEditZoom + '级以上才可操作', 'info');
+                return false;
+            }
+            return true;
+        };
+
+        var testDeleteZoom = function () {
+            if (map.getZoom() < minDeleteZoom) {
+                swal('提示', '地图缩放等级在' + minDeleteZoom + '级以上才可操作', 'info');
                 return false;
             }
             return true;
@@ -172,7 +181,7 @@ angular.module('app').controller('startEditCtrl', ['$scope',
         };
 
         $scope.batchDeleteLimit = function (event, geoLiveType) {
-            if (!testEditZoom()) {
+            if (!testDeleteZoom()) {
                 return;
             }
 
