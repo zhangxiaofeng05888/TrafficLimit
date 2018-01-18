@@ -65,7 +65,6 @@
         margin-bottom: 10px;
         width: 170px;
         min-height: 80px;
-        resize: vertical;
     }
     .infoListPanel .footer_textarea textarea {
         width: 170px;
@@ -175,8 +174,12 @@
                     <span>{{condition}}</span>
                 </li>
                 <li>
+                    <span class="left">工程类型：</span>
+                    <span>{{projectType}}</span>
+                </li>
+                <li>
                     <span class="left">新闻内容：</span>
-                    <textarea class="poiRightPanel_area">{{infoContent}}</textarea>
+                    <textarea class="poiRightPanel_area" disabled>{{infoContent}}</textarea>
                 </li>
                 <!--<select class="tl_list_select_small" ng-options="value.id as value.label for value in grid.appScope.statusData" ng-model="row.entity.complete" ng-change="grid.appScope.updateInfo(2, row)"></select>-->
             </ul>

@@ -84,6 +84,7 @@ angular.module('app').controller('infoListPanelCtl', ['$window', '$scope', '$tim
                             $scope.condition = item1.condition === 'S' ? '长期' : '短期';
                             $scope.complete = item1.complete;
                             $scope.memo = item1.memo;
+                            $scope.projectType = item1.projectType;
                         }
                     });
                 }

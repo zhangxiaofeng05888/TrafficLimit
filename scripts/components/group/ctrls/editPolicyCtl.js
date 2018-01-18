@@ -173,7 +173,7 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 id: 9,
                 name: 9
             }, {
-                id: '26个字母',
+                id: '26个英文字母',
                 name: '26个英文字母'
             }];
         $scope.energyType = [
@@ -574,10 +574,30 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
             var strArr = strArray;
             var intArr = [];
             for (var i = 0; i < strArr.length; i++) {
-                if (strArr[i] === '26个字母') {
+                if (strArr[i] === '26个英文字母') {
                     intArr.push(strArr[i]);
                 } else {
                     intArr.push(parseInt(strArr[i], 10));
+                }
+            }
+            return intArr;
+        }
+        /**
+         * 转换油气排放标准
+         * @method changeStrArr
+         * @author ZhaoHang
+         * @date   2018-01-02
+         * @param  {object} strArray 为传入的字符串数组
+         * @return {undefined}
+         */
+        function changeStrArrForGas(strArray) {
+            var strArr = strArray;
+            var intArr = [];
+            for (var i = 0; i < strArr.length; i++) {
+                for (var j = 0; j < $scope.gasEmisstand.length; j++) {
+                    if (strArr[i] === $scope.gasEmisstand[j].name) {
+                        intArr.push($scope.gasEmisstand[j].id);
+                    }
                 }
             }
             return intArr;
@@ -612,7 +632,7 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
             }
             $scope.policyData.tailNumber = changeStrArr(policyData.tailNumber.split('|'));
             $scope.policyData.energyType = changeStrArr(policyData.energyType.split('|'));
-            $scope.policyData.gasEmisstand = changeStrArr(policyData.energyType.split('|'));
+            $scope.policyData.gasEmisstand = changeStrArrForGas(policyData.gasEmisstand.split('|'));
             $scope.policyData.platecolor = changeStrArr(policyData.platecolor.split('|'));
             $scope.policyData.vehicleLength = policyData.vehicleLength;
             $scope.policyData.resWeigh = policyData.resWeigh;

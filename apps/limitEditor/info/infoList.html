@@ -25,15 +25,20 @@
             <div style="padding-top: 60px">
                 <div class="infoList_rightDiv_choose">
                     <span>行政区划</span>
-                    <select
-                            class="form-control tl_list_select"
-                            ng-model="cityId"
-                            search_contains=true
-                            chosen
-                            ng-options="value.id as value.name for value in cityList"
-                            ng-change="changeCityId(cityId)"
+                    <select class="form-control poiRightPanel_select"
+                            ng-model="provinceName"
+                            ng-change="changeProvince(provinceName)"
+                            ng-options="value for value in provinceList"
+                            style="display: inline-block;width: 200px"
                     >
-                        <option value=""></option>
+                    </select>
+                    <select class="form-control poiRightPanel_select"
+                            ng-model="cityId"
+                            ng-disabled="isSpecialOperation"
+                            ng-options="value.id as value.name for value in cityList track by $index"
+                            ng-change="changeCityId(cityId)"
+                            style="display: inline-block;width: 200px;margin-left: 10px"
+                    >
                     </select>
                 </div>
                 <div class="infoList_rightDiv_choose">
@@ -67,19 +72,30 @@
                     </label>
                 </div>
                 <div class="infoList_rightDiv_choose">
-                    <span>发布日期</span>
-                    <input type="text" class="tl_list_Input" ng-model="searchModel.beginTime" data-max-date="{{searchModel.endTime}}" bs-datepicker
-                           data-date-format="yyyy-MM-dd" data-date-type="string">
-                    <span style="padding-left: 5px">至</span>
-                    <input type="text" class="tl_list_Input" ng-model="searchModel.endTime" data-min-date="{{searchModel.beginTime}}" bs-datepicker
-                           data-date-format="yyyy-MM-dd" data-date-type="string">
+                    <span>工程类型</span>
+                    <input type="checkbox" id="project1" class="radio_diy_class" ng-model="searchModel.project[0]" ng-checked="searchModel.project[0]"/>
+                    <label for="project1">
+                        新增
+                    </label>
+                    <input type="checkbox" id="project2" class="radio_diy_class" ng-model="searchModel.project[1]" ng-checked="searchModel.project[1]"/>
+                    <label for="project2">
+                        改属性
+                    </label>
+                    <input type="checkbox" id="project3" class="radio_diy_class" ng-model="searchModel.project[2]" ng-checked="searchModel.project[2]"/>
+                    <label for="project3">
+                        删除
+                    </label>
+                    <input type="checkbox" id="project4" class="radio_diy_class" ng-model="searchModel.project[3]" ng-checked="searchModel.project[3]"/>
+                    <label for="project4">
+                        改扩建
+                    </label>
                 </div>
                 <div class="infoList_rightDiv_choose">
                     <span>下发日期</span>
-                    <input type="text" class="tl_list_Input" ng-model="searchModel.sPublicTime" data-max-date="{{searchModel.ePublicTime}}" bs-datepicker
+                    <input type="text" class="tl_list_Input" ng-model="searchModel.sPublicTime" data-max-date="{{searchModel.ePublicTime}}" bs-datepicker data-autoclose=true
                            data-date-format="yyyy-MM-dd" data-date-type="string">
                     <span style="padding-left: 5px">至</span>
-                    <input type="text" class="tl_list_Input" ng-model="searchModel.ePublicTime" data-min-date="{{searchModel.sPublicTime}}" bs-datepicker
+                    <input type="text" class="tl_list_Input" ng-model="searchModel.ePublicTime" data-min-date="{{searchModel.sPublicTime}}" bs-datepicker data-autoclose=true
                            data-date-format="yyyy-MM-dd" data-date-type="string">
                 </div>
                 <div>

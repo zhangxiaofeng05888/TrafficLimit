@@ -171,7 +171,7 @@ angular.module('app').controller('addPolicyCtrl', ['$window', '$scope', '$timeou
                 id: 9,
                 name: 9
             }, {
-                id: '26个字母',
+                id: '26个英文字母',
                 name: '26个英文字母'
             }];
         $scope.energyType = [

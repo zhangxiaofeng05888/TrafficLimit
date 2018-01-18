@@ -87,7 +87,7 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             7: '7',
             8: '8',
             9: '9',
-            '26个字母': '26个英文字母'
+            '26个英文字母': '26个英文字母'
         };
         $scope.gasEmisstand = {
             0: '未限制',

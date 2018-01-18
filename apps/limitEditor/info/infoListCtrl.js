@@ -34,17 +34,14 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
             pageNum: 1,
             pageSize: 20,
             infoId: '',
-            beginTime: '',
-            endTime: '',
             sPublicTime: '',
             ePublicTime: '',
             status: [false, false, false],
             period: [false, false],
+            project: [false, false, false, false],
             sortype: '',
             sortord: ''
         };
-        $scope.cityId = 110099;
-        $scope.cityList = CityList;
         $scope.statusData = [
             {
                 id: 2,
@@ -88,21 +85,25 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
         function getData() {
             var status = [];
             var period = [];
-            var startTime = $scope.searchModel.beginTime;
-            var endTime = $scope.searchModel.endTime;
+            var projectType = [];
             var sPublicTime = $scope.searchModel.sPublicTime;
             var ePublicTime = $scope.searchModel.ePublicTime;
-            if (startTime) {
-                startTime = startTime.replace(new RegExp(/(-)/g), '');
-            }
-            if (endTime) {
-                endTime = endTime.replace(new RegExp(/(-)/g), '');
-            }
-            if (sPublicTime) {
+            var params = {
+                type: 'SCPLATERESINFO',
+                condition: {
+                    adminArea: $scope.cityId,
+                    infoCode: $scope.searchModel.infoId,
+                    pageSize: $scope.searchModel.pageSize,
+                    pageNum: $scope.searchModel.pageNum,
+                    sortype: $scope.searchModel.sortype,
+                    sortord: $scope.searchModel.sortord
+                }
+            };
+            if (sPublicTime && ePublicTime) {
                 sPublicTime = sPublicTime.replace(new RegExp(/(-)/g), '');
-            }
-            if (ePublicTime) {
                 ePublicTime = ePublicTime.replace(new RegExp(/(-)/g), '');
+                params.condition.ePublicTime = ePublicTime;
+                params.condition.sPublicTime = sPublicTime;
             }
             if ($scope.searchModel.status[0]) {
                 status.push(1);
@@ -119,23 +120,21 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
             if ($scope.searchModel.period[1]) {
                 period.push('D');
             }
-            var params = {
-                type: 'SCPLATERESINFO',
-                condition: {
-                    adminArea: $scope.cityId,
-                    infoCode: $scope.searchModel.infoId,
-                    startTime: startTime,
-                    endTime: endTime,
-                    ePublicTime: ePublicTime,
-                    sPublicTime: sPublicTime,
-                    complete: status,
-                    condition: period,
-                    pageSize: $scope.searchModel.pageSize,
-                    pageNum: $scope.searchModel.pageNum,
-                    sortype: $scope.searchModel.sortype,
-                    sortord: $scope.searchModel.sortord
-                }
-            };
+            if ($scope.searchModel.project[0]) {
+                projectType.push('新增');
+            }
+            if ($scope.searchModel.project[1]) {
+                projectType.push('改属性');
+            }
+            if ($scope.searchModel.project[2]) {
+                projectType.push('删除');
+            }
+            if ($scope.searchModel.project[3]) {
+                projectType.push('改扩建');
+            }
+            params.condition.complete = status;
+            params.condition.condition = period;
+            params.condition.projectType = projectType;
             dsFcc.getInfoListData(params).then(function (data) {
                 var ret = [];
                 var total = 0;
@@ -165,7 +164,26 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
          * @return {undefined}
          */
         $scope.changeCityId = function (value) {
-            $scope.cityId = value;
+            if (value) {
+                $scope.cityId = value;
+            }
+        };
+        /**
+         * 行政区划选择数据
+         * @method changeProvince
+         * @author Niuxinyi
+         * @date   2017-11-16
+         * @param  {object} value 行政区划里选择的值
+         * @return {undefined}
+         */
+        $scope.changeProvince = function (value) {
+            $scope.provinceName = value;
+            for (var i = 0; i < CityList.length; i++) {
+                if (CityList[i].province === $scope.provinceName) {
+                    $scope.cityList = CityList[i].city;
+                    $scope.cityId = CityList[i].city[0].id;
+                }
+            }
         };
         /**
          * 查询数据
@@ -297,6 +315,15 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
          * @return {undefined}
          */
         var initialize = function () {
+            $scope.provinceList = [];
+            $scope.provinceName = '北京市';
+            for (var i = 0; i < CityList.length; i++) {
+                $scope.provinceList.push(CityList[i].province);
+                if (CityList[i].province === $scope.provinceName) {
+                    $scope.cityList = CityList[i].city;
+                    $scope.cityId = CityList[i].city[0].id;
+                }
+            }
             var date = new Date();
             var preDate = new Date();
             preDate.setDate(new Date().getDate() - 30);
@@ -328,8 +355,6 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
             }
             var time = year.toString() + '-' + month + '-' + day.toString();
             var preTime = preYear.toString() + '-' + preMonth + '-' + preDay.toString();
-            $scope.searchModel.beginTime = preTime;
-            $scope.searchModel.endTime = time;
             $scope.searchModel.sPublicTime = preTime;
             $scope.searchModel.ePublicTime = time;
             $scope.gridOptions = {
@@ -408,6 +433,13 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
                         minWidth: 100,
                         cellClass: 'center',
                         cellTemplate: getContent()
+                    },
+                    {
+                        field: 'projectType',
+                        displayName: '工程类型',
+                        enableSorting: false,
+                        minWidth: 100,
+                        cellClass: 'center'
                     },
                     {
                         field: 'newsTime',
