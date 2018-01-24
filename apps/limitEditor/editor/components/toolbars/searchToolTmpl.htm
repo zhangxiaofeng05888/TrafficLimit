@@ -134,7 +134,7 @@
 <div ng-controller="searchToolCtrl">
     <div class="searchPanel">
         <div class="inputWrapper">
-            <input class="searchInput" ng-model="searchText" placeholder="请输入道路名称，PID">
+            <input class="searchInput" ng-model="searchText" ng-keypress="($event.which === 13)?doSearch(2):0;" placeholder="请输入道路名称，PID">
             <div style="display: inline-block;" class="searchType">
                 <button class="inputButton searchIcon" ng-click="showAction($event);"><span class="glyphicon glyphicon-search"></span></button>
                 <ul class="typeList">
