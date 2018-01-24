@@ -78,16 +78,48 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
                     groupId: App.Temp.groupId
                 }
             };
-            dsFcc.submitGeo(params).then(function (data) {
-                if (data === '属性值未发生变化') {
-                    swal('提示', '无提交内容！', 'warning');
-                    return;
+            var paramInfo = {
+                type: 'SCPLATERESINFO',
+                condition: {
+                    adminArea: App.Temp.infoToGroupData.cityId,
+                    infoIntelId: App.Temp.infoToGroupData.infoId,
+                    pageSize: 20,
+                    pageNum: 1
                 }
-                if (data !== -1) {
-                    swal('提示', '提交成功', 'success');
-                    $scope.$emit('RefreshResultList');
-                    $scope.$emit('RefreshIntersectLineList');
-                    sceneController.redrawLayerByGeoLiveTypes(['COPYTOLINE', 'COPYTOPOLYGON', 'DRAWPOLYGON', 'GEOMETRYLINE', 'GEOMETRYPOLYGON', 'LIMITLINE']);
+            };
+            dsFcc.getInfoListData(paramInfo).then(function (res1) {
+                if (res1 !== -1) {
+                    var item1 = res1.data[0]; //  主键查询，查询成功只会有一条数据
+                    var complete = item1.complete;
+                    if (complete === 1) {
+                        swal({ title: '提示', text: '请手动更改当前作业情报的完成状态', type: 'warning', confirmButtonText: '确定' }, function (f) {
+                            dsFcc.submitGeo(params).then(function (data) {
+                                if (data === '属性值未发生变化') {
+                                    swal('提示', '无提交内容！', 'warning');
+                                    return;
+                                }
+                                if (data !== -1) {
+                                    swal('提示', '提交成功', 'success');
+                                    $scope.$emit('RefreshResultList');
+                                    $scope.$emit('RefreshIntersectLineList');
+                                    sceneController.redrawLayerByGeoLiveTypes(['COPYTOLINE', 'COPYTOPOLYGON', 'DRAWPOLYGON', 'GEOMETRYLINE', 'GEOMETRYPOLYGON', 'LIMITLINE']);
+                                }
+                            });
+                        });
+                    } else {
+                        dsFcc.submitGeo(params).then(function (data) {
+                            if (data === '属性值未发生变化') {
+                                swal('提示', '无提交内容！', 'warning');
+                                return;
+                            }
+                            if (data !== -1) {
+                                swal('提示', '提交成功', 'success');
+                                $scope.$emit('RefreshResultList');
+                                $scope.$emit('RefreshIntersectLineList');
+                                sceneController.redrawLayerByGeoLiveTypes(['COPYTOLINE', 'COPYTOPOLYGON', 'DRAWPOLYGON', 'GEOMETRYLINE', 'GEOMETRYPOLYGON', 'LIMITLINE']);
+                            }
+                        });
+                    }
                 }
             });
         };
