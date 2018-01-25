@@ -1084,6 +1084,53 @@ angular.module('dataService').service('dsEdit', ['$http', '$q', 'ajax', 'dsOutpu
         });
         return defer.promise;
     };
+    // 线几何成果列表信息查询
+    this.gettemporarylinkResultList = function () {
+        var params = {
+            type: 'SCPLATERESLINK',
+            condition: {
+                groupId: App.Temp.groupId
+            }
+        };
+        var defer = $q.defer();
+        ajax.post('limit/getLimitDataByCondition', {
+            parameter: JSON.stringify(params)
+        }).success(function (data) {
+            if (data.errcode == 0) {
+                defer.resolve(data.data);
+            } else {
+                swal('搜索信息出错：', data.errmsg, 'error');
+                defer.resolve(-1);
+            }
+        }).error(function (rejection) {
+            defer.reject(rejection);
+        });
+        return defer.promise;
+    };
+
+    // 面几何成果列表信息查询
+    this.gettemporaryfaceResultList = function () {
+        var params = {
+            type: 'SCPLATERESFACE',
+            condition: {
+                groupId: App.Temp.groupId
+            }
+        };
+        var defer = $q.defer();
+        ajax.post('limit/getLimitDataByCondition', {
+            parameter: JSON.stringify(params)
+        }).success(function (data) {
+            if (data.errcode == 0) {
+                defer.resolve(data.data);
+            } else {
+                swal('搜索信息出错：', data.errmsg, 'error');
+                defer.resolve(-1);
+            }
+        }).error(function (rejection) {
+            defer.reject(rejection);
+        });
+        return defer.promise;
+    };
     // 查询主表节点信息
     this.getAllTableInfos = function () {
         var param = { searchType: 'PARENT_TABLE_LABLE' };

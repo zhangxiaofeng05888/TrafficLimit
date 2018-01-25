@@ -546,6 +546,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                     break;
                 case 'tmcTreePanel':
                 case 'ResultListPanel':
+                case 'temporaryPanel':
                 case 'spareLine':
                 case 'trackLinePanel':
                 case 'intersectLineList':

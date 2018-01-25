@@ -279,6 +279,13 @@ FM.uikit.Config.Utility = (function () {
                     tmpl: 'components/group/tpls/resultListTpl.html'
                 }
             },
+            temporaryPanel: {
+                name: '临时几何列表',
+                template: {
+                    ctrl: 'components/group/ctrls/temporaryListCtl.js',
+                    tmpl: 'components/group/tpls/temporaryListTpl.html'
+                }
+            },
             batchEditLimit: {
                 name: '批量编辑列表',
                 template: {

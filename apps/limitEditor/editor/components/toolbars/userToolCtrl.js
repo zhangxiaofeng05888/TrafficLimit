@@ -8,7 +8,7 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
         $scope.menuList = []; // 控制菜单是否可用
 
         var initMenuList = function () {
-            $scope.menuList = ['policyTable', 'resultList', 'submit', 'infoPanel', 'limit', 'log', 'intersectList'];
+            $scope.menuList = ['policyTable', 'resultList', 'submit', 'infoPanel', 'limit', 'log', 'intersectList', 'temporaryList'];
         };
         $scope.backToInfo = function (flag) {
             if (flag) {
@@ -132,6 +132,16 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
 
             $scope.$emit('ShowInfoPage', {
                 type: 'ResultListPanel'
+            });
+        };
+        // 打开临时几何成果列表
+        $scope.showTemporaryResultListPanel = function (flag) {
+            if (flag) {
+                return;
+            }
+
+            $scope.$emit('ShowInfoPage', {
+                type: 'temporaryPanel'
             });
         };
 
