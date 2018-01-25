@@ -58,6 +58,10 @@ fastmap.uikit.editControl.CopyLineControl = fastmap.uikit.editControl.EditContro
 
         // 刷新对应图层
         this.sceneController.redrawLayerByGeoLiveTypes(geoLiveTypes);
+
+
+        // 重新执行流程方便连续操作
+        this.run();
     },
 
     onUpdateFail: function (err) {

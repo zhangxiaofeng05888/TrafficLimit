@@ -44,6 +44,9 @@ fastmap.uikit.editControl.TrackControl = fastmap.uikit.editControl.EditControl.e
     onUpdateSuccess: function (res) {
         this.complexEditor.stop();
         this.eventController.fire(L.Mixin.EventTypes.PARTSOPENPANEL, { panelName: 'trackLinePanel', data: res });
+
+        // 重新执行流程方便连续操作
+        this.run();
     },
 
     onUpdateFail: function (err) {

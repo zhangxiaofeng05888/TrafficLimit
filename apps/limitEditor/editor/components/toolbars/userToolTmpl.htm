@@ -24,6 +24,9 @@
         <li ng-class="{true:'disabled'}[menuList.indexOf('resultList') < 0]" ng-click="showResultListPanel(menuList.indexOf('policyTable') < 0)">
             几何成果列表
         </li>
+        <li ng-class="{true:'disabled'}[menuList.indexOf('temporaryList') < 0]" ng-click="showTemporaryResultListPanel(menuList.indexOf('temporaryList') < 0)">
+            临时几何列表
+        </li>
         <li>
             <a href="#/login">退出</a>
         </li>
