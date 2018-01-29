@@ -235,7 +235,7 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
          * @return {object} html 包含来源网址，显示在页面
          */
         function getUrl() {
-            var html = '<div class="ui-grid-cell-contents"><a href="{{row.entity.url}}" target="_blank">{{row.entity.url}}</a></div>';
+            var html = '<div class="ui-grid-cell-contents" ng-repeat="item in row.entity.url.split(\';\') track by $index"><a href="{{item}}" target="_blank">{{item}}</a></div>';
             return html;
         }
         /**
