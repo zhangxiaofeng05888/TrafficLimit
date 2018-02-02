@@ -1426,7 +1426,13 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 features: [data.feature]
             });
         });
-
+        // 追踪地图高亮
+        $scope.$on('trackLink-HighlightObject', function (event, data) {
+            // 高亮追踪线
+            $scope.$broadcast('Map-HighlightObject', {
+                features: [data]
+            });
+        });
         // 显示或隐藏左侧面板
         $scope.$on('LeftListPanel', function (event, data) {
             $scope.leftListPanelFlag = data;
