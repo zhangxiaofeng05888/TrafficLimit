@@ -100,7 +100,8 @@ angular.module('app').controller('intersectLineListCtl', ['$window', '$scope', '
             var params = {
                 type: 'SCPLATERESRDLINK',
                 condition: {
-                    groupId: $scope.groupID
+                    groupId: $scope.groupID,
+                    isInter: true
                 }
             };
             $scope.loadingFlag = true;
