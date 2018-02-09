@@ -147,20 +147,20 @@ angular.module('app').controller('addGroupCtrl', ['$window', '$scope', '$timeout
         $scope.replaceIllegalChar = function (str) {
             var regex1 = /[→—―\-\-]/g;
             str = str.replace(regex1, '-');
-            var regex2 = /[“”"《》\r\n]/g;
+            var regex2 = /[“”"《》\s\t\n]/g;
             str = str.replace(regex2, '');
             var regex3 = /[、。；]/g;
             str = str.replace(regex3, ';');
-            str = str.replace('<', '小于');
-            str = str.replace('>', '大于');
-            str = str.replace('︰', ':');
-            str = str.replace('Ⅰ', 'I');
-            str = str.replace('Ⅱ', 'II');
-            str = str.replace('Ⅲ', 'III');
-            str = str.replace('Ⅳ', 'IV');
-            str = str.replace('Ⅴ', 'V');
-            str = str.replace('〉', ')');
-            str = str.replace('〈', '(');
+            str = str.replace(/[<]/g, '小于');
+            str = str.replace(/[>]/g, '大于');
+            str = str.replace(/[︰]/g, ':');
+            str = str.replace(/[Ⅰ]/g, 'I');
+            str = str.replace(/[Ⅱ]/g, 'II');
+            str = str.replace(/[Ⅲ]/g, 'III');
+            str = str.replace(/[Ⅳ]/g, 'IV');
+            str = str.replace(/[Ⅴ]/g, 'V');
+            str = str.replace(/[〉]/g, ')');
+            str = str.replace(/[〈]/g, '(');
 
             return str;
         };
