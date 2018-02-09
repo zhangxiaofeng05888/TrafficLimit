@@ -165,11 +165,11 @@ angular.module('app').controller('editGroupCtrl', ['$window', '$scope', '$timeou
             }
         };
         $scope.replaceIllegalChar = function (str) {
-            var regex1 = /[→—―\-\-]/;
+            var regex1 = /[→—―\-\-]/g;
             str = str.replace(regex1, '-');
-            var regex2 = /[“”"《》\r\n]/;
+            var regex2 = /[“”"《》\r\n]/g;
             str = str.replace(regex2, '');
-            var regex3 = /[、。；]/;
+            var regex3 = /[、。；]/g;
             str = str.replace(regex3, ';');
             str = str.replace('<', '小于');
             str = str.replace('>', '大于');
@@ -186,7 +186,7 @@ angular.module('app').controller('editGroupCtrl', ['$window', '$scope', '$timeou
         };
         // 匹配字符
         $scope.matchResult = function (str) {
-            var regex = /[^a-z0-9A-Z\u4e00-\u9fa5;,:()\\|]/;
+            var regex = /[^a-z0-9A-Z\u4e00-\u9fa5-;,:()\\|]/;
             if (regex.test(str)) {
                 return true;
             }
