@@ -108,6 +108,8 @@
     }],
     // 关闭规则, 允许在循环中使用continue跳出循环
     "no-continue": 0,
+    // 正则
+    "no-useless-escape": 0,
     // 关闭规则, 允许在else内使用if，保证程序的逻辑性
     "no-lonely-if": 0
   }
