@@ -759,8 +759,10 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
             $scope.$broadcast('Map-HighlightObject', {
                 features: [objectEditCtrl.data]
             });
+            if (data.groupId == App.Temp.groupId) {
+                showEditTool(geoLiveType);
+            }
 
-            showEditTool(geoLiveType);
             // add by chenx on 2017-3-22
             // 显示地图顶部的操作按钮条，替代原来的鼠标周边半圆形工具条
             // 月编深度深度信息作业时不显示编辑工具
