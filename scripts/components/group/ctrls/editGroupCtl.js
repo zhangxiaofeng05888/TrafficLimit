@@ -114,7 +114,8 @@ angular.module('app').controller('editGroupCtrl', ['$window', '$scope', '$timeou
                 str = $scope.ToCDB(str1);
                 // 校验字符串格式
                 if ($scope.matchResult(str)) {
-                    swal('提示', '存在非法字符', 'warning');
+                    var result = str.match(/[^a-z0-9A-Z\u4e00-\u9fa5-;,:()\\|]/g);
+                    swal('提示', '存在非法字符 ' + result.toString(), 'warning');
                     return;
                 }
                 if (i + 1 === $scope.row.length) {
