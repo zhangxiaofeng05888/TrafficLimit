@@ -550,7 +550,11 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 case 'spareLine':
                 case 'trackLinePanel':
                 case 'intersectLineList':
+                case 'dealfailureList':
                     showInLeftFloatPanel(data);
+                    break;
+                case 'datadifference':
+                    showInDialog(data);
                     break;
                 case 'RestrictionTopoPanel':
                     showInRightFloatPanel(data);
