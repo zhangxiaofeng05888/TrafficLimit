@@ -61,6 +61,7 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
                 if (data !== -1) {
                     swal('提示', '批赋成功', 'success');
                     $scope.$emit('RefreshIntersectLineList');
+                    eventCtrl.fire(eventCtrl.eventTypes.REFRESHDEALFAILURELIST);
                     sceneController.redrawLayerByGeoLiveTypes(['COPYTOLINE', 'COPYTOPOLYGON', 'DRAWPOLYGON', 'GEOMETRYLINE', 'GEOMETRYPOLYGON', 'LIMITLINE']);
                 }
             });
@@ -103,6 +104,7 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
                                     swal('提示', '提交成功', 'success');
                                     $scope.$emit('RefreshResultList');
                                     $scope.$emit('RefreshIntersectLineList');
+                                    eventCtrl.fire(eventCtrl.eventTypes.REFRESHDEALFAILURELIST);
                                     sceneController.redrawLayerByGeoLiveTypes(['COPYTOLINE', 'COPYTOPOLYGON', 'DRAWPOLYGON', 'GEOMETRYLINE', 'GEOMETRYPOLYGON', 'LIMITLINE']);
                                 }
                             });
@@ -117,6 +119,7 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
                                 swal('提示', '提交成功', 'success');
                                 $scope.$emit('RefreshResultList');
                                 $scope.$emit('RefreshIntersectLineList');
+                                eventCtrl.fire(eventCtrl.eventTypes.REFRESHDEALFAILURELIST);
                                 sceneController.redrawLayerByGeoLiveTypes(['COPYTOLINE', 'COPYTOPOLYGON', 'DRAWPOLYGON', 'GEOMETRYLINE', 'GEOMETRYPOLYGON', 'LIMITLINE']);
                             }
                         });
@@ -164,7 +167,7 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
             $scope.$emit('ShowInfoPage', {
                 type: 'datadifference'
             });
-        }
+        };
         var initUserTool = function () {
             initMenuList();
         };
