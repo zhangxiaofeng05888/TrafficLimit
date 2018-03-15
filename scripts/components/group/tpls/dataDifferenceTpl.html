@@ -1,11 +1,31 @@
+<style>
+    .tableDataMsg{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        position: absolute;
+        z-index: 76;
+        transition: all .3s;
+    }
+</style>
 <div ng-controller="dataDifferenceCtrl">
-    <div class="scroll_style" style="height: 200px">
+    <div class="scroll_style" style="height: 350px">
         <div ui-grid="gridOptions"
              ui-grid-selection
+             ui-grid-auto-resize
+             ui-grid-pagination
+             ui-grid-resize-columns
              class="fm-grid wmContent" style="height: 100%;">
 
             <!--loading效果-->
             <div ng-show="loadingFlag" class="tableLoading" ng-include="'./svgLoading.html'"></div>
+            <!-- 无数据提示-->
+            <div ng-show="loadTableDataMsgFlag" class="tableDataMsg"  ng-bind="loadTableDataMsg"></div>
         </div>
     </div>
     <div>
