@@ -106,12 +106,16 @@ angular.module('app').controller('dealfailurelListCtl', ['$window', '$scope', '$
         function getData() {
             $scope.loadingFlag = true;
             dsEdit.getdealfailureResultList().then(function (data) {
-                $scope.loadingFlag = false;
-                var dealfailureData = data.data;
-                for (var i = 0; i < dealfailureData.length; i++) {
-                    dealfailureData[i].index = i + 1;
+                var dealfailureData = [];
+                if (data !== -1) {
+                    dealfailureData = data.data;
+                    for (var i = 0; i < dealfailureData.length; i++) {
+                        dealfailureData[i].index = i + 1;
+                    }
                 }
                 $scope.gridOptions.data = dealfailureData;
+            }).finally(function () {
+                $scope.loadingFlag = false;
             });
         }
         /**
@@ -131,6 +135,13 @@ angular.module('app').controller('dealfailurelListCtl', ['$window', '$scope', '$
                 paginationTemplate: appPath.tool + 'uiGridPager/uiGridPagerTmpl.htm',
                 enableFullRowSelection: true,
                 enableRowHeaderSelection: false,
+                // 分页
+                enablePagination: true, // 是否分页，默认为true
+                enablePaginationControls: true, // 使用默认的底部分页
+                paginationPageSizes: [15, 25, 50], // 每页显示个数可选项
+                paginationCurrentPage: 1, // 当前页码
+                paginationPageSize: 15, // 每页显示个数
+
                 multiSelect: false,
                 modifierKeysToMultiSelect: false,
                 noUnselect: false,
@@ -146,14 +157,16 @@ angular.module('app').controller('dealfailurelListCtl', ['$window', '$scope', '$
 
                 ]
             };
-            getData();
+            // 初始化表格;
+            $timeout(function () {
+                getData();
+            }, 100);
         };
-        $scope.$on('Refresh-Result-List', function (event, data) {
-            getData();
-        });
-
         $scope.$on('ReloadData', initialize);
 
+        $scope.$on('refresh-dealFailureList', function () {
+            getData();
+        });
         $scope.$on('$destroy', function () {
             clearFeedback();
             feedbackCtrl.del(feedback);
