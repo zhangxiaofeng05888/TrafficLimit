@@ -17,19 +17,8 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
         if (!$scope.testLogin()) {
             return;
         }
-        $scope.childListFlag = true; // 当前作业项折叠flag;
         $scope.showFlag = true;
         $scope.selectId = true;
-        /**
-         * 显示作业项子内容
-         * @method openChildList
-         * @author Niuxinyi
-         * @date   2017-11-16
-         * @return {undefined}
-         */
-        $scope.openChildList = function () {
-            $scope.childListFlag = !$scope.childListFlag;
-        };
         $scope.searchModel = {
             pageNum: 1,
             pageSize: 20,
@@ -492,7 +481,9 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
             };
             getData();
         };
+
         initialize();
+
         $scope.$on('$destroy', function () {
 
         });

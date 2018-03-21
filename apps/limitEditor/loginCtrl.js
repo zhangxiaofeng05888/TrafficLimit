@@ -214,7 +214,7 @@ angular.module('app').controller('loginCtrl', ['$scope', 'dsManage',
                         });
                     }
 
-                    window.location.href = '#/info?access_token=' + rest.access_token;
+                    window.location.href = '#/main?access_token=' + rest.access_token;
                 } else {
                     errorMessage(rest);
                 }

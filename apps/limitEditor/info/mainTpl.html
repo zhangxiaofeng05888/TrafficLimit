@@ -1,0 +1,30 @@
+<link href="../../scripts/libs/angular-chosen/chosen.css" rel="stylesheet" type="text/css"/><link rel="stylesheet" type="text/css" href="../../styles/info.css">
+<link rel="stylesheet" type="text/css" href="../../styles/info.css">
+<div class="infoList_container" id="infoListContainer">
+    <div class="infoList_leftDiv">
+        <div class="left-menu-title">
+            <div class="childInfoListTitle" ng-click="openChildList()">
+                <div>
+                    <span>作业项</span>
+                </div>
+                <img style="cursor: pointer" ng-src="{{childListFlag ? '../../images/newPoi/taskList/icon_down_normal.png' : '../../images/newPoi/taskList/icon_up_normal.png'}}">
+            </div>
+            <div ng-style="{'display': childListFlag?'block':'none'}" ng-click="">
+                <ul class="list-group listUlCss">
+                    <li ng-class="{'taskListSelect':taskListSelectFlag }" ng-click="changePageUrl('limitInfo')">
+                        <div class="infoListDesc">
+                            <span>限行限号作业</span>
+                        </div>
+                    </li>
+                    <li ng-class="{'taskListSelect':!taskListSelectFlag }" ng-click="changePageUrl('globalCheck')">
+                        <div class="infoListDesc">
+                            <span>全局检查</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div  class="infoList_rightDiv"  ng-include="pageUrl">
+    </div>
+</div>
