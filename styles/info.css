@@ -234,6 +234,15 @@ body {
     font-size: 12px;
     border-top: 1px solid rgba(255, 255, 255, 0);
     border-bottom: 1px solid rgba(255, 255, 255, 0);
+    cursor:pointer;
+}
+.listUlCss > li:hover{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.listUlCss > li.taskListSelect {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-top: 1px solid #5b98e9 !important;
+    border-bottom: 1px solid #5b98e9 !important;
 }
 .infoListDesc {
     font-size: 12px;

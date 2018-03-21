@@ -300,6 +300,34 @@ FM.uikit.Config.Utility = (function () {
                     tmpl: 'components/group/tpls/dataDifferenceTpl.html'
                 }
             },
+            policyColumnCheck: {
+                name: '策略字段检查结果列表',
+                template: {
+                    ctrl: 'components/group/ctrls/policyColumnCheckListCtl.js',
+                    tmpl: 'components/group/tpls/policyColumnCheckListTpl.html'
+                }
+            },
+            policyColumnCheckResult: {
+                name: '查看策略字段检查结果列表',
+                template: {
+                    ctrl: 'components/group/ctrls/policyColumnCheckListCtl.js',
+                    tmpl: 'components/group/tpls/policyColumnCheckListTpl.html'
+                }
+            },
+            geometryCheck: {
+                name: '几何检查结果列表',
+                template: {
+                    ctrl: 'components/group/ctrls/geometryCheckListCtl.js',
+                    tmpl: 'components/group/tpls/geometryCheckListTpl.html'
+                }
+            },
+            geometryCheckResult: {
+                name: '查看几何检查结果列表',
+                template: {
+                    ctrl: 'components/group/ctrls/geometryCheckListCtl.js',
+                    tmpl: 'components/group/tpls/geometryCheckListTpl.html'
+                }
+            },
             batchEditLimit: {
                 name: '批量编辑列表',
                 template: {

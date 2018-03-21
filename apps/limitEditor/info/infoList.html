@@ -1,121 +1,101 @@
 <link href="../../scripts/libs/angular-chosen/chosen.css" rel="stylesheet" type="text/css"/><link rel="stylesheet" type="text/css" href="../../styles/info.css">
 <link rel="stylesheet" type="text/css" href="../../styles/info.css">
-<div class="infoList_container" id="infoListContainer">
-    <div class="infoList_leftDiv">
-        <div class="left-menu-title">
-            <div class="childInfoListTitle" ng-click="openChildList()">
-                <div>
-                    <span>作业项</span>
-                </div>
-                <img style="cursor: pointer" ng-src="{{childListFlag ? '../../images/newPoi/taskList/icon_down_normal.png' : '../../images/newPoi/taskList/icon_up_normal.png'}}">
-            </div>
-            <div ng-style="{'display': childListFlag?'block':'none'}" ng-click="">
-                <ul class="list-group listUlCss">
-                    <li>
-                        <div class="infoListDesc">
-                            <span>限行限号作业</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+<div ng-controller="infoListCtrl" style="height: 100%;">
+<div class="infoList_rightDiv_search">
+    <div style="padding-top: 60px">
+        <div class="infoList_rightDiv_choose">
+            <span>行政区划</span>
+            <select class="form-control poiRightPanel_select"
+                    ng-model="provinceName"
+                    ng-change="changeProvince(provinceName)"
+                    ng-options="value for value in provinceList"
+                    style="display: inline-block;width: 200px"
+            >
+            </select>
+            <select class="form-control poiRightPanel_select"
+                    ng-model="cityId"
+                    ng-disabled="isSpecialOperation"
+                    ng-change="changeCityId(cityId)"
+                    ng-options="value.id as value.name for value in cityList"
+                    style="display: inline-block;width: 200px;margin-left: 10px"
+            >
+            </select>
         </div>
-    </div>
-    <div class="infoList_rightDiv" ng-if="showFlag">
-        <div class="infoList_rightDiv_search">
-            <div style="padding-top: 60px">
-                <div class="infoList_rightDiv_choose">
-                    <span>行政区划</span>
-                    <select class="form-control poiRightPanel_select"
-                            ng-model="provinceName"
-                            ng-change="changeProvince(provinceName)"
-                            ng-options="value for value in provinceList"
-                            style="display: inline-block;width: 200px"
-                    >
-                    </select>
-                    <select class="form-control poiRightPanel_select"
-                            ng-model="cityId"
-                            ng-disabled="isSpecialOperation"
-                            ng-options="value.id as value.name for value in cityList track by $index"
-                            ng-change="changeCityId(cityId)"
-                            style="display: inline-block;width: 200px;margin-left: 10px"
-                    >
-                    </select>
-                </div>
-                <div class="infoList_rightDiv_choose">
-                    <span>情报编码</span>
-                    <input type="text" class="tl_list_Input" ng-model="searchModel.infoId">
-                </div>
-                <div class="infoList_rightDiv_choose">
-                    <span>完成状态</span>
-                    <input type="checkbox" id="status1" class="radio_diy_class" ng-model="searchModel.status[0]" ng-checked="searchModel.status[0]"/>
-                    <label for="status1">
-                        未处理
-                    </label>
-                    <input type="checkbox" id="status2" class="radio_diy_class" ng-model="searchModel.status[1]" ng-checked="searchModel.status[1]"/>
-                    <label for="status2">
-                        已处理
-                    </label>
-                    <input type="checkbox" id="status3" class="radio_diy_class" ng-model="searchModel.status[2]" ng-checked="searchModel.status[2]"/>
-                    <label for="status3">
-                        无法处理
-                    </label>
-                </div>
-                <div class="infoList_rightDiv_choose">
-                    <span>限行长短期</span>
-                    <input type="checkbox" id="period1" class="radio_diy_class" ng-model="searchModel.period[0]" ng-checked="searchModel.period[0]"/>
-                    <label for="period1">
-                        长期
-                    </label>
-                    <input type="checkbox" id="period2" class="radio_diy_class" ng-model="searchModel.period[1]" ng-checked="searchModel.period[1]"/>
-                    <label for="period2">
-                        短期
-                    </label>
-                </div>
-                <div class="infoList_rightDiv_choose">
-                    <span>工程类型</span>
-                    <input type="checkbox" id="project1" class="radio_diy_class" ng-model="searchModel.project[0]" ng-checked="searchModel.project[0]"/>
-                    <label for="project1">
-                        新增
-                    </label>
-                    <input type="checkbox" id="project2" class="radio_diy_class" ng-model="searchModel.project[1]" ng-checked="searchModel.project[1]"/>
-                    <label for="project2">
-                        改属性
-                    </label>
-                    <input type="checkbox" id="project3" class="radio_diy_class" ng-model="searchModel.project[2]" ng-checked="searchModel.project[2]"/>
-                    <label for="project3">
-                        删除
-                    </label>
-                    <input type="checkbox" id="project4" class="radio_diy_class" ng-model="searchModel.project[3]" ng-checked="searchModel.project[3]"/>
-                    <label for="project4">
-                        改扩建
-                    </label>
-                </div>
-                <div class="infoList_rightDiv_choose">
-                    <span>下发日期</span>
-                    <input type="text" class="tl_list_Input" ng-model="searchModel.sPublicTime" data-max-date="{{searchModel.ePublicTime}}" bs-datepicker data-autoclose=true
-                           data-date-format="yyyy-MM-dd" data-date-type="string">
-                    <span style="padding-left: 5px">至</span>
-                    <input type="text" class="tl_list_Input" ng-model="searchModel.ePublicTime" data-min-date="{{searchModel.sPublicTime}}" bs-datepicker data-autoclose=true
-                           data-date-format="yyyy-MM-dd" data-date-type="string">
-                </div>
-                <div>
-                    <div class="list-title-btn" style="float: right;margin-right: 100px" ng-click="searchList()">
-                        <span style="color: #182848;font-size: 12px">查询</span>
-                    </div>
-                </div>
-            </div>
+        <div class="infoList_rightDiv_choose">
+            <span>情报编码</span>
+            <input type="text" class="tl_list_Input" ng-model="searchModel.infoId">
         </div>
-        <div class="infoList_rightDiv_table">
-            <div class="fm-job-panel fm-stretch">
-                <div ui-grid="gridOptions"
-                     ui-grid-auto-resize
-                     ui-grid-pagination
-                     ui-grid-resize-columns
-                     class="fm-grid wmContent" style="flex: 1; min-height: 60px">
-                    <!--loading效果-->
-                    <!--<div ng-show="loadingFlag" class="tableLoading" ng-include="'./svgLoading.html'"></div>-->
-                </div>
+        <div class="infoList_rightDiv_choose">
+            <span>完成状态</span>
+            <input type="checkbox" id="status1" class="radio_diy_class" ng-model="searchModel.status[0]" ng-checked="searchModel.status[0]"/>
+            <label for="status1">
+                未处理
+            </label>
+            <input type="checkbox" id="status2" class="radio_diy_class" ng-model="searchModel.status[1]" ng-checked="searchModel.status[1]"/>
+            <label for="status2">
+                已处理
+            </label>
+            <input type="checkbox" id="status3" class="radio_diy_class" ng-model="searchModel.status[2]" ng-checked="searchModel.status[2]"/>
+            <label for="status3">
+                无法处理
+            </label>
+        </div>
+        <div class="infoList_rightDiv_choose">
+            <span>限行长短期</span>
+            <input type="checkbox" id="period1" class="radio_diy_class" ng-model="searchModel.period[0]" ng-checked="searchModel.period[0]"/>
+            <label for="period1">
+                长期
+            </label>
+            <input type="checkbox" id="period2" class="radio_diy_class" ng-model="searchModel.period[1]" ng-checked="searchModel.period[1]"/>
+            <label for="period2">
+                短期
+            </label>
+        </div>
+        <div class="infoList_rightDiv_choose">
+            <span>工程类型</span>
+            <input type="checkbox" id="project1" class="radio_diy_class" ng-model="searchModel.project[0]" ng-checked="searchModel.project[0]"/>
+            <label for="project1">
+                新增
+            </label>
+            <input type="checkbox" id="project2" class="radio_diy_class" ng-model="searchModel.project[1]" ng-checked="searchModel.project[1]"/>
+            <label for="project2">
+                改属性
+            </label>
+            <input type="checkbox" id="project3" class="radio_diy_class" ng-model="searchModel.project[2]" ng-checked="searchModel.project[2]"/>
+            <label for="project3">
+                删除
+            </label>
+            <input type="checkbox" id="project4" class="radio_diy_class" ng-model="searchModel.project[3]" ng-checked="searchModel.project[3]"/>
+            <label for="project4">
+                改扩建
+            </label>
+        </div>
+        <div class="infoList_rightDiv_choose">
+            <span>下发日期</span>
+            <input type="text" class="tl_list_Input" ng-model="searchModel.sPublicTime" data-max-date="{{searchModel.ePublicTime}}" bs-datepicker data-autoclose=true
+                   data-date-format="yyyy-MM-dd" data-date-type="string">
+            <span style="padding-left: 5px">至</span>
+            <input type="text" class="tl_list_Input" ng-model="searchModel.ePublicTime" data-min-date="{{searchModel.sPublicTime}}" bs-datepicker data-autoclose=true
+                   data-date-format="yyyy-MM-dd" data-date-type="string">
+        </div>
+        <div>
+            <div class="list-title-btn" style="float: right;margin-right: 100px" ng-click="searchList()">
+                <span style="color: #182848;font-size: 12px">查询</span>
             </div>
         </div>
     </div>
 </div>
+<div class="infoList_rightDiv_table">
+    <div class="fm-job-panel fm-stretch">
+        <div ui-grid="gridOptions"
+             ui-grid-auto-resize
+             ui-grid-pagination
+             ui-grid-resize-columns
+             class="fm-grid wmContent" style="flex: 1; min-height: 60px">
+            <!--loading效果-->
+            <!--<div ng-show="loadingFlag" class="tableLoading" ng-include="'./svgLoading.html'"></div>-->
+        </div>
+    </div>
+</div>
+</div>
+

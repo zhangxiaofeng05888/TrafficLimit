@@ -11,7 +11,7 @@ angular.module('dataService').service('dsFcc', ['$http', '$q', 'ajax', 'dsOutput
             showLoading.flag = flag;
         }
     };
-    /** *
+    /**
      * 获取情报作业列表
      */
     this.getInfoListData = function (params) {
@@ -51,6 +51,88 @@ angular.module('dataService').service('dsFcc', ['$http', '$q', 'ajax', 'dsOutput
         });
         return defer.promise;
     };
+    /**
+     * 执行检查操作
+     */
+    this.doCheck = function (params) {
+        var defer = $q.defer();
+        ajax.get('limit/check', {
+            parameter: JSON.stringify(params)
+        }).success(function (data) {
+            if (data.errcode == 0) {
+                defer.resolve(data.data);
+            } else {
+                swal('执行检查出错：', data.errmsg, 'error');
+                defer.resolve(-1);
+            }
+        }).error(function (rejection) {
+            swal('提示', '执行检查出错', 'error');
+            defer.reject(rejection);
+        });
+        return defer.promise;
+    };
+    /**
+     * 查询检查结果
+     */
+    this.getCheckResult = function (params) {
+        var defer = $q.defer();
+        ajax.get('limit/getLimitDataByCondition', {
+            parameter: JSON.stringify(params)
+        }).success(function (data) {
+            if (data.errcode == 0) {
+                defer.resolve(data.data);
+            } else {
+                swal('查找检查信息出错：', data.errmsg, 'error');
+                defer.resolve(-1);
+            }
+        }).error(function (rejection) {
+            swal('提示', '查找检查信息出错', 'error');
+            defer.reject(rejection);
+        });
+        return defer.promise;
+    };
+
+    /**
+     * 忽略状态更改
+     */
+    this.ignoreCheckInfo = function (params) {
+        var defer = $q.defer();
+        ajax.get('limit/run', {
+            parameter: JSON.stringify(params)
+        }).success(function (data) {
+            if (data.errcode == 0) {
+                defer.resolve(data.data);
+            } else {
+                swal('忽略检查信息出错：', data.errmsg, 'error');
+                defer.resolve(-1);
+            }
+        }).error(function (rejection) {
+            swal('提示', '忽略检查信息出错', 'error');
+            defer.reject(rejection);
+        });
+        return defer.promise;
+    };
+
+    /**
+     * 是否有未处理状态的检查
+     */
+    this.unTreatedList = function (params) {
+        var defer = $q.defer();
+        ajax.get('limit/getLimitDataByCondition', {
+            parameter: JSON.stringify(params)
+        }).success(function (data) {
+            if (data.errcode == 0) {
+                defer.resolve(data.data);
+            } else {
+                swal('未处理检查信息出错：', data.errmsg, 'error');
+                defer.resolve(-1);
+            }
+        }).error(function (rejection) {
+            swal('提示', '未处理检查信息出错', 'error');
+            defer.reject(rejection);
+        });
+        return defer.promise;
+    };
     /*
      * 再次批复
      * */
@@ -82,11 +164,15 @@ angular.module('dataService').service('dsFcc', ['$http', '$q', 'ajax', 'dsOutput
             if (data.errcode == 0) {
                 defer.resolve(data.data);
             } else {
-                swal('提交几何出错：', data.errmsg, 'error');
+                setTimeout(function () {
+                    swal('提交几何出错：', data.errmsg, 'error');
+                }, 1000);
                 defer.resolve(-1);
             }
         }).error(function (rejection) {
-            swal('提示', '提交几何出错', 'error');
+            setTimeout(function () {
+                swal('提示', '提交几何出错', 'error');
+            }, 1000);
             defer.reject(rejection);
         });
         return defer.promise;

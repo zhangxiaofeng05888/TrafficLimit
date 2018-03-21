@@ -475,6 +475,23 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             });
         };
         /**
+         * 策略表字段检查
+         * @method checkPolicy
+         * @author Wangchunmei
+         * @date   2018-02-28
+         * @return {undefined}
+         */
+        $scope.checkPolicy = function () {
+            $scope.$emit('ShowInfoPage', {
+                type: 'policyColumnCheck'
+            });
+        }
+        $scope.lookCheckPolicy = function () {
+            $scope.$emit('ShowInfoPage', {
+                type: 'policyColumnCheckResult'
+            });
+        }
+        /**
          * 初始化数据
          * @author Niuxinyi
          * @date   2017-11-20

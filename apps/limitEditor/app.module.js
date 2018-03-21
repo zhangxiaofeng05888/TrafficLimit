@@ -24,6 +24,10 @@ angular.module('app', ['ngRoute', 'ngCookies', 'ui.layout', 'highcharts-ng', 'ui
                 templateUrl: 'info/infoList.html',
                 controller: 'infoListCtrl'
             })
+            .when('/main', {
+                templateUrl: 'info/mainTpl.html',
+                controller: 'mainCtrl'
+            })
             .when('/group', {
                 templateUrl: 'info/groupListTpl.html',
                 controller: 'groupListCtrl'

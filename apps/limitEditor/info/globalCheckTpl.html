@@ -1,0 +1,52 @@
+<link href="../../scripts/libs/angular-chosen/chosen.css" rel="stylesheet" type="text/css"/><link rel="stylesheet" type="text/css" href="../../styles/info.css">
+<link rel="stylesheet" type="text/css" href="../../styles/info.css">
+<div ng-controller="globalCheckCtrl" style="height: 100%;" id="globalCheckListContainer">
+    <div class="infoList_rightDiv_search">
+        <div style="padding-top: 60px">
+            <div class="infoList_rightDiv_choose">
+                <span>行政区划</span>
+                <select class="form-control poiRightPanel_select"
+                        ng-model="provinceName"
+                        ng-change="changeProvince(provinceName)"
+                        ng-options="value for value in provinceList"
+                        style="display: inline-block;width: 200px;height:30px;padding:1px 12px;"
+                >
+                </select>
+                <select class="form-control poiRightPanel_select"
+                        ng-model="cityId"
+                        ng-disabled="isSpecialOperation"
+                        ng-change="changeCityId(cityId)"
+                        ng-options="value.id as value.name for value in cityList"
+                        style="display: inline-block;width: 200px;margin-left: 10px;height:30px;padding:1px 12px;"
+                >
+                </select>
+            </div>
+            <div class="infoList_rightDiv_choose">
+                <div class="list-title-btn" style="margin-left: 100px;display: inline-block;height: 30px;line-height: 30px;" ng-click="globalCheck()">
+                    <span style="color: #182848;font-size: 12px">检查</span>
+                </div>
+                <div class="list-title-btn" style="width:100px;margin-left: 20px;display: inline-block;height: 30px;line-height: 30px;" ng-click="lookResult()">
+                    <span style="color: #182848;font-size: 12px">查看检查结果</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="infoList_rightDiv_table">
+        <div class="fm-job-panel fm-stretch">
+            <div ui-grid="gridOptions"
+                 ui-grid-auto-resize
+                 ui-grid-pagination
+                 ui-grid-resize-columns
+                 ui-grid-move-columns
+                 class="fm-grid wmContent" style="flex: 1; min-height: 60px">
+                 <!-- loading效果-->
+                <div ng-show="loadingFlag" class="tableLoading" ng-include="'./svgLoading.html'"></div>
+            </div>
+        </div>
+    </div>
+    <wmwindow ng-repeat="(key, item) in dialogManager" class="fm-wm-window" on-open="openDialog($dlg, key)" on-closed="closeDialog(key)" options="{{item.options}}" maximizable="false" title="{{item.title}}">
+        <div class="fm-stretch" ng-include="item.tmpl">
+        </div>
+    </wmwindow>
+</div>
+

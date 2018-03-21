@@ -56,10 +56,10 @@ fastmap.uikit.shapeEdit.PathSmoothTool = fastmap.uikit.shapeEdit.PathTool.extend
             return;
         }
 
-        if (this.selectedVertexIndex !== 0 &&
-            this.selectedVertexIndex !== ls.coordinates.length - 1) {
-            return;
-        }
+        // if (this.selectedVertexIndex !== 0 &&
+        //     this.selectedVertexIndex !== ls.coordinates.length - 1) {
+        //     return;
+        // }
 
         fastmap.uikit.shapeEdit.PathTool.prototype.resetSnapActor.apply(this, arguments);
     },

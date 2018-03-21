@@ -59,11 +59,22 @@ FM.mapApi.render.renderer.IXPOI = FM.mapApi.render.Renderer.extend({
     },
 
     _addIconSymbol: function () {
-        var symbolData = {
+        var symbolData0 = {
             type: 'ImageMarkerSymbol',
             url: '../../images/poi/map/poi_n.png',
             width: 12,
             height: 9
+        };
+        var symbol0 = this._symbolFactory.createSymbol(symbolData0);
+        this._symbol.symbols.push(symbol0);
+        var symbolData = {
+            type: 'TextMarkerSymbol',
+            font: '微软雅黑',
+            size: 10,
+            color: 'black',
+            text: this._feature.properties.name,
+            align: 'left',
+            offsetX: 20
         };
         var symbol = this._symbolFactory.createSymbol(symbolData);
         this._symbol.symbols.push(symbol);

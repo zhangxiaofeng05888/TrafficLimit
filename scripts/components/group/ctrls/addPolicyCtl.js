@@ -486,6 +486,38 @@ angular.module('app').controller('addPolicyCtrl', ['$window', '$scope', '$timeou
                 swal('提示', '请选择限行时间类型', 'warning');
                 return;
             }
+            // RES_DATETYPE为1或者按|分隔后只能为2~20
+            var resDatetypeArr = $scope.policyData.resDatetype;
+            if (resDatetypeArr && resDatetypeArr.indexOf(1) > -1 && resDatetypeArr.length > 1) {
+                swal('提示', '持续时间不能与其他时间同时存在,请重新选择', 'warning');
+                return;
+            }
+            // 受限本地车不为空时，只能为半角字母或数字或'|'
+            var restrictStr = $scope.policyData.restrict;
+            if (restrictStr) {
+                var regex = /[^0-9A-Z\u4E00-\u9FA5|]/g;
+                if (regex.test(restrictStr)) {
+                    swal('提示', '受限本地车内容只能包含汉字、半角大写字母、数字或\'|\'', 'warning');
+                    return;
+                }
+            }
+
+            if (Math.abs($scope.policyData.resWeigh) > 60) {
+                swal('提示', '限制载重值不能大于60', 'warning');
+                return;
+            }
+            if (Math.abs($scope.policyData.resAxleCount) > 10) {
+                swal('提示', '限制轴数值不能大于10', 'warning');
+                return;
+            }
+            if (Math.abs($scope.policyData.resAxleLoad) > 15) {
+                swal('提示', '限制轴重值不能大于15', 'warning');
+                return;
+            }
+            if (Math.abs($scope.policyData.seatnum) > 55) {
+                swal('提示', '车座限制值不能大于55', 'warning');
+                return;
+            }
             params.data.vehicle = $scope.policyData.vehicle.join('|');
             params.data.seatnum = $scope.policyData.seatnum;
             params.data.attribution = $scope.policyData.attribution.join('|');

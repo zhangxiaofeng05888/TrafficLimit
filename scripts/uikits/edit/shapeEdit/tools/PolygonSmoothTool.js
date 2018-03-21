@@ -58,6 +58,7 @@ fastmap.uikit.shapeEdit.PolygonSmoothTool = fastmap.uikit.shapeEdit.PolygonTool.
         this.resetDashLine();
         this.resetDashLineFeedback();
         this.resetFeedback();
+        this.resetSnapActor();
         this.resetMouseInfo();
     },
 
@@ -77,6 +78,36 @@ fastmap.uikit.shapeEdit.PolygonSmoothTool = fastmap.uikit.shapeEdit.PolygonTool.
         this.drawMouseNearestPoint();
 
         this.refreshFeedback();
+    },
+
+    resetSnapActor: function () {
+        this.uninstallSnapActors();
+
+        var ls = this.shapeEditor.editResult.finalGeometry;
+        if (!ls) {
+            return;
+        }
+
+        if (!this.isDragging || !this.isSelectedVertex) {
+            return;
+        }
+
+        var actorInfos = this.shapeEditor.editResult.snapActors;
+        for (var i = 0; i < actorInfos.length; ++i) {
+            var actorInfo = actorInfos[i];
+            if (!actorInfo.enable) {
+                continue;
+            }
+            var snapActor = this.createFeatureSnapActor(actorInfo.geoLiveType, actorInfo.exceptions);
+            snapActor.priority = actorInfo.priority;
+            this.installSnapActor(snapActor);
+        }
+
+        // add by chenx on 2017-8-2
+        // 增加图幅线捕捉
+        var meshSnaper = new fastmap.mapApi.snap.MeshBorderSnapActor();
+        meshSnaper.priority = -99; // 采用有无捕捉算法, 而且优先级最低
+        this.installSnapActor(meshSnaper);
     },
 
     drawMouseNearestPoint: function () {
@@ -351,7 +382,7 @@ fastmap.uikit.shapeEdit.PolygonSmoothTool = fastmap.uikit.shapeEdit.PolygonTool.
         if (!this.isDragging) {
             return false;
         }
-
+        this.snapController.snap(this.mousePoint);
         this.resetDashLine();
         this.resetDashLineFeedback();
 

@@ -6,6 +6,12 @@
         <li ng-class="{true:'disabled'}[menuList.indexOf('submit') < 0]" ng-click="submitGeometry(menuList.indexOf('submit') < 0)">
             提交几何
         </li>
+        <li ng-class="{true:'disabled'}[menuList.indexOf('geometryCheck') < 0]" ng-click="geometryCheck(menuList.indexOf('geometryCheck') < 0)">
+            几何检查
+        </li>
+        <li ng-class="{true:'disabled'}[menuList.indexOf('geometryResult') < 0]" ng-click="geometryCheckResult(menuList.indexOf('geometryResult') < 0)">
+            检查结果
+        </li>
         <li ng-class="{true:'disabled'}[menuList.indexOf('log') < 0]" ng-click="submitAgain(menuList.indexOf('log') < 0)">
             重新批赋
         </li>

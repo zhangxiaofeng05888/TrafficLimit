@@ -73,6 +73,22 @@ angular.module('app').controller('addGroupCtrl', ['$window', '$scope', '$timeout
                 $scope.row[index][name] = $scope.row[index][name].substring(0, $scope.row[index][name].length - 1);
             }
         };
+        // 获取字符串字符长度
+        $scope.getLength = function (str) {
+            // <summary>获得字符串实际长度，中文2，英文1</summary>
+            var realLength = 0;
+            var len = str.length;
+            var charCode = -1;
+            for (var i = 0; i < len; i++) {
+                charCode = str.charCodeAt(i);
+                if (charCode >= 0 && charCode <= 128) {
+                    realLength += 1;
+                } else {
+                    realLength += 2;
+                }
+            }
+            return realLength;
+        };
         /**
          * 弹出框数据进行保存操作
          * @method saveGroup
@@ -116,7 +132,7 @@ angular.module('app').controller('addGroupCtrl', ['$window', '$scope', '$timeout
                 } else {
                     principle = principle + str + '||';
                 }
-                if (principle.length >= 600) {
+                if (getLength(principle) >= 2400) {
                     swal('提示', '超出最大字段长度', 'warning');
                     return;
                 }

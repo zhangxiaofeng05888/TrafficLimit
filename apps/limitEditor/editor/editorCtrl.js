@@ -169,6 +169,15 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 case 'batchDeleteLimitLine':
                     getDlgOption(dlgOption, 500, 300, false);
                     break;
+                case 'datadifference':
+                    getDlgOption(dlgOption, 600, 400, false);
+                    break;
+                case 'policyColumnCheck':
+                case 'policyColumnCheckResult':
+                case 'geometryCheckResult':
+                case 'geometryCheck':
+                    getDlgOption(dlgOption, 800, 500, false);
+                    break;
                 default:
                     break;
             }
@@ -586,6 +595,10 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 case 'batchDeleteLimit':
                 case 'batchEditLimitLine':
                 case 'batchDeleteLimitLine':
+                case 'policyColumnCheck':
+                case 'policyColumnCheckResult':
+                case 'geometryCheck':
+                case 'geometryCheckResult':
                     showInDialog(data);
                     break;
                 case 'LaneConnexityPanel':
@@ -1561,6 +1574,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
         $scope.$on('Dialog-Closed', function (event, data) {
             $scope.closeDialog(data);
             $scope.$broadcast('refreshPolicyList');
+            $scope.$broadcast('refreshPolicyCheckList');
         });
         $scope.$on('Dialog-ResetTitle', function (event, data) {
             var dlgKey = data.type;
@@ -1683,7 +1697,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
         $scope.$on('RefreshResultList', function (event, data) {
             $scope.$broadcast('Refresh-Result-List');
         });
-
+        // 刷新几何成果列表
         eventCtrl.on(eventCtrl.eventTypes.REFRESHRESULTLIST, function (data) {
             $scope.$broadcast('Refresh-Result-List');
         });
@@ -1697,6 +1711,17 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
         $scope.$on('RefreshIntersectLineList', function (event, data) {
             $scope.$broadcast('refresh-intersectLine');
         });
+
+        // 刷新临时成果列表
+        eventCtrl.on(eventCtrl.eventTypes.REFRESHTEMPORARYLIST, function () {
+            $scope.$broadcast('refresh-temporaryResultList');
+        });
+
+        // 刷新未批处理成功列表
+        eventCtrl.on(eventCtrl.eventTypes.REFRESHDEALFAILURELIST, function () {
+            $scope.$broadcast('refresh-dealFailureList');
+        });
+
         /* start 事件监听*******************************************************************/
         eventCtrl.on(eventCtrl.eventTypes.OBJECTSELECTED, function (data) {
             $scope.$broadcast('Map-ClearMap');

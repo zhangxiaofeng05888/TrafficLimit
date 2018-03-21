@@ -120,8 +120,14 @@ angular.module('app').controller('temporaryListCtl', ['$window', '$scope', '$tim
             }).then($timeout(function () {
                 dsEdit.gettemporaryfaceResultList().then(function (data1) {
                     faceResult = data1.data;
+                    var faceResult1 = [];
                     $scope.loadingFlag = false;
-                    var temporaryData = linkresult.concat(faceResult);
+                    for (var j = 0; j < faceResult.length; j++) {
+                        if (faceResult[j].geoLiveType == 'SCPLATERESFACE' && faceResult[j].geometry.type == 'Polygon') {
+                            faceResult1.push(faceResult[j]);
+                        }
+                    }
+                    var temporaryData = linkresult.concat(faceResult1);
                     for (var i = 0; i < temporaryData.length; i++) {
                         temporaryData[i].index = i + 1;
                     }
@@ -147,6 +153,13 @@ angular.module('app').controller('temporaryListCtl', ['$window', '$scope', '$tim
                 paginationTemplate: appPath.tool + 'uiGridPager/uiGridPagerTmpl.htm',
                 enableFullRowSelection: true,
                 enableRowHeaderSelection: false,
+                // 分页
+                enablePagination: true, // 是否分页，默认为true
+                enablePaginationControls: true, // 使用默认的底部分页
+                paginationPageSizes: [15, 25, 50], // 每页显示个数可选项
+                paginationCurrentPage: 1, // 当前页码
+                paginationPageSize: 15, // 每页显示个数
+
                 multiSelect: false,
                 modifierKeysToMultiSelect: false,
                 noUnselect: false,
@@ -165,12 +178,10 @@ angular.module('app').controller('temporaryListCtl', ['$window', '$scope', '$tim
             };
             getData();
         };
-        $scope.$on('Refresh-Result-List', function (event, data) {
+        $scope.$on('ReloadData', initialize);
+        $scope.$on('refresh-temporaryResultList', function () {
             getData();
         });
-
-        $scope.$on('ReloadData', initialize);
-
         $scope.$on('$destroy', function () {
             clearFeedback();
             feedbackCtrl.del(feedback);

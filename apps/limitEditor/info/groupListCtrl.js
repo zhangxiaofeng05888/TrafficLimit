@@ -34,7 +34,7 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
          * @return {undefined}
          */
         $scope.backInfoList = function () {
-            window.location.href = '#/info?access_token=' + App.Temp.accessToken + '&random=' + Math.floor(Math.random() * 100);
+            window.location.href = '#/main?access_token=' + App.Temp.accessToken + '&random=' + Math.floor(Math.random() * 100);
         };
         /**
          * 根据实际的行高设置每行的height属性，主要处理grid高度改变后，canvas的高度没有自动变化的问题

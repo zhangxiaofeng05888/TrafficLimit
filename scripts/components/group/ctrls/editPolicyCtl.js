@@ -454,40 +454,105 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                     objStatus: 'UPDATE'
                 }
             };
-            if ($scope.policyData.vehicle.length === 0) {
+            if ($scope.policyData.vehicle.length === 0 || isNaN($scope.policyData.vehicle[0])) {
                 swal('提示', '请选择车辆类型', 'warning');
                 return;
             }
-            if ($scope.policyData.attribution.length === 0) {
+            if ($scope.policyData.attribution.length === 0 || isNaN($scope.policyData.attribution[0])) {
                 swal('提示', '请选择本外地', 'warning');
                 return;
             }
-            if ($scope.policyData.tempPlate === -1) {
+            if ([1, 2, 3].indexOf($scope.policyData.tempPlate) < 0) {
                 swal('提示', '请选择临牌转换原则', 'warning');
                 return;
             }
-            if ($scope.policyData.charSwitch === -1) {
+            if ($scope.policyData.tempPlate === 1 && $scope.tempPlateNum.indexOf($scope.policyData.tempPlateNum) < 0) {
+                swal('提示', '请选择临牌对应数字', 'warning');
+                return;
+            }
+            if ([1, 2, 3].indexOf($scope.policyData.charSwitch) < 0) {
                 swal('提示', '请选择字母转换原则', 'warning');
                 return;
             }
-            if ($scope.policyData.tailNumber.length === 0) {
+            if ($scope.policyData.charSwitch === 1 && $scope.charToNum.indexOf($scope.policyData.charToNum) < 0) {
+                swal('提示', '请选择字母对应数字', 'warning');
+                return;
+            }
+            if ($scope.policyData.tailNumber.length === 0 || isNaN($scope.policyData.tailNumber[0])) {
                 swal('提示', '请选择限行尾号', 'warning');
                 return;
             }
-            if ($scope.policyData.energyType.length === 0) {
+            if ($scope.policyData.energyType.length === 0 || isNaN($scope.policyData.energyType[0])) {
                 swal('提示', '请选择能源类型', 'warning');
                 return;
             }
-            if ($scope.policyData.gasEmisstand.length === 0) {
+            if ($scope.policyData.gasEmisstand.length === 0 || isNaN($scope.policyData.gasEmisstand[0])) {
                 swal('提示', '请选择油气排放标准', 'warning');
                 return;
             }
-            if ($scope.policyData.platecolor.length === 0) {
+            if ($scope.policyData.platecolor.length === 0 || isNaN($scope.policyData.platecolor[0])) {
                 swal('提示', '请选择车牌颜色', 'warning');
                 return;
             }
-            if ($scope.policyData.resDatetype.length === 0) {
+            if ($scope.policyData.resDatetype.length === 0 || isNaN($scope.policyData.resDatetype[0])) {
                 swal('提示', '请选择限行时间类型', 'warning');
+                return;
+            }
+            var resDatetypeArr = $scope.policyData.resDatetype;
+            if (resDatetypeArr && resDatetypeArr.indexOf(1) > -1 && resDatetypeArr.length > 1) {
+                swal('提示', '持续时间不能与其他时间同时存在,请重新选择', 'warning');
+                return;
+            }
+
+            // 受限本地车不为空时，只能为半角字母或数字或'|'
+            var restrictStr = $scope.policyData.restrict;
+            if (restrictStr) {
+                var regex = /[^0-9A-Z\u4E00-\u9FA5|]/g;
+                if (regex.test(restrictStr)) {
+                    swal('提示', '受限本地车内容只能包含汉字、半角大写字母、数字或\'|\'', 'warning');
+                    return;
+                }
+            }
+            if (isNaN($scope.policyData.vehicleLength)) {
+                swal('提示', '限制车长只能是数字', 'warning');
+                return;
+            }
+            if (isNaN($scope.policyData.resWeigh) || Math.abs($scope.policyData.resWeigh) > 60) {
+                swal('提示', '限制载重只能是数字并且数值不能大于60', 'warning');
+                return;
+            }
+            if (isNaN($scope.policyData.resAxleCount) || Math.abs($scope.policyData.resAxleCount) > 10) {
+                swal('提示', '限制轴只能是数字并且数值不能大于10', 'warning');
+                return;
+            }
+            if (isNaN($scope.policyData.resAxleLoad) || Math.abs($scope.policyData.resAxleLoad) > 15) {
+                swal('提示', '限制轴重只能是数字并且数值不能大于15', 'warning');
+                return;
+            }
+            if (isNaN($scope.policyData.seatnum) || Math.abs($scope.policyData.seatnum) > 55) {
+                swal('提示', '车座限制只能是数字并且数值不能大于55', 'warning');
+                return;
+            }
+            var startDate0 = $scope.policyData.startDate;
+            var endDate0 = $scope.policyData.endDate;
+            var regex2 = /^\d{4}-(0[1-9]|1[0-2])-([0-2]\d|3[01])$/;
+            if (startDate0 && !regex2.test(startDate0)) {
+                swal('提示', '开始时间错误,请重新选择', 'warning');
+                return;
+            }
+            if (endDate0 && !regex2.test(endDate0)) {
+                swal('提示', '结束时间错误,请重新选择', 'warning');
+                return;
+            }
+
+            var timeRegex = /^\[\(h([01]\d|2[0-3])m([0-5]\d|60)\)\(h([01]\d|2[0-3])m([0-5]\d|60)\)\]$/;
+            if ($scope.policyData.time && !timeRegex.test($scope.policyData.time)) {
+                swal('提示', '限行时间为错误,请重新选择', 'warning');
+                return;
+            }
+            var regex3 = /^\[\(h0m0\)\(h23m59\)\]$/;
+            if ($scope.policyData.time && regex3.test($scope.policyData.time)) {
+                swal('提示', '限行时间为00:00-23:59,请重新选择', 'warning');
                 return;
             }
             params.data.vehicle = $scope.policyData.vehicle.join('|');
