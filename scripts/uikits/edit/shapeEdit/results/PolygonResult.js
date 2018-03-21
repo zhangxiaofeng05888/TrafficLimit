@@ -10,7 +10,7 @@ fastmap.uikit.shapeEdit.PolygonResult = fastmap.uikit.shapeEdit.ShapeEditResult.
             type: 'LineString',
             coordinates: []
         };
-
+        this.snapActors = [];
         this.isClosed = false;
     },
 
@@ -24,5 +24,6 @@ fastmap.uikit.shapeEdit.PolygonResult = fastmap.uikit.shapeEdit.ShapeEditResult.
         fastmap.uikit.shapeEdit.ShapeEditResult.prototype.cloneProperties.call(this, editResult);
         editResult.finalGeometry = FM.Util.clone(this.finalGeometry);
         editResult.isClosed = FM.Util.clone(this.isClosed);
+        editResult.snapActors = FM.Util.clone(this.snapActors);
     }
 });

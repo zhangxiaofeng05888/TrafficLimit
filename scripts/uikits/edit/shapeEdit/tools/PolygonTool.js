@@ -212,7 +212,8 @@ fastmap.uikit.shapeEdit.PolygonTool = fastmap.uikit.shapeEdit.ShapeTool.extend({
         var opereation = new fastmap.uikit.operation.PolygonVertexMoveOperation(
             this.shapeEditor,
             index,
-            point
+            point,
+            snap
         );
 
         this.createOperation(opereation);

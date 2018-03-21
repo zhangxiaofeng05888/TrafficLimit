@@ -258,7 +258,7 @@ fastmap.uikit.shapeEdit.ShapeEditor = L.Class.extend({
     getSnapActors: function () {
         var snapItems = [];
         var currentTool = this.toolController.currentTool;
-        if (currentTool.name !== 'PathVertexAddTool' && currentTool.name !== 'PathSmoothTool') {
+        if (currentTool.name !== 'PathVertexAddTool' && currentTool.name !== 'PathSmoothTool' && currentTool.name !== 'PolygonSmoothTool') {
             return snapItems;
         }
 

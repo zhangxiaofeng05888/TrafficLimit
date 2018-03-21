@@ -4,7 +4,7 @@
  */
 
 fastmap.uikit.operation.PolygonEditOperation = fastmap.uikit.operation.Operation.extend({
-    initialize: function (description, shapeEditor, index, point) {
+    initialize: function (description, shapeEditor, index, point, snap) {
         fastmap.uikit.operation.Operation.prototype.initialize.call(
             this,
             description,
@@ -14,6 +14,7 @@ fastmap.uikit.operation.PolygonEditOperation = fastmap.uikit.operation.Operation
 
         this.index = index;
         this.point = point;
+        this.snap = snap;
         this.oldEditResult = shapeEditor.editResult;
         this.newEditResult = null;
 
