@@ -126,7 +126,15 @@ angular.module('app').controller('globalCheckCtrl', ['$window', '$scope', '$time
                     for (var i = 0; i < checkRes.data.length; i++) {
                         checkRes.data[i].pageIndex = i + 1;
                         var targets = checkRes.data[i].targets;
-                        checkRes.data[i].id = targets.substring(0, targets.length - 1).split(',')[1];
+                        var groupId = '';
+                        var arrTargets = targets.substring(1, targets.length - 1).split(',');
+                        if (arrTargets[0].indexOf('_GROUP') > -1) {
+                            arrTargets.splice(0, 1);
+                            groupId = arrTargets.toString();
+                        } else {
+                            groupId = arrTargets[1];
+                        }
+                        checkRes.data[i].groupId = groupId;
                     }
                     $scope.loadingFlag = false;
                     $scope.gridOptions.data = checkRes.data;
@@ -414,27 +422,27 @@ angular.module('app').controller('globalCheckCtrl', ['$window', '$scope', '$time
                         cellClass: 'center',
                         cellTemplate: getIndex()
                     },
-                    // {
-                    //     field: 'groupid',
-                    //     displayName: 'groupId',
-                    //     enableSorting: false,
-                    //     minWidth: 50,
-                    //     cellClass: 'center'
-                    // },
-                    // {
-                    //     field: 'infoIntelId',
-                    //     displayName: 'infoIntelId',
-                    //     enableSorting: false,
-                    //     minWidth: 50,
-                    //     cellClass: 'center'
-                    // },
                     {
-                        field: 'id',
-                        displayName: 'ID',
+                        field: 'groupId',
+                        displayName: 'groupId',
                         enableSorting: false,
                         minWidth: 50,
                         cellClass: 'center'
                     },
+                    {
+                        field: 'infoIntelId',
+                        displayName: '情报编码',
+                        enableSorting: false,
+                        minWidth: 50,
+                        cellClass: 'center'
+                    },
+                    // {
+                    //     field: 'id',
+                    //     displayName: 'ID',
+                    //     enableSorting: false,
+                    //     minWidth: 50,
+                    //     cellClass: 'center'
+                    // },
                     {
                         field: 'ruleid',
                         displayName: '规则号',
