@@ -63,6 +63,22 @@ fastmap.uikit.topoEdit.GeometryPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEd
         geometry.coordinates = options.originObject.geometry.coordinates[0];
         editResult.finalGeometry = geometry;
         editResult.isClosed = true;
+        editResult.snapActors = [
+            {
+                id: options.originObject.pid,
+                geoLiveType: 'RDNODE',
+                priority: 4,
+                enable: true,
+                exceptions: []
+            },
+            {
+                id: options.originObject.pid,
+                geoLiveType: 'RDLINK',
+                priority: 2,
+                enable: true,
+                exceptions: []
+            }
+        ];
         return editResult;
     },
 
