@@ -101,7 +101,7 @@ angular.module('app').controller('globalCheckCtrl', ['$window', '$scope', '$time
         var globalRuleIds = ['GLM90301', 'GLM90302', 'GLM90303', 'GLM90305', 'GLM90307', 'GLM90309', 'GLM90311', 'GLM90312',
             'GLM90313', 'GLM90315', 'GLM90317', 'GLM90319', 'GLM90321', 'GLM90323', 'GLM90325', 'GLM90327', 'GLM90329', 'GLM90331',
             'GLM90333', 'GLM90335', 'GLM90337', 'GLM90339', 'GLM90341', 'GLM90343', 'GLM90344', 'GLM90228', 'GLM90243', 'GLM90267', 'GLM90268',
-            'GLM90269', 'GLM90273', 'GLM90271', 'GLM90272', 'GLM90289', 'GLM90349'];
+            'GLM90269', 'GLM90273', 'GLM90271', 'GLM90272', 'GLM90289', 'GLM90349', 'GLM90242'];
         // , 'GLM90268'
         /**
          * 查看检查结果

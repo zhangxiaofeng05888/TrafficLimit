@@ -30,7 +30,7 @@ angular.module('app').controller('policyCheckCtrl', ['$window', '$scope', '$time
         var policyRuleIds = ['GLM90304', 'GLM90306', 'GLM90308', 'GLM90310', 'GLM90314', 'GLM90316', 'GLM90318', 'GLM90320',
             'GLM90324', 'GLM90326', 'GLM90328', 'GLM90330', 'GLM90332', 'GLM90334', 'GLM90336', 'GLM90338', 'GLM90340',
             'GLM90342', 'GLM90234_1', 'GLM90234_2', 'GLM90235_1', 'GLM90235_2', 'GLM90235_3', 'GLM90235_4', 'GLM90235_5', 'GLM90276',
-            'GLM90236', 'GLM90237_1', 'GLM90237_2', 'GLM90240', 'GLM90242', 'GLM90250', 'GLM90251', 'GLM90254', 'GLM90256', 'GLM90274',
+            'GLM90236', 'GLM90237_1', 'GLM90237_2', 'GLM90240', 'GLM90250', 'GLM90251', 'GLM90254', 'GLM90256', 'GLM90274',
             'GLM90275', 'GLM90281', 'GLM90282', 'GLM90283', 'GLM90284', 'GLM90292', 'GLM90264', 'GLM90266'];
         $scope.searchModel = {
             pageNum: 1,

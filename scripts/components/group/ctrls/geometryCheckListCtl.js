@@ -99,6 +99,9 @@ angular.module('app').controller('geometryCheckCtrl', ['$window', '$scope', '$ti
             };
             dsFcc.doCheck(params).then(function (checkFlag) {
                 $scope.lookGeometryResult();
+            }).catch(function (error) {
+                $scope.loadingFlag = false;
+                swal('提示', '几何检查失败!', 'error');
             });
         };
 
