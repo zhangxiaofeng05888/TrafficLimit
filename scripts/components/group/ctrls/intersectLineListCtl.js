@@ -151,8 +151,7 @@ angular.module('app').controller('intersectLineListCtl', ['$window', '$scope', '
             // 初始化表格;
             setTimeout(function () {
                 getData();
-                $scope.$apply();
-            });
+            }, 100);
         };
 
         var unbindHandler = $scope.$on('ReloadData', initialize);

@@ -55,10 +55,11 @@ fastmap.uikit.editControl.CopyLineControl = fastmap.uikit.editControl.EditContro
         } else {
             swal('提示', '复制成功', 'success');
         }
+        // 刷新几何临时列表
+        this.eventController.fire(L.Mixin.EventTypes.REFRESHTEMPORARYLIST);
 
         // 刷新对应图层
         this.sceneController.redrawLayerByGeoLiveTypes(geoLiveTypes);
-
 
         // 重新执行流程方便连续操作
         this.run();

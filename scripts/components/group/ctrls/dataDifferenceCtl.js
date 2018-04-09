@@ -20,6 +20,8 @@ angular.module('app').controller('dataDifferenceCtrl', ['$window', '$scope', '$t
         var faceSymbol = symbolFactory.getSymbol('pt_face');
         var feedback = new fastmap.mapApi.Feedback();
         feedbackCtrl.add(feedback);
+        $scope.loadTableDataMsg = '无差分数据'
+        $scope.loadTableDataMsgFlag = false;
         var myRowProc = function (rows, columns) {
             if (rows.length > 0) {
                 $timeout(function () {
@@ -78,7 +80,14 @@ angular.module('app').controller('dataDifferenceCtrl', ['$window', '$scope', '$t
         // 获取表格数据
         var getTableData = function () {
             var dataList = [];
+            $scope.loadingFlag = true;
+            $scope.loadTableDataMsgFlag = false;
             dsEdit.getdataDifferenceResultList().then(function (data) {
+                if (data.del.length == 0 && data.add.length == 0 && data.change.length == 0) {
+                    $scope.loadTableDataMsgFlag = true;
+                    $scope.gridOptions.data = dataList;
+                    return;
+                }
                 var delData = data.del;
                 for (var i = 0; i < delData.length; i++) {
                     var obj = delData[i];
@@ -121,9 +130,23 @@ angular.module('app').controller('dataDifferenceCtrl', ['$window', '$scope', '$t
                     dataList[n].index = n + 1;
                 }
                 $scope.gridOptions.data = dataList;
+            }).finally(function () {
+                $scope.loadingFlag = false;
             });
         };
-
+        /**
+         * 格式化row(为了给row绑定事件)
+         * @author Niuxinyi
+         * @date   2017-11-20
+         * @return {object} html 返回页面
+         */
+        function formatRow() {
+            var html = '<div ng-click="grid.appScope.showOnMap(row)">' +
+                '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" ' +
+                'class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }" ui-grid-cell></div>' +
+                '</div>';
+            return html;
+        }
         /**
          * 显示序号
          * @author Niuxinyi
@@ -179,6 +202,17 @@ angular.module('app').controller('dataDifferenceCtrl', ['$window', '$scope', '$t
                 paginationTemplate: appPath.tool + 'uiGridPager/uiGridPagerTmpl.htm',
                 enableFullRowSelection: true,
                 enableRowHeaderSelection: false,
+                // 分页
+                enablePagination: true, // 是否分页，默认为true
+                enablePaginationControls: true, // 使用默认的底部分页
+                paginationPageSizes: [15, 25, 50], // 每页显示个数可选项
+                paginationCurrentPage: 1, // 当前页码
+                paginationPageSize: 15, // 每页显示个数
+
+                multiSelect: false,
+                modifierKeysToMultiSelect: false,
+                noUnselect: false,
+                rowTemplate: formatRow(),
                 onRegisterApi: function (gridApi) {
                     $scope.gridApi = gridApi;
                     gridApi.grid.registerRowsProcessor(myRowProc, 200);
