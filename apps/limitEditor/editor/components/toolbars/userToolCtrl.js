@@ -109,7 +109,7 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
                             searchType: 1,
                             infoIntelId: App.Temp.infoToGroupData.infoId
                         }
-                    }
+                    };
                     dsFcc.unTreatedList(param).then(function (result) {
                         if (result.total && result.total === 1) {
                             swal({ title: '提示', text: '存在未处理的检查log', type: 'warning', confirmButtonText: '确定' }, function (f) {
@@ -246,7 +246,7 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
             });
         };
         // 数据差分数据列表
-        $scope.showdatadifferenceResultListPanel = function (flag){
+        $scope.showdatadifferenceResultListPanel = function (flag) {
             if (flag) {
                 return;
             }
