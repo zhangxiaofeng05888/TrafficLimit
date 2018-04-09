@@ -74,7 +74,7 @@ angular.module('app').controller('addGroupCtrl', ['$window', '$scope', '$timeout
             }
         };
         // 获取字符串字符长度
-        $scope.getLength = function (str) {
+        var getLength = function (str) {
             // <summary>获得字符串实际长度，中文2，英文1</summary>
             var realLength = 0;
             var len = str.length;
@@ -123,7 +123,7 @@ angular.module('app').controller('addGroupCtrl', ['$window', '$scope', '$timeout
                 str = $scope.ToCDB(str1);
                 // 校验字符串格式
                 if ($scope.matchResult(str)) {
-                    var result = str.match(/[^a-z0-9A-Z\u4e00-\u9fa5-;,:()\\|]/g);
+                    var result = str.match(/[^a-z0-9A-Z\u4e00-\u9fa5-;,:()\\|\\.\\+]/g);
                     swal('提示', '存在非法字符 ' + result.toString(), 'warning');
                     return;
                 }
@@ -183,7 +183,7 @@ angular.module('app').controller('addGroupCtrl', ['$window', '$scope', '$timeout
         };
         // 匹配字符
         $scope.matchResult = function (str) {
-            var regex = /[^a-z0-9A-Z\u4e00-\u9fa5-;,:()\\|]/;
+            var regex = /[^a-z0-9A-Z\u4e00-\u9fa5-;,:()\\|\\.\\+]/;
             if (regex.test(str)) {
                 return true;
             }

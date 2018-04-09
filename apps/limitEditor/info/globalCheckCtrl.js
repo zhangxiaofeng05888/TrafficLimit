@@ -100,8 +100,8 @@ angular.module('app').controller('globalCheckCtrl', ['$window', '$scope', '$time
         // 全局检查项
         var globalRuleIds = ['GLM90301', 'GLM90302', 'GLM90303', 'GLM90305', 'GLM90307', 'GLM90309', 'GLM90311', 'GLM90312',
             'GLM90313', 'GLM90315', 'GLM90317', 'GLM90319', 'GLM90321', 'GLM90323', 'GLM90325', 'GLM90327', 'GLM90329', 'GLM90331',
-            'GLM90333', 'GLM90335', 'GLM90337', 'GLM90339', 'GLM90341', 'GLM90343', 'GLM90344', 'GLM90228', 'GLM90243', 'GLM90268',
-            'GLM90269', 'GLM90273', 'GLM90271', 'GLM90272', 'GLM90289', 'GLM90293', 'GLM90241', 'GLM90261', 'GLM90349'];
+            'GLM90333', 'GLM90335', 'GLM90337', 'GLM90339', 'GLM90341', 'GLM90343', 'GLM90344', 'GLM90228', 'GLM90243', 'GLM90267', 'GLM90268',
+            'GLM90269', 'GLM90273', 'GLM90271', 'GLM90272', 'GLM90289', 'GLM90349', 'GLM90242'];
         // , 'GLM90268'
         /**
          * 查看检查结果
@@ -150,6 +150,12 @@ angular.module('app').controller('globalCheckCtrl', ['$window', '$scope', '$time
          */
         function getData() {
             $scope.loadingFlag = true;
+            var sPublicTime = $scope.searchModel.sPublicTime;
+            var ePublicTime = $scope.searchModel.ePublicTime;
+            if (sPublicTime && ePublicTime) {
+                sPublicTime = sPublicTime.replace(new RegExp(/(-)/g), '');
+                ePublicTime = ePublicTime.replace(new RegExp(/(-)/g), '');
+            }
             var params = {
                 command: 'CREATE',
                 type: 'NIVALEXCEPTION',
@@ -160,7 +166,9 @@ angular.module('app').controller('globalCheckCtrl', ['$window', '$scope', '$time
                     worker: App.Temp.userId,
                     provinceName: $scope.cityId,
                     checkType: 1,
-                    ruleIds: globalRuleIds
+                    ruleIds: globalRuleIds,
+                    startDate: sPublicTime,
+                    endDate: ePublicTime
                 }
             };
             dsFcc.doCheck(params).then(function (data) {
@@ -373,6 +381,39 @@ angular.module('app').controller('globalCheckCtrl', ['$window', '$scope', '$time
                     $scope.cityId = CityList[i].city[0].id;
                 }
             }
+            var date = new Date();
+            var preDate = new Date();
+            preDate.setDate(new Date().getDate() - 30);
+            var year = date.getFullYear();
+            var preYear = preDate.getFullYear();
+            var month = date.getMonth() + 1;
+            var preMonth = preDate.getMonth() + 1;
+            if (month < 10) {
+                month = '0' + month.toString();
+            } else {
+                month = month.toString();
+            }
+            if (preMonth < 10) {
+                preMonth = '0' + preMonth.toString();
+            } else {
+                preMonth = preMonth.toString();
+            }
+            var day = date.getDate();
+            var preDay = preDate.getDate();
+            if (day < 10) {
+                day = '0' + day.toString();
+            } else {
+                day = day.toString();
+            }
+            if (preDay < 10) {
+                preDay = '0' + preDay.toString();
+            } else {
+                preDay = preDay.toString();
+            }
+            var time = year.toString() + '-' + month + '-' + day.toString();
+            var preTime = preYear.toString() + '-' + preMonth + '-' + preDay.toString();
+            $scope.searchModel.sPublicTime = preTime;
+            $scope.searchModel.ePublicTime = time;
             $scope.gridOptions = {
                 useExternalSorting: true,
                 enableColumnMenus: false,

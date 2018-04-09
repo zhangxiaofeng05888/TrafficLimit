@@ -130,7 +130,7 @@ angular.module('app').controller('editGroupCtrl', ['$window', '$scope', '$timeou
                 str = $scope.ToCDB(str1);
                 // 校验字符串格式
                 if ($scope.matchResult(str)) {
-                    var result = str.match(/[^a-z0-9A-Z\u4e00-\u9fa5-;,:()\\|]/g);
+                    var result = str.match(/[^a-z0-9A-Z\u4e00-\u9fa5-;,:()\\|\\.\\+]/g);
                     swal('提示', '存在非法字符 ' + result.toString(), 'warning');
                     return;
                 }
@@ -203,7 +203,7 @@ angular.module('app').controller('editGroupCtrl', ['$window', '$scope', '$timeou
         };
         // 匹配字符
         $scope.matchResult = function (str) {
-            var regex = /[^a-z0-9A-Z\u4e00-\u9fa5-;,:()\\|]/;
+            var regex = /[^a-z0-9A-Z\u4e00-\u9fa5-;,:()\\|\\.\\+]/;
             if (regex.test(str)) {
                 return true;
             }

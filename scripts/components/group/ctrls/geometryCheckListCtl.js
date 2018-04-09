@@ -40,7 +40,7 @@ angular.module('app').controller('geometryCheckCtrl', ['$window', '$scope', '$ti
         // 策略表检查项
 
         // 几何检查项
-        var geometryRuleIds = ['GLM90345', 'GLM90346', 'GLM90347', 'GLM90348'];
+        var geometryRuleIds = ['GLM90286', 'GLM90290', 'GLM90293', 'GLM90261', 'GLM90345', 'GLM90346', 'GLM90347', 'GLM90348'];
         $scope.searchModel = {
             pageNum: 1,
             pageSize: 20,
@@ -76,6 +76,8 @@ angular.module('app').controller('geometryCheckCtrl', ['$window', '$scope', '$ti
                     $scope.loadingFlag = false;
                     $scope.gridOptions.data = checkRes.data;
                     $scope.gridOptions.totalItems = checkRes.total;
+                } else {
+                    $scope.loadingFlag = false;
                 }
             });
         };
@@ -97,6 +99,9 @@ angular.module('app').controller('geometryCheckCtrl', ['$window', '$scope', '$ti
             };
             dsFcc.doCheck(params).then(function (checkFlag) {
                 $scope.lookGeometryResult();
+            }).catch(function (error) {
+                $scope.loadingFlag = false;
+                swal('提示', '几何检查失败!', 'error');
             });
         };
 

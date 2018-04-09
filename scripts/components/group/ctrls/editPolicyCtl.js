@@ -715,7 +715,9 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
             }
             $scope.policyData.resDatetype = changeStrArr(policyData.resDatetype.split('|'));
             $scope.policyData.time = policyData.time;
-            $scope.policyData.specFlag = changeStrArr(policyData.specFlag.split('|'));
+            if (policyData.specFlag !== '') {
+                $scope.policyData.specFlag = changeStrArr(policyData.specFlag.split('|'));
+            }
 
             var ctrl = '../../scripts/components/tools/fmTimeComponent/fmdateTimer.js';
             var tmpl = '../../scripts/components/tools/fmTimeComponent/fmdateTimer.html';
