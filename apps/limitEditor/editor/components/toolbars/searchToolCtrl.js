@@ -5,8 +5,48 @@ angular.module('app').controller('searchToolCtrl', ['$scope', 'dsEdit',
     function ($scope, dsEdit) {
         var eventCtrl = new fastmap.uikit.EventController();
 
+        $scope.pagation = {
+            pageNum: 1,
+            pageSize: 10,
+            total: 1,
+            maxSize: 2
+        };
+
+        $scope.closeImg = '../../images/newPoi/rightPanelIcon/icon-right-close.png';
+        $scope.openImg = '../../images/newPoi/rightPanelIcon/icon-right-open.png';
+        $scope.showResultFlag = false;
+        $scope.showKindFlag = false;
         $scope.advancePanelFlag = false;
         $scope.searchInputStatus = true;    // 搜索框效果;
+        $scope.searchLoading = false;
+
+        $scope.kindList = [{
+            name: '兴趣点',
+            children: [{
+                key: 'pid',
+                name: 'POI',
+                type: 'IXPOI',
+                selected: true
+            }],
+            selected: true
+        },
+        {
+            name: '道路背景',
+            children: [{
+                key: 'linkPid',
+                name: '道路线',
+                type: 'RDLINK',
+                selected: false
+            }],
+            selected: false
+        }];
+
+        $scope.selectedItem = {
+            key: 'pid',
+            name: 'POI',
+            type: 'IXPOI',
+            selected: true
+        };
         $scope.roadNames = [
             { text: '' }
         ];
@@ -36,6 +76,8 @@ angular.module('app').controller('searchToolCtrl', ['$scope', 'dsEdit',
                 if ($scope.advancePanelFlag) {
                     $scope.advancePanelFlag = !$scope.advancePanelFlag;
                 }
+                $scope.showKindFlag = false;
+                $scope.showResultFlag = false;
             }
         };
 
@@ -54,38 +96,70 @@ angular.module('app').controller('searchToolCtrl', ['$scope', 'dsEdit',
         };
 
         var startSearch = function (data) {
-            dsEdit.normalSearch(data).then(function (res) {
-                if (res) {
-                    if (res.rows.length > 0) {
-                        showAdvanceSearchPanel(res);
-                    } else {
-                        swal('提示', '输入的道路名称或PID不存在', 'info');
+            $scope.showLoadingAffected();
+            if ($scope.searchParmas.type == 'IXPOI') {
+                dsEdit.normalPoiSearch($scope.searchParmas).then(function (res) {
+                    if (res) {
+                        $scope.hideLoadingAffected();
+                        $scope.searchDataList = res.rows;
+                        $scope.pagation.total = res.total;
                     }
-                }
-            });
+                });
+            } else {
+                dsEdit.normalSearch($scope.searchParmas).then(function (res) {
+                    if (res) {
+                        if (res.rows.length > 0) {
+                            showAdvanceSearchPanel(res);
+                        } else {
+                            swal('提示', '输入的道路名称或PID不存在', 'info');
+                        }
+                    }
+                });
+            }
         };
 
         // 查询数据; 1模糊查询；2精准查询；3根据pid查询。
         $scope.doSearch = function (type) {
+            $scope.searchParmas = {
+                name: $scope.searchText,
+                pageNum: $scope.pagation.pageNum,
+                pageSize: $scope.pagation.pageSize
+            };
             var text = Utils.trim($scope.searchText);
             if (!text) { return; }
-
-            var data = {};
-            if (isNaN(text)) {
-                data.type = type;
-                data.condition = {
-                    adminCode: App.Temp.infoToGroupData.cityId,
-                    names: [text]
+            if ($scope.selectedItem.type == 'IXPOI') {
+                $scope.showResultFlag = true;
+                $scope.searchParmas = {
+                    type: $scope.selectedItem.type,
+                    condition: {
+                        name: $scope.searchText,
+                        pageNum: $scope.pagation.pageNum,
+                        pageSize: $scope.pagation.pageSize
+                    }
                 };
             } else {
-                data.type = 3;
-                data.condition = {
-                    adminCode: App.Temp.infoToGroupData.cityId,
-                    linkPid: text
-                };
+                if (isNaN(text)) {
+                    $scope.searchParmas = {
+                        type: type,
+                        condition: {
+                            adminCode: App.Temp.infoToGroupData.cityId,
+                            names: [text]
+                        }
+                    };
+                } else {
+                    $scope.searchParmas = {
+                        type: 3,
+                        condition: {
+                            adminCode: App.Temp.infoToGroupData.cityId,
+                            names: text
+                        }
+                    };
+                }
             }
-
-            startSearch(data);
+            var data = {};
+            $scope.searchDataList = [];
+            $scope.pagation.total = 1;
+            startSearch();
         };
 
         var getSearchNames = function () {
@@ -110,7 +184,7 @@ angular.module('app').controller('searchToolCtrl', ['$scope', 'dsEdit',
                 return;
             }
 
-            var data = {
+            $scope.searchParmas = {
                 type: type,
                 condition: {
                     adminCode: App.Temp.infoToGroupData.cityId,
@@ -118,7 +192,54 @@ angular.module('app').controller('searchToolCtrl', ['$scope', 'dsEdit',
                 }
             };
 
-            startSearch(data);
+            startSearch();
         };
+
+        // 显示搜索加载效果;
+        $scope.showLoadingAffected = function () {
+            $scope.searchLoading = true;
+        };
+        // 隐藏搜索加载效果;
+        $scope.hideLoadingAffected = function () {
+            $scope.searchLoading = false;
+        };
+
+        $scope.goToPage = function () {
+            $scope.searchParmas.condition.pageNum = $scope.pagation.pageNum;
+            startSearch();
+        };
+
+        $scope.showKindPanel = function () {
+            $scope.showKindFlag = !$scope.showKindFlag;
+        };
+
+        $scope.selectFirst = function (item) {
+            item.selected = !item.selected;
+        };
+
+        $scope.selectSecond = function (child) {
+            for (var i = 0; i < $scope.kindList.length; i++) {
+                var temp = $scope.kindList[i];
+                for (var j = 0; j < temp.children.length; j++) {
+                    var ch = temp.children[j];
+                    ch.selected = false;
+                }
+            }
+            $scope.selectedItem = child;
+            child.selected = true;
+        };
+
+        // 点击pid高亮并定位;
+        $scope.showInmap = function (item) {
+            $scope.$emit('ObjectSelected', {
+                feature: { pid: item.pid, geoLiveType: 'IXPOI' }
+            });
+        };
+        // 监听输入框的变化
+        $scope.$watch('searchText', function (a, b) {
+            if (a == '') {
+                $scope.showResultFlag = false;
+            }
+        });
     }
 ]);

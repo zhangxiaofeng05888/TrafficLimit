@@ -1645,4 +1645,29 @@ angular.module('dataService').service('dsEdit', ['$http', '$q', 'ajax', 'dsOutpu
         });
         return defer.promise;
     };
+    // 根据poi名称查询
+    this.normalPoiSearch = function (param) {
+        var defer = $q.defer();
+        var params = {
+            dbId: App.Temp.dbId,
+            condition: param.condition,
+            type: param.type
+        };
+        toggleLoading(false);
+        ajax.post('limit/searchDataByElement', {
+            parameter: JSON.stringify(params)
+        }).success(function (data) {
+            if (data.errcode == 0) {
+                defer.resolve(data.data);
+            } else {
+                swal('搜索信息出错：', data.errmsg, 'error');
+                defer.resolve(0);
+            }
+        }).error(function (rejection) {
+            defer.reject(rejection);
+        }).finally(function () {
+            toggleLoading(false);
+        });
+        return defer.promise;
+    };
 }]);

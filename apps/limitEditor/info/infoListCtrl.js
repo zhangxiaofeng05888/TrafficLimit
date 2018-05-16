@@ -124,6 +124,10 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
             params.condition.complete = status;
             params.condition.condition = period;
             params.condition.projectType = projectType;
+            let searchInfo = JSON.parse(JSON.stringify($scope.searchModel));
+            searchInfo.provinceName = $scope.provinceName;
+            searchInfo.cityId = $scope.cityId;
+            App.Util.setSessionStorage('searchInfo', searchInfo);
             dsFcc.getInfoListData(params).then(function (data) {
                 var ret = [];
                 var total = 0;
@@ -203,7 +207,7 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
                 infoToGroupData: App.Temp.infoToGroupData
             };
             App.Util.setSessionStorage('infoData', sessionData);
-            window.location.href = '#/group?access_token=' + App.Temp.accessToken + '&random=' + Math.floor(Math.random() * 100);
+            window.location.hash = '#/group?access_token=' + App.Temp.accessToken + '&random=' + Math.floor(Math.random() * 100);
         };
         /**
          * 显示序号;
@@ -304,8 +308,12 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
          * @return {undefined}
          */
         var initialize = function () {
+            let searchInfo = App.Util.getSessionStorage('searchInfo');
             $scope.provinceList = [];
             $scope.provinceName = '北京市';
+            if (searchInfo) {
+                $scope.provinceName = searchInfo.provinceName;
+            }
             for (var i = 0; i < CityList.length; i++) {
                 $scope.provinceList.push(CityList[i].province);
                 if (CityList[i].province === $scope.provinceName) {
@@ -479,6 +487,15 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
                     }
                 ]
             };
+            if (searchInfo) {
+                $scope.cityId = searchInfo.cityId;
+                $scope.searchModel.infoId = searchInfo.infoId;
+                $scope.searchModel.sPublicTime = searchInfo.sPublicTime;
+                $scope.searchModel.ePublicTime = searchInfo.ePublicTime;
+                $scope.searchModel.status = searchInfo.status;
+                $scope.searchModel.period = searchInfo.period;
+                $scope.searchModel.project = searchInfo.project;
+            }
             getData();
         };
 

@@ -82,7 +82,7 @@ App.Config.map.FeatureLayers = {
             source: 'objSource',
             featureType: 'ADFACE',
             render: FM.mapApi.render.renderer.FeatureRender,
-            minZoom: 15
+            minZoom: 10
         }
     },
     AdLink: {

@@ -822,7 +822,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 topoEditor.query(data.feature)
                   .then(function (res) {
                       if (res) {
-                          _objectLoadedCallback(geoLiveType, res[0], data.originalEvent);
+                          _objectLoadedCallback(geoLiveType, res, data.originalEvent);
                           $scope.hideLoading();
                       } else {
                           throw new Error('未查询到任何信息');
