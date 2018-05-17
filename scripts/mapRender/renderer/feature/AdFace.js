@@ -5,9 +5,11 @@ FM.mapApi.render.renderer.AdFace = FM.mapApi.render.Renderer.extend({
         FM.Util.bind(this);
     },
     getSymbol: function () {
+        var strId = (this._feature.properties.id * 1234567).toString(16);
+        var color = strId.substring(strId.length - 6);
         var symbolData = {
             type: 'SimpleFillSymbol',
-            color: '#ffe599',
+            color: '#' + color,
             // hasOutLine: true,
             opacity: 0.2
             // outLine: {
