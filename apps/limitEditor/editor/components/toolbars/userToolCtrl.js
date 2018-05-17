@@ -109,7 +109,7 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
                             searchType: 1,
                             infoIntelId: App.Temp.infoToGroupData.infoId
                         }
-                    }
+                    };
                     dsFcc.unTreatedList(param).then(function (result) {
                         if (result.total && result.total === 1) {
                             swal({ title: '提示', text: '存在未处理的检查log', type: 'warning', confirmButtonText: '确定' }, function (f) {
@@ -156,23 +156,47 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
                                 }
                             });
                         } else {
-                            dsFcc.submitGeo(params).then(function (data) {
-                                if (data === '属性值未发生变化') {
-                                    $timeout(function () {
-                                        swal('提示', '无提交内容！', 'warning');
-                                    }, 1000);
-                                    return;
-                                }
-                                if (data !== -1) {
-                                    $timeout(function () {
-                                        swal('提示', '提交成功', 'success');
-                                    }, 1000);
-                                    $scope.$emit('RefreshResultList');
-                                    $scope.$emit('RefreshIntersectLineList');
-                                    eventCtrl.fire(eventCtrl.eventTypes.REFRESHDEALFAILURELIST);
-                                    sceneController.redrawLayerByGeoLiveTypes(['COPYTOLINE', 'COPYTOPOLYGON', 'DRAWPOLYGON', 'GEOMETRYLINE', 'GEOMETRYPOLYGON', 'LIMITLINE']);
-                                }
-                            });
+                            if (complete === 1) {
+                                $timeout(function () {
+                                    swal({ title: '提示', text: '请手动更改当前作业情报的完成状态', type: 'warning', confirmButtonText: '确定' }, function (f1) {
+                                        dsFcc.submitGeo(params).then(function (data) {
+                                            if (data === '属性值未发生变化') {
+                                                $timeout(function () {
+                                                    swal('提示', '无提交内容！', 'warning');
+                                                }, 1000);
+                                                return;
+                                            }
+                                            if (data !== -1) {
+                                                $timeout(function () {
+                                                    swal('提示', '提交成功', 'success');
+                                                }, 1000);
+                                                $scope.$emit('RefreshResultList');
+                                                $scope.$emit('RefreshIntersectLineList');
+                                                eventCtrl.fire(eventCtrl.eventTypes.REFRESHDEALFAILURELIST);
+                                                sceneController.redrawLayerByGeoLiveTypes(['COPYTOLINE', 'COPYTOPOLYGON', 'DRAWPOLYGON', 'GEOMETRYLINE', 'GEOMETRYPOLYGON', 'LIMITLINE']);
+                                            }
+                                        });
+                                    });
+                                }, 1000);
+                            } else {
+                                dsFcc.submitGeo(params).then(function (data) {
+                                    if (data === '属性值未发生变化') {
+                                        $timeout(function () {
+                                            swal('提示', '无提交内容！', 'warning');
+                                        }, 1000);
+                                        return;
+                                    }
+                                    if (data !== -1) {
+                                        $timeout(function () {
+                                            swal('提示', '提交成功', 'success');
+                                        }, 1000);
+                                        $scope.$emit('RefreshResultList');
+                                        $scope.$emit('RefreshIntersectLineList');
+                                        eventCtrl.fire(eventCtrl.eventTypes.REFRESHDEALFAILURELIST);
+                                        sceneController.redrawLayerByGeoLiveTypes(['COPYTOLINE', 'COPYTOPOLYGON', 'DRAWPOLYGON', 'GEOMETRYLINE', 'GEOMETRYPOLYGON', 'LIMITLINE']);
+                                    }
+                                });
+                            }
                         }
                     });
                 }
@@ -222,7 +246,7 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
             });
         };
         // 数据差分数据列表
-        $scope.showdatadifferenceResultListPanel = function (flag){
+        $scope.showdatadifferenceResultListPanel = function (flag) {
             if (flag) {
                 return;
             }
