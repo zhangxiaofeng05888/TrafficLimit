@@ -751,7 +751,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 delete $scope.dialogManager.ExternalQuality;
                 delete $scope.dialogManager.DeepInfoQuality;
                 showInPoiLeftViewPanel();
-                showInPoiRightEditPanel();
+                // showInPoiRightEditPanel();
             } else if (geoLiveType === 'COPYTOPOLYGON') {
                 closeLeftPanel();
                 // $scope.closeLeftFloatPanel();

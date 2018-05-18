@@ -69,11 +69,14 @@
     #advanceSearchLeftContainer ul li div {
         display: inline-block;
     }
-    #advanceSearchLeftContainer ul li div.sequence {
-        width: 60px;
+    #advanceSearchLeftContainer ul li div.adminNames {
+        width: 90px;
+        /* overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; */
     }
     #advanceSearchLeftContainer ul li div.roadNames {
-        width: 150px;
+        width: 120px;
     }
     #advanceSearchLeftContainer ul li div.roadNames.content:hover {
         color: #636ef5;
@@ -91,26 +94,26 @@
     <div style="height: 100%;overflow-y: auto;">
         <ul>
             <li style="font-weight: bold;">
-                <div class="sequence">
-                    <span>序号</span>
+                <div class="ckBox">
+                    <span>是否已确认</span>
                 </div>
                 <div class="roadNames">
                     <span>道路名</span>
                 </div>
-                <div class="ckBox">
-                    <span>是否已确认</span>
+                <div class="adminNames">
+                    <span>行政区划名称</span>
                 </div>
             </li>
             <li ng-repeat="item in results.rows track by $index">
-                <div class="sequence">
-                    <span>{{$index+1}}</span>
+                <div class="ckBox">
+                    <input type="checkbox" class="fm-control" style="cursor: pointer;" ng-model="item.checked"
+                    ng-click="refreshSelectedNums(item)">
                 </div>
                 <div class="roadNames content" ng-click="highlightRoad(item)">
                     <span>{{item.name}}</span>
                 </div>
-                <div class="ckBox">
-                    <input type="checkbox" class="fm-control" style="cursor: pointer;" ng-model="item.checked"
-                    ng-click="refreshSelectedNums(item)">
+                <div class="adminNames">
+                    <span>{{item.adminId}}</span>
                 </div>
             </li>
         </ul>
