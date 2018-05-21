@@ -54,6 +54,15 @@ fastmap.uikit.topoEdit.ADFaceTopoEditor = fastmap.uikit.topoEdit.TopoEditor.exte
         return this.dataService.create('ADFACE', data);
     },
 
+    query: function (options) {
+        var params = {
+            dbId: options.dbId,
+            type: 'ADFACE',
+            pids: [options.pid]
+        };
+        return this.dataServiceFcc.getByPids(params);
+    },
+
     /**
      * 线构面接口
      * @param editResult 编辑结果

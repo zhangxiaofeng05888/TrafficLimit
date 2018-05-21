@@ -7,6 +7,8 @@ FM.dataApi.AdFace = FM.dataApi.Feature.extend({
      */
     setAttributes: function (data) {
         this.geoLiveType = 'ADFACE';
+        this.admincode = data.admincode;
+        this.name = data.name;
         this.pid = data.pid;
         this.regionId = data.regionId;
         this.geometry = data.geometry;
