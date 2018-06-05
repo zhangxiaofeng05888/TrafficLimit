@@ -151,7 +151,7 @@ angular.module('app').controller('searchToolCtrl', ['$scope', 'dsEdit',
                         type: 3,
                         condition: {
                             adminCode: App.Temp.infoToGroupData.cityId,
-                            names: text
+                            linkPid: text
                         }
                     };
                 }

@@ -30,7 +30,7 @@ FM.mapApi.render.renderer.AdLink = FM.mapApi.render.Renderer.extend({
             width = 2;
         } else if (kind === 3 || kind === 2) {
             color = '#84A5A8';
-            width = 1;
+            width = 3;
         }
 
         var symbolData = {
