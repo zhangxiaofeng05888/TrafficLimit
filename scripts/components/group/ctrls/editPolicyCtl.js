@@ -545,7 +545,7 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 return;
             }
 
-            var timeRegex = /^\[\(h([01]\d|2[0-3])m([0-5]\d|60)\)\(h([01]\d|2[0-3])m([0-5]\d|60)\)\]$/;
+            var timeRegex = /^\[\(h([01]\d|2[0-3]|\d)m([0-5]\d|60|\d)\)\(h([01]\d|2[0-3]|\d)m([0-5]\d|60|\d)\)\]$/;
             if ($scope.policyData.time && !timeRegex.test($scope.policyData.time)) {
                 swal('提示', '限行时间为错误,请重新选择', 'warning');
                 return;
