@@ -29,7 +29,8 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
             period: [false, false],
             project: [false, false, false, false],
             sortype: '',
-            sortord: ''
+            sortord: '',
+            grounpId: ''
         };
         $scope.statusData = [
             {
@@ -77,6 +78,7 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
             var projectType = [];
             var sPublicTime = $scope.searchModel.sPublicTime;
             var ePublicTime = $scope.searchModel.ePublicTime;
+            var grounpId = $scope.searchModel.grounpId;
             var params = {
                 type: 'SCPLATERESINFO',
                 condition: {
@@ -88,6 +90,9 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
                     sortord: $scope.searchModel.sortord
                 }
             };
+            if (grounpId != '') {
+                params.condition.groupId = grounpId;
+            }
             if (sPublicTime && ePublicTime) {
                 sPublicTime = sPublicTime.replace(new RegExp(/(-)/g), '');
                 ePublicTime = ePublicTime.replace(new RegExp(/(-)/g), '');
@@ -189,6 +194,18 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
             getData();
         };
         /**
+         * 来源网址打开新浏览器
+         * @method windowOpen
+         * @param {object} url 链接
+         * @author zhangxiaofeng
+         * @date   2018-06-05
+         * @return {undefined}
+         */
+        $scope.windowOpen = function (url) {
+            var param = 'location=no,top=100,left=100,width=' + (window.screen.width - 200) + ',height=' + (window.screen.height - 200);
+            window.open(url, '轨迹照片', param);
+        };
+        /**
          * 获取数据行内信息
          * @method searchGroupList
          * @author Niuxinyi
@@ -228,7 +245,7 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
          * @return {object} html 包含来源网址，显示在页面
          */
         function getUrl() {
-            var html = '<div class="ui-grid-cell-contents" ng-repeat="item in row.entity.url.split(\';\') track by $index"><a href="{{item}}" target="_blank">{{item}}</a></div>';
+            var html = '<div class="ui-grid-cell-contents" ng-repeat="item in row.entity.url.split(\';\') track by $index"><a ng-click="grid.appScope.windowOpen(item)">{{item}}</a></div>';
             return html;
         }
         /**
@@ -495,6 +512,7 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
                 $scope.searchModel.status = searchInfo.status;
                 $scope.searchModel.period = searchInfo.period;
                 $scope.searchModel.project = searchInfo.project;
+                $scope.searchModel.grounpId = searchInfo.grounpId;
             }
             getData();
         };

@@ -9,6 +9,10 @@ fastmap.uikit.editControl.CopyLineControl = fastmap.uikit.editControl.EditContro
         // 绑定函数作用域
         FM.Util.bind(this);
         this.geoLiveType = options;
+        if (this.geoLiveType == 'COPYTOLINEANDPOLYGON') {
+            this.topoEditorLine = this.topoEditFactory.createTopoEditor('COPYTOLINE', this.map);
+            this.topoEditorPolygon = this.topoEditFactory.createTopoEditor('COPYTOPOLYGON', this.map);
+        }
         this.complexEditor = fastmap.uikit.complexEdit.ComplexEditor.getInstance();
         this.topoEditor = this.topoEditFactory.createTopoEditor(this.geoLiveType, this.map);
     },
@@ -17,9 +21,12 @@ fastmap.uikit.editControl.CopyLineControl = fastmap.uikit.editControl.EditContro
         if (!fastmap.uikit.editControl.EditControl.prototype.run.call(this)) {
             return false;
         }
-
-        var editResult = this.topoEditor.getCopyResult();
-        this.complexEditor.start(editResult, this.onFinish);
+        if (this.geoLiveType == 'COPYTOLINEANDPOLYGON') {
+            this.complexEditor.start(this.topoEditorPolygon.getCopyResult(), this.onFinish);
+        } else {
+            var editResult = this.topoEditor.getCopyResult();
+            this.complexEditor.start(editResult, this.onFinish);
+        }
 
         return true;
     },
@@ -30,14 +37,27 @@ fastmap.uikit.editControl.CopyLineControl = fastmap.uikit.editControl.EditContro
     },
 
     onFinish: function (editResult) {
+        var _this = this;
         if (!this.precheck(editResult)) {
             return;
         }
-
-        this.topoEditor
-          .copy(editResult)
-          .then(this.onUpdateSuccess)
-          .catch(this.onUpdateFail);
+        if (this.geoLiveType == 'COPYTOLINEANDPOLYGON') {
+            this.topoEditorLine
+                .copy(editResult)
+                .then(this.onUpdateSuccess)
+                .catch(this.onUpdateFail)
+                .then(function () {
+                    _this.topoEditorPolygon
+                    .copy(editResult)
+                    .then(_this.onUpdateSuccess)
+                    .catch(_this.onUpdateFail);
+                });
+        } else {
+            this.topoEditor
+            .copy(editResult)
+            .then(this.onUpdateSuccess)
+            .catch(this.onUpdateFail);
+        }
     },
 
     onUpdateSuccess: function (res) {
