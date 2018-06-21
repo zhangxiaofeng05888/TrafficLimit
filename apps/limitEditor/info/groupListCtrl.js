@@ -202,11 +202,21 @@ angular.module('app').controller('groupListCtrl', ['$window', '$scope', '$timeou
                 var ret = [];
                 var total = 0;
                 if (data.data && data.data.length !== 0 && data != -1) {
+                    let cityName = '';
+                    let adAdmin = data.data[0].adAdmin;
+                    for (let i = 0; i < CityList.length; i++) {
+                        for (let j = 0; j < CityList[i].city.length; j++) {
+                            if (CityList[i].city[j].id == adAdmin) {
+                                cityName = CityList[i].city[j].name;
+                                break;
+                            }
+                        }
+                    }
                     for (var i = 0, len = data.data.length; i < len; i++) {
                         var temp = data.data[i];
                         temp.pageIndex = i + 1;
                         temp.checked = false;
-                        temp.cityName = App.Temp.infoToGroupData.cityName;
+                        temp.cityName = cityName;
                         temp.cityId = App.Temp.infoToGroupData.cityId;
                         ret.push(temp);
                     }

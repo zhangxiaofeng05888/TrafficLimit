@@ -203,7 +203,7 @@ angular.module('app').controller('infoListCtrl', ['$window', '$scope', '$timeout
          */
         $scope.windowOpen = function (url) {
             var param = 'location=no,top=100,left=100,width=' + (window.screen.width - 200) + ',height=' + (window.screen.height - 200);
-            window.open(url, '轨迹照片', param);
+            window.open(url, '', param);
         };
         /**
          * 获取数据行内信息
