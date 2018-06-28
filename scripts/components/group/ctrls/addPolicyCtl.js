@@ -323,7 +323,7 @@ angular.module('app').controller('addPolicyCtrl', ['$window', '$scope', '$timeou
             }, {
                 id: 24,
                 name: '双休日双号'
-            },, {
+            }, {
                 id: 25,
                 name: '节假日'
             }, {
