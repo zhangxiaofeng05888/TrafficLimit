@@ -60,7 +60,7 @@
                        <span>限行范围：</span>
                    </div>
                    <div class="groupEdit_content box flex1">
-                       <textarea style='overflow-y: hidden;height: 25px;' onpropertychange="this.style.height = this.scrollHeight + 'px';" oninput="this.style.height = this.scrollHeight + 'px';" name="" id="" class="tl_list_Input flex1" ng-model="item.range" ng-keyup="limit($event, $index, 'range')"></textarea>
+                       <textarea style='overflow-y: hidden;height: 25px;resize: none;' onpropertychange="this.style.height = this.scrollHeight + 'px';" oninput="this.style.height = this.scrollHeight + 'px';" name="" id="" class="tl_list_Input flex1" ng-model="item.range" ng-keyup="limit($event, $index, 'range')"></textarea>
                    </div>
                </div>
                <div class="box">
@@ -68,7 +68,7 @@
                        <span>限行策略：</span>
                    </div>
                    <div class="groupEdit_content box flex1">
-                       <textarea style='overflow-y: hidden;height: 25px;' onpropertychange="this.style.height = this.scrollHeight + 'px';" oninput="this.style.height = this.scrollHeight + 'px';" name="" class="tl_list_Input flex1" id="" ng-model="item.strategy" ng-keyup="limit($event, $index, 'strategy')"></textarea>
+                       <textarea style='overflow-y: hidden;height: 25px;resize: none;' onpropertychange="this.style.height = this.scrollHeight + 'px';" oninput="this.style.height = this.scrollHeight + 'px';" name="" class="tl_list_Input flex1" id="" ng-model="item.strategy" ng-keyup="limit($event, $index, 'strategy')"></textarea>
                    </div>
                </div>
                <div style="border : 1px dashed #fa5883; margin-top : 5px;" ng-show="$index !== (row.length - 1)"></div>

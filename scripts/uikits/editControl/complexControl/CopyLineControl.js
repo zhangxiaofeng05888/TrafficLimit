@@ -22,7 +22,7 @@ fastmap.uikit.editControl.CopyLineControl = fastmap.uikit.editControl.EditContro
             return false;
         }
         if (this.geoLiveType == 'COPYTOLINEANDPOLYGON') {
-            this.complexEditor.start(this.topoEditorPolygon.getCopyResult(), this.onFinish);
+            this.complexEditor.start(this.topoEditorLine.getCopyResult(), this.onFinish);
         } else {
             var editResult = this.topoEditor.getCopyResult();
             this.complexEditor.start(editResult, this.onFinish);

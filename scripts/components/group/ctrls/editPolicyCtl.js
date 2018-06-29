@@ -98,7 +98,7 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 name: '本地车(无通行证)'
             }, {
                 id: 5,
-                name: '受限本地车(如京G)'
+                name: '受限本地车(如沪C)'
             }, {
                 id: 6,
                 name: '非香港车辆(含粤牌)'
