@@ -544,12 +544,23 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 swal('提示', '结束时间错误,请重新选择', 'warning');
                 return;
             }
-
-            var timeRegex = /^\[\(h([01]\d|2[0-3]|\d)m([0-5]\d|60|\d)\)\(h([01]\d|2[0-3]|\d)m([0-5]\d|60|\d)\)\]$/;
-            if ($scope.policyData.time && !timeRegex.test($scope.policyData.time)) {
-                swal('提示', '限行时间为错误,请重新选择', 'warning');
-                return;
+            var muiltTimeReg = /^\[\[.*$/;
+            var timeRegex = /^(\[)+\(h([01]\d|2[0-3]|\d)m([0-5]\d|60|\d)\)\(h([01]\d|2[0-3]|\d)m([0-5]\d|60|\d)\)(\])+$/;
+            if ($scope.policyData.time && muiltTimeReg.test($scope.policyData.time)) {
+                var mulitTime = $scope.policyData.time.split('+');
+                for (let i = 0; i < mulitTime.lenght; i++) {
+                    if (!timeRegex.test(mulitTime[i])) {
+                        swal('提示', '限行时间为错误,请重新选择', 'warning');
+                        return;
+                    }
+                }
+            } else {
+                if ($scope.policyData.time && !timeRegex.test($scope.policyData.time)) {
+                    swal('提示', '限行时间为错误,请重新选择', 'warning');
+                    return;
+                }
             }
+            
             var regex3 = /^\[\(h0m0\)\(h23m59\)\]$/;
             if ($scope.policyData.time && regex3.test($scope.policyData.time)) {
                 swal('提示', '限行时间为00:00-23:59,请重新选择', 'warning');
