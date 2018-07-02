@@ -233,4 +233,28 @@ angular.module('app').controller('editGroupCtrl', ['$window', '$scope', '$timeou
 
         });
     }
-]);
+]).directive('contenteditable', ['$window', function () {
+    // 为含有contenteditable属性的元素绑定ng-model
+    return {
+        restrict: 'A',
+        require: '?ngModel', // 此指令所代替的函数
+        link: function (scope, element, attrs, ngModel) {
+            if (!ngModel) {
+                return;
+            }
+            ngModel.$render = function () {
+                element.html(ngModel.$viewValue || '');
+            };
+            let readViewText = function () {
+                var html = element.html();
+                if (attrs.stripBr && html === '<br>') {
+                    html = '';
+                }
+                ngModel.$setViewValue(html);
+            };
+            element.on('blur keyup change', function () {
+                scope.$apply(readViewText);
+            });
+        }
+    };
+}]);
