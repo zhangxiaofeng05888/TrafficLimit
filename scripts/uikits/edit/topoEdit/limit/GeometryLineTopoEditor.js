@@ -43,7 +43,24 @@ fastmap.uikit.topoEdit.GeometryLineTopoEditor = fastmap.uikit.topoEdit.TopoEdito
         var editResult = new fastmap.uikit.shapeEdit.PathResult();
         editResult.originObject = originObject;
         editResult.geoLiveType = 'GEOMETRYLINE';
-        editResult.finalGeometry = FM.Util.clone(options.originObject.geometry);
+        var paramInfo = {
+            type: 'SCPLATERESGEOMETRY',
+            condition: {
+                geometryId: originObject.pid
+            }
+        };
+        this.dataServiceFcc.getMetaDataByCondition(paramInfo)
+        .then(function (res) {
+            if (res.data) {
+                editResult.finalGeometry = res.data[0].geometry;
+            } else {
+                swal('查找成果线信息出错：', '', 'error');
+                return;
+            }
+        }).catch(function (data) {
+            swal('查找成果线信息出错：', data.errmsg, 'error');
+            return;
+        });
         editResult.snapActors = [
             {
                 id: options.originObject.pid,
