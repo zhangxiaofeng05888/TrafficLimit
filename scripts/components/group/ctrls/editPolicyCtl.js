@@ -478,7 +478,7 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 swal('提示', '请选择字母对应数字', 'warning');
                 return;
             }
-            if ($scope.policyData.tailNumber.length === 0 || isNaN($scope.policyData.tailNumber[0])) {
+            if ($scope.policyData.tailNumber.length === 0) {
                 swal('提示', '请选择限行尾号', 'warning');
                 return;
             }
