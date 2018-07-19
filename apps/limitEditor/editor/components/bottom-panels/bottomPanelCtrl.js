@@ -72,22 +72,26 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             2: '外地车(无通行证)',
             3: '本地车(有通行证)',
             4: '本地车(无通行证)',
-            5: '受限本地车(如京G)',
+            5: '受限本地车(如沪C)',
             6: '非香港车辆(含粤牌)',
-            7: '非澳门车辆(含粤牌)'
+            7: '非澳门车辆(含粤牌)',
+            8: '临牌限行（本地）',
+            9: '临牌限行（外地）'
         };
         $scope.tailNumber = {
-            0: '0',
-            1: '1',
-            2: '2',
-            3: '3',
-            4: '4',
-            5: '5',
-            6: '6',
-            7: '7',
-            8: '8',
-            9: '9',
-            '26个英文字母': '26个英文字母'
+            0: '限行尾号0',
+            1: '限行尾号1',
+            2: '限行尾号2',
+            3: '限行尾号3',
+            4: '限行尾号4',
+            5: '限行尾号5',
+            6: '限行尾号6',
+            7: '限行尾号7',
+            8: '限行尾号8',
+            9: '限行尾号9',
+            10: '26个英文字母',
+            11: '奇数排序字母',
+            12: '偶数排序字母'
         };
         $scope.gasEmisstand = {
             0: '未限制',
@@ -103,12 +107,14 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             3: '黑牌',
             4: '白牌',
             5: '绿牌(新能源、农用车)',
-            6: '预留'
+            6: '黄绿'
         };
         $scope.energyType = {
             1: '燃油',
             2: '油电',
-            3: '纯电'
+            3: '纯电',
+            4: '汽油',
+            5: '柴油'
         };
         $scope.resDatetype = {
             1: '连续时间',
@@ -130,13 +136,32 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             17: '日期以6结尾',
             18: '日期以7结尾',
             19: '日期以8结尾',
-            20: '日期以9结尾'
+            20: '日期以9结尾',
+            21: '工作日',
+            22: '双休日',
+            23: '双休日单号',
+            24: '双休日双号',
+            25: '节假日',
+            26: '节假日单号',
+            27: '节假日双号',
+            28: '寒假',
+            29: '暑假',
+            30: '春季',
+            31: '夏季',
+            32: '秋季',
+            33: '冬季'
         };
         $scope.specFlag = {
             1: '星期六',
             2: '星期日',
             3: '节假日',
-            4: '特定日期'
+            4: '特定日期',
+            5: '寒假',
+            6: '暑假',
+            7: '春季',
+            8: '夏季',
+            9: '秋季',
+            10: '冬季'
         };
         /**
          * 根据实际的行高设置每行的height属性，主要处理grid高度改变后，canvas的高度没有自动变化的问题
@@ -451,9 +476,12 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             params.data.gasEmisstand = selectData.originGasEmisstand;
             params.data.platecolor = selectData.originPlatecolorName;
             params.data.vehicleLength = selectData.vehicleLength;
+            params.data.vehicleWidth = selectData.vehicleWidth;
+            params.data.vehicleHigh = selectData.vehicleHigh;
             params.data.resWeigh = selectData.resWeigh;
             params.data.resAxleLoad = selectData.resAxleLoad;
             params.data.resAxleCount = selectData.resAxleCount;
+            params.data.tempPlate = selectData.tempPlate;
             var startDate = selectData.startDate;
             var endDate = selectData.endDate;
             if (startDate) {
@@ -630,6 +658,20 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
                         cellClass: 'center'
                     },
                     {
+                        field: 'vehicleWidth',
+                        displayName: '车宽限制',
+                        enableSorting: false,
+                        minWidth: 100,
+                        cellClass: 'center'
+                    },
+                    {
+                        field: 'vehicleHigh',
+                        displayName: '车高限制',
+                        enableSorting: false,
+                        minWidth: 100,
+                        cellClass: 'center'
+                    },
+                    {
                         field: 'resWeigh',
                         displayName: '限制载重',
                         enableSorting: false,
@@ -681,6 +723,13 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
                     {
                         field: 'specFlagName',
                         displayName: '排除日期',
+                        enableSorting: false,
+                        minWidth: 100,
+                        cellClass: 'center'
+                    },
+                    {
+                        field: 'specPlate',
+                        displayName: '排除不限行牌号',
                         enableSorting: false,
                         minWidth: 100,
                         cellClass: 'center'

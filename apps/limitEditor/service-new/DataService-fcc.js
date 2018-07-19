@@ -74,5 +74,15 @@ fastmap.service.DataServiceFcc = L.Class.extend({
             }
             return fastmap.service.DataServiceFcc.instance;
         }
+    },
+
+    getMetaDataByCondition: function (params) {
+        var url = 'limit/getMetaDataByCondition';
+        return this.createAjaxPromise('get', url, params);
+    },
+
+    getLimitDataByCondition: function (params) {
+        var url = 'limit/getLimitDataByCondition';
+        return this.createAjaxPromise('get', url, params);
     }
 });

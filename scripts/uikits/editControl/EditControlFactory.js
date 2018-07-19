@@ -216,6 +216,7 @@ fastmap.uikit.editControl.EditControlFactory = L.Class.extend({
             case 'COPYTOLINE':
             case 'COPYTOPOLYGON':
             case 'DRAWPOLYGON':
+            case 'COPYTOLINEANDPOLYGON':
                 return new fastmap.uikit.editControl.CopyLineControl(map, geoLiveType);
             default:
                 return null;

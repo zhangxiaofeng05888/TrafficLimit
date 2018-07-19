@@ -36,7 +36,8 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
             endDate: '', // 结束日期
             resDatetype: [], // 限行时间类型
             time: '', // 限行时间
-            specFlag: [] // 排除日期
+            specFlag: [], // 排除日期
+            specPlate: '' // 排除不限行号牌
         };
         /**
          * 初始化数据，包括（车辆类型、本外地、临牌转换原则、字母转换原则、限行尾号、能源类型、车牌颜色、油气排放标准、限行时间类型、排除日期）
@@ -97,13 +98,19 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 name: '本地车(无通行证)'
             }, {
                 id: 5,
-                name: '受限本地车(如京G)'
+                name: '受限本地车(如沪C)'
             }, {
                 id: 6,
                 name: '非香港车辆(含粤牌)'
             }, {
                 id: 7,
                 name: '非澳门车辆(含粤牌)'
+            }, {
+                id: 8,
+                name: '临牌限行（本地）'
+            }, {
+                id: 9,
+                name: '临牌限行（外地）'
             }];
         $scope.tempPlate = [
             {
@@ -144,37 +151,43 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
             },
             {
                 id: 0,
-                name: 0
+                name: '限行尾号0'
             }, {
                 id: 1,
-                name: 1
+                name: '限行尾号1'
             }, {
                 id: 2,
-                name: 2
+                name: '限行尾号2'
             }, {
                 id: 3,
-                name: 3
+                name: '限行尾号3'
             }, {
                 id: 4,
-                name: 4
+                name: '限行尾号4'
             }, {
                 id: 5,
-                name: 5
+                name: '限行尾号5'
             }, {
                 id: 6,
-                name: 6
+                name: '限行尾号6'
             }, {
                 id: 7,
-                name: 7
+                name: '限行尾号7'
             }, {
                 id: 8,
-                name: 8
+                name: '限行尾号8'
             }, {
                 id: 9,
-                name: 9
+                name: '限行尾号9'
             }, {
-                id: '26个英文字母',
+                id: 10,
                 name: '26个英文字母'
+            }, {
+                id: 11,
+                name: '奇数排序字母'
+            }, {
+                id: 12,
+                name: '偶数排序字母'
             }];
         $scope.energyType = [
             {
@@ -190,6 +203,12 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
             }, {
                 id: 3,
                 name: '纯电'
+            }, {
+                id: 4,
+                name: '汽油'
+            }, {
+                id: 5,
+                name: '柴油'
             }];
         $scope.gasEmisstand = [
             {
@@ -229,7 +248,7 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 name: '绿牌(新能源、农用车)'
             }, {
                 id: 6,
-                name: '预留'
+                name: '黄绿'
             }];
         $scope.resDatetype = [
             {
@@ -292,6 +311,45 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
             }, {
                 id: 20,
                 name: '日期以9结尾'
+            }, {
+                id: 21,
+                name: '工作日'
+            }, {
+                id: 22,
+                name: '双休日'
+            }, {
+                id: 23,
+                name: '双休日单号'
+            }, {
+                id: 24,
+                name: '双休日双号'
+            }, {
+                id: 25,
+                name: '节假日'
+            }, {
+                id: 26,
+                name: '节假日单号'
+            }, {
+                id: 27,
+                name: '节假日双号'
+            }, {
+                id: 28,
+                name: '寒假'
+            }, {
+                id: 29,
+                name: '暑假'
+            }, {
+                id: 30,
+                name: '春季'
+            }, {
+                id: 31,
+                name: '夏季'
+            }, {
+                id: 32,
+                name: '秋季'
+            }, {
+                id: 33,
+                name: '冬季'
             }];
         $scope.specFlag = [
             {
@@ -306,6 +364,24 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
             }, {
                 id: 4,
                 name: '特定日期'
+            }, {
+                id: 5,
+                name: '寒假'
+            }, {
+                id: 6,
+                name: '暑假'
+            }, {
+                id: 7,
+                name: '春季'
+            }, {
+                id: 8,
+                name: '夏季'
+            }, {
+                id: 9,
+                name: '秋季'
+            }, {
+                id: 10,
+                name: '冬季'
             }];
         /**
          * 本外地中选择受限本地车，受限本地车内容可编辑
@@ -478,7 +554,7 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 swal('提示', '请选择字母对应数字', 'warning');
                 return;
             }
-            if ($scope.policyData.tailNumber.length === 0 || isNaN($scope.policyData.tailNumber[0])) {
+            if ($scope.policyData.tailNumber.length === 0) {
                 swal('提示', '请选择限行尾号', 'warning');
                 return;
             }
@@ -510,6 +586,15 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 var regex = /[^0-9A-Z\u4E00-\u9FA5|]/g;
                 if (regex.test(restrictStr)) {
                     swal('提示', '受限本地车内容只能包含汉字、半角大写字母、数字或\'|\'', 'warning');
+                    return;
+                }
+            }
+            // 排除不限行号牌，只为能大写字母。汉字活'|'
+            var specPlate = $scope.policyData.specPlate;
+            if (specPlate) {
+                var reg = /[^0-9A-Z\u4E00-\u9FA5|]/g;
+                if (reg.test(specPlate)) {
+                    swal('提示', '排除不限行牌号内容只能包含汉字、半角大写字母、数字或\'|\'', 'warning');
                     return;
                 }
             }
@@ -545,11 +630,23 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
                 return;
             }
 
-            var timeRegex = /^\[\(h([01]\d|2[0-3]|\d)m([0-5]\d|60|\d)\)\(h([01]\d|2[0-3]|\d)m([0-5]\d|60|\d)\)\]$/;
-            if ($scope.policyData.time && !timeRegex.test($scope.policyData.time)) {
-                swal('提示', '限行时间为错误,请重新选择', 'warning');
-                return;
+            var muiltTimeReg = /^\[\[.*$/;
+            var timeRegex = /^(\[)+\(h([01]\d|2[0-3]|\d)m([0-5]\d|60|\d)\)\(h([01]\d|2[0-3]|\d)m([0-5]\d|60|\d)\)(\])+$/;
+            if ($scope.policyData.time && muiltTimeReg.test($scope.policyData.time)) {
+                var mulitTime = $scope.policyData.time.split('+');
+                for (let i = 0; i < mulitTime.lenght; i++) {
+                    if (!timeRegex.test(mulitTime[i])) {
+                        swal('提示', '限行时间为错误,请重新选择', 'warning');
+                        return;
+                    }
+                }
+            } else {
+                if ($scope.policyData.time && !timeRegex.test($scope.policyData.time)) {
+                    swal('提示', '限行时间为错误,请重新选择', 'warning');
+                    return;
+                }
             }
+
             var regex3 = /^\[\(h0m0\)\(h23m59\)\]$/;
             if ($scope.policyData.time && regex3.test($scope.policyData.time)) {
                 swal('提示', '限行时间为00:00-23:59,请重新选择', 'warning');
@@ -576,6 +673,9 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
             params.data.gasEmisstand = $scope.policyData.gasEmisstand.join('|');
             params.data.platecolor = $scope.policyData.platecolor.join('|');
             params.data.vehicleLength = $scope.policyData.vehicleLength;
+            params.data.vehicleWidth = $scope.policyData.vehicleWidth;
+            params.data.vehicleHigh = $scope.policyData.vehicleHigh;
+            params.data.specPlate = $scope.policyData.specPlate;
             params.data.resWeigh = $scope.policyData.resWeigh;
             params.data.resAxleLoad = $scope.policyData.resAxleLoad;
             params.data.resAxleCount = $scope.policyData.resAxleCount;
@@ -700,6 +800,9 @@ angular.module('app').controller('editPolicyCtrl', ['$window', '$scope', '$timeo
             $scope.policyData.gasEmisstand = changeStrArrForGas(policyData.gasEmisstand.split('|'));
             $scope.policyData.platecolor = changeStrArr(policyData.platecolor.split('|'));
             $scope.policyData.vehicleLength = policyData.vehicleLength;
+            $scope.policyData.vehicleWidth = policyData.vehicleWidth;
+            $scope.policyData.vehicleHigh = policyData.vehicleHigh;
+            $scope.policyData.specPlate = policyData.specPlate;
             $scope.policyData.resWeigh = policyData.resWeigh;
             $scope.policyData.resAxleLoad = policyData.resAxleLoad;
             $scope.policyData.resAxleCount = policyData.resAxleCount;

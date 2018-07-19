@@ -78,7 +78,24 @@ fastmap.uikit.topoEdit.CopyToPolygonTopoEditor = fastmap.uikit.topoEdit.TopoEdit
             enable: true,
             exceptions: [originObject.pid]
         }];
-        editResult.finalGeometry = FM.Util.clone(options.originObject.geometry);
+        var paramInfo = {
+            type: 'SCPLATERESFACE',
+            condition: {
+                geometryId: originObject.pid
+            }
+        };
+        this.dataServiceFcc.getLimitDataByCondition(paramInfo)
+        .then(function (res) {
+            if (res.data) {
+                editResult.finalGeometry = res.data[0].geometry;
+            } else {
+                swal('未查找到编辑线信息', '', 'error');
+                return;
+            }
+        }).catch(function (data) {
+            swal('查找编辑线信息出错：', data.errmsg, 'error');
+            return;
+        });
         return editResult;
     },
 

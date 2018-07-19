@@ -1,4 +1,10 @@
 <style>
+    .chosen-drop{
+        height: 200px;
+    }
+    .chosen-container .chosen-results{
+        height: 200px;
+    }
     .policy {
         width: 100%;
         height: 100%;
@@ -82,7 +88,7 @@
                         <span>受限本地车：</span>
                     </div>
                     <div style="display: inline-block">
-                        <input class="form-control poiRightPanel_Input" ng-model="policyData.restrict" ng-disabled="policyData.attribution.indexOf(5) < 0 ">
+                        <input class="form-control poiRightPanel_Input" placeholder="支持中文、大写字母、|" ng-model="policyData.restrict" ng-disabled="policyData.attribution.indexOf(5) < 0 ">
                     </div>
                 </div>
                 <div class="policy_container">
@@ -191,6 +197,15 @@
                 </div>
                 <div class="policy_container">
                     <div class="policy_container_title">
+                        <span>排除不限行号牌：</span>
+                    </div>
+                    <div style="display: inline-block">
+                        <input class="form-control poiRightPanel_Input" set-focus
+                               name="vehicleLength" required ng-model="policyData.specPlate" type="text"/>
+                    </div>
+                </div>
+                <div class="policy_container">
+                    <div class="policy_container_title">
                         <span>临牌转换原则：</span>
                     </div>
                     <div style="display: inline-block">
@@ -232,6 +247,24 @@
                      <div style="display: inline-block">
                         <input class="form-control poiRightPanel_Input" set-focus
                                name="vehicleLength" required ng-model="policyData.vehicleLength" type="number" ng-blur="formateNumbers('vehicleLength',1)"/>
+                        </div>
+                </div>
+                <div class="policy_container">
+                    <div class="policy_container_title">
+                        <span>车宽限制：</span>
+                    </div>
+                     <div style="display: inline-block">
+                        <input class="form-control poiRightPanel_Input" set-focus
+                               name="vehicleWidth" required ng-model="policyData.vehicleWidth" type="number" ng-blur="formateNumbers('vehicleLength',1)"/>
+                        </div>
+                </div>
+                <div class="policy_container">
+                    <div class="policy_container_title">
+                        <span>车高限制：</span>
+                    </div>
+                     <div style="display: inline-block">
+                        <input class="form-control poiRightPanel_Input" set-focus
+                               name="vehicleHigh" required ng-model="policyData.vehicleHigh" type="number" ng-blur="formateNumbers('vehicleLength',1)"/>
                         </div>
                 </div>
                 <div class="policy_container">

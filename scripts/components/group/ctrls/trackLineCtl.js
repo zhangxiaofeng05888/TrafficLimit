@@ -17,12 +17,22 @@ angular.module('app').controller('trackLineCtrl', function ($scope, dsFcc, NgTab
         feedbackCtrl.refresh();
     };
     /**
+     * 复制到线面
+     * @author zhangxiaofeng
+     * @date   2018-06-07
+     * @return {undefined}
+     */
+    $scope.copyToLineAndPolygon = function () {
+        $scope.copyToLine($scope.copyToPolygon);
+    };
+    /**
      * 复制到线
+     * @param  {function} fn 回调函数
      * @author Niuxinyi
      * @date   2017-11-20
      * @return {undefined}
      */
-    $scope.copyToLine = function () {
+    $scope.copyToLine = function (fn) {
         var linkData = $scope.results;
         var links = [];
         for (var i = 0; i < linkData.rows.length; i++) {
@@ -50,6 +60,13 @@ angular.module('app').controller('trackLineCtrl', function ($scope, dsFcc, NgTab
                 swal('提示', '复制成功', 'success');
                 sceneController.redrawLayerByGeoLiveTypes(['COPYTOLINE']);
                 $scope.closeAdvanceSearchPanel();
+            }
+            if (fn) {
+                fn();
+            }
+        }).catch(function () {
+            if (fn) {
+                fn();
             }
         });
     };

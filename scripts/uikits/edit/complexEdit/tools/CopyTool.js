@@ -81,13 +81,21 @@ fastmap.uikit.complexEdit.CopyTool = fastmap.uikit.complexEdit.RectSelectTool.ex
         var newEditResult = FM.Util.clone(this.editResult);
         var addItems = FM.Util.differenceBy(this.selectedFeatures, newEditResult.links, 'properties.id');
         var remainItems = FM.Util.differenceBy(newEditResult.links, this.selectedFeatures, 'properties.id');
-        newEditResult.links = remainItems.concat(addItems);
+        var linkFilter = remainItems.concat(addItems);
+        if (newEditResult.geoLiveType == 'DRAWPOLYGON') {
+            linkFilter = remainItems.concat(addItems).filter(item=>item.properties.groupId == App.Temp.groupId);
+        }
+        newEditResult.links = linkFilter;
         this.createOperation('框选增加link', newEditResult);
     },
 
     replaceLinks: function () {
         var newEditResult = FM.Util.clone(this.editResult);
-        newEditResult.links = this.selectedFeatures;
+        var linkFilter = this.selectedFeatures;
+        if (newEditResult.geoLiveType == 'DRAWPOLYGON') {
+            linkFilter = this.selectedFeatures.filter(item=>item.properties.groupId == App.Temp.groupId);
+        }
+        newEditResult.links = linkFilter;
         this.createOperation('框选link', newEditResult);
     },
 

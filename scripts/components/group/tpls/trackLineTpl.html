@@ -4,7 +4,7 @@
         width: 300px;
         height: 100%;
         position: relative;
-        padding: 40px 0 60px;
+        padding: 40px 0 90px;
     }
     #advanceSearchLeftContainer .searchHeader{
         height: 40px;
@@ -39,9 +39,9 @@
         transform: rotate(90deg);
     }
     #advanceSearchLeftContainer .searchFooter {
-        height: 60px;
+        height: 90px;
         padding-left: 10px;
-        margin-bottom: -60px;
+        margin-bottom: -90px;
         font-size: 15px;
         border-top: 1px solid #c7c6c6;
     }
@@ -113,6 +113,7 @@
             <span>共 {{results.rows.length}} 条</span>
         </div>
         <div style="display: inline-block;float: right;margin: 20px 0;">
+            <button ng-click="copyToLineAndPolygon()">复制到线面</button>
             <button ng-click="copyToLine()">复制到线</button>
             <button ng-click="copyToPolygon()">复制到面</button>
         </div>

@@ -102,16 +102,12 @@ fastmap.uikit.complexEdit.BatchEditLimitTool = fastmap.uikit.complexEdit.Complex
         var polygonSymbol = this.symbolFactory.getSymbol('py_face');
         for (var i = 0; i < links.length; ++i) {
             var link = links[i];
-            if (link.properties.groupId == App.Temp.groupId) {
-                var linkGeometry = null;
-                linkGeometry = link.geometry;
-                if (linkGeometry.type === 'Polygon') {
-                    this.stepFeedback2.add(linkGeometry, polygonSymbol);
-                } else {
-                    this.stepFeedback2.add(linkGeometry, lineSymbol);
-                }
+            var linkGeometry = null;
+            linkGeometry = link.geometry;
+            if (linkGeometry.type === 'Polygon') {
+                this.stepFeedback2.add(linkGeometry, polygonSymbol);
             } else {
-                links.splice(i);
+                this.stepFeedback2.add(linkGeometry, lineSymbol);
             }
         }
     },
@@ -157,10 +153,19 @@ fastmap.uikit.complexEdit.BatchEditLimitTool = fastmap.uikit.complexEdit.Complex
         var box = this.getSelectBox(this.startPoint, this.endPoint);
 
         var selectedFeatures = this.featureSelector.selectByGeometry(box, [this.editResult.geoLiveType]);
+        let selectedFeaturesFilterRes = [];
+        if (selectedFeatures.length > 0) {
+            for (let i = 0; i < selectedFeatures.length; i++) {
+                if (selectedFeatures[i].properties.groupId == App.Temp.groupId) {
+                    selectedFeaturesFilterRes.push(selectedFeatures[i]);
+                }
+            }
+        }
+        
         if (event.originalEvent.ctrlKey) {
-            this.modifyLinkFeatures(selectedFeatures);
+            this.modifyLinkFeatures(selectedFeaturesFilterRes);
         } else {
-            this.replaceLinkFeatures(selectedFeatures);
+            this.replaceLinkFeatures(selectedFeaturesFilterRes);
         }
 
         return true;
