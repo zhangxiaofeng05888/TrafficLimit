@@ -18,6 +18,12 @@
         <li ng-class="{true:'disabled'}[menuList.indexOf('datadifference') < 0]" ng-click="showdatadifferenceResultListPanel(menuList.indexOf('datadifference') < 0)">
             数据差分
         </li>
+        <li ng-class="{true:'disabled'}[menuList.indexOf('splitRule') < 0]" ng-click="splitRule(menuList.indexOf('splitRule') < 0)">
+            拆分rule
+        </li>
+        <li ng-class="{true:'disabled'}[menuList.indexOf('ruleTable') < 0]" ng-click="showRuleResultListPanel(menuList.indexOf('ruleTable') < 0)">
+            编辑rule表
+        </li>
         <li ng-class="{true:'disabled'}[menuList.indexOf('policyTable') < 0]" ng-click="showPolicyTool(menuList.indexOf('policyTable') < 0)">
             编辑策略表
         </li>

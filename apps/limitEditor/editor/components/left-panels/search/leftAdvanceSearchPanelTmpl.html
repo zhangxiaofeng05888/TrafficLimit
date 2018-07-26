@@ -4,7 +4,7 @@
         width: 300px;
         height: 100%;
         position: relative;
-        padding: 40px 0 60px;
+        padding: 40px 0 100px;
     }
     #advanceSearchLeftContainer .searchHeader{
         height: 40px;
@@ -39,7 +39,7 @@
         transform: rotate(90deg);
     }
     #advanceSearchLeftContainer .searchFooter {
-        height: 60px;
+        height: 100px;
         padding-left: 10px;
         margin-bottom: -60px;
         font-size: 15px;
@@ -95,7 +95,9 @@
         <ul>
             <li style="font-weight: bold;">
                 <div class="ckBox">
-                    <span>是否已确认</span>
+                    <label for="checkAll">全选</label>
+                    <input id="checkAll" type="checkbox" class="fm-control" style="cursor: pointer;padding: 0;margin: 0;" ng-model="resultsCheckAll"
+                        ng-click="selectAll()" ng-change="selectAll()">
                 </div>
                 <div class="roadNames">
                     <span>道路名</span>
@@ -119,12 +121,14 @@
         </ul>
     </div>
     <div class="searchFooter">
-        <div style="display: inline-block;width: 80px;margin-top: 10px;">
+        <div style="margin-top: 10px;">
             <span>选中 {{selectedNums}} 条, 共 {{results.total}} 条</span>
         </div>
-        <div style="display: inline-block;float: right;margin: 20px 0;">
+        <div style="display: inline-block;">
+            <button ng-click="copyToLineAndPolygon()">复制到面线</button>
             <button ng-click="copyToLine()">复制到线</button>
             <button ng-click="copyToPolygon()">复制到面</button>
+            <p style="height: 8px;margin: 0;"></p>
             <button ng-click="trackLine()">追踪</button>
         </div>
     </div>

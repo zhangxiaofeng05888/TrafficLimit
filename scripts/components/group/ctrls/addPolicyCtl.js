@@ -196,7 +196,7 @@ angular.module('app').controller('addPolicyCtrl', ['$window', '$scope', '$timeou
             },
             {
                 id: 1,
-                name: '燃油'
+                name: '柴油'
             }, {
                 id: 2,
                 name: '油电'
@@ -206,9 +206,6 @@ angular.module('app').controller('addPolicyCtrl', ['$window', '$scope', '$timeou
             }, {
                 id: 4,
                 name: '汽油'
-            }, {
-                id: 5,
-                name: '柴油'
             }];
         $scope.gasEmisstand = [
             {

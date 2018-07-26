@@ -19,7 +19,7 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
             sortord: ''
         };
         var initMenuList = function () {
-            $scope.menuList = ['policyTable', 'resultList', 'submit', 'infoPanel', 'limit', 'log', 'intersectList', 'temporaryList', 'dealfailureList', 'datadifference', 'geometryCheck', 'geometryResult'];
+            $scope.menuList = ['policyTable', 'resultList', 'submit', 'infoPanel', 'limit', 'log', 'intersectList', 'temporaryList', 'dealfailureList', 'datadifference', 'geometryCheck', 'geometryResult', 'ruleTable', 'splitRule'];
         };
         $scope.backToInfo = function (flag) {
             if (flag) {
@@ -253,6 +253,22 @@ angular.module('app').controller('userToolCtrl', ['$rootScope', '$scope', '$ocLa
 
             $scope.$emit('ShowInfoPage', {
                 type: 'datadifference'
+            });
+        };
+        // 拆分rule
+        $scope.splitRule = function (flag) {
+            if (flag) {
+                return;
+            }
+            swal('提示', '正在等接口', 'warning');
+        };
+        // 打开RULE表
+        $scope.showRuleResultListPanel = function (flag) {
+            if (flag) {
+                return;
+            }
+            $scope.$emit('ShowInfoPage', {
+                type: 'showRuleTablePanel'
             });
         };
         var initUserTool = function () {
