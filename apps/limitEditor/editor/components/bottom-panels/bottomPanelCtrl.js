@@ -731,7 +731,7 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
                         field: 'specPlate',
                         displayName: '排除不限行牌号',
                         enableSorting: false,
-                        minWidth: 100,
+                        minWidth: 120,
                         cellClass: 'center'
                     }
                 ]
