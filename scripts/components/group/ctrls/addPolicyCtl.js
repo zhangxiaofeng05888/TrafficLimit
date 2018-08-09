@@ -39,6 +39,9 @@ angular.module('app').controller('addPolicyCtrl', ['$window', '$scope', '$timeou
             specFlag: [], // 排除日期
             specPlate: '' // 排除不限行号牌
         };
+        $scope.$watch('policyData.startDate', function (newValue, oldValue) {
+            $scope.startDatePrev = new Date(Date.parse(newValue) - (24 * 60 * 60 * 1000));
+        });
         /**
          * 初始化数据，包括（车辆类型、本外地、临牌转换原则、字母转换原则、限行尾号、能源类型、车牌颜色、油气排放标准、限行时间类型、排除日期）
          * @author Niuxinyi

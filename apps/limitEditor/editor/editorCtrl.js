@@ -772,6 +772,8 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
             } else if (geoLiveType === 'COPYTOPOLYGON') {
                 closeLeftPanel();
                 // $scope.closeLeftFloatPanel();
+            } else if (geoLiveType === 'DRAWPOLYGON' || geoLiveType === 'GEOMETRYLINE' || geoLiveType === 'LIMITLINE') {
+                showInRoadRightEditPanel();
             } else {
                 // 道路要素编辑模式
                 // 1.如果有tips正在查看，则不关闭左侧tips查看面板；否则关闭左侧面板
@@ -1713,7 +1715,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
 
         // 关闭Rule表
         $scope.$on('CloseBottomRulePanel', function (event, data) {
-            closeRule();
+            // closeRule();
         });
 
         // 关闭右侧面板

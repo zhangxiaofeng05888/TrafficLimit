@@ -43,10 +43,12 @@ angular.module('app').controller('intersectLineListCtl', ['$window', '$scope', '
             if (!row.isSelected) {
                 return;
             }
-
-            $scope.$emit('LocateObject', { feature: {
-                geometry: row.entity.geometryRdlink
-            } });  //  定位
+            var feature = row.entity;
+            feature.pid = row.entity.geometryId;
+            feature.geoLiveType = 'LIMITLINE';
+            $scope.$emit('ObjectSelected', {
+                feature: feature
+            });
 
             var symbol = linkSymbol;
             feedback.clear();

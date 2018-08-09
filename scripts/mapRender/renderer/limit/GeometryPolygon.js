@@ -39,22 +39,21 @@ FM.mapApi.render.renderer.GeometryPolygon = FM.mapApi.render.Renderer.extend({
         if (this._feature.properties.boundaryLink === '1' && this._feature.properties.groupId === App.Temp.groupId) {
             symbolData.outLine.symbols[0] = {
                 type: 'SimpleLineSymbol',
-                color: '##871F78',
+                color: '#871F78',
                 width: 3,
                 style: 'solid'
             };
         } else if (this._feature.properties.boundaryLink === '2' && this._feature.properties.groupId === App.Temp.groupId) {
             symbolData.outLine.symbols[0] = {
                 type: 'SimpleLineSymbol',
-                color: '##871F78',
+                color: '#DB70DB',
                 width: 3,
                 style: 'solid'
             };
-        }
-        if (this._feature.properties.groupId === App.Temp.groupId) {
+        } else if (this._feature.properties.boundaryLink === '2' && this._feature.properties.groupId !== App.Temp.groupId) {
             symbolData.outLine.symbols[0] = {
                 type: 'SimpleLineSymbol',
-                color: '#C6E2FF',
+                color: '#c6e2ff',
                 width: 3,
                 style: 'solid'
             };

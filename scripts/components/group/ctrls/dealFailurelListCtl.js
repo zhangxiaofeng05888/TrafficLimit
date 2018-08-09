@@ -50,7 +50,12 @@ angular.module('app').controller('dealfailurelListCtl', ['$window', '$scope', '$
                 return;
             }
 
-            $scope.$emit('LocateObject', { feature: row.entity });  //  定位
+            var feature = row.entity;
+            feature.pid = row.entity.geometryId;
+            feature.geoLiveType = 'GEOMETRYLINE';
+            $scope.$emit('ObjectSelected', {
+                feature: feature
+            });
 
             var symbol = row.entity.geometry.type === 'LineString' ? linkSymbol : faceSymbol;
             feedback.clear();

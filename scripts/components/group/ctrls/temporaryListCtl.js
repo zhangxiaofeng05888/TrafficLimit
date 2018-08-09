@@ -49,8 +49,13 @@ angular.module('app').controller('temporaryListCtl', ['$window', '$scope', '$tim
             if (!row.isSelected) {
                 return;
             }
-
-            $scope.$emit('LocateObject', { feature: row.entity });  //  定位
+            var feature = row.entity;
+            feature.pid = row.entity.geometryId;
+            feature.geoLiveType = 'DRAWPOLYGON';
+            $scope.$emit('ObjectSelected', {
+                feature: feature
+            });
+            // $scope.$emit('LocateObject', { feature: row.entity });  //  定位
 
             var symbol = row.entity.geometry.type === 'LineString' ? linkSymbol : faceSymbol;
             feedback.clear();
