@@ -107,17 +107,5 @@ fastmap.uikit.complexEdit.CopyTool = fastmap.uikit.complexEdit.RectSelectTool.ex
     onUndo: function (oldEditResult, newEditResult) {
         this.editResult = oldEditResult;
         this.refresh();
-    },
-    onKeyUp: function (event) {
-        var key = event.key;
-        switch (key) {
-            case 'c':
-                alert('检查');
-                break;
-            default:
-                break;
-        }
-
-        fastmap.uikit.complexEdit.RectSelectTool.prototype.onKeyUp.call(this, event);
     }
 });
