@@ -772,7 +772,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
             } else if (geoLiveType === 'COPYTOPOLYGON') {
                 closeLeftPanel();
                 // $scope.closeLeftFloatPanel();
-            } else if (geoLiveType === 'DRAWPOLYGON' || geoLiveType === 'GEOMETRYLINE' || geoLiveType === 'LIMITLINE') {
+            } else if (geoLiveType === 'DRAWPOLYGON' || geoLiveType === 'GEOMETRYLINE' || geoLiveType === 'LIMITLINE' || geoLiveType === 'COPYTOLINE') {
                 showInRoadRightEditPanel();
             } else {
                 // 道路要素编辑模式

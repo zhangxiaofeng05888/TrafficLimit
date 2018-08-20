@@ -51,7 +51,11 @@ angular.module('app').controller('temporaryListCtl', ['$window', '$scope', '$tim
             }
             var feature = row.entity;
             feature.pid = row.entity.geometryId;
-            feature.geoLiveType = 'DRAWPOLYGON';
+            if (row.entity.geoLiveType === 'SCPLATERESLINK' || row.entity.geoLiveType === 'COPYTOLINE') {
+                feature.geoLiveType = 'COPYTOLINE';
+            } else {
+                feature.geoLiveType = 'DRAWPOLYGON';
+            }
             $scope.$emit('ObjectSelected', {
                 feature: feature
             });
@@ -92,7 +96,7 @@ angular.module('app').controller('temporaryListCtl', ['$window', '$scope', '$tim
          * @returns {object} html  返回页面
          */
         function getGeoLiveType() {
-            var html = '<div class="ui-grid-cell-contents">{{row.entity.geoLiveType === "SCPLATERESLINK" ? "临时线" : "临时面"}}</div>';
+            var html = '<div class="ui-grid-cell-contents">{{row.entity.geoLiveType === "SCPLATERESLINK" || row.entity.geoLiveType === "COPYTOLINE" ? "临时线" : "临时面"}}</div>';
             return html;
         }
 
@@ -122,7 +126,7 @@ angular.module('app').controller('temporaryListCtl', ['$window', '$scope', '$tim
             var faceResult = [];
             dsEdit.gettemporarylinkResultList().then(function (data) {
                 linkresult = data.data;
-            }).then($timeout(function () {
+            }).then(function () {
                 dsEdit.gettemporaryfaceResultList().then(function (data1) {
                     faceResult = data1.data;
                     var faceResult1 = [];
@@ -138,7 +142,7 @@ angular.module('app').controller('temporaryListCtl', ['$window', '$scope', '$tim
                     }
                     $scope.gridOptions.data = temporaryData;
                 });
-            })
+            }
             );
         }
         /**
