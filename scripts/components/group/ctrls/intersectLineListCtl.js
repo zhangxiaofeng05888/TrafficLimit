@@ -44,15 +44,13 @@ angular.module('app').controller('intersectLineListCtl', ['$window', '$scope', '
                 return;
             }
             var feature = row.entity;
-            feature.pid = row.entity.geometryId;
+            feature.pid = row.entity.linkPid;
+            feature.geometry = row.entity.geometryRdlink;
             feature.geoLiveType = 'LIMITLINE';
+            feature.groupId = row.entity.groupId ? row.entity.groupId : row.entity.geometryId.split('_')[0];
             $scope.$emit('ObjectSelected', {
                 feature: feature
             });
-
-            var symbol = linkSymbol;
-            feedback.clear();
-            feedback.add(row.entity.geometryRdlink, symbol);
             feedbackCtrl.refresh();
         };
         /**

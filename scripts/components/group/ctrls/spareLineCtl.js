@@ -41,10 +41,6 @@ angular.module('app').controller('spareLineListCtl', ['$window', '$scope', '$tim
             $scope.$emit('ObjectSelected', {
                 feature: feature
             });
-
-            var symbol = linkSymbol;
-            feedback.clear();
-            feedback.add(row.entity.geometry, symbol);
             feedbackCtrl.refresh();
         };
         /**

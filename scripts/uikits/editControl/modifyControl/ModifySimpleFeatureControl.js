@@ -69,6 +69,15 @@ fastmap.uikit.editControl.ModifySimpleFeatureControl = fastmap.uikit.editControl
             this.eventController.fire(L.Mixin.EventTypes.OBJECTSELECTED, eventArgs);
         }
 
+        if (this.geoLiveType == 'COPYTOPOLYGON') {
+            this.eventController.fire(L.Mixin.EventTypes.REFRESHSPARELINE);
+        } else if (this.geoLiveType == 'GEOMETRYPOLYGON' || this.geoLiveType == 'GEOMETRYLINE') {
+            this.eventController.fire(L.Mixin.EventTypes.REFRESHRESULTLIST);
+            this.eventController.fire(L.Mixin.EventTypes.REFRESHDEALFAILURELIST);
+        } else if (this.geoLiveType == 'COPYTOLINE' || this.geoLiveType == 'DRAWPOLYGON') {
+            this.eventController.fire(L.Mixin.EventTypes.REFRESHTEMPORARYLIST);
+        }
+
         // 输出窗口输出履历,履历模块未准备好,暂时屏蔽掉
         // fastmap.uikit.editControl.EditControl.prototype.outputLogs.call(this, res.log);
     },

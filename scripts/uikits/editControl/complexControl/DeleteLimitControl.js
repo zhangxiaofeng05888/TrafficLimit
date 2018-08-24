@@ -54,6 +54,8 @@ fastmap.uikit.editControl.DeleteLimitControl = fastmap.uikit.editControl.EditCon
         swal('提示', '删除成功', 'success');
         if (this.geoLiveType === 'COPYTOPOLYGON') {
             this.eventController.fire(L.Mixin.EventTypes.REFRESHSPARELINE);
+        } else if (this.geoLiveType === 'LIMITLINE') {
+            this.eventController.fire(L.Mixin.EventTypes.REFRESHINTERSECTLINELIST);
         }
         // 删除临时线、编辑线、临时面时，刷新临时几何列表
         if (this.geoLiveType === 'COPYTOLINE' || this.geoLiveType === 'COPYTOPOLYGON' || this.geoLiveType === 'DRAWPOLYGON') {

@@ -37,15 +37,12 @@ angular.module('app').controller('resultListCtl', ['$window', '$scope', '$timeou
                 return;
             }
             var feature = row.entity;
-            feature.pid = row.entity.geometryId;
-            feature.geoLiveType = 'GEOMETRYLINE';
+            feature.pid = row.entity.pid ? row.entity.pid : row.entity.geometryId;
+            feature.id = row.entity.pid ? row.entity.pid : row.entity.geometryId;
+            feature.geoLiveType = row.entity.geometry.type === 'LineString' ? 'GEOMETRYLINE' : 'GEOMETRYPOLYGON';
             $scope.$emit('ObjectSelected', {
                 feature: feature
             });
-
-            var symbol = row.entity.geometry.type === 'LineString' ? linkSymbol : faceSymbol;
-            feedback.clear();
-            feedback.add(row.entity.geometry, symbol);
             feedbackCtrl.refresh();
         };
         /**

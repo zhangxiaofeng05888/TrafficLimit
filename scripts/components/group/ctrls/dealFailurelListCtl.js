@@ -52,14 +52,10 @@ angular.module('app').controller('dealfailurelListCtl', ['$window', '$scope', '$
 
             var feature = row.entity;
             feature.pid = row.entity.geometryId;
-            feature.geoLiveType = 'GEOMETRYLINE';
+            feature.geoLiveType = row.entity.geometry.type === 'Polygon' ? 'GEOMETRYPOLYGON' : 'GEOMETRYLINE';
             $scope.$emit('ObjectSelected', {
                 feature: feature
             });
-
-            var symbol = row.entity.geometry.type === 'LineString' ? linkSymbol : faceSymbol;
-            feedback.clear();
-            feedback.add(row.entity.geometry, symbol);
             feedbackCtrl.refresh();
         };
         /**

@@ -59,11 +59,7 @@ angular.module('app').controller('temporaryListCtl', ['$window', '$scope', '$tim
             $scope.$emit('ObjectSelected', {
                 feature: feature
             });
-            // $scope.$emit('LocateObject', { feature: row.entity });  //  定位
 
-            var symbol = row.entity.geometry.type === 'LineString' ? linkSymbol : faceSymbol;
-            feedback.clear();
-            feedback.add(row.entity.geometry, symbol);
             feedbackCtrl.refresh();
         };
         /**

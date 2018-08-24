@@ -771,8 +771,9 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 // showInPoiRightEditPanel();
             } else if (geoLiveType === 'COPYTOPOLYGON') {
                 closeLeftPanel();
+                closeRightPanel();
                 // $scope.closeLeftFloatPanel();
-            } else if (geoLiveType === 'DRAWPOLYGON' || geoLiveType === 'GEOMETRYLINE' || geoLiveType === 'LIMITLINE' || geoLiveType === 'COPYTOLINE') {
+            } else if (geoLiveType === 'DRAWPOLYGON' || geoLiveType === 'GEOMETRYLINE' || geoLiveType === 'LIMITLINE' || geoLiveType === 'COPYTOLINE' || geoLiveType === 'GEOMETRYPOLYGON') {
                 showInRoadRightEditPanel();
             } else {
                 // 道路要素编辑模式
@@ -1090,6 +1091,14 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
          * 3.重新加载对象
          **/
         var afterSave = function (data) {
+            if (data.feature.geoLiveType == 'GEOMETRYPOLYGON' || data.feature.geoLiveType == 'GEOMETRYLINE') {
+                eventCtrl.fire(eventCtrl.eventTypes.REFRESHRESULTLIST);
+                eventCtrl.fire(eventCtrl.eventTypes.REFRESHDEALFAILURELIST);
+            } else if (data.feature.geoLiveType == 'LIMITLINE') {
+                eventCtrl.fire(eventCtrl.eventTypes.REFRESHINTERSECTLINELIST);
+            } else if (data.feature.geoLiveType == 'COPYTOLINE' || data.feature.geoLiveType == 'DRAWPOLYGON') {
+                eventCtrl.fire(eventCtrl.eventTypes.REFRESHTEMPORARYLIST);
+            }
             $scope.$broadcast('Map-ClearMap');
             $scope.$broadcast('Map-RedrawFeatureLayer', {
                 geoLiveTypes: _getRelatedFeatures(data)
@@ -1739,6 +1748,11 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
 
         // 刷新相交线列表
         $scope.$on('RefreshIntersectLineList', function (event, data) {
+            $scope.$broadcast('refresh-intersectLine');
+        });
+
+        // // 刷新相交线列表
+        eventCtrl.on(eventCtrl.eventTypes.REFRESHINTERSECTLINELIST, function () {
             $scope.$broadcast('refresh-intersectLine');
         });
 

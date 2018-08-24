@@ -68,6 +68,10 @@ fastmap.uikit.editControl.CreateSimpleFeatureControl = fastmap.uikit.editControl
             this.eventController.fire(L.Mixin.EventTypes.OBJECTSELECTED, eventArgs);
         }
 
+        if (this.geoLiveType == 'COPYTOPOLYGON') {
+            this.eventController.fire(L.Mixin.EventTypes.REFRESHSPARELINE);
+        }
+
         // 输出窗口输出履历,履历模块未准备好,暂时屏蔽掉
         // this.outputLogs(res.log);
 
