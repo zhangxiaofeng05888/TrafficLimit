@@ -53,6 +53,7 @@ fastmap.uikit.editControl.BatchDeleteLimitControl = fastmap.uikit.editControl.Ed
         this.complexEditor.stop();
         if (this.geoLiveType === 'GEOMETRYLINE' || this.geoLiveType === 'GEOMETRYPOLYGON') {
             this.eventController.fire(L.Mixin.EventTypes.REFRESHRESULTLIST);
+            this.eventController.fire(L.Mixin.EventTypes.REFRESHDEALFAILURELIST);
         } else if (this.geoLiveType === 'COPYTOLINE' || this.geoLiveType === 'DRAWPOLYGON') {
             // 删除临时面 临时线成功后，刷新临时几何列表
             this.eventController.fire(L.Mixin.EventTypes.REFRESHTEMPORARYLIST);

@@ -63,6 +63,7 @@ fastmap.uikit.editControl.DeleteLimitControl = fastmap.uikit.editControl.EditCon
         }
         if (this.geoLiveType === 'GEOMETRYLINE' || this.geoLiveType === 'GEOMETRYPOLYGON') {
             this.eventController.fire(L.Mixin.EventTypes.REFRESHRESULTLIST);
+            this.eventController.fire(L.Mixin.EventTypes.REFRESHDEALFAILURELIST);
         }
         this.eventController.fire(L.Mixin.EventTypes.CLOSESHAPEEDITPANEL);
         this.eventController.fire(L.Mixin.EventTypes.CLOSERIGHTPANEL, {

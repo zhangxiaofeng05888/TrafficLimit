@@ -496,6 +496,7 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             if (selectData.originSpecFlagName.length !== 0) {
                 params.data.specFlag = selectData.originSpecFlagName;
             }
+            params.data.specPlate = selectData.specPlate;
             dsFcc.addGroup(params).then(function () {
                 getData();
                 swal('提示', '复制成功', 'success');
