@@ -1,0 +1,63 @@
+<style>
+        .chosen-drop{
+        height: 200px;
+    }
+    .chosen-container .chosen-results{
+        height: 200px;
+    }
+    .rule {
+        width: 100%;
+        height: 100%;
+    }
+
+    .rule .chosen-choices {
+        height: 59px !important;
+        max-height: 59px;
+        overflow: auto;
+    }
+
+    .rule_container {
+        display: inline-block;
+        width: 300px;
+        padding-top: 10px;
+    }
+
+    .rule_container_title {
+        width: 90px;
+        text-align: right;
+        display: inline-block
+    }
+</style>
+<div ng-controller="editRuleCtrl">
+    <form class="w5c-form">
+        <div style="padding-left: 10px;height: 450px;overflow: auto">
+            <div>
+                <div class="rule_container_title">
+                    <span>组号：</span>
+                </div>
+                <span>{{groupId}}</span>
+            </div>
+        </div>
+        <div style="padding-left: 10px;height: 450px;overflow: auto">
+            <div>
+                <div class="rule_container_title">
+                    <span>策略表ID:</span>
+                </div>
+                <span><input class="form-control poiRightPanel_Input" placeholder="支持中文、大写字母、|" ng-model="RuleData.restrict"></span>
+            </div>
+        </div>
+        <div style="padding-left: 10px;height: 450px;overflow: auto">
+            <div>
+                <div class="rule_container_title">
+                    <span>组号：</span>
+                </div>
+                <span>{{groupId}}</span>
+            </div>
+        </div>
+        <div class="list-title-btn"
+             style="background-color: #5693ff;height: 24px;line-height: 24px;float: right;margin-right: 20px;margin-top: 20px"
+             ng-click="saverule()">
+            <span style="color: #FFFFFF;font-size: 12px">保存</span>
+        </div>
+    </form>
+</div>

@@ -21,30 +21,30 @@ angular.module('app').controller('searchToolCtrl', ['$scope', 'dsEdit',
         $scope.searchLoading = false;
 
         $scope.kindList = [{
-            name: '兴趣点',
-            children: [{
-                key: 'pid',
-                name: 'POI',
-                type: 'IXPOI',
-                selected: true
-            }],
-            selected: true
-        },
-        {
             name: '道路背景',
             children: [{
                 key: 'linkPid',
                 name: '道路线',
                 type: 'RDLINK',
+                selected: true
+            }],
+            selected: true
+        }, {
+            name: '兴趣点',
+            children: [{
+                key: 'pid',
+                name: 'POI',
+                type: 'IXPOI',
                 selected: false
             }],
             selected: false
-        }];
+        }
+        ];
 
         $scope.selectedItem = {
-            key: 'pid',
-            name: 'POI',
-            type: 'IXPOI',
+            key: 'linkPid',
+            name: '道路线',
+            type: 'RDLINK',
             selected: true
         };
         $scope.roadNames = [

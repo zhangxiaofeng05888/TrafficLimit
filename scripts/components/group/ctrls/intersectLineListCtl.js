@@ -43,14 +43,14 @@ angular.module('app').controller('intersectLineListCtl', ['$window', '$scope', '
             if (!row.isSelected) {
                 return;
             }
-
-            $scope.$emit('LocateObject', { feature: {
-                geometry: row.entity.geometryRdlink
-            } });  //  定位
-
-            var symbol = linkSymbol;
-            feedback.clear();
-            feedback.add(row.entity.geometryRdlink, symbol);
+            var feature = row.entity;
+            feature.pid = row.entity.linkPid;
+            feature.geometry = row.entity.geometryRdlink;
+            feature.geoLiveType = 'LIMITLINE';
+            feature.groupId = row.entity.groupId ? row.entity.groupId : row.entity.geometryId.split('_')[0];
+            $scope.$emit('ObjectSelected', {
+                feature: feature
+            });
             feedbackCtrl.refresh();
         };
         /**

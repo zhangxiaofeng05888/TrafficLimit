@@ -376,6 +376,20 @@ FM.uikit.Config.Utility = (function () {
                     ctrl: 'components/group/ctrls/intersectLineListCtl.js',
                     tmpl: 'components/group/tpls/intersectLineListTpl.html'
                 }
+            },
+            addRule: {
+                name: '新增rule',
+                template: {
+                    ctrl: 'components/group/ctrls/addRuleCtl.js',
+                    tmpl: 'components/group/tpls/addRule.html'
+                }
+            },
+            editRule: {
+                name: '编辑rule表',
+                template: {
+                    ctrl: 'components/group/ctrls/editRuleCtl.js',
+                    tmpl: 'components/group/tpls/editRule.html'
+                }
             }
         };
 

@@ -36,12 +36,13 @@ angular.module('app').controller('resultListCtl', ['$window', '$scope', '$timeou
             if (!row.isSelected) {
                 return;
             }
-
-            $scope.$emit('LocateObject', { feature: row.entity });  //  定位
-
-            var symbol = row.entity.geometry.type === 'LineString' ? linkSymbol : faceSymbol;
-            feedback.clear();
-            feedback.add(row.entity.geometry, symbol);
+            var feature = row.entity;
+            feature.pid = row.entity.pid ? row.entity.pid : row.entity.geometryId;
+            feature.id = row.entity.pid ? row.entity.pid : row.entity.geometryId;
+            feature.geoLiveType = row.entity.geometry.type === 'LineString' ? 'GEOMETRYLINE' : 'GEOMETRYPOLYGON';
+            $scope.$emit('ObjectSelected', {
+                feature: feature
+            });
             feedbackCtrl.refresh();
         };
         /**

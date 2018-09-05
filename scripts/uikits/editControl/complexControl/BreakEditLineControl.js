@@ -47,6 +47,13 @@ fastmap.uikit.editControl.BreakEditLineControl = fastmap.uikit.editControl.EditC
         }
         var geoLiveTypes = [this.geoLiveType];
 
+        if (res.log && res.log[0].type == 'SCPLATERESFACE') {
+            this.eventController.fire(L.Mixin.EventTypes.REFRESHSPARELINE);
+        }
+        if (res.log && res.log[0].type == 'SCPLATERESGEOMETRY') {
+            this.eventController.fire(L.Mixin.EventTypes.REFRESHRESULTLIST);
+            this.eventController.fire(L.Mixin.EventTypes.REFRESHDEALFAILURELIST);
+        }
         // 刷新对应图层
         // this.sceneController.refreshFrozenLayer();
         this.sceneController.redrawLayerByGeoLiveTypes(geoLiveTypes);

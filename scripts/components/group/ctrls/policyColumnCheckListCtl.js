@@ -318,11 +318,10 @@ angular.module('app').controller('policyCheckCtrl', ['$window', '$scope', '$time
             6: '黄绿'
         };
         $scope.energyType = {
-            1: '燃油',
+            1: '柴油',
             2: '油电',
             3: '纯电',
-            4: '汽油',
-            5: '柴油'
+            4: '汽油'
         };
         $scope.resDatetype = {
             1: '连续时间',

@@ -84,6 +84,7 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
         $scope.leftAdvanceSearchPanelFlag = false;
         $scope.leftInfoListPanelFlag = false;
         $scope.policyFlag = false;
+        $scope.ruleFlag = false;
         /* 右侧面板总控标识, 右侧面板对于页面的布局很重要，
         加一个总控有可能在子页面种打开/关闭右侧面板 */
         $scope.rightPanelOpened = false;
@@ -157,6 +158,8 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                     getDlgOption(dlgOption, 700, 500, true);
                     break;
                 case 'tipListPanel':
+                case 'addRule':
+                case 'editRule':
                     getDlgOption(dlgOption, 600, 400, false);
                     break;
                 case 'addPolicy':
@@ -485,6 +488,15 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
             });
         };
 
+        var showInRuleBottomFloatPanel = function (data) {
+            var ctrl = './editor/components/bottom-panels/bottomRulePanelCtrl.js';
+            var tmpl = './editor/components/bottom-panels/bottomRulePanelTmpl.htm';
+            dsLazyload.loadInclude($scope, 'bottomPanelTmpl', ctrl, tmpl).then(function () {
+                $scope.$broadcast('BottomRulePanelReload', data);
+                $scope.openPolicy();
+            });
+        };
+
         var showInDialog = function (data) {
             var dlgKey = data.type;
             if ($scope.dialogManager[dlgKey]) {
@@ -547,6 +559,9 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 case 'showPolicyPanel':
                     showInBottomFloatPanel(data);
                     break;
+                case 'showRuleTablePanel':
+                    showInRuleBottomFloatPanel(data);
+                    break;
                 case 'ScenePanel':
                     showInRightFloatPanel(data);
                     break;
@@ -599,6 +614,8 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 case 'policyColumnCheckResult':
                 case 'geometryCheck':
                 case 'geometryCheckResult':
+                case 'addRule':
+                case 'editRule':
                     showInDialog(data);
                     break;
                 case 'LaneConnexityPanel':
@@ -754,7 +771,10 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
                 // showInPoiRightEditPanel();
             } else if (geoLiveType === 'COPYTOPOLYGON') {
                 closeLeftPanel();
+                closeRightPanel();
                 // $scope.closeLeftFloatPanel();
+            } else if (geoLiveType === 'DRAWPOLYGON' || geoLiveType === 'GEOMETRYLINE' || geoLiveType === 'LIMITLINE' || geoLiveType === 'COPYTOLINE' || geoLiveType === 'GEOMETRYPOLYGON') {
+                showInRoadRightEditPanel();
             } else {
                 // 道路要素编辑模式
                 // 1.如果有tips正在查看，则不关闭左侧tips查看面板；否则关闭左侧面板
@@ -1071,6 +1091,14 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
          * 3.重新加载对象
          **/
         var afterSave = function (data) {
+            if (data.feature.geoLiveType == 'GEOMETRYPOLYGON' || data.feature.geoLiveType == 'GEOMETRYLINE') {
+                eventCtrl.fire(eventCtrl.eventTypes.REFRESHRESULTLIST);
+                eventCtrl.fire(eventCtrl.eventTypes.REFRESHDEALFAILURELIST);
+            } else if (data.feature.geoLiveType == 'LIMITLINE') {
+                eventCtrl.fire(eventCtrl.eventTypes.REFRESHINTERSECTLINELIST);
+            } else if (data.feature.geoLiveType == 'COPYTOLINE' || data.feature.geoLiveType == 'DRAWPOLYGON') {
+                eventCtrl.fire(eventCtrl.eventTypes.REFRESHTEMPORARYLIST);
+            }
             $scope.$broadcast('Map-ClearMap');
             $scope.$broadcast('Map-RedrawFeatureLayer', {
                 geoLiveTypes: _getRelatedFeatures(data)
@@ -1694,6 +1722,11 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
             closePolicy();
         });
 
+        // 关闭Rule表
+        $scope.$on('CloseBottomRulePanel', function (event, data) {
+            // closeRule();
+        });
+
         // 关闭右侧面板
         $scope.$on('CloseRightPanel', function (event, data) {
             closeRightPanel();
@@ -1715,6 +1748,11 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
 
         // 刷新相交线列表
         $scope.$on('RefreshIntersectLineList', function (event, data) {
+            $scope.$broadcast('refresh-intersectLine');
+        });
+
+        // // 刷新相交线列表
+        eventCtrl.on(eventCtrl.eventTypes.REFRESHINTERSECTLINELIST, function () {
             $scope.$broadcast('refresh-intersectLine');
         });
 

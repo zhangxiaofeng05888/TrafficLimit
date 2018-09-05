@@ -110,11 +110,10 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             6: '黄绿'
         };
         $scope.energyType = {
-            1: '燃油',
+            1: '柴油',
             2: '油电',
             3: '纯电',
-            4: '汽油',
-            5: '柴油'
+            4: '汽油'
         };
         $scope.resDatetype = {
             1: '连续时间',
@@ -497,6 +496,7 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
             if (selectData.originSpecFlagName.length !== 0) {
                 params.data.specFlag = selectData.originSpecFlagName;
             }
+            params.data.specPlate = selectData.specPlate;
             dsFcc.addGroup(params).then(function () {
                 getData();
                 swal('提示', '复制成功', 'success');
@@ -729,9 +729,9 @@ angular.module('app').controller('PolicyBottomViewPanelCtrl', ['$scope', '$rootS
                     },
                     {
                         field: 'specPlate',
-                        displayName: '排除不限行牌号',
+                        displayName: '排除不限行号牌',
                         enableSorting: false,
-                        minWidth: 100,
+                        minWidth: 120,
                         cellClass: 'center'
                     }
                 ]

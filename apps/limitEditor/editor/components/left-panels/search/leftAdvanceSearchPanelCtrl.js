@@ -3,6 +3,7 @@
  * 批量选择结果
  */
 angular.module('app').controller('AdvanceSearchController', function ($scope, dsFcc, NgTableParams) {
+    $scope.resultsCheckAll = false;
     var minEditZoom = App.Config.map.layerZoom.minEditZoom || 17;
     var map = window.map;
     var testEditZoom = function () {
@@ -25,15 +26,18 @@ angular.module('app').controller('AdvanceSearchController', function ($scope, ds
         feedbackCtrl.refresh();
     };
 
-    var selectBox = function () {   //  面板加载时，复选框默认全部选中
+    $scope.selectAll = function () {  // 全选
         var rows = $scope.results.rows;
-
         for (var i = 0, len = rows.length; i < len; i++) {
-            rows[i].checked = true;
+            rows[i].checked = $scope.resultsCheckAll;
         }
     };
 
-    $scope.copyToLine = function () {
+    $scope.copyToLineAndPolygon = function () {
+        $scope.copyToLine($scope.copyToPolygon);
+    };
+
+    $scope.copyToLine = function (fn) {
         var linkData = $scope.results;
         var links = [];
         for (var i = 0; i < linkData.rows.length; i++) {
@@ -63,6 +67,9 @@ angular.module('app').controller('AdvanceSearchController', function ($scope, ds
             }
             if (data !== -1) {
                 swal('提示', '复制成功', 'success');
+                if (fn) {
+                    fn();
+                }
                 sceneController.redrawLayerByGeoLiveTypes(['COPYTOLINE']);
                 $scope.closeAdvanceSearchPanel();
             }
@@ -108,7 +115,6 @@ angular.module('app').controller('AdvanceSearchController', function ($scope, ds
     var initialize = function (event, data) {
         $scope.results = data.data;
         $scope.selectedNums = $scope.results.rows.length;
-        selectBox();
         $scope.highlightRoad($scope.results.rows[0]);   //  默认高亮第一条数据
     };
 

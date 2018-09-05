@@ -50,11 +50,12 @@ angular.module('app').controller('dealfailurelListCtl', ['$window', '$scope', '$
                 return;
             }
 
-            $scope.$emit('LocateObject', { feature: row.entity });  //  定位
-
-            var symbol = row.entity.geometry.type === 'LineString' ? linkSymbol : faceSymbol;
-            feedback.clear();
-            feedback.add(row.entity.geometry, symbol);
+            var feature = row.entity;
+            feature.pid = row.entity.geometryId;
+            feature.geoLiveType = row.entity.geometry.type === 'Polygon' ? 'GEOMETRYPOLYGON' : 'GEOMETRYLINE';
+            $scope.$emit('ObjectSelected', {
+                feature: feature
+            });
             feedbackCtrl.refresh();
         };
         /**

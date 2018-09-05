@@ -201,7 +201,7 @@
                     </div>
                     <div style="display: inline-block">
                         <input class="form-control poiRightPanel_Input" set-focus
-                               name="vehicleLength" required ng-model="policyData.specPlate" type="text"/>
+                               name="vehicleLength" ng-model="policyData.specPlate" type="text"/>
                     </div>
                 </div>
                 <div class="policy_container">
@@ -255,7 +255,7 @@
                     </div>
                      <div style="display: inline-block">
                         <input class="form-control poiRightPanel_Input" set-focus
-                               name="vehicleWidth" required ng-model="policyData.vehicleWidth" type="number" ng-blur="formateNumbers('vehicleLength',1)"/>
+                               name="vehicleWidth" ng-model="policyData.vehicleWidth" type="number" ng-blur="formateNumbers('vehicleLength',1)"/>
                         </div>
                 </div>
                 <div class="policy_container">
@@ -264,7 +264,7 @@
                     </div>
                      <div style="display: inline-block">
                         <input class="form-control poiRightPanel_Input" set-focus
-                               name="vehicleHigh" required ng-model="policyData.vehicleHigh" type="number" ng-blur="formateNumbers('vehicleLength',1)"/>
+                               name="vehicleHigh" ng-model="policyData.vehicleHigh" type="number" ng-blur="formateNumbers('vehicleLength',1)"/>
                         </div>
                 </div>
                 <div class="policy_container">
@@ -296,7 +296,7 @@
                 </div>
                 <div class="policy_container">
                     <div class="policy_container_title">
-                        <span>开始日期：</span>
+                        <span>开始日期：{{policyData.startDate}}</span>
                     </div>
                     <div style="display: inline-block">
                         <input type="text" class="form-control poiRightPanel_Input" ng-model="policyData.startDate"
@@ -310,7 +310,7 @@
                     </div>
                     <div style="display: inline-block">
                         <input type="text" class="form-control poiRightPanel_Input" ng-model="policyData.endDate"
-                               data-min-date="{{policyData.startDate}}" bs-datepicker
+                        data-min-date="{{startDatePrev}}" bs-datepicker
                                data-date-format="yyyy-MM-dd" data-date-type="string" placement="top">
                     </div>
                 </div>

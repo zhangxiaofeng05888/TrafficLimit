@@ -35,12 +35,12 @@ angular.module('app').controller('spareLineListCtl', ['$window', '$scope', '$tim
             if (!row.isSelected) {
                 return;
             }
-
-            $scope.$emit('LocateObject', { feature: row.entity });  //  定位
-
-            var symbol = linkSymbol;
-            feedback.clear();
-            feedback.add(row.entity.geometry, symbol);
+            var feature = row.entity;
+            feature.pid = row.entity.geometryId;
+            feature.geoLiveType = 'COPYTOPOLYGON';
+            $scope.$emit('ObjectSelected', {
+                feature: feature
+            });
             feedbackCtrl.refresh();
         };
         /**

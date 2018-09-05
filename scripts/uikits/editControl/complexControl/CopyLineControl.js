@@ -78,6 +78,8 @@ fastmap.uikit.editControl.CopyLineControl = fastmap.uikit.editControl.EditContro
         // 刷新几何临时列表
         this.eventController.fire(L.Mixin.EventTypes.REFRESHTEMPORARYLIST);
 
+        // 刷新刷新编辑线列表
+        this.eventController.fire(L.Mixin.EventTypes.REFRESHSPARELINE);
         // 刷新对应图层
         this.sceneController.redrawLayerByGeoLiveTypes(geoLiveTypes);
 
