@@ -87,6 +87,6 @@ L.Mixin.EventTypes = {
     REFRESHRESULTLIST: 'refreshResultList', // 删除成功之后刷新几何成果列表
     REFRESHTEMPORARYLIST: 'refreshTemporaryList', // 刷新临时成果列表
     REFRESHDEALFAILURELIST: 'refreshDealFailureList', // 刷新未批处理成功列表
-    REFRESHINTERSECTLINELIST: 'refreshIntersectLineList' // 刷新相交线列表
-
+    REFRESHINTERSECTLINELIST: 'refreshIntersectLineList', // 刷新相交线列表
+    ERRDRAWPOLYGON: 'errDrawpolygon' // 构面错误定位
 };

@@ -67,6 +67,14 @@ fastmap.uikit.editControl.CopyLineControl = fastmap.uikit.editControl.EditContro
             swal('提示', '重复复制，请重新选择', 'warning');
             return;
         }
+        if (res.result) {
+            if (res.result.err) {
+                swal('提示', res.result.err, 'warning');
+            }
+            // 高亮并定位不连接几何
+            this.eventController.fire(L.Mixin.EventTypes.ERRDRAWPOLYGON, res.result);
+            return;
+        }
         // 根据服务log获取发生变更的要素类型列表
         var geoLiveTypes = this.getChangedGeoLiveTypes(this.geoLiveType, res.log);
 

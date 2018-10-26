@@ -644,12 +644,34 @@ angular.module('app').controller('addPolicyCtrl', ['$window', '$scope', '$timeou
                 params.data.specFlag = $scope.policyData.specFlag.join('|');
             }
             params.data.specPlate = $scope.policyData.specPlate;
-            dsFcc.addPolicy(params).then(function (data) {
-                if (data !== -1) {
-                    $scope.$emit('Dialog-Closed', 'addPolicy');
-                    swal('提示', '保存成功', 'success');
-                }
-            });
+            if (startDate == endDate) {
+                swal({
+                    title: '确定保存？',
+                    type: 'warning',
+                    text: '开始日期和结束日期相同，确定要保存？',
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    confirmButtonText: '确定',
+                    confirmButtonColor: '#ec6c62'
+                }, function (f) {
+                    if (f) {
+                        dsFcc.addPolicy(params).then(function (data) {
+                            if (data !== -1) {
+                                $scope.$emit('Dialog-Closed', 'addPolicy');
+                                swal('提示', '保存成功', 'success');
+                            }
+                        });
+                    }
+                });
+            } else {
+                dsFcc.addPolicy(params).then(function (data) {
+                    if (data !== -1) {
+                        $scope.$emit('Dialog-Closed', 'addPolicy');
+                        swal('提示', '保存成功', 'success');
+                    }
+                });
+            }
+            
         };
         /**
          * 限行时间添加触发事件

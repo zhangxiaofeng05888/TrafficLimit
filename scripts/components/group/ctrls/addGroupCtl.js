@@ -132,26 +132,58 @@ angular.module('app').controller('addGroupCtrl', ['$window', '$scope', '$timeout
                 } else {
                     principle = principle + str + '||';
                 }
-                if (getLength(principle) >= 2400) {
-                    swal('提示', '超出最大字段长度', 'warning');
-                    return;
-                }
             }
-            var params = {
-                command: 'CREATE',
-                type: 'SCPLATERESGROUP',
-                data: {
-                    infoIntelId: App.Temp.infoToGroupData.infoId,
-                    adAdmin: App.Temp.infoToGroupData.cityId,
-                    groupType: 1,
-                    principle: principle,
-                    condition: App.Temp.infoToGroupData.condition
-                }
-            };
-            dsFcc.addGroup(params).then(function (data) {
-                $scope.$emit('closeGroupDialog', 'addGroup');
-                swal('提示', '保存成功', 'success');
-            });
+            if (principle.length > 600) {
+                swal({
+                    title: '限行规定超出600个字符长度<br>是否继续保存',
+                    html: true,
+                    type: 'warning',
+                    animation: 'slide-from-top',
+                    allowEscapeKey: false,
+                    showCancelButton: true,
+                    confirmButtonText: '确认',
+                    confirmButtonColor: '#ec6c62',
+                    cancelButtonText: '取消',
+                    closeOnConfirm: false
+                }, function (f) {
+                    if (f) {
+                        var params = {
+                            command: 'CREATE',
+                            type: 'SCPLATERESGROUP',
+                            data: {
+                                infoIntelId: App.Temp.infoToGroupData.infoId,
+                                adAdmin: App.Temp.infoToGroupData.cityId,
+                                groupType: 1,
+                                principle: principle,
+                                condition: App.Temp.infoToGroupData.condition
+                            }
+                        };
+                        dsFcc.addGroup(params).then(function (data) {
+                            $scope.$emit('closeGroupDialog', 'addGroup');
+                            if (data == -1) {
+                                return;
+                            }
+                            swal('提示', '保存成功', 'success');
+                        });
+                    }
+                });
+            } else {
+                var params = {
+                    command: 'CREATE',
+                    type: 'SCPLATERESGROUP',
+                    data: {
+                        infoIntelId: App.Temp.infoToGroupData.infoId,
+                        adAdmin: App.Temp.infoToGroupData.cityId,
+                        groupType: 1,
+                        principle: principle,
+                        condition: App.Temp.infoToGroupData.condition
+                    }
+                };
+                dsFcc.addGroup(params).then(function (data) {
+                    $scope.$emit('closeGroupDialog', 'addGroup');
+                    swal('提示', '保存成功', 'success');
+                });
+            }
         };
         var initialize = function () {
             $scope.principle = '';

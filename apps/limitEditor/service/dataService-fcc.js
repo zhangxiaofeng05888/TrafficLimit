@@ -225,17 +225,17 @@ angular.module('dataService').service('dsFcc', ['$http', '$q', 'ajax', 'dsOutput
     * */
     this.addGroup = function (params) {
         var defer = $q.defer();
-        ajax.get('limit/run', {
+        ajax.post('limit/run', {
             parameter: JSON.stringify(params)
         }).success(function (data) {
             if (data.errcode == 0) {
                 defer.resolve(data.data);
             } else {
-                swal('新增作业组信息出错：', data.errmsg, 'error');
+                swal('作业组信息出错：', data.errmsg, 'error');
                 defer.resolve(-1);
             }
         }).error(function (rejection) {
-            swal('提示', '新增作业组信息出错', 'error');
+            swal('提示', '作业组信息出错', 'error');
             defer.reject(rejection);
         });
         return defer.promise;

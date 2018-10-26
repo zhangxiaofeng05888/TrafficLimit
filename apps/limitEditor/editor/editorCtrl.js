@@ -1766,6 +1766,17 @@ angular.module('app').controller('editorCtrl', ['$scope', '$rootScope', '$cookie
             $scope.$broadcast('refresh-dealFailureList');
         });
 
+        // 刷新未批处理成功列表
+        eventCtrl.on(eventCtrl.eventTypes.ERRDRAWPOLYGON, function (data) {
+            var feature = data;
+            feature.pid = data.geometryId;
+            feature.geoLiveType = 'COPYTOPOLYGON';
+            $scope.$emit('LocateObject', { feature: feature });
+            $scope.$emit('ObjectSelected', {
+                feature: feature
+            });
+        });
+
         /* start 事件监听*******************************************************************/
         eventCtrl.on(eventCtrl.eventTypes.OBJECTSELECTED, function (data) {
             $scope.$broadcast('Map-ClearMap');

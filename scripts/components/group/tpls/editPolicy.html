@@ -297,9 +297,10 @@
                         <span>开始日期：</span>
                     </div>
                     <div style="display: inline-block">
-                        <input type="text" class="form-control poiRightPanel_Input" ng-model="policyData.startDate"
+                        <input type="text" class="form-control poiRightPanel_Input"
+                         ng-model="policyData.startDate"
                                 bs-datepicker
-                               data-date-format="yyyy-MM-dd" data-date-type="string" placement="top">
+                                data-max-date="{{policyData.endDate}}"   data-date-format="yyyy-MM-dd" data-date-type="string" placement="top">
                     </div>
                 </div>
                 <div class="policy_container">

@@ -139,25 +139,56 @@ angular.module('app').controller('editGroupCtrl', ['$window', '$scope', '$timeou
                 } else {
                     principle = principle + str + '||';
                 }
-                if (getLength(principle) >= 2400) {
-                    swal('提示', '超出最大字段长度', 'warning');
-                    return;
-                }
             }
-            var params = {
-                command: 'UPDATE',
-                type: 'SCPLATERESGROUP',
-                objId: $scope.groupData.groupId,
-                data: {
-                    groupType: $scope.groupData.groupType,
-                    principle: principle,
-                    objStatus: 'UPDATE'
-                }
-            };
-            dsFcc.addGroup(params).then(function (data) {
-                $scope.$emit('closeGroupDialog', 'editGroup');
-                swal('提示', '修改成功', 'success');
-            });
+            if (principle.length > 600) {
+                swal({
+                    title: '限行规定超出600个字符长度<br>是否继续保存',
+                    html: true,
+                    type: 'warning',
+                    animation: 'slide-from-top',
+                    allowEscapeKey: false,
+                    showCancelButton: true,
+                    confirmButtonText: '确认',
+                    confirmButtonColor: '#ec6c62',
+                    closeOnConfirm: false,
+                    cancelButtonText: '取消'
+                }, function (f) {
+                    if (f) {
+                        let params = {
+                            command: 'UPDATE',
+                            type: 'SCPLATERESGROUP',
+                            objId: $scope.groupData.groupId,
+                            data: {
+                                groupType: $scope.groupData.groupType,
+                                principle: principle,
+                                objStatus: 'UPDATE'
+                            }
+                        };
+                        dsFcc.addGroup(params).then(function (data) {
+                            $scope.$emit('closeGroupDialog', 'editGroup');
+                            if (data == -1) {
+                                return;
+                            }
+                            swal('提示', '修改成功', 'success');
+                        });
+                    }
+                });
+            } else {
+                let params = {
+                    command: 'UPDATE',
+                    type: 'SCPLATERESGROUP',
+                    objId: $scope.groupData.groupId,
+                    data: {
+                        groupType: $scope.groupData.groupType,
+                        principle: principle,
+                        objStatus: 'UPDATE'
+                    }
+                };
+                dsFcc.addGroup(params).then(function (data) {
+                    $scope.$emit('closeGroupDialog', 'editGroup');
+                    swal('提示', '修改成功', 'success');
+                });
+            }
         };
         /**
          * 初始化数据
