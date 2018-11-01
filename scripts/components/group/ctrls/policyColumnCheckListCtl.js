@@ -63,10 +63,10 @@ angular.module('app').controller('policyCheckCtrl', ['$window', '$scope', '$time
                         var targets = checkRes.data[i].targets;
                         checkRes.data[i].manoeuvreId = targets.substring(0, targets.length - 1).split(',')[3];
                     }
-                    $scope.loadingFlag = false;
                     $scope.gridOptions.data = checkRes.data;
                     $scope.gridOptions.totalItems = checkRes.total;
                 }
+                $scope.loadingFlag = false;
             });
         }
         // 执行检查并且获取表格数据

@@ -213,13 +213,17 @@ angular.module('app').controller('editGroupCtrl', ['$window', '$scope', '$timeou
             }
         };
         $scope.replaceIllegalChar = function (str) {
-            var regex1 = /[→—―\-\-]/g;
+            var regex1 = /[→—―\—\―]/g;
             str = str.replace(regex1, '-');
             var regex2 = /[“”"《》\s\t\n]/g;
             str = str.replace(regex2, '');
             var regex3 = /[、。；]/g;
             str = str.replace(regex3, ';');
+            var regex4 = /--/g;
+            str = str.replace(regex4, '-');
             str = str.replace(/[<]/g, '小于');
+            str = str.replace(/&lt;/g, '小于');
+            str = str.replace(/&gt;/g, '大于');
             str = str.replace(/[>]/g, '大于');
             str = str.replace(/[︰]/g, ':');
             str = str.replace(/[Ⅰ]/g, 'I');
